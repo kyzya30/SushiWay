@@ -15,9 +15,6 @@
 	margin-top:0px;
 }
 
-.basket{
-	float: right;
-}
 
 .container  .navbar-collapse{
 	width: 500px;
@@ -44,9 +41,22 @@
 	z-index:2;
 }
 
+.basketbg{
+    background: url(../../Content/Images/Controls/bg-basket-back.png) no-repeat;
+	background-size: 28px 99px;
+    position: absolute;
+	width: 28px;
+	height: 99px; 
+	top: 0;
+    float: right;
+	right: 278px;
+	z-index:2;
+}
+
 .basket{
 	background: url(../../Content/Images/Controls/bg-basket.png) no-repeat; 
 	background-size: 248px 100px; 
+    float: right;
 	position: absolute; 
 	width: 248px;
 	height: 100px; 
@@ -86,4 +96,27 @@
     background: -ms-linear-gradient(left, #EF5A06 0%, #F1882A 100%);
     background: linear-gradient(left, #EF5A06 0%, #F1882A 100%);
 	border-radius:2px;
+}
+
+.index-descr{
+    text-align: center;
+}
+
+.div-product{
+    background:#fff;
+    margin: 8px;
+    border-radius: 7px;
+    box-shadow: 0 0 7px #ccc;
+}
+
+.index-radio{
+    float: right;
+    margin:7px;
+}
+
+.basket-style{
+    text-align:center;
+    color: #000;
+    font-size:20px;
+    padding-top:15px;
 }

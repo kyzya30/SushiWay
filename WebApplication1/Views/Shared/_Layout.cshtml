@@ -8,76 +8,11 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-default">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <nav class="navbar navbar-default">
-                        <div class="container-fluid">
-                            <!-- Brand and toggle get grouped for better mobile display -->
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>
-
-                            <!-- Collect the nav links, forms, and other content for toggling -->
-                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                <ul class="nav navbar-nav">
-                                    <li class="active"><a href="#">Меню</a></li>
-                                    <li><a href="#">Заказ</a></li>
-                                    <li><a href="#">Контакты</a></li>
-                                </ul>
-                                <form class="navbar-form navbar-left" role="search">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Search">
-                                    </div>
-                                </form>
-                            </div><!-- /.navbar-collapse -->
-
-                            <a class="navbar-brand" href="#">
-                                <div class="logo hidden-md hidden-sm hidden-xs"></div>
-                                <div class="logobg"></div>
-                            </a>
-
-                            <div class="basket hidden-md hidden-sm hidden-xs"></div>
-                            <div class="basketbg"></div>
-                        </div><!-- /.container-fluid -->
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <div class="row orange-line"></div>
-            <div class="row footer">
-                <a href="#" />
-                <img src="../../Content/Images/Controls/btn-facebook-footer.png" />
-                </a>
-                <a href="#" />
-                <img src="../../Content/Images/Controls/btn-twitter-footer.png" />
-                </a>
-                <a href="#" />
-                <img src="../../Content/Images/Controls/btn-google-footer.png" />
-                </a>
-                <a href="#" />
-                <img src="../../Content/Images/Controls/btn-youtube-footer.png" />
-                </a>
-                <a href="#" />
-                <img src="../../Content/Images/Controls/btn-instagram-footer.png" />
-                </a>
-                <span>&copy; @DateTime.Now.Year - Softheme</span>
-                <span class="footer-phone">(044) 551-20-98<br />(050) 345-92-00</span>
-                <img src="../../Content/Images/Controls/icon-phone.png" class="footer-phone" />
-                <h4 class="footer-phone">Delivery<br />24/7</h4>
-            </div>
-        </footer>
+        
     </div>
 
     @Scripts.Render("~/bundles/jquery")

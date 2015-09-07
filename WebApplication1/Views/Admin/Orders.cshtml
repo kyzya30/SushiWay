@@ -1,111 +1,54 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
     <title>Sushi Way</title>
-
-    <!-- Bootstrap Core CSS -->
     <link href="../../Content/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
     <link href="../../Content/mystyle.css" rel="stylesheet">
     <link href="../../Content/sb-admin.css" rel="stylesheet">
-
-
-    <!-- Morris Charts CSS -->
-    <!-- <link href="css/plugins/morris.css" rel="stylesheet"> -->
-    <!-- Custom Fonts -->
-    <!-- 	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 </head>
 
-<body style="margin-top: 33px; background-color:white">
-
-
+<body class="_Body">
     <div id="wrapper">
-
-        <div class="row navbar navbar-inverse navbar-fixed-top " style="background-color:#7F7F7F; color: #EAEAEA; height: 58px;border-bottom-width: 0px;margin-right: 0px;margin-left: -15px;margin-bottom: 0px;">
-            <div class="col-xs-2 " style="padding-bottom: 0px; padding-top: 10px; background-color:#3F3F3F;height: 58px; width: 240px;padding-right: 0px;padding-left: 0px;"><p class="text-center"><img src="../../Content/Images/Controls/Admin/logo.png"></p></div>
-
-            <div class="col-xs-3" style="padding-bottom: 15px; padding-top: 15px;"><img src="../../Content/Images/Controls/Admin/icon-eye.png"><a class="class3" href="index.html"> Перейти на сайт</a></div>
-
-            <div class="col-xs-5" style="padding-bottom: 15px; padding-top: 15px; text-align: right">аdmin@mail.com </div>
-
-            <!-- <div class="col-xs-1" style="padding-bottom: 15px; padding-top: 15px;">Выход</div> -->
-            <div style="padding-bottom: 2px;border-left: 1px solid #EAEAEA; margin-top: 15px;" class="col-xs-1"><a class="class3" href="index.html"> Выход</a></div>
+        <div class="row navbar navbar-inverse navbar-fixed-top nav">
+            <div class="col-xs-2 nav_col2"><p class="text-center"><img src="../../Content/Images/Controls/Admin/logo.png"></p></div>
+            <div class="col-xs-3 nav_col3"><img src="../../Content/Images/Controls/Admin/icon-eye.png"><a class="class3" href="index.html"> Перейти на сайт</a></div>
+            <div class="col-xs-5 nav_col3" style="text-align: right">аdmin@mail.com </div>
+            <div class="col-xs-1 exitTopNav"><a class="class3" href="index.html"> Выход</a></div>
         </div>
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-        <div class="collapse navbar-collapse navbar-ex0-collapse" style="background-color:#7F7F7F; color: #EAEAEA;margin-bottom: 0px;">
-            <ul class="nav navbar-nav side-nav" style="margin-top: 0px; background-color:#7F7F7F; top:58px ">
-                <li class="active" style="border-bottom-width: 1px;  border-bottom-style: solid; border-color: #B0B0B0; ">
-                    <a class="class3" href="Statistics">
+        <div class="collapse navbar-collapse navbar-ex0-collapse nav_collapse">
+            <ul class="nav navbar-nav side-nav leftNavBar">
+                <li class="active activeStyle">
+                    <a class="class3 activeStyle" href="@Url.Action("Statistics","Admin")">
                         &nbsp; <img src="../../Content/Images/Controls/Admin/icon-statistic.png"> &nbsp; Статистика
-                       
+                    </a>
+                </li>
+                <li class="activeStyle">
+                    <a class="class3" href="@Url.Action("Category","Admin")">
+                        &nbsp;<img src="../../Content/Images/Controls/Admin/icon-category.png"> &nbsp; Категории блюд
 
                     </a>
                 </li>
-                <li style="border-bottom-width: 1px;  border-bottom-style: solid; border-color: #B0B0B0;  ">
-                    <a class="class3" href="Category">&nbsp;<img src="../../Content/Images/Controls/Admin/icon-category.png"> &nbsp; Категории блюд
-                        
-                    </a>
+                <li class="activeStyle" >
+                    <a class="class3" href="@Url.Action("Dishes", "Admin" )">&nbsp;<img src="../../Content/Images/Controls/Admin/icon-dishes.png"> &nbsp; Блюда</a>
+                    
                 </li>
-                <li style="border-bottom-width: 1px;  border-bottom-style: solid; border-color: #B0B0B0; ">
-                    <a class="class3" href="Dishes">&nbsp;<img src="../../Content/Images/Controls/Admin/icon-dishes.png"> &nbsp; Блюда
-                       
-                    </a>
+                <li class="activeStyle" style="background-color: #5F5F5F">
+                    <a class="class3" href="@Url.Action("Orders", "Admin")">&nbsp;<img src="../../Content/Images/Controls/Admin/icon-orders.png"> &nbsp; Заказы</a>
+                    <div class="bg-active-menu_style">
+                        <img src="../../Content/Images/Controls/Admin/bg-active-menu-item.png">
+                    </div>
                 </li>
-                <li style="border-bottom-width: 1px;  border-bottom-style: solid; border-color: #B0B0B0; background-color: #5F5F5F">
-                    <a class="class3" href="Orders">&nbsp;<img src="../../Content/Images/Controls/Admin/icon-orders.png"> &nbsp; Заказы
-                        <div style="position:absolute; top:0; right: 0" align="right"><img src="../../Content/Images/Controls/Admin/bg-active-menu-item.png"></div>
-                    </a>
-                </li>
-
             </ul>
-
-            <!--
-                <div class=" navbar-default navbar-fixed-bottom" style="height: 25px; background-color:#7F7F7F">
-                <!-- <div class="container"> </div>
-                <span class="navbar-text" style="text-align:left">
-                <div class="row">
-
-                <div class="col-xs-2" style="background-color:#3F3F3F; width: 22px; height:25px"></div>
-                <div class="col-xs-10" style="background-color:#7F7F7F; text-align: right">&copy;2015 Softheme&reg;. Все права защищены.</div>
-                <!-- </span>
-            </div> -->
         </div>
-
-        <div class="navbar-default navbar-fixed-bottom" style="height:20px ;background-color:#7F7F7F; text-align: right; ">
+        <div class="navbar-default navbar-fixed-bottom bottom_navbar_style">
             <span style="color:#EAEAEA">&copy; 2015 Softheme&reg;. Все права защищены. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <div class="col-xs-2" style="background-color:#3F3F3F; width: 225px; height:25px"></div>
-
-
+            <div class="col-xs-2 bottom_navbar_style1"></div>
 
         </div>
-        <!-- <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
-        <div class="container">
-        <div class="navbar-text pull-right">
-            sdsdfsdf
-        </div>
-        </div> -->
-        <!-- /.navbar-collapse -->
-        
 
-
-
-        <div id="page-wrapper" style="height: 700px;padding-top:0px">
+        <div id="page-wrapper pageWrapperStyle">
 
 
             <div class="container-fluid">
@@ -123,31 +66,11 @@
                         </ol>
                     </div>
                 </div>
-                <!-- /.row -->
-                <!-- <div class="row">
-                    <div class="col-lg-12">
-                        <div class="alert alert-info alert-dismissable">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                            <i class="fa fa-info-circle"></i>  <strong>Like SB Admin?</strong> Try out <a href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link">SB Admin 2</a> for additional features!
-                        </div>
-                    </div>
-                </div> -->
-                <!-- /.row -->
-
-
-
             </div>
             <!-- /.container-fluid -->
-
         </div>
         <!-- /#page-wrapper -->
-
-
-
-
-
     </div>
-
     <!-- /#wrapper -->
     <!-- jQuery -->
     <!--  <script src="js/jquery.js"></script> -->

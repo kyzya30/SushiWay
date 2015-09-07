@@ -110,6 +110,14 @@
     padding:5px;
 }
 
+.div-contact{
+    background:#fff;
+    margin: 10px;
+    border-radius: 7px;
+    box-shadow: 0 0 7px #ccc;
+    padding:8px;
+}
+
 .index-radio{
     float: right;
     margin:7px;
@@ -136,6 +144,19 @@
     margin-right:20px;
 }
 
-.btns-social-networks, .btns-social-networks a{
-    margin: 30px;
+.btns-social-networks, .btns-social-networks div{
+    margin: 17px;
+}
+
+.div-contact iframe{
+    width:100%;
+}
+
+.div-product{
+    width:31%;
+}
+
+#copyright{
+    color:#ffffff;
+    text-align:center;
 }

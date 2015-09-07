@@ -18,84 +18,24 @@
     <![endif]-->
 </head>
 <body>
-    <div class="navbar navbar-default">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <nav class="navbar navbar-default">
-                        <div class="container-fluid">
-                            <!-- Brand and toggle get grouped for better mobile display -->
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>
-
-                            <!-- Collect the nav links, forms, and other content for toggling -->
-                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                <ul class="nav navbar-nav">
-                                    <li class="active">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                            Меню<span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">Роллы</a></li>
-                                            <li><a href="#">Сеты</a></li>
-                                            <li><a href="#">Суши</a></li>
-                                            <li><a href="#">Супы</a></li>
-                                            <li><a href="#">Соусы</a></li>
-                                            <li><a href="#">Напитки</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Заказ</a></li>
-                                    <li><a href="@Url.Action("Contact", "Home")">Контакты</a></li>
-                                </ul>
-                                <form class="navbar-form navbar-left" role="search">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Search">
-                                    </div>
-                                </form>
-                            </div><!-- /.navbar-collapse -->
-
-                            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
-                                <div class="logo hidden-md hidden-sm hidden-xs"></div>
-                                <div class="logobg"></div>
-                            </a>
-
-                            <div class="basketbg"></div>
-                            <a href="#">
-                                <div class="basket hidden-md hidden-sm hidden-xs basket-style">
-                                    <img src="../../Content/Images/Controls/basket-icon.png" />
-                                    <span>Корзина</span>
-                                </div>
-                            </a>
-
-                        </div><!-- /.container-fluid -->
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <div class="row">
         <h2 class="index-descr">Контакты</h2>
     </div>
 <div class="row">
-    <div class="col-xs-12 col-sm-7 div-product">
+    <div class="col-xs-12 col-sm-7 div-contact">
         <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d81319.54660471043!2d30.549513364941408!3d50.436707802158004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sua!4v1441562224385"
                 width="600" height="450" frameborder="0" style="border: 0" allowfullscreen></iframe>
     </div>
     <div class="col-xs-12 col-sm-3">
-        <div class="col-xs-12 col-sm-12 div-product">
+        <div class="col-xs-12 col-sm-12 div-contact">
             <h4>Свяжитесь с нами</h4>
             <img src="../../Content/Images/Controls/icon-phone.png"/>
             <span class="contact-tel">(044) 551-20-98</span><br/>
             <span class="contact-tel">(050) 345-92-00</span><br/>
             <span class="contact-tel">(097) 381-87-12</span><br/>
         </div>
-        <div class="col-xs-12 col-sm-12 div-product">
+        <div class="col-xs-12 col-sm-12 div-contact">
             <p><b>Доставка в течении часа в любую точку Киева</b>
             </p>
             <img src="../../Content/Images/Controls/delivery-banner.png"/>
@@ -104,66 +44,56 @@
     </div>
 </div>
 <div class="row btns-social-networks">
-    <a href="#" />
-    <img src="../../Content/Images/Controls/btn-facebook.png" />
-    </a>
-    <a href="#" />
-    <img src="../../Content/Images/Controls/btn-twitter.png" />
-    </a>
-    <a href="#" />
-    <img src="../../Content/Images/Controls/btn-google.png" />
-    </a>
-    <a href="#" />
-    <img src="../../Content/Images/Controls/btn-youtube.png" />
-    </a>
-    <a href="#" />
-    <img src="../../Content/Images/Controls/btn-instagram.png" />
-    </a>
-</div>
+    <div class="col-xs-2 col-sm-2">
+        <a href="#" />
+            <img src="../../Content/Images/Controls/btn-facebook.png" />
+        </a>
+    </div>
+    <div class="col-xs-2 col-sm-2">
+        <a href="#" />
+            <img src="../../Content/Images/Controls/btn-twitter.png" />
+        </a>
+    </div>
+    <div class="col-xs-2 col-sm-2">
+        <a href="#" />
+            <img src="../../Content/Images/Controls/btn-google.png" />
+        </a>
+    </div>
+    <div class="col-xs-2 col-sm-2">
+        <a href="#" />
+            <img src="../../Content/Images/Controls/btn-youtube.png" />
+        </a>
+    </div>
+    <div class="col-xs-2 col-sm-2">
+        <a href="#" />
+            <img src="../../Content/Images/Controls/btn-instagram.png" />
+        </a>
+    </div>
+    </div>
 <div class="row">
-<h4>Оставить сообщение</h4>
-<div class="col-xs-12 col-sm-6 div-product">
-    <input type="text" placeholder="Имя"/>
-    <input type="email" placeholder="user@email.com"/><br/>
-    <textarea placeholder="Сообщение"></textarea><br/>
-    <button class="btn">Отправить</button>
-</div>
-    <h4>Рестораны Sushi Way</h4>
-<div class="col-xs-12 col-sm-5">
-    <img src="../../Content/Images/Controls/arrow-left.png"/>
-    <div class="col-xs-12 col-sm-5 div-product">
-
-    </div>
-    <img src="../../Content/Images/Controls/arrow-right.png" />
-    </div>
-    <footer>
-        <div class="row orange-line"></div>
-        <div class="row footer">
-            <a href="#" />
-            <img src="../../Content/Images/Controls/btn-facebook-footer.png" />
-            </a>
-            <a href="#" />
-            <img src="../../Content/Images/Controls/btn-twitter-footer.png" />
-            </a>
-            <a href="#" />
-            <img src="../../Content/Images/Controls/btn-google-footer.png" />
-            </a>
-            <a href="#" />
-            <img src="../../Content/Images/Controls/btn-youtube-footer.png" />
-            </a>
-            <a href="#" />
-            <img src="../../Content/Images/Controls/btn-instagram-footer.png" />
-            </a>
-            <span>&copy; @DateTime.Now.Year - Softheme</span>
-            <span class="footer-phone">(044) 551-20-98<br />(050) 345-92-00</span>
-            <img src="../../Content/Images/Controls/icon-phone.png" class="footer-phone" />
-            <h4 class="footer-phone">Доставка<br />24/7</h4>
+    <div class="col-xs-12 col-sm-5">
+        <h4>Оставить сообщение</h4>
+        <div class="col-xs-12 col-sm-5 div-contact">
+            <input type="text" placeholder="Имя"/>
+            <input type="email" placeholder="user@email.com"/><br/>
+            <textarea placeholder="Сообщение"></textarea><br/>
+            <button class="btn">Отправить</button>
         </div>
-    </footer>
+    </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="./js/bootstrap.js"></script>
+        <div class="col-xs-12 col-sm-5">
+            <h4>Рестораны Sushi Way</h4>
+            <a href="#"><img src="../../Content/Images/Controls/arrow-left.png" /></a>
+            <div class="col-xs-12 col-sm-5 div-product">
+
+            </div>
+            <a href="#"><img src="../../Content/Images/Controls/arrow-right.png" /></a>
+        </div>
+
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="./js/bootstrap.js"></script>
 </body>
 </html>

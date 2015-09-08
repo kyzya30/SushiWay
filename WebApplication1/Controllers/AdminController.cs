@@ -9,10 +9,7 @@ namespace WebApplication1.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Statistics()
-        {
-            return View();
-        }
+        
         public ActionResult Category()
         {
             return View();
@@ -30,19 +27,6 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-
-        public ActionResult Admin()
-
-        {
-            return View();
-        }
-
-        public ActionResult Test()
-
-        {
-            return View();
-        }
-
         public ActionResult Index()
         {
             

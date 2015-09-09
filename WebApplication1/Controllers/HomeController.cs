@@ -10,7 +10,9 @@ namespace WebApplication1.Controllers
     {
         public ActionResult Index()
         {
-           
+            var context = new SushiTest1Entities1();
+            var product = context.Products.ToList();
+            ViewBag.Product = product;
             return View();
         }
 

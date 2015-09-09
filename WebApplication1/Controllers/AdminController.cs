@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 
 namespace WebApplication1.Controllers
 {
@@ -10,8 +11,10 @@ namespace WebApplication1.Controllers
     {
         // GET: Admin
         
-        public ActionResult Category()
+        public ActionResult Category() 
         {
+            
+            
             return View();
         }
         public ActionResult Dishes()

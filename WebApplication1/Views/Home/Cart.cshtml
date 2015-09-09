@@ -1,0 +1,85 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="index-descr">Корзина</h2>
+
+<div class="row">
+    @for (int i = 0; i < 3; i++)
+    {
+        <div class="col-xs-12 col-sm-4 form-group div-product">
+            <h3>Product name</h3>
+            <img src="../../Content/Images/Products/GoldDracon.png" />
+            <div>
+                <span>UAH30</span>
+                <button class="btn">Add to basket</button>
+            </div>
+        </div>
+    }
+</div>
+
+<h3 class="index-descr">Дополнительно к заказу</h3>
+<div class="row">
+    @for (int i = 0; i < 4; i++)
+    {
+        <div class="col-xs-6 col-sm-3">
+            <h3>Product name</h3>
+            <img src="../../Content/Images/Products/GoldDracon.png" />
+            <div>
+                <span>UAH30</span>
+                <button class="btn">Add to basket</button>
+            </div>
+        </div>
+
+    }
+</div>
+<h2 class="index-descr">Всего : 256 грн </h2>
+
+<div class="row">
+    <div class="col-xs-12 col-md-9">
+        <div class="row">
+            <div class="col-xs-12 col-md-4">
+                <input type="text" placeholder="Имя" class="max-size"/>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <input type="text" placeholder="Телефон" class="max-size"/>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <input type="text" placeholder="E-mail" class="max-size"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-8">
+                <input type="text" placeholder="Улица" class="max-size"/>
+            </div>
+            <div class="col-xs-12 col-sm-2">
+                <input type="text" placeholder="Дом" class="max-size"/>
+            </div>
+            <div class="col-xs-12 col-sm-2">
+                <input type="text" placeholder="Квартира" class="max-size"/>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <input type="text" placeholder="Коментарии" class="max-size"/>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-3">
+        <img src="../../Content/Images/Controls/delivery-banner.png"/>
+    </div>
+</div>
+<div class="row"></div>
+<div class="row">
+    <div class="col-xs-12">
+        <input type="submit" class="btn submitOrder"/>
+    </div>
+</div>
+
+<br />
+<br />
+

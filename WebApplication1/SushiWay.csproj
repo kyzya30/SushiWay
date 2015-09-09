@@ -229,8 +229,48 @@
     <Content Include="Content\Images\Controls\Admin\type-block.png" />
     <Content Include="Content\Images\Controls\Admin\type-table-active.png" />
     <Content Include="Content\Images\Controls\Admin\type-table.png" />
+    <Content Include="Content\Images\Controls\arrow-left-hover.png" />
+    <Content Include="Content\Images\Controls\arrow-left.png" />
+    <Content Include="Content\Images\Controls\arrow-right-hover.png" />
+    <Content Include="Content\Images\Controls\arrow-right.png" />
+    <Content Include="Content\Images\Controls\basket-icon.png" />
+    <Content Include="Content\Images\Controls\bg-basket-back.png" />
+    <Content Include="Content\Images\Controls\bg-basket.png" />
+    <Content Include="Content\Images\Controls\bg-logo.png" />
+    <Content Include="Content\Images\Controls\btn-facebook-footer.png" />
+    <Content Include="Content\Images\Controls\btn-facebook.png" />
+    <Content Include="Content\Images\Controls\btn-google-footer.png" />
+    <Content Include="Content\Images\Controls\btn-google.png" />
+    <Content Include="Content\Images\Controls\btn-instagram-footer.png" />
+    <Content Include="Content\Images\Controls\btn-instagram.png" />
+    <Content Include="Content\Images\Controls\btn-twitter-footer.png" />
+    <Content Include="Content\Images\Controls\btn-twitter.png" />
+    <Content Include="Content\Images\Controls\btn-youtube-footer.png" />
+    <Content Include="Content\Images\Controls\btn-youtube.png" />
+    <Content Include="Content\Images\Controls\delivery-banner.png" />
+    <Content Include="Content\Images\Controls\icon-caloric-.png" />
+    <Content Include="Content\Images\Controls\icon-close.png" />
+    <Content Include="Content\Images\Controls\icon-email.png" />
+    <Content Include="Content\Images\Controls\icon-error.png" />
+    <Content Include="Content\Images\Controls\icon-location.png" />
+    <Content Include="Content\Images\Controls\icon-phone.png" />
+    <Content Include="Content\Images\Controls\icon-pieces.png" />
+    <Content Include="Content\Images\Controls\icon-search-white.png" />
+    <Content Include="Content\Images\Controls\icon-weight.png" />
+    <Content Include="Content\Images\Controls\label-hit.png" />
+    <Content Include="Content\Images\Controls\label-new.png" />
+    <Content Include="Content\Images\Controls\label-stock.png" />
+    <Content Include="Content\Images\Controls\logo-with-bg.png" />
+    <Content Include="Content\Images\Controls\logo.png" />
+    <Content Include="Content\Images\Controls\radiobutton-off-hover.png" />
+    <Content Include="Content\Images\Controls\radiobutton-off.png" />
+    <Content Include="Content\Images\Controls\radiobutton-on-hover.png" />
+    <Content Include="Content\Images\Controls\radiobutton-on.png" />
+    <Content Include="Content\Images\Controls\search-icon-hover.png" />
+    <Content Include="Content\Images\Controls\search-icon.png" />
     <Content Include="Content\mystyle.css" />
     <Content Include="Content\sb-admin.css" />
+    <Content Include="Content\styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -288,6 +328,7 @@
     <Content Include="SushiModel.edmx.diagram">
       <DependentUpon>SushiModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Views\Home\Cart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

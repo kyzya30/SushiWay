@@ -10,7 +10,20 @@ namespace WebApplication1.Controllers
     {
         public ActionResult Index()
         {
+           
             return View();
+        }
+
+        public ActionResult Cart()
+        {
+
+            return View();
+        }
+
+        public JsonResult AddToCart(int i)
+        {
+            
+            return Json(new object());
         }
 
         public ActionResult About()

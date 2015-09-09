@@ -13,8 +13,6 @@ namespace WebApplication1.Controllers
         
         public ActionResult Category() 
         {
-            
-            
             return View();
         }
         public ActionResult Dishes()
@@ -32,8 +30,12 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Index()
         {
-            
+            var context = new SushiTest1Entities();
+            ViewBag.Product = context.Products;
+
             return View();
+
+           
         }
 
     }

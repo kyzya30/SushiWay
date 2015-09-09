@@ -4,5 +4,36 @@
     Layout = "~/Views/Shared/AdminMasterPage.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Статистика</h2>
+@*<div class="row">
+    @foreach (var d in ViewBag.Product)
+    {
+        var str = d.ProductId.ToString();
+        <div>@str</div>
+    }
+</div>*@
+<div class="row">
+    <div class="col-xs-6">Необработанные заказы
+        <br>
+        Select OrderId, dbo.Orders.AddDate, Street, House, Room,sum(dbo.Product.Price * dbo.OrderDetails.Count) as TotalPrice
+        From OrderDetails join dbo.Product on Product.ProductId = OrderDetails.ProductId
+        join dbo.Orders on Orders.OrderId = OrderDetails.OrderDetailsId
+        Where StatusId =2
 
+        GROUP BY Orders.AddDate,Street,House,Room,OrderId
+
+
+    </div>
+    <div class="col-xs-6">Самые популярные блюда <br>
+        use SushiTest1
+
+        Select TOP 5 (Правый Dropdown)dbo.Product.NamberOfOrders,ProductId, NameRus, Price
+        From dbo.Product
+        Where CategoryId = 1 (Категория - левый Dropdown)
+        Order by NamberOfOrders desc
+
+    </div>
+
+    
+
+</div>

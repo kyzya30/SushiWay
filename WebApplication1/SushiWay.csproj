@@ -268,6 +268,28 @@
     <Content Include="Content\Images\Controls\radiobutton-on.png" />
     <Content Include="Content\Images\Controls\search-icon-hover.png" />
     <Content Include="Content\Images\Controls\search-icon.png" />
+    <Content Include="Content\Images\Products\1.jpeg" />
+    <Content Include="Content\Images\Products\10.jpeg" />
+    <Content Include="Content\Images\Products\11.jpeg" />
+    <Content Include="Content\Images\Products\12.jpeg" />
+    <Content Include="Content\Images\Products\13.jpeg" />
+    <Content Include="Content\Images\Products\14.jpeg" />
+    <Content Include="Content\Images\Products\15.jpeg" />
+    <Content Include="Content\Images\Products\16.jpeg" />
+    <Content Include="Content\Images\Products\17.jpeg" />
+    <Content Include="Content\Images\Products\18.jpeg" />
+    <Content Include="Content\Images\Products\19.jpeg" />
+    <Content Include="Content\Images\Products\2.jpeg" />
+    <Content Include="Content\Images\Products\20.jpeg" />
+    <Content Include="Content\Images\Products\21.jpeg" />
+    <Content Include="Content\Images\Products\3.jpeg" />
+    <Content Include="Content\Images\Products\4.jpeg" />
+    <Content Include="Content\Images\Products\5.jpeg" />
+    <Content Include="Content\Images\Products\6.jpeg" />
+    <Content Include="Content\Images\Products\7.jpeg" />
+    <Content Include="Content\Images\Products\8.jpeg" />
+    <Content Include="Content\Images\Products\9.jpeg" />
+    <Content Include="Content\Images\Products\GoldDracon.png" />
     <Content Include="Content\mystyle.css" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="Content\styles.css" />
@@ -333,7 +355,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\Products\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

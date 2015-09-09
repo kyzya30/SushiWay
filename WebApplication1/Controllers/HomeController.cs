@@ -16,6 +16,27 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public ActionResult SortByCategory(int? id)
+        {
+            var context = new SushiTest1Entities1();
+            var products = context.Products.ToList();
+            var query = from pr in products
+                where pr.CategoryId == id
+                select pr;
+            
+            var res = query.ToList();
+
+            var category = context.Categories.ToList();
+            var qq = from ct in category
+                where ct.CategoryId == id
+                select ct.NameRus;
+
+            ViewBag.Product = res;
+            var  r= qq.First();
+            ViewBag.Category = r;
+            return View();
+        }
+
         public ActionResult Cart()
         {
 
@@ -30,13 +51,6 @@ namespace WebApplication1.Controllers
 
         public ActionResult OrderStatusSearch()
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 

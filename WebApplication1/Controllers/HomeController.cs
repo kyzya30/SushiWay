@@ -26,6 +26,11 @@ namespace WebApplication1.Controllers
             return Json(new object());
         }
 
+        public ActionResult OrderStatusSearch()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

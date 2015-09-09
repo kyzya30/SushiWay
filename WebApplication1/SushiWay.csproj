@@ -329,6 +329,7 @@
       <DependentUpon>SushiModel.edmx</DependentUpon>
     </Content>
     <Content Include="Views\Home\Cart.cshtml" />
+    <Content Include="Views\Home\OrderStatusSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

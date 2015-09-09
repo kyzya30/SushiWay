@@ -34,3 +34,7 @@ textarea {
     height: 50px;
 
 }
+
+.bigRow {
+    height: 600px;
+}

@@ -21,19 +21,21 @@ namespace WebApplication1.Controllers
             var context = new SushiTest1Entities1();
             var products = context.Products.ToList();
             var query = from pr in products
-                where pr.CategoryId == id
-                select pr;
-            
+                        where pr.CategoryId == id
+                        select pr;
+
             var res = query.ToList();
 
             var category = context.Categories.ToList();
             var qq = from ct in category
-                where ct.CategoryId == id
-                select ct.NameRus;
+                     where ct.CategoryId == id
+                     select ct.NameRus;
+       
+            var r = qq.First();
 
-            ViewBag.Product = res;
-            var  r= qq.First();
             ViewBag.Category = r;
+            ViewBag.Product = res;
+
             return View();
         }
 
@@ -45,7 +47,7 @@ namespace WebApplication1.Controllers
 
         public JsonResult AddToCart(int i)
         {
-            
+
             return Json(new object());
         }
 

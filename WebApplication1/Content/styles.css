@@ -1,4 +1,4 @@
-.container{
+﻿.container{
 	background: #FFF7E9;
 }
 
@@ -257,6 +257,7 @@ div.bottom_navbar_style1 {
 div.pageWrapperStyle {
     height: 700px;padding-top:0px
 }
+<<<<<<< Updated upstream
 
 .div-leave-message {
     padding-bottom: 50px;
@@ -273,3 +274,14 @@ div.pageWrapperStyle {
 .div-leave-message textarea {
     margin: 5px 5px 0 5px;
 }
+=======
+.table-bordered > tbody > tr > td{
+        border: none;
+    }
+.table-span {
+        width: 80%;
+        height: 400px !important;
+        overflow-y: auto;
+        border-bottom: 1px solid #ddd;
+    }​
+>>>>>>> Stashed changes

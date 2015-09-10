@@ -1,39 +1,85 @@
-﻿
+﻿@using System.Dynamic
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/AdminMasterPage.cshtml";
 }
 
-<h2>Статистика</h2>
-@*<div class="row">
-    @foreach (var d in ViewBag.Product)
-    {
-        var str = d.ProductId.ToString();
-        <div>@str</div>
-    }
-</div>*@
-<div class="row">
-    <div class="col-xs-6">Необработанные заказы
-        <br>
-        Select OrderId, dbo.Orders.AddDate, Street, House, Room,sum(dbo.Product.Price * dbo.OrderDetails.Count) as TotalPrice
-        From OrderDetails join dbo.Product on Product.ProductId = OrderDetails.ProductId
-        join dbo.Orders on Orders.OrderId = OrderDetails.OrderDetailsId
-        Where StatusId =2
+<div class="container">
+    <h3 class="header">Статистика</h3>
+    <div class="row col-sm-6">
+        <h4>Необработанные заказы</h4>
+        <div class="table-span">
+            <table class="table table-hover table-bordered">
+                <tr>
+                    <td><img class="t-img" src="./Images/icon-eye-grey.png"></td>
+                    <td><b>12:10 10.04.15</b><br>пр.Победы, 47, кв 172</td>
+                    <td>234 грн</td>
+                </tr>
+                <tr>
+                    <td><img class="t-img" src="./Images/icon-eye-grey.png"></td>
+                    <td><b>12:10 10.04.15</b><br>пр.Победы, 47, кв 172</td>
+                    <td>234 грн</td>
+                </tr>
+                <tr>
+            </table>
+</div>
+        @*@foreach (var T in ViewBag.List1)
+                    {
 
-        GROUP BY Orders.AddDate,Street,House,Room,OrderId
+                    dynamic T2 = (ExpandoObject)T.Street.ToString();
+                    <div>@T2</div>
+                    }*@
 
+        </div>
+    <div class="row col-sm-6">
+        <h4>Самые популярные блюда</h4>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Роллы
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                5
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li><a href="#">Separated link</a></li>
+            </ul>
+        </div>
 
+        <div class="table-span">
+            <table class="table table-hover table-bordered">
+                <tr>
+
+                    <td><b>12:10 10.04.15</b><br>пр.Победы, 47, кв 172</td>
+                    <td><img class="t-img" src="./Images/icon-eye-grey.png"></td>
+                    <td>234 грн</td>
+                </tr>
+                <tr>
+
+                    <td><b>12:10 10.04.15</b><br>пр.Победы, 47, кв 172</td>
+                    <td><img class="t-img" src="./Images/icon-eye-grey.png"></td>
+                    <td>234 грн</td>
+
+                    @*@foreach (var T in ViewBag.MostPopularDishes)
+                    {
+
+                    var tmpStr = T.Price.ToString();
+                    <div>@tmpStr</div>
+                    }*@
+                </tr>
+                <tr>
+            </table>
+        </div>
     </div>
-    <div class="col-xs-6">Самые популярные блюда <br>
-        use SushiTest1
-
-        Select TOP 5 (Правый Dropdown)dbo.Product.NamberOfOrders,ProductId, NameRus, Price
-        From dbo.Product
-        Where CategoryId = 1 (Категория - левый Dropdown)
-        Order by NamberOfOrders desc
-
-    </div>
-
-    
-
 </div>

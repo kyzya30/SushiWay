@@ -1,14 +1,21 @@
 ﻿
+
 <div class="row">
     <h2 class="index-descr">МЕНЮ</h2>
     <p class="index-descr">
-        Суши, роллы, нигири и сеты готовятся професионалами и только из свежих продуктов. Только у нас вы найдете<br />
+        Суши, роллы, нигири и сеты готовятся професионалами и только из свежих продуктов. Только у нас вы найдете<br/>
         такое сочетание мастерства приготовления, скорости доставки и умеренности оплаты.
     </p>
-    <span><input type="radio" class="index-radio" name="prod" />Все</span>
-    <input type="radio" class="index-radio" name="prod" />Популярные
-    <input type="radio" class="index-radio" name="prod" />Акции
-    <input type="radio" class="index-radio" name="prod" />Новинки
+</div>
+<div class="row index-radio">
+    <input type="radio" class="index-radio" id="prod1" name="prod"/>
+    <label for="prod1">Все</label>
+    <input type="radio" class="index-radio" id="prod2" name="prod"/>
+    <label for="prod2">Популярные</label>
+    <input type="radio" class="index-radio" id="prod3" name="prod"/>
+    <label for="prod3">Акции</label>
+    <input type="radio" class="index-radio" id="prod4" name="prod"/>
+    <label for="prod4">Новинки</label>
 </div>
 <div class="row">
 
@@ -28,7 +35,7 @@
             @*<img @Url.Content(String.Format(href+str))/>*@
             <img src="../../Content/Images/Products/@str" class="img-Product"  />
             <div>
-                <span>@d.Price</span>
+                <span class="product-price">@d.Price</span>
                 <button class="btn">Заказать</button>
             </div>
         </div>

@@ -67,52 +67,6 @@ textarea {
 	margin: 0 auto;
 }
 
-.logo{
-	background: url(../../Content/Images/Controls/logo-with-bg.png) no-repeat; 
-	background-size: 248px 100px; 
-	position: absolute; 
-	width: 248px;
-	height: 100px; 
-	top: 0; 
-	left: 30px;
-}
-.logobg{
-	background: url(../../Content/Images/Controls/bg-logo.png) no-repeat;
-	background-size: 28px 99px; 
-	position: absolute;
-	width: 28px;
-	height: 99px; 
-	top: 0;
-	left: 272px;
-	z-index:2;
-}
-
-.basketbg{
-    background: url(../../Content/Images/Controls/bg-basket-back.png) no-repeat;
-	background-size: 28px 99px;
-    position: absolute;
-	width: 28px;
-	height: 99px; 
-	top: 0;
-    float: right;
-	right: 278px;
-	z-index:2;
-}
-
-.basket{
-	background: url(../../Content/Images/Controls/bg-basket.png) no-repeat; 
-	background-size: 248px 100px; 
-    float: right;
-	position: absolute; 
-	width: 248px;
-	height: 100px; 
-	top: 0; 
-	right: 30px;
-}
-
-.footer{
-	background: #444444;
-}
 
 .footer img{
 	margin:10px;
@@ -148,26 +102,6 @@ textarea {
     text-align: center;
 }
 
-.div-product{
-    background:#fff;
-    margin: 10px;
-    border-radius: 7px;
-    box-shadow: 0 0 7px #ccc;
-    padding:5px;
-}
-
-.div-contact{
-    background:#fff;
-    margin: 10px;
-    border-radius: 7px;
-    box-shadow: 0 0 7px #ccc;
-    padding:8px;
-}
-
-.index-radio{
-    float: right;
-    margin:7px;
-}
 
 .basket-style{
     text-align:center;

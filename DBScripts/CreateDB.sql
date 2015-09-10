@@ -48,18 +48,37 @@ add constraint
 PK_ProductWeightDetails_ProductId PRIMARY KEY(ProductId)
 GO
 
-CREATE TABLE ProductIngridients
+CREATE TABLE Ingridients
 (
-	[ProductId] int  NOT NULL,
+	[IngridientId] int  NOT NULL,
 	[NameRus] NVARCHAR (50) NOT NULL UNIQUE,
 	[NameUkr] NVARCHAR (50) NOT NULL UNIQUE
 	)
 GO
+ALTER TABLE Ingridients
+add constraint 
+PK_Ingridients_IngridientId PRIMARY KEY(IngridientId)
+GO
+
+CREATE TABLE ProductIngridients
+(
+	[ProductId] int  NOT NULL,
+	[IngridientsId] int NOT NULL
+	)
+GO
+
 ALTER TABLE ProductIngridients
 add constraint 
 FK_ProductIngridients_ProductId FOREIGN KEY(ProductId)
 REFERENCES Product(ProductId) 
 GO
+
+ALTER TABLE ProductIngridients
+add constraint 
+FK_ProductIngridients_IngridientsId FOREIGN KEY(IngridientsId)
+REFERENCES Ingridients(IngridientId) 
+GO
+
 
 CREATE TABLE Category
 (
@@ -112,7 +131,8 @@ CREATE TABLE OrderDetails
 (
 	[OrderDetailsId] int  NOT NULL,
 	[ProductId] int NOT NULL,
-	[Count] int NOT NULL
+	[Count] int NOT NULL,
+	[Price] decimal(9,2) NOT NULL
 	)
 GO
 CREATE TABLE AdditionProdutForProduct

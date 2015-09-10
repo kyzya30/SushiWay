@@ -19,7 +19,7 @@ namespace WebApplication1
         {
             this.AdditionProdutForProducts = new HashSet<AdditionProdutForProduct>();
             this.OrderDetails = new HashSet<OrderDetail>();
-            this.ProductIngridients = new HashSet<ProductIngridient>();
+            this.Ingridients = new HashSet<Ingridient>();
         }
     
         public int ProductId { get; set; }
@@ -39,8 +39,8 @@ namespace WebApplication1
         public virtual ICollection<AdditionProdutForProduct> AdditionProdutForProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductIngridient> ProductIngridients { get; set; }
         public virtual ProductWeightDetail ProductWeightDetail { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Ingridient> Ingridients { get; set; }
     }
 }

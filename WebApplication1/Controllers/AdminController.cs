@@ -30,7 +30,7 @@ namespace WebApplication1.Controllers
         }
         public ActionResult Index()
         {
-            var context = new SushiTest1Entities();
+            var context = new SushiTest1Entities1();
             ViewBag.Product = context.Products;
 
             return View();

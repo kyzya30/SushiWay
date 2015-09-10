@@ -13,10 +13,10 @@ namespace WebApplication1
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SushiTest1Entities : DbContext
+    public partial class SushiTest1Entities1 : DbContext
     {
-        public SushiTest1Entities()
-            : base("name=SushiTest1Entities")
+        public SushiTest1Entities1()
+            : base("name=SushiTest1Entities1")
         {
         }
     
@@ -27,6 +27,7 @@ namespace WebApplication1
     
         public virtual DbSet<Administrator> Administrators { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Ingridient> Ingridients { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderStatu> OrderStatus { get; set; }
         public virtual DbSet<Product> Products { get; set; }
@@ -34,6 +35,5 @@ namespace WebApplication1
         public virtual DbSet<AdditionProdutForProduct> AdditionProdutForProducts { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
-        public virtual DbSet<ProductIngridient> ProductIngridients { get; set; }
     }
 }

@@ -12,12 +12,19 @@ namespace WebApplication1
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductIngridient
+    public partial class Ingridient
     {
-        public int ProductId { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Ingridient()
+        {
+            this.Products = new HashSet<Product>();
+        }
+    
+        public int IngridientId { get; set; }
         public string NameRus { get; set; }
         public string NameUkr { get; set; }
     
-        public virtual Product Product { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

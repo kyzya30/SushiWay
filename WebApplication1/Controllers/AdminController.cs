@@ -33,6 +33,12 @@ namespace WebApplication1.Controllers
             var context = new SushiTest1Entities1();
             ViewBag.Product = context.Products;
 
+            var d = context.OrderDetails.ToList();
+            foreach (var q in d)
+            {
+
+            }
+
             return View();
 
            

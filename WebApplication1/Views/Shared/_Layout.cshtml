@@ -8,96 +8,96 @@
     @Scripts.Render("~/bundles/modernizr")
 
     <link href="../../Content/bootstrap.css" rel="stylesheet">
-    <link href="../../Content/styles.css" rel="stylesheet">
+    <link href="../../Content/Site.css" rel="stylesheet">
 </head>
 <body>
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <nav class="navbar navbar-default">
-                        <div class="container-fluid">
-                            <!-- Brand and toggle get grouped for better mobile display -->
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                                    <span class="sr-only">Toggle navigation</span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                    <span class="icon-bar"></span>
-                                </button>
-                            </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
 
-                            <!-- Collect the nav links, forms, and other content for toggling -->
-                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                <ul class="nav navbar-nav">
-                                    <li class="active">
-                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                            Меню<span class="caret"></span>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#">Роллы</a></li>
-                                            <li><a href="#">Сеты</a></li>
-                                            <li><a href="#">Суши</a></li>
-                                            <li><a href="#">Супы</a></li>
-                                            <li><a href="#">Соусы</a></li>
-                                            <li><a href="#">Напитки</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Заказ</a></li>
-                                    <li><a href="@Url.Action("Contact", "Home")">Контакты</a></li>
-                                </ul>
-                                <form class="navbar-form navbar-left" role="search">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="Search">
-                                    </div>
-                                </form>
-                            </div><!-- /.navbar-collapse -->
-
-                            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
-                                <div class="logo hidden-md hidden-sm hidden-xs"></div>
-                                <div class="logobg hidden-md hidden-sm hidden-xs"></div>
-                            </a>
-
-                            <div class="basketbg hidden-md hidden-sm hidden-xs"></div>
-                            <a href="#">
-                                <div class="basket hidden-md hidden-sm hidden-xs basket-style">
-                                    <img src="../../Content/Images/Controls/basket-icon.png"/>
-                                    <span>Корзина</span>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="active">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                        Меню<span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="@Url.Action("SortByCategory","Home",new {id =1})">Роллы</a></li>
+                                        <li><a href="@Url.Action("SortByCategory","Home",new {id =2})">Сеты</a></li>
+                                        <li><a href="@Url.Action("SortByCategory","Home",new {id =3})">Прочее</a></li>
+                                        <li><a href="@Url.Action("SortByCategory","Home",new {id =4})">Супы</a></li>
+                                        <li><a href="@Url.Action("SortByCategory","Home",new {id =5})">Соусы</a></li>
+                                        <li><a href="@Url.Action("SortByCategory","Home",new {id =6})">>Напитки</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="@Url.Action("OrderStatusSearch","Home")">Заказ</a></li>
+                                <li><a href="@Url.Action("Contact", "Home")">Контакты</a></li>
+                            </ul>
+                            <form class="navbar-form navbar-left" role="search">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search">
                                 </div>
-                            </a>
+                            </form>
+                        </div><!-- /.navbar-collapse -->
 
-                        </div><!-- /.container-fluid -->
-                    </nav>
-                </div>
+                        <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                            <div class="logo hidden-md hidden-sm hidden-xs"></div>
+                            <div class="logobg hidden-md hidden-sm hidden-xs"></div>
+                        </a>
+
+                        <div class="basketbg hidden-md hidden-sm hidden-xs"></div>
+                        <a href="@Url.Action("Cart","Home")">
+                            <div class="basket hidden-md hidden-sm hidden-xs basket-style">
+                                <img src="../../Content/Images/Controls/basket-icon.png" />
+                                <span>Корзина</span>
+                            </div>
+                        </a>
+
+                    </div><!-- /.container-fluid -->
+                </nav>
             </div>
-            <div class="container body-content">
-                @RenderBody()
-            </div>
-            <footer>
-                <div class="row orange-line"></div>
-                <div class="row footer">
-                    <a href="#" />
-                    <img src="../../Content/Images/Controls/btn-facebook-footer.png" />
-                    </a>
-                    <a href="#" />
-                    <img src="../../Content/Images/Controls/btn-twitter-footer.png" />
-                    </a>
-                    <a href="#" />
-                    <img src="../../Content/Images/Controls/btn-google-footer.png" />
-                    </a>
-                    <a href="#" />
-                    <img src="../../Content/Images/Controls/btn-youtube-footer.png" />
-                    </a>
-                    <a href="#" />
-                    <img src="../../Content/Images/Controls/btn-instagram-footer.png" />
-                    </a>
-                    <span id="copyright">&copy; @DateTime.Now.Year - Softheme</span>
-                    <span class="footer-phone">(044) 551-20-98<br />(050) 345-92-00</span>
-                    <img src="../../Content/Images/Controls/icon-phone.png" class="footer-phone" />
-                    <h4 class="footer-phone">Доставка<br />24/7</h4>
-                </div>
-            </footer>
         </div>
-    
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+        <footer>
+            <div class="row orange-line"></div>
+            <div class="row footer">
+                <a href="#" />
+                <img src="../../Content/Images/Controls/btn-facebook-footer.png" />
+                </a>
+                <a href="#" />
+                <img src="../../Content/Images/Controls/btn-twitter-footer.png" />
+                </a>
+                <a href="#" />
+                <img src="../../Content/Images/Controls/btn-google-footer.png" />
+                </a>
+                <a href="#" />
+                <img src="../../Content/Images/Controls/btn-youtube-footer.png" />
+                </a>
+                <a href="#" />
+                <img src="../../Content/Images/Controls/btn-instagram-footer.png" />
+                </a>
+                <span id="copyright">&copy; @DateTime.Now.Year - Softheme</span>
+                <span class="footer-phone">(044) 551-20-98<br />(050) 345-92-00</span>
+                <img src="../../Content/Images/Controls/icon-phone.png" class="footer-phone" />
+                <h4 class="footer-phone">Доставка<br />24/7</h4>
+            </div>
+        </footer>
+    </div>
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

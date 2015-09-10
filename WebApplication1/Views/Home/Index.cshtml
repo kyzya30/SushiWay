@@ -11,57 +11,28 @@
     <input type="radio" class="index-radio" name="prod" />Новинки
 </div>
 <div class="row">
-    <div class="col-xs-12 col-sm-4 form-group div-product">
-        <h3>Product name</h3>
 
-        <img src="../../Content/Images/Products/GoldDracon.png"/>
-       
-        <div>
-            
-            <span>UAH30</span>
-            <button class="btn">Add to basket</button>
+    @{
+        string href = "~/Content/Images/Products/";
+    }
+
+    @foreach (var d in ViewBag.Product)
+    {
+        var str = d.ProductId.ToString();
+        {
+            str +=".jpeg";
+        }
+
+        <div class="col-xs-12 col-sm-4 form-group div-product">
+            <h3>@d.NameRus</h3>
+            @*<img @Url.Content(String.Format(href+str))/>*@
+            <img src="../../Content/Images/Products/@str" class="img-Product"  />
+            <div>
+                <span>@d.Price</span>
+                <button class="btn">Заказать</button>
+            </div>
         </div>
-    </div>
-    <div class="col-xs-12 col-sm-4 form-group div-product">
-        <h3>Product name</h3>
-        <img src="../../Content/Images/Products/GoldDracon.png" />
-        <div>
-            <span>UAH30</span>
-            <button class="btn">Add to basket</button>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-4 form-group div-product">
-        <h3>Product name</h3>
-        <img src="../../Content/Images/Products/GoldDracon.png" />
-        <div>
-            <span>UAH30</span>
-            <button class="btn">Add to basket</button>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-4 form-group div-product">
-        <h3>Product name</h3>
-        <img src="../../Content/Images/Products/GoldDracon.png" />
-        <div>
-            <span>UAH30</span>
-            <button class="btn">Add to basket</button>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-4 form-group div-product">
-        <h3>Product name</h3>
-        <img src="../../Content/Images/Products/GoldDracon.png" />
-        <div>
-            <span>UAH30</span>
-            <button class="btn">Add to basket</button>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-4 form-group div-product">
-        <h3>Product name</h3>
-        <img src="../../Content/Images/Products/GoldDracon.png" />
-        <div>
-            <span>UAH30</span>
-            <button class="btn">Add to basket</button>
-        </div>
-    </div>
+    }
 </div>
 
 

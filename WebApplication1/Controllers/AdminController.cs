@@ -8,15 +8,27 @@ using Microsoft.Ajax.Utilities;
 
 namespace WebApplication1.Controllers
 {
+    public static class ExtensionClass
+    {
+        public static ExpandoObject ToExpando(this object anonymousObject)
+        {
+            IDictionary<string, object> anonymousDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(anonymousObject);
+
+            IDictionary<string, object> expando = new ExpandoObject();
+
+            foreach (var item in anonymousDictionary)
+            {
+                expando.Add(item);
+            }
+            return (ExpandoObject)expando;
+        }
+    }
     public class AdminController : Controller
     {
         // GET: Admin
         
        
-        public ActionResult Dishes()
-        {
-            return View();
-        }
+       
         public ActionResult Orders()
         {
             return View();
@@ -24,6 +36,39 @@ namespace WebApplication1.Controllers
 
         public ActionResult Login()
         {
+            
+            return View();
+        }
+
+        //public ActionResult Login()
+        //{
+        //    return View();
+        //}
+
+        //public ActionResult Login()
+        //{
+        //    return View();
+        //}
+        public ActionResult Dishes()
+        {
+            var context = new SushiTest1Entities1();
+            var ProductWeightDetails = context.ProductWeightDetails.ToList();
+            var Product = context.Products.ToList();
+
+            var allDishesQuery =
+                from _ProductWeightDetails in ProductWeightDetails
+                select new
+                {
+                    ProductId = (System.Int32?) _ProductWeightDetails.Product.ProductId,
+                    _ProductWeightDetails.Product.NameRus,
+                    Priority = (System.Int32?) _ProductWeightDetails.Product.CategoryId,
+                    Category = _ProductWeightDetails.Product.Category.NameRus,
+                    Weight = _ProductWeightDetails.Vaule,
+                    _ProductWeightDetails.Name,
+                    Price = (System.Decimal?)_ProductWeightDetails.Product.Price
+                }.ToExpando();
+            var allDishes = allDishesQuery;
+            ViewBag.AllDishes = allDishes;
             return View();
         }
         public ActionResult Category()
@@ -47,8 +92,8 @@ namespace WebApplication1.Controllers
                     g.Key.NameRus,
                     CategoryId = (System.Int32?) g.Key.CategoryId,
                     TotalDishes = (System.Int32?) g.Sum(p => p._Product.Count)
-                };
-            var D = allCategories.ToList();
+                }.ToExpando(); /////ToExpando();
+            var D = allCategories;
             ViewBag.AllCategories = D;
 
             var totalCategories =
@@ -89,9 +134,9 @@ namespace WebApplication1.Controllers
                 g.Key.House,
                 g.Key.Room,
                 TotalPrice = (System.Decimal?)g.Sum(p => p._OrderDetails.Price)
-            };
+            }.ToExpando();
            
-            object T = unprocessedOrders.ToList();
+            object T = unprocessedOrders;
             ViewBag.List1 = T;
             //dynamic model = new ExpandoObject();
 
@@ -107,7 +152,7 @@ namespace WebApplication1.Controllers
                         _Product.ProductId,
                         _Product.NameRus,
                         _Product.Price
-                    }).Take(5);
+                    }.ToExpando()).Take(5);
             object T2 = mostPopularDishes.ToList();
             ViewBag.MostPopularDishes = T2;
 

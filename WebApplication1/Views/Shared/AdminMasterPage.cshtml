@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <title>Sushi Way</title>
-    <link href="../../Content/bootstrap.min.css" rel="stylesheet">
-    <link href="../../Content/styles.css" rel="stylesheet">
-    <link href="../../Content/sb-admin.css" rel="stylesheet">
+    <link href=@Url.Content("~/Content/bootstrap.min.css") rel="stylesheet">
+    <link href=@Url.Content("~/Content/styles.css") rel="stylesheet">
+    <link href=@Url.Content("~/Content/sb-admin.css") rel="stylesheet">
 </head>
 
 <body class="_Body">
@@ -15,7 +15,7 @@
                 <p class="text-center"><img src=@Url.Content("~/Content/Images/Controls/Admin/logo.png")>
                 </p>
             </div>
-            <div class="col-xs-3 nav_col3"><img src=@Url.Content("~/Content/Images/Controls/Admin/icon-eye.png")><a class="class3" href="index.html"> Перейти на сайт</a>
+            <div class="col-xs-3 nav_col3"><img src=@Url.Content("~/Content/Images/Controls/Admin/icon-eye.png")><a class="class3"  href="@Url.Action("Index","Home")"> Перейти на сайт</a>
             </div>
             <div class="col-xs-5 nav_col3" style="text-align: right">аdmin@mail.com </div>
             <div class="col-xs-1 exitTopNav"><a class="class3" href="index.html"> Выход</a>

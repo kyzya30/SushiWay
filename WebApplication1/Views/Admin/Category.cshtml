@@ -7,12 +7,13 @@
 <div class="row" style="padding-top: 40px; padding-left: 30px">
     <div class="col-sx-12">
         <p>
-            <h4 class="header">
+            <h3 class="header">
                 Категории блюд <img src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>
 
 
                 <input type="text" class="span3 search-query" style="margin-left: 500px" placeholder="Поиск">
-            </h4>
+            </h3>
+            
         </p>
     </div>
     <div class="row col-xs-12">
@@ -21,15 +22,15 @@
         <div class="col-xs-2"> Перейти на страницу</div>
         
         <div class="col-xs-6" style="text-align: right">
-
-@foreach (var D in  ViewBag.TotalCategories)
-        {
-            var tmp = D.ToString();
-        @tmp
-        }
-
-         
-            
+@{
+                string tmp="0";
+    foreach (var D in  ViewBag.TotalCategories)
+     {
+          tmp = D.ToString();
+     }
+    string cnt = tmp;
+  @cnt.ToString();
+}
             категорий
         </div>
     </div>
@@ -44,22 +45,25 @@
         <div class="col-xs-2">Количество блюд</div>
     </div>
 
-    @*@foreach (var D in ViewBag.AllCategories)
+    @foreach (var D in ViewBag.AllCategories)
     {
-
-    var tmpStr = D.CategoryId.ToString();
-    <div>@tmpStr</div>
-    }*@
-
-    <div class="row col-xs-12" style="padding-top: 15px;">
-        <div class="col-xs-1"><img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>
+        var nameRusCategory = D.NameRus.ToString();
+        var categoryPriority = D.CategoryId.ToString();
+        var totalDishes = D.TotalDishes.ToString();
+        @*<div>@tmpStr</div>*@
+    <div class="row col-xs-12" style="padding-top: 15px; border-width: 1px; border-bottom-style:solid ">
+        <div class="col-xs-1">
+            <img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>
         </div>
-        <div class="col-xs-1" style="text-align: left">Роллы </div>
+        <div class="col-xs-1" style="text-align: left">@nameRusCategory</div>
         <div class="col-xs-1"></div>
         <div class="col-xs-5"></div>
-        <div class="col-xs-2">1</div>
-        <div class="col-xs-2">36</div>
+        <div class="col-xs-2">@categoryPriority</div>
+        <div class="col-xs-2">@totalDishes</div>
     </div>
+    }
+
+
     <div class="row col-xs-12" style="padding-top: 15px">
         <div class="col-xs-2">Удалить </div>
         <div class="col-xs-2">Редактировать</div>

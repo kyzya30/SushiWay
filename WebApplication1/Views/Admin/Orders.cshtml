@@ -3,6 +3,61 @@
     ViewBag.Title = "Orders";
     Layout = "~/Views/Shared/AdminMasterPage.cshtml";
 }
+<div class="row" style="padding-top: 40px; padding-left: 30px">
+    <div class="col-sx-12">
+        <p>
+            <h3 class="header">
+                Заказы <img src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>
 
-<h2>Orders</h2>
 
+                <input type="text" class="span3 search-query" style="margin-left: 500px" placeholder="Поиск">
+            </h3>
+        </p>
+    </div>
+    <div class="row col-xs-12">
+        <div class="col-xs-2">Изменить статус</div>
+        <div class="col-xs-2">Удалить</div>
+        <div class="col-xs-2"> </div>
+
+        <div class="col-xs-6" style="text-align: right">
+
+           заказов из
+        </div>
+    </div>
+    <div class="row col-xs-12" style="padding-top: 15px; border-width: 3px; border-bottom-style: solid;">
+        <div class="col-xs-1">
+            <img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>
+        </div>
+        <div class="col-xs-1" style="text-align: left">Номер </div>
+        <div class="col-xs-1">Адрес</div>
+           
+        
+        <div class="col-xs-5" style="text-align: right">Изменение статуса</div>
+        <div class="col-xs-2">Сумма</div>
+        <div class="col-xs-2">Состояние</div>
+    </div>
+
+    @*@foreach (var D in ViewBag.AllCategories)
+    {
+
+    var tmpStr = D.CategoryId.ToString();
+    <div>@tmpStr</div>
+    }*@
+
+    <div class="row col-xs-12" style="padding-top: 15px;">
+        <div class="col-xs-1">
+            <img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>
+        </div>
+        <div class="col-xs-1" style="text-align: left">5354363 </div>
+        <div class="col-xs-3">Ул. Победы. 47 .кв 172</div>
+        <div class="col-xs-3" style="text-align: right">12:10 10.04.15</div>
+        <div class="col-xs-2">452</div>
+        <div class="col-xs-2">в ожидании</div>
+    </div>
+    <div class="row col-xs-12" style="padding-top: 15px">
+        <div class="col-xs-2">Изменить статус </div>
+        <div class="col-xs-2">Удалить</div>
+        <div class="col-xs-2"></div>
+        <div class="col-xs-6"></div>
+    </div>
+</div>

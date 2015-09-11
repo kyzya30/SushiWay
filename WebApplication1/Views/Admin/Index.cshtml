@@ -5,37 +5,42 @@
     Layout = "~/Views/Shared/AdminMasterPage.cshtml";
 }
 
-<div class="container">
+<div style="padding-top: 15px; padding-left:30px">
     <h3 class="header">Статистика</h3>
     <div class="row col-sm-6">
-        <h4>Необработанные заказы</h4>
+        <h4><b>Необработанные заказы</b></h4>
         <div class="table-span">
             <table class="table table-hover table-bordered">
-                <tr>
-                    <td><img class="t-img" src="./Images/icon-eye-grey.png"></td>
-                    <td><b>12:10 10.04.15</b><br>пр.Победы, 47, кв 172</td>
-                    <td>234 грн</td>
-                </tr>
-                <tr>
-                    <td><img class="t-img" src="./Images/icon-eye-grey.png"></td>
-                    <td><b>12:10 10.04.15</b><br>пр.Победы, 47, кв 172</td>
-                    <td>234 грн</td>
-                </tr>
+                @foreach(var T in ViewBag.List1)
+                {
+                    var addDatate = T.AddDate.ToString();
+                    var street = T.Street.ToString();
+                    var house = T.House.ToString();
+                    var room = T.Room.ToString();
+                    var totalPrice = T.TotalPrice.ToString();
+                    <tr>
+                       
+                        <td><img class="t-img"  src=@Url.Content("~/Content/Images/Controls/Admin/icon-eye-grey.png")></td>
+                        <td><b>@addDatate</b><br>@street, @house, @room</td>
+                        <td>@totalPrice грн</td>
+                    </tr>
+
+                }
                 <tr>
             </table>
 </div>
         @*@foreach (var T in ViewBag.List1)
                     {
 
-                    dynamic T2 = (ExpandoObject)T.Street.ToString();
+                    dynamic T2 = T.Street.ToString();
                     <div>@T2</div>
                     }*@
 
         </div>
     <div class="row col-sm-6">
-        <h4>Самые популярные блюда</h4>
+        <h4><b>Самые популярные блюда</b></h4>
         <div class="dropdown">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button class=" btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 Роллы
                 <span class="caret"></span>
             </button>
@@ -45,7 +50,7 @@
                 <li><a href="#">Something else here</a></li>
                 <li><a href="#">Separated link</a></li>
             </ul>
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <button class=" btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                 5
                 <span class="caret"></span>
             </button>
@@ -59,25 +64,20 @@
 
         <div class="table-span">
             <table class="table table-hover table-bordered">
-                <tr>
 
-                    <td><b>12:10 10.04.15</b><br>пр.Победы, 47, кв 172</td>
-                    <td><img class="t-img" src="./Images/icon-eye-grey.png"></td>
-                    <td>234 грн</td>
-                </tr>
-                <tr>
-
-                    <td><b>12:10 10.04.15</b><br>пр.Победы, 47, кв 172</td>
-                    <td><img class="t-img" src="./Images/icon-eye-grey.png"></td>
-                    <td>234 грн</td>
-
-                    @*@foreach (var T in ViewBag.MostPopularDishes)
-                    {
-
-                    var tmpStr = T.Price.ToString();
-                    <div>@tmpStr</div>
-                    }*@
-                </tr>
+@foreach (var T in ViewBag.MostPopularDishes)
+{
+                var namberOfOrders = T.NamberOfOrders.ToString();
+                var nameRus = T.NameRus.ToString();
+                var productId = T.ProductId.ToString();
+                var price = T.Price.ToString();
+    var srcPict = productId += ".jpeg";
+    <tr>
+        <td><b>заказан <br> @namberOfOrders <br> раз</b><br></td>
+        <td><img class="t-img" style="width: 50px; height: 50px; " src=@Url.Content("~/Content/Images/Products/"+@srcPict)></td>
+        <td>@nameRus <b>@price грн</b></td>
+    </tr>
+}
                 <tr>
             </table>
         </div>

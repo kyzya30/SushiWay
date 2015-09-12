@@ -1,6 +1,4 @@
-﻿
-
-<div class="row">
+﻿<div class="row">
     <h2 class="index-descr">МЕНЮ</h2>
     <p class="index-descr">
         Суши, роллы, нигири и сеты готовятся професионалами и только из свежих продуктов. Только у нас вы найдете<br/>
@@ -8,7 +6,7 @@
     </p>
 </div>
 <div class="row index-radio">
-    <input type="radio" class="index-radio" id="prod1" name="prod"/>
+    <input type="radio" class="index-radio" id="prod1" name="prod" checked="checked"/>
     <label for="prod1">Все</label>
     <input type="radio" class="index-radio" id="prod2" name="prod"/>
     <label for="prod2">Популярные</label>
@@ -18,7 +16,6 @@
     <label for="prod4">Новинки</label>
 </div>
 <div class="row">
-
     @{
         string href = "~/Content/Images/Products/";
     }
@@ -30,20 +27,19 @@
             str +=".jpeg";
         }
 
-        <div class="col-xs-12 col-sm-4 form-group div-product">
-            <h3>@d.NameRus</h3>
-            @*<img @Url.Content(String.Format(href+str))/>*@
-            <img src="../../Content/Images/Products/@str" class="img-Product"  />
-            <div>
-                <span class="product-price">@d.Price</span>
-                <button class="btn">Заказать</button>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="form-group div-product">
+                <h3>@d.NameRus</h3>
+                @*<img @Url.Content(String.Format(href+str))/>*@
+                <img src="../../Content/Images/Products/@str" class="img-Product" />
+                <div>
+                    <span class="product-price">@d.Price</span>
+                    <button class="btn">Заказать</button>
+                </div>
             </div>
         </div>
     }
 </div>
 
-
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="./js/bootstrap.js"></script>

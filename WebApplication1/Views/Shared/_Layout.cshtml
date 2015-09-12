@@ -7,9 +7,6 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-    <link href="../../Content/bootstrap.css" rel="stylesheet">
-    <link href="../../Content/Site.css" rel="stylesheet">
-    <link href="@Url.Content("~/Content/styles.css")" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -61,7 +58,7 @@
                         <div class="basketbg hidden-md hidden-sm hidden-xs"></div>
                         <a href="@Url.Action("Cart","Home")">
                             <div class="basket hidden-md hidden-sm hidden-xs basket-style">
-                                <img src="../../Content/Images/Controls/basket-icon.png" />
+                                <img src="@Url.Content("~/Content/Images/Controls/basket-icon.png")" />
                                 <span>Корзина</span>
                             </div>
                         </a>
@@ -76,25 +73,27 @@
         <footer>
             <div class="row orange-line"></div>
             <div class="row footer">
-                <a href="#" />
-                <img src="../../Content/Images/Controls/btn-facebook-footer.png" />
+                <a href="#">
+                <img src="@Url.Content("~/Content/Images/Controls/btn-facebook-footer.png")" />
                 </a>
-                <a href="#" />
-                <img src="../../Content/Images/Controls/btn-twitter-footer.png" />
+                <a href="#">
+                <img src="@Url.Content("~/Content/Images/Controls/btn-twitter-footer.png")" />
                 </a>
-                <a href="#" />
-                <img src="../../Content/Images/Controls/btn-google-footer.png" />
+                <a href="#">
+                <img src="@Url.Content("~/Content/Images/Controls/btn-google-footer.png")" />
                 </a>
-                <a href="#" />
-                <img src="../../Content/Images/Controls/btn-youtube-footer.png" />
+                <a href="#">
+                <img src="@Url.Content("~/Content/Images/Controls/btn-youtube-footer.png")" />
                 </a>
-                <a href="#" />
-                <img src="../../Content/Images/Controls/btn-instagram-footer.png" />
+                <a href="#">
+                <img src="@Url.Content("~/Content/Images/Controls/btn-instagram-footer.png")" />
                 </a>
-                <span id="copyright">&copy; @DateTime.Now.Year - Softheme</span>
                 <span class="footer-phone">(044) 551-20-98<br />(050) 345-92-00</span>
-                <img src="../../Content/Images/Controls/icon-phone.png" class="footer-phone" />
+                <img src="@Url.Content("~/Content/Images/Controls/icon-phone.png")" class="footer-phone" />
                 <h4 class="footer-phone">Доставка<br />24/7</h4>
+            </div>
+            <div class="row copyright">
+                <span id="copyright">&copy; @DateTime.Now.Year - Softheme</span>
             </div>
         </footer>
     </div>

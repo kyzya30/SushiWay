@@ -57,8 +57,8 @@ input[type="radio"]:checked + label::before {
 	width: 28px;
 	height: 99px; 
 	top: 0;
-	left: 272px;
-	z-index:2;
+	left: 270px;
+	z-index:0;
 }
 
 .basketbg{
@@ -69,8 +69,8 @@ input[type="radio"]:checked + label::before {
 	height: 99px; 
 	top: 0;
     float: right;
-	right: 278px;
-	z-index:2;
+	right: 275px;
+	z-index:0;
 }
 
 .basket{
@@ -86,6 +86,10 @@ input[type="radio"]:checked + label::before {
 
 .footer{
 	background: #444444;
+}
+.copyright {
+    background: #444444;
+    text-align: center;
 }
 
 .footer img{
@@ -111,7 +115,7 @@ input[type="radio"]:checked + label::before {
 .btn{
     font-size: 16px;
     float: right;
-    margin: 10px;
+    margin: 5px;
     padding: 10px;
     color: #ffffff;
 	background: #EF5A06;
@@ -135,10 +139,10 @@ input[type="radio"]:checked + label::before {
 
 .div-product{
     background:#fff;
-    margin: 10px;
+    margin: 7px;
     border-radius: 7px;
     box-shadow: 0 0 7px #ccc;
-    padding:5px;
+    padding:25px;
 }
 
 .div-contact{
@@ -181,10 +185,6 @@ input[type="radio"]:checked + label::before {
 
 .div-contact iframe{
     width:100%;
-}
-
-.div-product{
-    width:31%;
 }
 
 #copyright{
@@ -257,7 +257,7 @@ div.bottom_navbar_style1 {
 div.pageWrapperStyle {
     height: 700px;padding-top:0px
 }
-<<<<<<< Updated upstream
+
 
 .div-leave-message {
     padding-bottom: 50px;
@@ -274,14 +274,13 @@ div.pageWrapperStyle {
 .div-leave-message textarea {
     margin: 5px 5px 0 5px;
 }
-=======
-.table-bordered > tbody > tr > td{
-        border: none;
-    }
+
+.table-bordered > tbody > tr > td {
+    border: none;
+}
 .table-span {
-        width: 80%;
-        height: 400px !important;
-        overflow-y: auto;
-        border-bottom: 1px solid #ddd;
-    }​
->>>>>>> Stashed changes
+    width: 80%;
+    height: 400px !important;
+    overflow-y: auto;
+    border-bottom: 1px solid #ddd;
+}

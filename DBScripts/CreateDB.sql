@@ -33,7 +33,7 @@ CREATE TABLE ProductWeightDetails
 (	
 	[ProductId]int NOT NULL,
 	[Name]NVARCHAR (50) NOT NULL,
-	[Vaule] decimal(9,3) NOT NULL,
+	[Value] decimal(9,3) NOT NULL,
 )
 GO
 

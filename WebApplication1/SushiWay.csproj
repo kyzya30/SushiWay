@@ -127,6 +127,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Addition Classes\Pause.cs" />
     <Compile Include="AdditionProdutForProduct.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

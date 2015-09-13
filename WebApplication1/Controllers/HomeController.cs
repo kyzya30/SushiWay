@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication1.Addition_Classes;
 
 namespace WebApplication1.Controllers
 {
@@ -30,6 +31,7 @@ namespace WebApplication1.Controllers
                 var response = await httpClient.GetAsync("http://google.com"); //  This is C# homework (async await).
                 ViewBag.Res = response.Content.Headers.ToString();
             }
+           var d =  await Pause.Pauses();
             return View();
         }
 

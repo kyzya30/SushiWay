@@ -130,7 +130,7 @@ CREATE TABLE OrderDetails
 	[Price] decimal(9,2) NOT NULL
 	)
 GO
-CREATE TABLE AdditionProdutsForProduct
+CREATE TABLE AdditionProductsForProduct
 (
 	[ProductId] int  NOT NULL,
 	[ProductAdditionId] int  NOT NULL
@@ -138,7 +138,7 @@ CREATE TABLE AdditionProdutsForProduct
 	)
 GO
 
-ALTER TABLE AdditionProdutsForProduct
+ALTER TABLE AdditionProductsForProduct
 add constraint 
 FK_AdditionProdutsForProduct_OrderDetailsId FOREIGN KEY(ProductId)
 REFERENCES Product(ProductId) 

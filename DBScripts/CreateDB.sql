@@ -10,7 +10,7 @@ Create table Product
 	[CategoryId] int NOT NULL,
 	[NameRus] NVARCHAR (50) NOT NULL UNIQUE,
 	[NameUkr] NVARCHAR (50) NOT NULL UNIQUE,
-	[NamberOfOrders] int NOT NULL,
+	[NumberOfOrders] int NOT NULL,
 	[Count] int NULL,
 	[Energy] NVARCHAR (50) NOT NULL,
 	[Balance] int NOT NULL,
@@ -102,8 +102,7 @@ CREATE TABLE Orders
 	[Street] NVARCHAR (50) NOT NULL,
 	[House] NVARCHAR (10) NOT NULL,
 	[Room] NVARCHAR (10) NOT NULL,
-	[StatusId]int NOT NULL,
-	[AddDate] datetime2 (2) NOT NULL
+	[StatusId]int NOT NULL
 	)
 
 GO
@@ -112,10 +111,6 @@ ALTER TABLE Orders
 add constraint 
 PK_Orders_OrderId PRIMARY KEY(OrderId)
 
-GO
-
-ALTER TABLE Orders
-ADD CONSTRAINT DF_Orders_AddDate DEFAULT(GETDATE()) FOR AddDate
 GO
 
 CREATE TABLE OrderStatus
@@ -135,7 +130,7 @@ CREATE TABLE OrderDetails
 	[Price] decimal(9,2) NOT NULL
 	)
 GO
-CREATE TABLE AdditionProdutForProduct
+CREATE TABLE AdditionProdutsForProduct
 (
 	[ProductId] int  NOT NULL,
 	[ProductAdditionId] int  NOT NULL
@@ -143,9 +138,9 @@ CREATE TABLE AdditionProdutForProduct
 	)
 GO
 
-ALTER TABLE AdditionProdutForProduct
+ALTER TABLE AdditionProdutsForProduct
 add constraint 
-FK_AdditionProdutForProduct_OrderDetailsId FOREIGN KEY(ProductId)
+FK_AdditionProdutsForProduct_OrderDetailsId FOREIGN KEY(ProductId)
 REFERENCES Product(ProductId) 
 GO
 	
@@ -184,6 +179,27 @@ Create table Administrator
 	[Login] NVARCHAR (30) NOT NULL,
 	[Password]NVARCHAR (30) NOT NULL
 )
+GO
+
+Create table OrdersTimeChanged
+(
+	[OrderId] int identity(1,1) NOT NULL,
+	[OrderStatus] int  NOT NULL,
+	[Time] datetime2 (2) NOT NULL,
+
+)
+GO
+
+ALTER TABLE OrdersTimeChanged
+add constraint 
+FK_OrdersTimeChanged_OrderId FOREIGN KEY(OrderId) 
+	REFERENCES Orders(OrderId)  
+GO
+
+ALTER TABLE OrdersTimeChanged
+add constraint 
+FK_OrdersTimeChanged_OrderStatus FOREIGN KEY(OrderStatus) 
+	REFERENCES OrderStatus(StatusId)  
 GO
 
 Create table Messages

@@ -147,6 +147,7 @@
     <Compile Include="Ingridient.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Logger.cs" />
     <Compile Include="Message.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

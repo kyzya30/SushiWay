@@ -11,7 +11,7 @@
         <h4><b>Необработанные заказы</b></h4>
         <div class="table-span">
             <table class="table table-hover table-bordered">
-                @foreach(var T in ViewBag.List1)
+                @*@foreach(var T in ViewBag.List1)
                 {
                     var addDatate = T.AddDate.ToString();
                     var street = T.Street.ToString();
@@ -25,7 +25,7 @@
                         <td>@totalPrice грн</td>
                     </tr>
 
-                }
+                }*@
                 <tr>
             </table>
 </div>
@@ -65,7 +65,7 @@
         <div class="table-span">
             <table class="table table-hover table-bordered">
 
-@foreach (var T in ViewBag.MostPopularDishes)
+@*@foreach (var T in ViewBag.MostPopularDishes)
 {
                 var namberOfOrders = T.NamberOfOrders.ToString();
                 var nameRus = T.NameRus.ToString();
@@ -77,7 +77,7 @@
         <td><img class="t-img" style="width: 50px; height: 50px; " src=@Url.Content("~/Content/Images/Products/"+@srcPict)></td>
         <td>@nameRus <b>@price грн</b></td>
     </tr>
-}
+}*@
                 <tr>
             </table>
         </div>

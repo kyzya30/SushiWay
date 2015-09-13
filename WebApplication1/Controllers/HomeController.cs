@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -8,11 +10,16 @@ namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
             var context = new SushiTest1Entities1();
             var product = context.Products.ToList();
             ViewBag.Product = product;
+
+            using (HttpClient httpClient = new HttpClient())                   //
+            {                                                                  //
+                var response = await httpClient.GetAsync("http://google.com"); //  This is C# homework (async await).
+            }                                                                  //
             return View();
         }
 
@@ -30,7 +37,7 @@ namespace WebApplication1.Controllers
             var qq = from ct in category
                      where ct.CategoryId == id
                      select ct.NameRus;
-       
+
             var r = qq.First();
 
             ViewBag.Category = r;

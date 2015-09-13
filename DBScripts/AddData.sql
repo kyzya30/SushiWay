@@ -23,7 +23,7 @@ VALUES
 GO
 
 INSERT Product
-(CategoryId,NameRus,NameUkr,NamberOfOrders,Count,Energy,Balance,Price,Sale)
+(CategoryId,NameRus,NameUkr,NumberOfOrders,Count,Energy,Balance,Price,Sale)
 VALUES
 ('1','Калифорнийский Унаги', 'Каліфорнійський Унагі','5','6','420','40','63','0'),
 ('1','Эби Маки', 'Ебі Макі','0','6','300','40','31','0'),
@@ -49,7 +49,7 @@ VALUES
 GO
 
 INSERT ProductWeightDetails
-(ProductId, Name, Vaule)
+(ProductId, Name, Value)
 VALUES
 ('1','граммы','190'),
 ('2','граммы','220'),
@@ -74,7 +74,7 @@ VALUES
 ('21','граммы','30')
 GO
 
-INSERT AdditionProdutForProduct
+INSERT AdditionProductsForProduct
 (ProductId, ProductAdditionId)
 VALUES
 (1,21),

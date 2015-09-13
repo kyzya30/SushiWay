@@ -353,6 +353,7 @@
     <Content Include="Views\Home\Cart.cshtml" />
     <Content Include="Views\Home\OrderStatusSearch.cshtml" />
     <Content Include="Views\Home\SortByCategory.cshtml" />
+    <Content Include="Views\Home\MarkTask.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

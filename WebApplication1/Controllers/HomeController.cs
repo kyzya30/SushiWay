@@ -23,6 +23,17 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public async Task<ActionResult> MarkTask()
+        {
+            using (HttpClient httpClient = new HttpClient())                   //
+            {                                                                  //
+                var response = await httpClient.GetAsync("http://google.com"); //  This is C# homework (async await).
+                ViewBag.Res = response.Content.Headers.ToString();
+            }
+            return View();
+        }
+
+
         public ActionResult SortByCategory(int? id)
         {
             var context = new SushiTest1Entities1();

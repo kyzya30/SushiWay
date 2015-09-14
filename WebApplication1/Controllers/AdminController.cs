@@ -40,11 +40,11 @@ namespace WebApplication1.Controllers
         public async Task<ActionResult> Dishes()                                          //C# Homework Async/Await by R.Kuzmenko
         {                                                                                 //
             var context = new SushiTest1Entities1();                                      //
-            var ProductWeightDetails =  await context.ProductWeightDetails.ToListAsync(); //
+            var productWeightDetails =  await context.ProductWeightDetails.ToListAsync(); //
           
 
             var allDishesQuery =
-                from _ProductWeightDetails in ProductWeightDetails
+                from _ProductWeightDetails in productWeightDetails
                 select new
                 {
                     ProductId = (System.Int32?)_ProductWeightDetails.Product.ProductId,
@@ -95,44 +95,40 @@ namespace WebApplication1.Controllers
         public  ActionResult Index()
         {
             var context = new SushiTest1Entities1();
-            ViewBag.Product = context.Products.Count();
             var OrderDetails = context.OrderDetails.ToList();
             var Orders = context.Orders.ToList();
             var Product = context.Products.ToList();
+            var OrdersTimeChanged = context.OrdersTimeChangeds.ToList();
 
 
-            var unprocessedOrders = from _OrderDetails in OrderDetails
-                                    join _Orders in Orders on new { OrderId = _OrderDetails.OrderDetailsId } equals
-                                        new { OrderId = _Orders.OrderId }
-                                    where
-                                        _Orders.StatusId == 2
-                                    group new { _Orders, _OrderDetails } by new
-                                    {
+            //var unprocessedOrders = from _OrderDetails in OrderDetails
+            //                        from _OrdersTimeChanged in OrdersTimeChanged
+            //                        where
+            //                          OrdersTimeChanged.Orders.StatusId == 2
+            //                        group new { OrdersTimeChanged.Orders, OrdersTimeChanged, OrderDetails.Product, OrderDetails } by new
+            //                        {
+            //                            OrdersTimeChanged.Orders.Street,
+            //                            OrdersTimeChanged.Orders.House,
+            //                            OrdersTimeChanged.Orders.Room,
+            //                            OrderId = (System.Int32?)OrdersTimeChanged.Orders.OrderId,
+            //                            OrdersTimeChanged.Time
+            //                        } into g
+            //                        select new
+            //                        {
+            //                            OrderId = (System.Int32?)g.Key.OrderId,
+            //                            g.Key.Street,
+            //                            g.Key.House,
+            //                            g.Key.Room,
+            //                            TotalPrice = (System.Decimal?)g.Sum(p => p.OrderDetails.Product.Price * p.OrderDetails.Count),
+            //                            Time = (System.DateTime?)g.Key.Time
+            //                        }.ToExpando();
 
-                                       // _Orders.Add,
-                                        _Orders.Street,
-                                        _Orders.House,
-                                        _Orders.Room,
-                                        _Orders.OrderId
-                                    }
-            into g
-                                    select new
-                                    {
-
-                                        OrderId = (System.Int32?)g.Key.OrderId,
-                                        //AddDate = (System.DateTime?)g.Key.AddDate,
-                                        g.Key.Street,
-                                        g.Key.House,
-                                        g.Key.Room,
-                                        TotalPrice = (System.Decimal?)g.Sum(p => p._OrderDetails.Price)
-                                    }.ToExpando();
-
-            object T = unprocessedOrders;
-            ViewBag.List1 = T;
+            //object T = unprocessedOrders;
+            //ViewBag.List1 = T;
 
 
 
-            dynamic model = new ExpandoObject();
+            
 
             var mostPopularDishes =
                 (from _Product in Product

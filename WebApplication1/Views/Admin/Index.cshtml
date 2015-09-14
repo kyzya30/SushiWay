@@ -11,7 +11,7 @@
         <h4><b>Необработанные заказы</b></h4>
         <div class="table-span">
             <table class="table table-hover table-bordered">
-                @*@foreach(var T in ViewBag.List1)
+                @foreach(var T in ViewBag.List1)
                 {
                     var addDatate = T.AddDate.ToString();
                     var street = T.Street.ToString();
@@ -25,17 +25,10 @@
                         <td>@totalPrice грн</td>
                     </tr>
 
-                }*@
+                }
                 <tr>
             </table>
 </div>
-        @*@foreach (var T in ViewBag.List1)
-                    {
-
-                    dynamic T2 = T.Street.ToString();
-                    <div>@T2</div>
-                    }*@
-
         </div>
     <div class="row col-sm-6">
         <h4><b>Самые популярные блюда</b></h4>
@@ -65,19 +58,19 @@
         <div class="table-span">
             <table class="table table-hover table-bordered">
 
-@*@foreach (var T in ViewBag.MostPopularDishes)
+@foreach (var T in ViewBag.MostPopularDishes)
 {
-                var namberOfOrders = T.NamberOfOrders.ToString();
+                var numberOfOrders = T.NumberOfOrders.ToString();
                 var nameRus = T.NameRus.ToString();
                 var productId = T.ProductId.ToString();
                 var price = T.Price.ToString();
     var srcPict = productId += ".jpeg";
     <tr>
-        <td><b>заказан <br> @namberOfOrders <br> раз</b><br></td>
+        <td><b>заказан <br> @numberOfOrders <br> раз</b><br></td>
         <td><img class="t-img" style="width: 50px; height: 50px; " src=@Url.Content("~/Content/Images/Products/"+@srcPict)></td>
         <td>@nameRus <b>@price грн</b></td>
     </tr>
-}*@
+}
                 <tr>
             </table>
         </div>

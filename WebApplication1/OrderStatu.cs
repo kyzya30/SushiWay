@@ -18,6 +18,7 @@ namespace WebApplication1
         public OrderStatu()
         {
             this.Orders = new HashSet<Order>();
+            this.OrdersTimeChangeds = new HashSet<OrdersTimeChanged>();
         }
     
         public int StatusId { get; set; }
@@ -26,5 +27,7 @@ namespace WebApplication1
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OrdersTimeChanged> OrdersTimeChangeds { get; set; }
     }
 }

@@ -51,7 +51,7 @@ namespace WebApplication1.Controllers
                     _ProductWeightDetails.Product.NameRus,
                     Priority = (System.Int32?)_ProductWeightDetails.Product.CategoryId,
                     Category = _ProductWeightDetails.Product.Category.NameRus,
-                    Weight = _ProductWeightDetails.Vaule,
+                    Weight = _ProductWeightDetails.Value,
                     _ProductWeightDetails.Name,
                     Price = (System.Decimal?)_ProductWeightDetails.Product.Price
                 }.ToExpando();
@@ -109,7 +109,7 @@ namespace WebApplication1.Controllers
                                     group new { _Orders, _OrderDetails } by new
                                     {
 
-                                        _Orders.AddDate,
+                                       // _Orders.Add,
                                         _Orders.Street,
                                         _Orders.House,
                                         _Orders.Room,
@@ -120,7 +120,7 @@ namespace WebApplication1.Controllers
                                     {
 
                                         OrderId = (System.Int32?)g.Key.OrderId,
-                                        AddDate = (System.DateTime?)g.Key.AddDate,
+                                        //AddDate = (System.DateTime?)g.Key.AddDate,
                                         g.Key.Street,
                                         g.Key.House,
                                         g.Key.Room,
@@ -139,10 +139,10 @@ namespace WebApplication1.Controllers
                  where
                      _Product.CategoryId == 1
                  orderby
-                     _Product.NamberOfOrders descending
+                     _Product.NumberOfOrders descending
                  select new
                  {
-                     _Product.NamberOfOrders,
+                     _Product.NumberOfOrders,
                      _Product.ProductId,
                      _Product.NameRus,
                      _Product.Price

@@ -31,7 +31,7 @@
             <div class="form-group div-product">
                 <h3>@d.NameRus</h3>
                 @*<img @Url.Content(String.Format(href+str))/>*@
-                <img src="../../Content/Images/Products/@str" class="img-Product" />
+                <img src="@Url.Content(href+str)" class="img-Product" />
                 <div>
                     <span class="product-price">@d.Price</span>
                     <button class="btn">Заказать</button>

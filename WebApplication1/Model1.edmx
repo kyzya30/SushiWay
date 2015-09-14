@@ -6,8 +6,8 @@
     <edmx:StorageModels>
       <Schema Namespace="SushiTest1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
-warning 6002: The table/view 'SushiTest1.dbo.AdditionProdutForProduct' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="AdditionProdutForProduct">
+warning 6002: The table/view 'SushiTest1.dbo.AdditionProductsForProduct' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AdditionProductsForProduct">
           <Key>
             <PropertyRef Name="ProductId" />
             <PropertyRef Name="ProductAdditionId" />
@@ -78,7 +78,6 @@ warning 6002: The table/view 'SushiTest1.dbo.OrderDetails' does not have a prima
           <Property Name="House" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Room" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
-          <Property Name="AddDate" Type="datetime2" Precision="2" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderStatus">
           <Key>
@@ -88,6 +87,18 @@ warning 6002: The table/view 'SushiTest1.dbo.OrderDetails' does not have a prima
           <Property Name="StatusNameRus" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="StatusNameUkr" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SushiTest1.dbo.OrdersTimeChanged' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="OrdersTimeChanged">
+          <Key>
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="OrderStatus" />
+            <PropertyRef Name="Time" />
+          </Key>
+          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderStatus" Type="int" Nullable="false" />
+          <Property Name="Time" Type="datetime2" Precision="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ProductId" />
@@ -96,7 +107,7 @@ warning 6002: The table/view 'SushiTest1.dbo.OrderDetails' does not have a prima
           <Property Name="CategoryId" Type="int" Nullable="false" />
           <Property Name="NameRus" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="NameUkr" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="NamberOfOrders" Type="int" Nullable="false" />
+          <Property Name="NumberOfOrders" Type="int" Nullable="false" />
           <Property Name="Count" Type="int" />
           <Property Name="Energy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Balance" Type="int" Nullable="false" />
@@ -120,16 +131,16 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           </Key>
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Vaule" Type="decimal" Precision="9" Scale="3" Nullable="false" />
+          <Property Name="Value" Type="decimal" Precision="9" Scale="3" Nullable="false" />
         </EntityType>
-        <Association Name="FK_AdditionProdutForProduct_OrderDetailsId">
+        <Association Name="FK_AdditionProdutsForProduct_OrderDetailsId">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="AdditionProdutForProduct" Type="Self.AdditionProdutForProduct" Multiplicity="*" />
+          <End Role="AdditionProductsForProduct" Type="Self.AdditionProductsForProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ProductId" />
             </Principal>
-            <Dependent Role="AdditionProdutForProduct">
+            <Dependent Role="AdditionProductsForProduct">
               <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
@@ -167,6 +178,30 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
             </Principal>
             <Dependent Role="Orders">
               <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersTimeChanged_OrderId">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrdersTimeChanged" Type="Self.OrdersTimeChanged" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrdersTimeChanged">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersTimeChanged_OrderStatus">
+          <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
+          <End Role="OrdersTimeChanged" Type="Self.OrdersTimeChanged" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatus">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="OrdersTimeChanged">
+              <PropertyRef Name="OrderStatus" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -226,11 +261,11 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductWeightDetails" EntityType="Self.ProductWeightDetails" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AdditionProdutForProduct" EntityType="Self.AdditionProdutForProduct" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="AdditionProductsForProduct" EntityType="Self.AdditionProductsForProduct" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [AdditionProdutForProduct].[ProductId] AS [ProductId], 
-    [AdditionProdutForProduct].[ProductAdditionId] AS [ProductAdditionId]
-    FROM [dbo].[AdditionProdutForProduct] AS [AdditionProdutForProduct]</DefiningQuery>
+    [AdditionProductsForProduct].[ProductId] AS [ProductId], 
+    [AdditionProductsForProduct].[ProductAdditionId] AS [ProductAdditionId]
+    FROM [dbo].[AdditionProductsForProduct] AS [AdditionProductsForProduct]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="Messages" EntityType="Self.Messages" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -248,15 +283,22 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
     [OrderDetails].[Price] AS [Price]
     FROM [dbo].[OrderDetails] AS [OrderDetails]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="OrdersTimeChanged" EntityType="Self.OrdersTimeChanged" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [OrdersTimeChanged].[OrderId] AS [OrderId], 
+    [OrdersTimeChanged].[OrderStatus] AS [OrderStatus], 
+    [OrdersTimeChanged].[Time] AS [Time]
+    FROM [dbo].[OrdersTimeChanged] AS [OrdersTimeChanged]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="ProductIngridients" EntityType="Self.ProductIngridients" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [ProductIngridients].[ProductId] AS [ProductId], 
     [ProductIngridients].[IngridientsId] AS [IngridientsId]
     FROM [dbo].[ProductIngridients] AS [ProductIngridients]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK_AdditionProdutForProduct_OrderDetailsId" Association="Self.FK_AdditionProdutForProduct_OrderDetailsId">
+          <AssociationSet Name="FK_AdditionProdutsForProduct_OrderDetailsId" Association="Self.FK_AdditionProdutsForProduct_OrderDetailsId">
             <End Role="Product" EntitySet="Product" />
-            <End Role="AdditionProdutForProduct" EntitySet="AdditionProdutForProduct" />
+            <End Role="AdditionProductsForProduct" EntitySet="AdditionProductsForProduct" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetails_OrderDetailsId" Association="Self.FK_OrderDetails_OrderDetailsId">
             <End Role="Orders" EntitySet="Orders" />
@@ -269,6 +311,14 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <AssociationSet Name="FK_Orders_StatusId" Association="Self.FK_Orders_StatusId">
             <End Role="OrderStatus" EntitySet="OrderStatus" />
             <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersTimeChanged_OrderId" Association="Self.FK_OrdersTimeChanged_OrderId">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrdersTimeChanged" EntitySet="OrdersTimeChanged" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersTimeChanged_OrderStatus" Association="Self.FK_OrdersTimeChanged_OrderStatus">
+            <End Role="OrderStatus" EntitySet="OrderStatus" />
+            <End Role="OrdersTimeChanged" EntitySet="OrdersTimeChanged" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_CategoryId" Association="Self.FK_Product_CategoryId">
             <End Role="Category" EntitySet="Category" />
@@ -329,9 +379,9 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <Property Name="House" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Room" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="AddDate" Type="DateTime" Nullable="false" Precision="2" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_OrderDetailsId" FromRole="Orders" ToRole="OrderDetails" />
           <NavigationProperty Name="OrderStatu" Relationship="Self.FK_Orders_StatusId" FromRole="Orders" ToRole="OrderStatus" />
+          <NavigationProperty Name="OrdersTimeChangeds" Relationship="Self.FK_OrdersTimeChanged_OrderId" FromRole="Orders" ToRole="OrdersTimeChanged" />
         </EntityType>
         <EntityType Name="OrderStatu">
           <Key>
@@ -341,6 +391,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <Property Name="StatusNameRus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="StatusNameUkr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_StatusId" FromRole="OrderStatus" ToRole="Orders" />
+          <NavigationProperty Name="OrdersTimeChangeds" Relationship="Self.FK_OrdersTimeChanged_OrderStatus" FromRole="OrderStatus" ToRole="OrdersTimeChanged" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -350,7 +401,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
           <Property Name="NameRus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NameUkr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NamberOfOrders" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfOrders" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" />
           <Property Name="Energy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Balance" Type="Int32" Nullable="false" />
@@ -358,7 +409,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <Property Name="Sale" Type="Boolean" Nullable="false" />
           <Property Name="AddDate" Type="DateTime" Nullable="false" Precision="2" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Product_CategoryId" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="AdditionProdutForProducts" Relationship="Self.FK_AdditionProdutForProduct_OrderDetailsId" FromRole="Product" ToRole="AdditionProdutForProduct" />
+          <NavigationProperty Name="AdditionProductsForProducts" Relationship="Self.FK_AdditionProdutsForProduct_OrderDetailsId" FromRole="Product" ToRole="AdditionProductsForProduct" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_ProductId" FromRole="Product" ToRole="OrderDetails" />
           <NavigationProperty Name="ProductWeightDetail" Relationship="Self.FK_ProductWeightDetails_ProductId" FromRole="Product" ToRole="ProductWeightDetails" />
           <NavigationProperty Name="Ingridients" Relationship="Self.ProductIngridients" FromRole="Product" ToRole="Ingridients" />
@@ -369,17 +420,17 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           </Key>
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Vaule" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
+          <Property Name="Value" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductWeightDetails_ProductId" FromRole="ProductWeightDetails" ToRole="Product" />
         </EntityType>
-        <EntityType Name="AdditionProdutForProduct">
+        <EntityType Name="AdditionProductsForProduct">
           <Key>
             <PropertyRef Name="ProductId" />
             <PropertyRef Name="ProductAdditionId" />
           </Key>
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="ProductAdditionId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="Self.FK_AdditionProdutForProduct_OrderDetailsId" FromRole="AdditionProdutForProduct" ToRole="Product" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_AdditionProdutsForProduct_OrderDetailsId" FromRole="AdditionProductsForProduct" ToRole="Product" />
         </EntityType>
         <EntityType Name="Message">
           <Key>
@@ -406,6 +457,18 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <Property Name="Price" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
           <NavigationProperty Name="Order" Relationship="Self.FK_OrderDetails_OrderDetailsId" FromRole="OrderDetails" ToRole="Orders" />
           <NavigationProperty Name="Product" Relationship="Self.FK_OrderDetails_ProductId" FromRole="OrderDetails" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="OrdersTimeChanged">
+          <Key>
+            <PropertyRef Name="OrderId" />
+            <PropertyRef Name="OrderStatus" />
+            <PropertyRef Name="Time" />
+          </Key>
+          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderStatus" Type="Int32" Nullable="false" />
+          <Property Name="Time" Type="DateTime" Nullable="false" Precision="2" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_OrdersTimeChanged_OrderId" FromRole="OrdersTimeChanged" ToRole="Orders" />
+          <NavigationProperty Name="OrderStatu" Relationship="Self.FK_OrdersTimeChanged_OrderStatus" FromRole="OrdersTimeChanged" ToRole="OrderStatus" />
         </EntityType>
         <Association Name="FK_Product_CategoryId">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
@@ -443,14 +506,38 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_AdditionProdutForProduct_OrderDetailsId">
+        <Association Name="FK_OrdersTimeChanged_OrderId">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrdersTimeChanged" Type="Self.OrdersTimeChanged" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrdersTimeChanged">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersTimeChanged_OrderStatus">
+          <End Role="OrderStatus" Type="Self.OrderStatu" Multiplicity="1" />
+          <End Role="OrdersTimeChanged" Type="Self.OrdersTimeChanged" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatus">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="OrdersTimeChanged">
+              <PropertyRef Name="OrderStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AdditionProdutsForProduct_OrderDetailsId">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="AdditionProdutForProduct" Type="Self.AdditionProdutForProduct" Multiplicity="*" />
+          <End Role="AdditionProductsForProduct" Type="Self.AdditionProductsForProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ProductId" />
             </Principal>
-            <Dependent Role="AdditionProdutForProduct">
+            <Dependent Role="AdditionProductsForProduct">
               <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
@@ -491,9 +578,10 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatu" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductWeightDetails" EntityType="Self.ProductWeightDetail" />
-          <EntitySet Name="AdditionProdutForProducts" EntityType="Self.AdditionProdutForProduct" />
+          <EntitySet Name="AdditionProductsForProducts" EntityType="Self.AdditionProductsForProduct" />
           <EntitySet Name="Messages" EntityType="Self.Message" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+          <EntitySet Name="OrdersTimeChangeds" EntityType="Self.OrdersTimeChanged" />
           <AssociationSet Name="FK_Product_CategoryId" Association="Self.FK_Product_CategoryId">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
@@ -506,9 +594,17 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
             <End Role="OrderStatus" EntitySet="OrderStatus" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_AdditionProdutForProduct_OrderDetailsId" Association="Self.FK_AdditionProdutForProduct_OrderDetailsId">
+          <AssociationSet Name="FK_OrdersTimeChanged_OrderId" Association="Self.FK_OrdersTimeChanged_OrderId">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrdersTimeChanged" EntitySet="OrdersTimeChangeds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersTimeChanged_OrderStatus" Association="Self.FK_OrdersTimeChanged_OrderStatus">
+            <End Role="OrderStatus" EntitySet="OrderStatus" />
+            <End Role="OrdersTimeChanged" EntitySet="OrdersTimeChangeds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AdditionProdutsForProduct_OrderDetailsId" Association="Self.FK_AdditionProdutsForProduct_OrderDetailsId">
             <End Role="Product" EntitySet="Products" />
-            <End Role="AdditionProdutForProduct" EntitySet="AdditionProdutForProducts" />
+            <End Role="AdditionProductsForProduct" EntitySet="AdditionProductsForProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetails_ProductId" Association="Self.FK_OrderDetails_ProductId">
             <End Role="Product" EntitySet="Products" />
@@ -566,7 +662,6 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
                 <ScalarProperty Name="House" ColumnName="House" />
                 <ScalarProperty Name="Room" ColumnName="Room" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -586,7 +681,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
                 <ScalarProperty Name="NameUkr" ColumnName="NameUkr" />
-                <ScalarProperty Name="NamberOfOrders" ColumnName="NamberOfOrders" />
+                <ScalarProperty Name="NumberOfOrders" ColumnName="NumberOfOrders" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="Energy" ColumnName="Energy" />
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
@@ -601,13 +696,13 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
               <MappingFragment StoreEntitySet="ProductWeightDetails">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Vaule" ColumnName="Vaule" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AdditionProdutForProducts">
-            <EntityTypeMapping TypeName="SushiTest1Model.AdditionProdutForProduct">
-              <MappingFragment StoreEntitySet="AdditionProdutForProduct">
+          <EntitySetMapping Name="AdditionProductsForProducts">
+            <EntityTypeMapping TypeName="SushiTest1Model.AdditionProductsForProduct">
+              <MappingFragment StoreEntitySet="AdditionProductsForProduct">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="ProductAdditionId" ColumnName="ProductAdditionId" />
               </MappingFragment>
@@ -630,6 +725,15 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdersTimeChangeds">
+            <EntityTypeMapping TypeName="SushiTest1Model.OrdersTimeChanged">
+              <MappingFragment StoreEntitySet="OrdersTimeChanged">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

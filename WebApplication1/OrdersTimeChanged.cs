@@ -12,12 +12,13 @@ namespace WebApplication1
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductWeightDetail
+    public partial class OrdersTimeChanged
     {
-        public int ProductId { get; set; }
-        public string Name { get; set; }
-        public decimal Value { get; set; }
+        public int OrderId { get; set; }
+        public int OrderStatus { get; set; }
+        public System.DateTime Time { get; set; }
     
-        public virtual Product Product { get; set; }
+        public virtual Order Order { get; set; }
+        public virtual OrderStatu OrderStatu { get; set; }
     }
 }

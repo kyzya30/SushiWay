@@ -12,7 +12,7 @@ namespace WebApplication1
     using System;
     using System.Collections.Generic;
     
-    public partial class AdditionProdutForProduct
+    public partial class AdditionProductsForProduct
     {
         public int ProductId { get; set; }
         public int ProductAdditionId { get; set; }

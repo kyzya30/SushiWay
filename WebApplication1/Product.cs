@@ -17,7 +17,7 @@ namespace WebApplication1
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.AdditionProdutForProducts = new HashSet<AdditionProdutForProduct>();
+            this.AdditionProductsForProducts = new HashSet<AdditionProductsForProduct>();
             this.OrderDetails = new HashSet<OrderDetail>();
             this.Ingridients = new HashSet<Ingridient>();
         }
@@ -26,7 +26,7 @@ namespace WebApplication1
         public int CategoryId { get; set; }
         public string NameRus { get; set; }
         public string NameUkr { get; set; }
-        public int NamberOfOrders { get; set; }
+        public int NumberOfOrders { get; set; }
         public Nullable<int> Count { get; set; }
         public string Energy { get; set; }
         public int Balance { get; set; }
@@ -36,7 +36,7 @@ namespace WebApplication1
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AdditionProdutForProduct> AdditionProdutForProducts { get; set; }
+        public virtual ICollection<AdditionProductsForProduct> AdditionProductsForProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ProductWeightDetail ProductWeightDetail { get; set; }

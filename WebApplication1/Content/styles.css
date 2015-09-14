@@ -147,16 +147,11 @@ input[type="radio"]:checked + label::before {
 
 .div-contact{
     background:#fff;
-    margin: 10px;
     border-radius: 7px;
     box-shadow: 0 0 7px #ccc;
     padding:8px;
+    margin-bottom: 10px;
 }
-
-.index-radio{
-    margin-left: 50%;
-}
-
 
 .basket-style{
     text-align:center;
@@ -283,4 +278,15 @@ div.pageWrapperStyle {
     height: 400px !important;
     overflow-y: auto;
     border-bottom: 1px solid #ddd;
+}
+
+#check-order-status {
+    display: inline-block;
+    margin: 20px;
+    text-align: center;
+}
+
+#check-order-status-btn {
+    float: none;
+    margin: 10px;
 }

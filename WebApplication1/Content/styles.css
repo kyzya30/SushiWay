@@ -192,28 +192,39 @@ a.class3:link, a.class3:visited {
 
 a.class3:hover
 {
-    color: #cccccc;
+    color: #cccccc;text-decoration: none;
 }
 
 a.class3:active
 {
     color: #ffffff;
+    
 }
+a.class3 {
+  
+  font-size: 13px;
+  font-family: "Arial";
+  color: rgb( 255, 255, 255 );
+  z-index: 37;
+
+}
+
+
 div.nav {
     background-color: #7F7F7F;
     color: #EAEAEA;
-    height: 58px;
+    height: 50px;
     border-bottom-width: 0px;
     margin-right: 0px;
-    margin-left: -15px;
+    margin-left: 0px;
     margin-bottom: 0px;
 }
 div.nav_col2 {
     padding-bottom: 0px;
-    padding-top: 10px;
+    padding-top: 5px;
     background-color: #3F3F3F;
-    height: 58px;
-    width: 240px;
+    height: 50px;
+    width: 175px;
     padding-right: 0px;
     padding-left: 0px;
 }
@@ -227,14 +238,14 @@ div.exitTopNav {
     margin-top: 15px;
 }
 body._Body {
-    margin-top: 33px; background-color:white
+    margin-top:0px; background-color:white
 }
 div.nav_collapse {
     background-color:#7F7F7F; color: #EAEAEA;margin-bottom: 0px;
 }
 ul.leftNavBar {
     
-    margin-top: 0px; background-color:#7F7F7F; top:58px 
+    margin-top: 0px; background-color:#7F7F7F; top:50px 
 }
 li.activeStyle {
     border-bottom-width: 1px;  border-bottom-style: solid; border-color: #B0B0B0;
@@ -243,11 +254,17 @@ div.bg-active-menu_style
 {position: absolute; top: 0; right: 0; }
 div.bottom_navbar_style {
     
-    height:20px ;background-color:#7F7F7F; text-align: right; 
+    height:30px ;background-color:#7F7F7F; text-align: right;
+   
 }
 div.bottom_navbar_style1 {
     
-    background-color:#3F3F3F; width: 225px; height:25px
+    background-color:#3F3F3F; width: 175px;height: 30px;
+
+  
+
+  
+
 }
 div.pageWrapperStyle {
     height: 700px;padding-top:0px
@@ -280,6 +297,7 @@ div.pageWrapperStyle {
     border-bottom: 1px solid #ddd;
 }
 
+<<<<<<< HEAD
 #check-order-status {
     display: inline-block;
     margin: 20px;
@@ -290,3 +308,5 @@ div.pageWrapperStyle {
     float: none;
     margin: 10px;
 }
+=======
+>>>>>>> cacb95346e9c4b754c6c8797519450e5d643405b

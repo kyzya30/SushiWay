@@ -31,14 +31,7 @@
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                         Меню<span class="caret"></span>
                                     </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="@Url.Action("SortByCategory","Home",new {id =1})">Роллы</a></li>
-                                        <li><a href="@Url.Action("SortByCategory","Home",new {id =2})">Сеты</a></li>
-                                        <li><a href="@Url.Action("SortByCategory","Home",new {id =3})">Прочее</a></li>
-                                        <li><a href="@Url.Action("SortByCategory","Home",new {id =4})">Супы</a></li>
-                                        <li><a href="@Url.Action("SortByCategory","Home",new {id =5})">Соусы</a></li>
-                                        <li><a href="@Url.Action("SortByCategory","Home",new {id =6})">Напитки</a></li>
-                                    </ul>
+                                    @{ Html.RenderAction("CategoryMenu", "Home"); }
                                 </li>
                                 <li><a href="@Url.Action("OrderStatusSearch","Home")">Заказ</a></li>
                                 <li><a href="@Url.Action("Contact", "Home")">Контакты</a></li>

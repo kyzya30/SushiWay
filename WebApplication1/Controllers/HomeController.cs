@@ -82,5 +82,15 @@ namespace WebApplication1.Controllers
 
             return View();
         }
+
+        public ActionResult CategoryMenu()
+        {
+            var context = new SushiTest1Entities1();
+            var categoty = context.Categories.ToList();
+
+            ViewBag.Cat = categoty;
+
+            return PartialView();
+        }
     }
 }

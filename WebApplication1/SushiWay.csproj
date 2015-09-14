@@ -134,7 +134,7 @@
     <Compile Include="Administrator.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="App_LocalResurces\GlobalRes.Designer.cs">
+    <Compile Include="App_LocalResources\GlobalRes.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>GlobalRes.resx</DependentUpon>
@@ -363,6 +363,7 @@
     <Content Include="Views\Home\OrderStatusSearch.cshtml" />
     <Content Include="Views\Home\SortByCategory.cshtml" />
     <Content Include="Views\Home\MarkTask.cshtml" />
+    <Content Include="Views\Home\CategoryMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -380,11 +381,11 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="App_LocalResurces\GlobalRes.resx">
+    <EmbeddedResource Include="App_LocalResources\GlobalRes.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>GlobalRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="App_LocalResurces\GlobalRes.ua.resx" />
+    <EmbeddedResource Include="App_LocalResources\GlobalRes.uk.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -3,74 +3,92 @@
 <head>
     <meta charset="utf-8">
     <title>Sushi Way</title>
+
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-spinner.css" rel="stylesheet"/>
+    
     <link href=@Url.Content("~/Content/bootstrap.min.css") rel="stylesheet">
     <link href=@Url.Content("~/Content/styles.css") rel="stylesheet">
     <link href=@Url.Content("~/Content/sb-admin.css") rel="stylesheet">
+
+
+
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.spinner.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/Numeric.css" rel="stylesheet" />
+    <script src="~/Scripts/NumericStyles.js"></script>
+  
+    
 </head>
 
 <body class="_Body">
-    <div id="wrapper">
-        <div class="row navbar navbar-inverse navbar-fixed-top nav">
-            <div class="col-xs-2 nav_col2">
-                <p class="text-center" style="width:50%;margin:0 auto; "><img src=@Url.Content("~/Content/Images/Controls/Admin/logo.png")>
-                </p>
-            </div>
-            <div class="col-xs-3 nav_col3"><img src=@Url.Content("~/Content/Images/Controls/Admin/icon-eye.png")><a class="class3"  href="@Url.Action("Index","Home")"> Перейти на сайт</a>
-            </div>
-            <div class="col-xs-5 nav_col3" style="text-align: right">аdmin@mail.com </div>
-            <div class="col-xs-1 exitTopNav"><a class="class3" href="index.html"> Выход</a>
-            </div>
+
+
+
+<div id="wrapper">
+    <div class="row navbar navbar-inverse navbar-fixed-top nav">
+        <div class="col-xs-2 nav_col2">
+            <p class="text-center" style="width: 50%; margin: 0 auto;"><img src=@Url.Content("~/Content/Images/Controls/Admin/logo.png")>
+            </p>
         </div>
-        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-        <div class="collapse navbar-collapse navbar-ex0-collapse nav_collapse">
-            <ul class="nav navbar-nav side-nav leftNavBar">
-                <li class="active activeStyle" style="background-color: #5F5F5F">
-                    <a class="class3 activeStyle" href="@Url.Action("Index","Admin")">
-                        &nbsp; <img src=@Url.Content("~/Content/Images/Controls/Admin/icon-statistic.png")> &nbsp; Статистика
-                        <div class="bg-active-menu_style">
-                            <img src=@Url.Content("../../Content/Images/Controls/Admin/bg-active-menu-item.png")>
-                        </div>
-                    </a>
-                </li>
-                <li class="activeStyle">
-                    <a class="class3" href="@Url.Action("Category","Admin")">
-                        &nbsp;<img src=@Url.Content("~/Content/Images/Controls/Admin/icon-category.png")> &nbsp; Категории блюд
-
-                    </a>
-                </li>
-                <li class="activeStyle">
-                    <a class="class3" href="@Url.Action("Dishes","Admin" )">&nbsp;<img src=@Url.Content("~/Content/Images/Controls/Admin/icon-dishes.png")> &nbsp; Блюда</a>
-
-                </li>
-                <li class="activeStyle">
-                    <a class="class3" href="@Url.Action( "Orders","Admin")">&nbsp;<img src=@Url.Content("~/Content/Images/Controls/Admin/icon-orders.png")> &nbsp; Заказы</a>
-                </li>
-            </ul>
+        <div class="col-xs-3 nav_col3"><img src=@Url.Content("~/Content/Images/Controls/Admin/icon-eye.png")><a class="class3" href="@Url.Action("Index", "Home")"> Перейти на сайт</a>
         </div>
-        
-
-        <div id="page-wrapper pageWrapperStyle">
-
-
-            <div class="container-fluid">
-
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        @RenderBody()
-                    </div>
-                </div>
-            </div>
-            <!-- /.container-fluid -->
-        </div>
-        <!-- /#page-wrapper -->
-        <div class="navbar-default navbar-fixed-bottom bottom_navbar_style">
-            <span style="color: #EAEAEA; padding-right: 20px; font-size: 11px; line-height: 30px">&copy; 2015 Softheme&reg;. Все права защищены.</span>
-            <div class="col-xs-2 bottom_navbar_style1"></div>
-
+        <div class="col-xs-5 nav_col3" style="text-align: right">аdmin@mail.com </div>
+        <div class="col-xs-1 exitTopNav"><a class="class3" href="index.html"> Выход</a>
         </div>
     </div>
-  
+    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+    <div class="collapse navbar-collapse navbar-ex0-collapse nav_collapse">
+        <ul class="nav navbar-nav side-nav leftNavBar">
+            <li class="active activeStyle" style="background-color: #5F5F5F">
+                <a class="class3 activeStyle" href="@Url.Action("Index", "Admin")">
+                    &nbsp; <img src=@Url.Content("~/Content/Images/Controls/Admin/icon-statistic.png")> &nbsp; Статистика
+                    <div class="bg-active-menu_style">
+                        <img src=@Url.Content("../../Content/Images/Controls/Admin/bg-active-menu-item.png")>
+                    </div>
+                </a>
+            </li>
+            <li class="activeStyle">
+                <a class="class3" href="@Url.Action("Category", "Admin")">
+                    &nbsp;<img src=@Url.Content("~/Content/Images/Controls/Admin/icon-category.png")> &nbsp; Категории блюд
+
+                </a>
+            </li>
+            <li class="activeStyle">
+                <a class="class3" href="@Url.Action("Dishes", "Admin")">&nbsp;<img src=@Url.Content("~/Content/Images/Controls/Admin/icon-dishes.png")> &nbsp; Блюда</a>
+
+            </li>
+            <li class="activeStyle">
+                <a class="class3" href="@Url.Action("Orders", "Admin")">&nbsp;<img src=@Url.Content("~/Content/Images/Controls/Admin/icon-orders.png")> &nbsp; Заказы</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div id="page-wrapper pageWrapperStyle">
+
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+    <div class="navbar-default navbar-fixed-bottom bottom_navbar_style">
+        <span style="color: #EAEAEA; padding-right: 20px; font-size: 11px; line-height: 30px; bor">&copy; 2015 Softheme&reg;. Все права защищены.</span>
+        <div class="col-xs-2 bottom_navbar_style1"></div>
+
+    </div>
+</div>
+
 
 </body>
 

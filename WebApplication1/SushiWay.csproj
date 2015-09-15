@@ -196,6 +196,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-spinner.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\Controls\Admin\bg-active-menu-item.png" />
@@ -303,6 +304,10 @@
     <Content Include="Content\Images\Products\8.jpeg" />
     <Content Include="Content\Images\Products\9.jpeg" />
     <Content Include="Content\Images\Products\GoldDracon.png" />
+    <Content Include="Content\Images\Restaurant\restaurant1.jpg" />
+    <Content Include="Content\Images\Restaurant\restaurant2.jpg" />
+    <Content Include="Content\Images\Restaurant\restaurant3.jpg" />
+    <Content Include="Content\Numeric.css" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="Content\styles.css" />
     <Content Include="favicon.ico" />
@@ -319,6 +324,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\angular\angular.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Model1.edmx">
@@ -334,11 +340,13 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.spinner.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\NumericStyles.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />

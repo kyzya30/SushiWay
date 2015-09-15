@@ -242,6 +242,7 @@ body._Body {
 }
 div.nav_collapse {
     background-color:#7F7F7F; color: #EAEAEA;margin-bottom: 0px;
+
 }
 ul.leftNavBar {
     
@@ -257,15 +258,35 @@ div.bottom_navbar_style {
     height:30px ;background-color:#7F7F7F; text-align: right;
    
 }
-div.bottom_navbar_style1 {
-    
-    background-color:#3F3F3F; width: 175px;height: 30px;
+input.mysearch {
+    width: 150px;
+    padding: 5px;
 
-  
-
-  
-
+    margin: 15px;
+    height: 30px;
+    background-image:url("Images/Controls/Admin/icon-search.png")
+    /*//background-image: url('images/microphone.png');*/
+    background-repeat: no-repeat;
+    background-position: right;
 }
+div.bottom_navbar_style1 {
+    background-color: #3F3F3F;
+    width: 175px;
+    height: 30px;
+}
+div.funcElements 
+    {
+  font-size: 11px;
+  font-family: "Arial";
+  color: #7F7F7F;
+    text-decoration: underline;
+    
+   
+  
+}
+
+
+
 div.pageWrapperStyle {
     height: 700px;padding-top:0px
 }
@@ -307,3 +328,4 @@ div.pageWrapperStyle {
     float: none;
     margin: 10px;
 }
+

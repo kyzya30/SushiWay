@@ -13,15 +13,17 @@
             <table class="table table-hover table-bordered">
                 @foreach(var T in ViewBag.List1)
                 {
-                    var addDatate = T.AddDate.ToString();
-                    var street = T.Street.ToString();
-                    var house = T.House.ToString();
-                    var room = T.Room.ToString();
+                    var Time = T.Time.ToString();
+                    //var street = T.Street.ToString();
+                    //var house = T.House.ToString();
+                    //var room = T.Room.ToString();
                     var totalPrice = T.TotalPrice.ToString();
                     <tr>
                        
                         <td><img class="t-img"  src=@Url.Content("~/Content/Images/Controls/Admin/icon-eye-grey.png")></td>
-                        <td><b>@addDatate</b><br>@street, @house, @room</td>
+                        <td><b>@Time</b><br>
+                        @*//@street, @house, @room*@
+</td>
                         <td>@totalPrice грн</td>
                     </tr>
 

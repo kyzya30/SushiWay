@@ -97,41 +97,40 @@ namespace WebApplication1.Controllers
             var context = new SushiTest1Entities1();
             var OrderDetails = context.OrderDetails.ToList();
             var Orders = context.Orders.ToList();
-            var Product = context.Products.ToList();
-            var OrdersTimeChanged = context.OrdersTimeChangeds.ToList();
+            var Products = context.Products.ToList();
+            var OrdersTimeChangeds = context.OrdersTimeChangeds;
+
+            var OrdersTimeChanged = context.OrdersTimeChangeds;
 
 
-            //var unprocessedOrders = from _OrderDetails in OrderDetails
-            //                        from _OrdersTimeChanged in OrdersTimeChanged
-            //                        where
-            //                          OrdersTimeChanged.Orders.StatusId == 2
-            //                        group new { OrdersTimeChanged.Orders, OrdersTimeChanged, OrderDetails.Product, OrderDetails } by new
-            //                        {
-            //                            OrdersTimeChanged.Orders.Street,
-            //                            OrdersTimeChanged.Orders.House,
-            //                            OrdersTimeChanged.Orders.Room,
-            //                            OrderId = (System.Int32?)OrdersTimeChanged.Orders.OrderId,
-            //                            OrdersTimeChanged.Time
-            //                        } into g
-            //                        select new
-            //                        {
-            //                            OrderId = (System.Int32?)g.Key.OrderId,
-            //                            g.Key.Street,
-            //                            g.Key.House,
-            //                            g.Key.Room,
-            //                            TotalPrice = (System.Decimal?)g.Sum(p => p.OrderDetails.Product.Price * p.OrderDetails.Count),
-            //                            Time = (System.DateTime?)g.Key.Time
-            //                        }.ToExpando();
+            var unprocessedOrders = from _OrderDetails in OrderDetails
+                                    from _OrdersTimeChanged in OrdersTimeChanged
+                                    where
+                                      _OrdersTimeChanged.Order.StatusId == 2
+                                    group new { _OrdersTimeChanged.Order, _OrderDetails.Product, OrderDetails } by new
+                                    {
 
-            //object T = unprocessedOrders;
-            //ViewBag.List1 = T;
+                                        OrderId = (System.Int32?)_OrdersTimeChanged.Order.OrderId,
+                                        Time = _OrdersTimeChanged.Time
+                                    } into g
+                                    select new
+                                    {
+                                        _OrderId = (System.Int32?)g.Key.OrderId,
+                                       // TotalPrice = (System.Decimal?)g.Sum(p => p.OrderDetails.Product.Price * p.OrderDetails.Count),
+                                         TotalPrice = (System.Decimal?)g.Sum(p => p.OrderDetails.Sum(product => product.Price * product.Count)),
+                                         //TotalPrice = g.Sum(OrderDetails.Select(product => product.Price * product.Count)),
+                                        Time = (System.DateTime?)g.Key.Time
+                                    }.ToExpando();
+
+            object T = unprocessedOrders;
+            ViewBag.List1 = T;
 
 
 
-            
+
 
             var mostPopularDishes =
-                (from _Product in Product
+                (from _Product in Products
                  where
                      _Product.CategoryId == 1
                  orderby

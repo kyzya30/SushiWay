@@ -32,6 +32,7 @@ namespace WebApplication1
         public virtual DbSet<OrderStatu> OrderStatus { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductWeightDetail> ProductWeightDetails { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<AdditionProductsForProduct> AdditionProductsForProducts { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }

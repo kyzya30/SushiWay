@@ -16,6 +16,7 @@ Create table Product
 	[Balance] int NOT NULL,
 	[Price] decimal(9,2) NOT NULL,
 	[Sale] bit NOT NULL,
+	[IsHided] bit NOT NULL,
 	[AddDate] datetime2 (2) NOT NULL
 	)
 	GO

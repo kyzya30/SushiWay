@@ -39,49 +39,50 @@
 </div>
 <h2 class="index-descr">Всего : 256 грн </h2>
 
-<div class="row">
-    <div class="col-xs-12 col-md-9">
-        <div class="row">
-            <div class="col-xs-12 col-md-4">
-                <input type="text" placeholder="Имя" class="max-size"/>
+<form>
+    <div class="row">
+        <div class="col-xs-12 col-md-9">
+            <div class="row">
+                <div class="col-xs-12 col-md-4">
+                    <input type="text" placeholder="Имя" class="max-size" />
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <input type="number" required placeholder="Телефон" class="max-size" />
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <input type="text" placeholder="E-mail" class="max-size" />
+                </div>
             </div>
-            <div class="col-xs-12 col-md-4">
-                <input type="text" placeholder="Телефон" class="max-size"/>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                    <input type="text" placeholder="Улица" class="max-size" />
+                </div>
+                <div class="col-xs-12 col-sm-2">
+                    <input type="text" placeholder="Дом" class="max-size" />
+                </div>
+                <div class="col-xs-12 col-sm-2">
+                    <input type="text" placeholder="Квартира" class="max-size" />
+                </div>
             </div>
-            <div class="col-xs-12 col-md-4">
-                <input type="text" placeholder="E-mail" class="max-size"/>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="text" placeholder="Коментарии" class="max-size" />
+                </div>
             </div>
         </div>
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-8">
-                <input type="text" placeholder="Улица" class="max-size"/>
-            </div>
-            <div class="col-xs-12 col-sm-2">
-                <input type="text" placeholder="Дом" class="max-size"/>
-            </div>
-            <div class="col-xs-12 col-sm-2">
-                <input type="text" placeholder="Квартира" class="max-size"/>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <input type="text" placeholder="Коментарии" class="max-size"/>
-            </div>
+        <div class="col-xs-12 col-md-3">
+            <img @Url.Content("~/Content/Images/Controls/delivery-banner.png") />
         </div>
     </div>
-    <div class="col-xs-12 col-md-3">
-        <img @Url.Content("~/Content/Images/Controls/delivery-banner.png")/>
+    <div class="row"></div>
+    <div class="row">
+        <div class="col-xs-12">
+            <input type="submit" class="btn submitOrder" />
+        </div>
     </div>
-</div>
-<div class="row"></div>
-<div class="row">
-    <div class="col-xs-12">
-        <input type="submit" class="btn submitOrder"/>
-    </div>
-</div>
-
+</form>
 <br />
 <br />
 

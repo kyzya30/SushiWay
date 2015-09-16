@@ -304,9 +304,6 @@
     <Content Include="Content\Images\Products\8.jpeg" />
     <Content Include="Content\Images\Products\9.jpeg" />
     <Content Include="Content\Images\Products\GoldDracon.png" />
-    <Content Include="Content\Images\Restaurant\restaurant1.jpg" />
-    <Content Include="Content\Images\Restaurant\restaurant2.jpg" />
-    <Content Include="Content\Images\Restaurant\restaurant3.jpg" />
     <Content Include="Content\Numeric.css" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="Content\styles.css" />
@@ -379,6 +376,11 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Scripts\angular\controllers\" />
+    <Folder Include="Scripts\angular\directives\" />
+    <Folder Include="Scripts\angular\modules\" />
+    <Folder Include="Scripts\angular\services\" />
+    <Folder Include="Scripts\angular\views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('internshipApp').controller('sushiGlobalCtrl', sushiGlobalCtrl);
+    angular.module('sushiApp').controller('sushiGlobalCtrl', sushiGlobalCtrl);
 
     function sushiGlobalCtrl() {
 

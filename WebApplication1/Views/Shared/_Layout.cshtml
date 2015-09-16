@@ -34,8 +34,8 @@
                                     </a>
                                     @{ Html.RenderAction("CategoryMenu", "Home"); }
                                 </li>
-                                <li><a href="@Url.Action("OrderStatusSearch","Home")">Заказ</a></li>
-                                <li><a href="@Url.Action("Contact", "Home")">Контакты</a></li>
+                                <li><a href="order">Заказ</a></li>
+                                <li><a href="contact">Контакты</a></li>
                             </ul>
                             <form class="navbar-form navbar-left" role="search">
                                 <div class="form-group">
@@ -64,8 +64,6 @@
         </div>
         <div class="container body-content">
             @RenderBody()
-            <button ng-click="goToView1()">Go To View 1</button>
-            <button ng-click="goToView2()">Go To View 2</button>
             <div ng-view></div>
         </div>
         <footer>

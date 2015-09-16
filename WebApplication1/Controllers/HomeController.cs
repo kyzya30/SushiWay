@@ -12,8 +12,22 @@ namespace WebApplication1.Controllers
     public class HomeController : Controller
     {
         public ActionResult Index()
-        {                                              
+        {
             return View();
+        }
+
+        public JsonResult GetSushi()
+        {
+            var context = new SushiTest1Entities1();
+            var product = context.Products.ToList();
+            var model = new object[product.Count];
+
+            for (int i = 0; i < product.Count; i++)
+            {
+                model[i] = product[i];
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<ActionResult> MarkTask()

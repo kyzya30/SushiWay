@@ -328,6 +328,7 @@
     <Content Include="Scripts\angular\controllers\sushiGlobalCtrl.js" />
     <Content Include="Scripts\angular\modules\sushiApp.js" />
     <Content Include="Scripts\angular\services\angular-route.js" />
+    <Content Include="Scripts\angular\services\sushiServise.js" />
     <Content Include="Scripts\angular\views\Cart.html" />
     <Content Include="Scripts\angular\views\cartSummary.html" />
     <Content Include="Scripts\angular\views\Contact.html" />

@@ -98,5 +98,16 @@ namespace WebApplication1.Controllers
 
             return PartialView();
         }
+
+        [HttpPost]
+        public ActionResult SearchOrderStatusByNumber(int? orderNum)
+        {
+            var context = new SushiTest1Entities1();
+            var status = context.OrderStatus.ToList();
+            ViewBag.OrderNumber = orderNum;
+            ViewBag.Status = status[0].StatusNameRus;
+
+            return View();
+        }
     }
 }

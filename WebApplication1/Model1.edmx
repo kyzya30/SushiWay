@@ -575,7 +575,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <End Role="Ingridients" Type="Self.Ingridient" Multiplicity="*" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="SushiTest1Entities4" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities5" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Ingridients" EntityType="Self.Ingridient" />
@@ -635,7 +635,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities4">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities5">
           <EntitySetMapping Name="Administrators">
             <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">

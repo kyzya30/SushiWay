@@ -15,10 +15,10 @@ namespace WebApplication1
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class SushiTest1Entities4 : DbContext
+    public partial class SushiTest1Entities5 : DbContext
     {
-        public SushiTest1Entities4()
-            : base("name=SushiTest1Entities4")
+        public SushiTest1Entities5()
+            : base("name=SushiTest1Entities5")
         {
         }
     

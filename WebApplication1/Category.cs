@@ -23,6 +23,7 @@ namespace WebApplication1
         public int CategoryId { get; set; }
         public string NameRus { get; set; }
         public string NameUkr { get; set; }
+        public int Priority { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }

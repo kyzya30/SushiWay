@@ -32,6 +32,7 @@ namespace WebApplication1
         public int Balance { get; set; }
         public decimal Price { get; set; }
         public bool Sale { get; set; }
+        public bool IsHided { get; set; }
         public System.DateTime AddDate { get; set; }
     
         public virtual Category Category { get; set; }

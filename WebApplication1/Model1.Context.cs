@@ -12,6 +12,8 @@ namespace WebApplication1
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class SushiTest1Entities1 : DbContext
     {
@@ -32,10 +34,14 @@ namespace WebApplication1
         public virtual DbSet<OrderStatu> OrderStatus { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductWeightDetail> ProductWeightDetails { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<AdditionProductsForProduct> AdditionProductsForProducts { get; set; }
         public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<OrdersTimeChanged> OrdersTimeChangeds { get; set; }
+    
+        public virtual ObjectResult<ShowAllCategories_Result> ShowAllCategories()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ShowAllCategories_Result>("ShowAllCategories");
+        }
     }
 }

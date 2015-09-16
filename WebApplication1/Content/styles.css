@@ -189,7 +189,12 @@ input[type="radio"]:checked + label::before {
 a.class3:link, a.class3:visited {
     color: white;
 }
-
+a {
+   color: #7F7F7F;
+}
+a:hover {
+    color: #3F3F3F
+}
 a.class3:hover
 {
     color: #cccccc;text-decoration: none;
@@ -328,4 +333,5 @@ div.pageWrapperStyle {
     float: none;
     margin: 10px;
 }
+
 

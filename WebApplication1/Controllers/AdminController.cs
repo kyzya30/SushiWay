@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 
 namespace WebApplication1.Controllers
 {
@@ -62,36 +63,61 @@ namespace WebApplication1.Controllers
         public async Task<ActionResult> Category()                      //C# Homework Async/Await by R.Kuzmenko
         {                                                               //
             var context = new SushiTest1Entities1();                    //
-            var product = await context.Products.ToListAsync();         //  
-            var category = await context.Categories.ToListAsync();      //
+            var Product = await context.Products.ToListAsync();       //  
+            var Category = await context.Categories.ToListAsync();      //
            // var category = context.Categories;
+            var d = context.ShowAllCategories().ToString();
 
             var allCategories =
 
-                from _Category in category
-                join _Product in product on _Category.CategoryId equals _Product.CategoryId
-                group new { _Category, _Product } by new
+                from _Category in Category
+                join _Product in Product on _Category.CategoryId equals _Product.CategoryId into Product_join
+                from _Product in Product_join.DefaultIfEmpty()
+                group Category by new
                 {
                     _Category.NameRus,
                     _Category.CategoryId
-                }
-                into g
+                } into g
                 select new
                 {
                     g.Key.NameRus,
                     CategoryId = (System.Int32?)g.Key.CategoryId,
-                    TotalDishes = (System.Int32?)g.Sum(p => p._Product.Count)
+                    TotalDishes = ((System.Int32?)g.Sum(p => p.Count) ?? (System.Int32?)0)
+                
+
                 }.ToExpando();
-            var D = allCategories.ToList();
+
+            object D = allCategories.ToList();
             ViewBag.AllCategories = D;
 
             var totalCategories =
-                from _Category in category
-                select category.Count;
+                (
+                from _Category in Category
+                select Category.Count);
            var totalCat = totalCategories.ToList();
             ViewBag.TotalCategories = totalCat;
+
+           
+
             return View();
         }
+
+        [HttpPost]
+        public ActionResult AddCategory(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var context = new SushiTest1Entities1())
+                {
+                    category.NameUkr = "ukrxxxName"; //exception avoid
+                    context.Categories.Add(category);
+                    context.SaveChanges();
+                    return RedirectToAction("Category", "Admin");
+                }
+            }
+            return RedirectToAction("Category", "Admin");
+        }
+
         public  ActionResult Index()
         {
             var context = new SushiTest1Entities1();

@@ -62,6 +62,10 @@
                     { id: 9, name: "Item 37", price: 151, category: 5}
                 ];
 
+                $scope.sortFunc = function (value) {
+                    return value.category = 1 ;
+                };
+
             function sushiCtrl($scope, sushiService, cartFactory) {
                 sushiService.getSushi().then(function (response) {
                     $scope.sushiList = response.data;

@@ -1,14 +1,15 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="sushiApp">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Sushi way</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/angular")
 
 </head>
-<body>
+<body ng-controller="navCtrl">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
@@ -33,11 +34,12 @@
                                     </a>
                                     @{ Html.RenderAction("CategoryMenu", "Home"); }
                                 </li>
-                                <li><a href="@Url.Action("OrderStatusSearch","Home")">Заказ</a></li>
-                                <li><a href="@Url.Action("Contact", "Home")">Контакты</a></li>
+                                <li><a href="contact">Заказ</a></li>
+                                <li><a href="order">Контакты</a></li>
                             </ul>
                             <form class="navbar-form navbar-left" role="search">
                                 <div class="form-group">
+                                    <a href="#"><img src="@Url.Content("~/Content/Images/Controls/search-icon.png")" id="search-icon" /></a>
                                     <input type="text" class="form-control" placeholder="Поиск">
                                 </div>
                             </form>
@@ -53,6 +55,7 @@
                             <div class="basket hidden-md hidden-sm hidden-xs basket-style">
                                 <img src="@Url.Content("~/Content/Images/Controls/basket-icon.png")" />
                                 <span>Корзина</span>
+                                <cartSummury></cartSummury>
                             </div>
                         </a>
 
@@ -62,24 +65,25 @@
         </div>
         <div class="container body-content">
             @RenderBody()
+            <div ng-view></div>
         </div>
         <footer>
             <div class="row orange-line"></div>
             <div class="row footer">
                 <a href="#">
-                <img src="@Url.Content("~/Content/Images/Controls/btn-facebook-footer.png")" />
+                    <img src="@Url.Content("~/Content/Images/Controls/btn-facebook-footer.png")" />
                 </a>
                 <a href="#">
-                <img src="@Url.Content("~/Content/Images/Controls/btn-twitter-footer.png")" />
+                    <img src="@Url.Content("~/Content/Images/Controls/btn-twitter-footer.png")" />
                 </a>
                 <a href="#">
-                <img src="@Url.Content("~/Content/Images/Controls/btn-google-footer.png")" />
+                    <img src="@Url.Content("~/Content/Images/Controls/btn-google-footer.png")" />
                 </a>
                 <a href="#">
-                <img src="@Url.Content("~/Content/Images/Controls/btn-youtube-footer.png")" />
+                    <img src="@Url.Content("~/Content/Images/Controls/btn-youtube-footer.png")" />
                 </a>
                 <a href="#">
-                <img src="@Url.Content("~/Content/Images/Controls/btn-instagram-footer.png")" />
+                    <img src="@Url.Content("~/Content/Images/Controls/btn-instagram-footer.png")" />
                 </a>
                 <span class="footer-phone">(044) 551-20-98<br />(050) 345-92-00</span>
                 <img src="@Url.Content("~/Content/Images/Controls/icon-phone.png")" class="footer-phone" />

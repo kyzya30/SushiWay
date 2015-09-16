@@ -85,7 +85,8 @@ CREATE TABLE Category
 (
 	[CategoryId] int identity(1,1) NOT NULL,
 	[NameRus] NVARCHAR (50) NOT NULL UNIQUE,
-	[NameUkr] NVARCHAR (50) NOT NULL UNIQUE
+	[NameUkr] NVARCHAR (50) NOT NULL UNIQUE,
+	[Priority] int NOT NULL
 	)
 GO
 	

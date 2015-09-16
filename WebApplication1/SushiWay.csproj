@@ -325,6 +325,16 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\angular\angular.js" />
+    <Content Include="Scripts\angular\controllers\sushiGlobalCtrl.js" />
+    <Content Include="Scripts\angular\filters\productFilter.js" />
+    <Content Include="Scripts\angular\modules\sushiApp.js" />
+    <Content Include="Scripts\angular\services\angular-route.js" />
+    <Content Include="Scripts\angular\services\sushiServise.js" />
+    <Content Include="Scripts\angular\views\Cart.html" />
+    <Content Include="Scripts\angular\views\cartSummary.html" />
+    <Content Include="Scripts\angular\views\Contact.html" />
+    <Content Include="Scripts\angular\views\menu.html" />
+    <Content Include="Scripts\angular\views\OrderSearch.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Model1.edmx">
@@ -380,6 +390,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Scripts\angular\directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

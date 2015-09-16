@@ -11,17 +11,23 @@ namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public JsonResult GetSushi()
         {
             var context = new SushiTest1Entities1();
             var product = context.Products.ToList();
-            ViewBag.Product = product;
+            var model = new object[product.Count];
 
-            using (HttpClient httpClient = new HttpClient())                   //
-            {                                                                  //
-                var response = await httpClient.GetAsync("http://google.com"); //  This is C# homework (async await).
-            }                                                                  //
-            return View();
+            for (int i = 0; i < product.Count; i++)
+            {
+                model[i] = product[i];
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<ActionResult> MarkTask()
@@ -31,7 +37,7 @@ namespace WebApplication1.Controllers
                 var response = await httpClient.GetAsync("http://google.com"); //  This is C# homework (async await).
                 ViewBag.Res = response.Content.Headers.ToString();
             }
-           var d =  await Pause.Pauses();
+            var d = await Pause.Pauses();
             return View();
         }
 
@@ -91,6 +97,17 @@ namespace WebApplication1.Controllers
             ViewBag.Cat = categoty;
 
             return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult SearchOrderStatusByNumber(int? orderNum)
+        {
+            var context = new SushiTest1Entities1();
+            var status = context.OrderStatus.ToList();
+            ViewBag.OrderNumber = orderNum;
+            ViewBag.Status = status[0].StatusNameRus;
+
+            return View();
         }
     }
 }

@@ -1,14 +1,15 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="sushiApp">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Sushi way</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/angular")
 
 </head>
-<body>
+<body ng-controller="navCtrl">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
@@ -53,6 +54,7 @@
                             <div class="basket hidden-md hidden-sm hidden-xs basket-style">
                                 <img src="@Url.Content("~/Content/Images/Controls/basket-icon.png")" />
                                 <span>Корзина</span>
+                                <cartSummury></cartSummury>
                             </div>
                         </a>
 
@@ -62,24 +64,27 @@
         </div>
         <div class="container body-content">
             @RenderBody()
+            <button ng-click="goToView1()">Go To View 1</button>
+            <button ng-click="goToView2()">Go To View 2</button>
+            <div ng-view></div>
         </div>
         <footer>
             <div class="row orange-line"></div>
             <div class="row footer">
                 <a href="#">
-                <img src="@Url.Content("~/Content/Images/Controls/btn-facebook-footer.png")" />
+                    <img src="@Url.Content("~/Content/Images/Controls/btn-facebook-footer.png")" />
                 </a>
                 <a href="#">
-                <img src="@Url.Content("~/Content/Images/Controls/btn-twitter-footer.png")" />
+                    <img src="@Url.Content("~/Content/Images/Controls/btn-twitter-footer.png")" />
                 </a>
                 <a href="#">
-                <img src="@Url.Content("~/Content/Images/Controls/btn-google-footer.png")" />
+                    <img src="@Url.Content("~/Content/Images/Controls/btn-google-footer.png")" />
                 </a>
                 <a href="#">
-                <img src="@Url.Content("~/Content/Images/Controls/btn-youtube-footer.png")" />
+                    <img src="@Url.Content("~/Content/Images/Controls/btn-youtube-footer.png")" />
                 </a>
                 <a href="#">
-                <img src="@Url.Content("~/Content/Images/Controls/btn-instagram-footer.png")" />
+                    <img src="@Url.Content("~/Content/Images/Controls/btn-instagram-footer.png")" />
                 </a>
                 <span class="footer-phone">(044) 551-20-98<br />(050) 345-92-00</span>
                 <img src="@Url.Content("~/Content/Images/Controls/icon-phone.png")" class="footer-phone" />

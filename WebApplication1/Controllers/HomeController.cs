@@ -11,16 +11,8 @@ namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
-        public async Task<ActionResult> Index()
-        {
-            var context = new SushiTest1Entities1();
-            var product = context.Products.ToList();
-            ViewBag.Product = product;
-
-            using (HttpClient httpClient = new HttpClient())                   //
-            {                                                                  //
-                var response = await httpClient.GetAsync("http://google.com"); //  This is C# homework (async await).
-            }                                                                  //
+        public ActionResult Index()
+        {                                              
             return View();
         }
 
@@ -31,7 +23,7 @@ namespace WebApplication1.Controllers
                 var response = await httpClient.GetAsync("http://google.com"); //  This is C# homework (async await).
                 ViewBag.Res = response.Content.Headers.ToString();
             }
-           var d =  await Pause.Pauses();
+            var d = await Pause.Pauses();
             return View();
         }
 

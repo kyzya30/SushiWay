@@ -27,6 +27,15 @@ namespace WebApplication1
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/styles.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angular")
+               .Include("~/Scripts/angular/angular.js"
+               )
+               .IncludeDirectory("~/Scripts/angular/services", "*.js")
+               .IncludeDirectory("~/Scripts/angular/modules", "*.js")
+               .IncludeDirectory("~/Scripts/angular/directives", "*.js")
+               .IncludeDirectory("~/Scripts/angular/controllers", "*.js")
+               .IncludeDirectory("~/Scripts/angular/filters", "*.js"));
         }
     }
 }

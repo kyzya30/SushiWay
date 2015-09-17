@@ -200,15 +200,6 @@
     <Compile Include="ShowUnprocessedOrders_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagram.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-spinner.css" />
@@ -348,9 +339,11 @@
     <Content Include="Scripts\angular\services\sushiServise.js" />
     <Content Include="Scripts\angular\views\Cart.html" />
     <Content Include="Scripts\angular\views\cartSummary.html" />
+    <Content Include="Scripts\angular\views\CategoryItemsInMenu.html" />
     <Content Include="Scripts\angular\views\Contact.html" />
     <Content Include="Scripts\angular\views\menu.html" />
     <Content Include="Scripts\angular\views\OrderSearch.html" />
+    <Content Include="Scripts\angular\views\ProductCategoriesFilter.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Model1.edmx">
@@ -404,6 +397,7 @@
     <Content Include="Views\Admin\AddCategory.cshtml" />
     <Content Include="Views\Admin\ModifyCategoryModal.cshtml" />
     <Content Include="Views\Admin\FindCategory.cshtml" />
+    <Content Include="Views\Home\SearchOrderStatusByNumber.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

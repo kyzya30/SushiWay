@@ -270,7 +270,7 @@ input.mysearch {
 
     margin: 15px;
     height: 30px;
-    background-image:url("Images/Controls/Admin/icon-search.png")
+    background-image: url("Images/Controls/Admin/icon-search.png");
     /*//background-image: url('images/microphone.png');*/
     background-repeat: no-repeat;
     background-position: right;
@@ -337,3 +337,4 @@ div.pageWrapperStyle {
 
 #search-icon {
     position: absolute;
+}

@@ -27,16 +27,7 @@
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav">
-                                <li class="active">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        Меню<span class="caret"></span>
-                                    </a>
-                                    @{ Html.RenderAction("CategoryMenu", "Home"); }
-                                </li>
-                                <li><a href="contact">Заказ</a></li>
-                                <li><a href="order">Контакты</a></li>
-                            </ul>
+                            <ng-include src="'scripts/angular/views/CategoryItemsInMenu.html'"></ng-include>
                             <form class="navbar-form navbar-left" role="search">
                                 <div class="form-group">
                                     <a href="#"><img src="@Url.Content("~/Content/Images/Controls/search-icon.png")" id="search-icon" /></a>
@@ -45,13 +36,13 @@
                             </form>
                         </div><!-- /.navbar-collapse -->
 
-                        <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                        <a class="navbar-brand" href="menu">
                             <div class="logo hidden-md hidden-sm hidden-xs"></div>
                             <div class="logobg hidden-md hidden-sm hidden-xs"></div>
                         </a>
 
                         <div class="basketbg hidden-md hidden-sm hidden-xs"></div>
-                        <a href="@Url.Action("Cart","Home")">
+                        <a href="cart">
                             <div class="basket hidden-md hidden-sm hidden-xs basket-style">
                                 <img src="@Url.Content("~/Content/Images/Controls/basket-icon.png")" />
                                 <span>Корзина</span>

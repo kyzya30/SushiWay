@@ -55,9 +55,5 @@
                     { id: 8, name: "Item 26", price: 125, category:4 },
                     { id: 9, name: "Item 37", price: 151, category:5 }
         ];
-        //window.sushiService.getSushi().then(function (response) {
-        //        $scope.products = response.data;
-        //    });
-
     })
 

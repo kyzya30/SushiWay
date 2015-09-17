@@ -332,9 +332,11 @@
     <Content Include="Scripts\angular\services\sushiServise.js" />
     <Content Include="Scripts\angular\views\Cart.html" />
     <Content Include="Scripts\angular\views\cartSummary.html" />
+    <Content Include="Scripts\angular\views\CategoryItemsInMenu.html" />
     <Content Include="Scripts\angular\views\Contact.html" />
     <Content Include="Scripts\angular\views\menu.html" />
     <Content Include="Scripts\angular\views\OrderSearch.html" />
+    <Content Include="Scripts\angular\views\ProductCategoriesFilter.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Model1.edmx">
@@ -386,6 +388,7 @@
     <Content Include="Views\Home\MarkTask.cshtml" />
     <Content Include="Views\Home\CategoryMenu.cshtml" />
     <Content Include="Views\Admin\AddCategory.cshtml" />
+    <Content Include="Views\Home\SearchOrderStatusByNumber.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

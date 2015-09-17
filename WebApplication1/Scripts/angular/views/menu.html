@@ -7,9 +7,9 @@
 </div>
 <div class="row">
     <div class="pull-right">
-        <input type="radio" class="index-radio" id="prod1" name="prod" checked="checked" />
+        <input type="radio" class="index-radio" id="prod1" name="prod" checked="checked"/>
         <label for="prod1">Все</label>
-        <input type="radio" class="index-radio" id="prod2" name="prod" />
+        <input type="radio" class="index-radio" id="prod2" name="prod" onclick="goToCart" />
         <label for="prod2">Популярные</label>
         <input type="radio" class="index-radio" id="prod3" name="prod" />
         <label for="prod3">Акции</label>
@@ -18,7 +18,21 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="item in items" >
+    <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="item in items">
+        <div class="form-group div-product">
+            <h3>{{item.name}}</h3>
+            <img src="/Content/Images/Products/{{item.id}}.jpeg" class="img-Product"/>
+            <div>
+                <span class="product-price">{{item.price}}</span>
+                <button class="btn">Заказать</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>Product</h3>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="item in products">
         <div class="form-group div-product">
             <h3>{{item.name}}</h3>
             <img src="/Content/Images/Products/{{item.id}}.jpeg" class="img-Product" />

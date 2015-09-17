@@ -11,7 +11,7 @@ namespace WebApplication1
 {
     using System;
     
-    public partial class ShowAllCategories_Result
+    public partial class FindCategory_Result
     {
         public string NameRus { get; set; }
         public int CategoryId { get; set; }

@@ -11,11 +11,12 @@ namespace WebApplication1
 {
     using System;
     
-    public partial class ShowAllCategories_Result
+    public partial class sp_helpdiagrams_Result
     {
-        public string NameRus { get; set; }
-        public int CategoryId { get; set; }
-        public int Priority { get; set; }
-        public int TotalDishes { get; set; }
+        public string Database { get; set; }
+        public string Name { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

@@ -11,11 +11,9 @@ namespace WebApplication1
 {
     using System;
     
-    public partial class ShowAllCategories_Result
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public string NameRus { get; set; }
-        public int CategoryId { get; set; }
-        public int Priority { get; set; }
-        public int TotalDishes { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

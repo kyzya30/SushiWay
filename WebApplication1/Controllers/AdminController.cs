@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Microsoft.Ajax.Utilities;
 
 namespace WebApplication1.Controllers
@@ -61,34 +62,15 @@ namespace WebApplication1.Controllers
             return View();
         }
         public async Task<ActionResult> Category()                      //C# Homework Async/Await by R.Kuzmenko
-        {                                                               //
+        {      
+           
             var context = new SushiTest1Entities1();                    //
             var Product = await context.Products.ToListAsync();       //  
             var Category = await context.Categories.ToListAsync();      //
            // var category = context.Categories;
-            var d = context.ShowAllCategories().ToString();
+            var addCategories = context.ShowAllCategories().ToList();
 
-            var allCategories =
-
-                from _Category in Category
-                join _Product in Product on _Category.CategoryId equals _Product.CategoryId into Product_join
-                from _Product in Product_join.DefaultIfEmpty()
-                group Category by new
-                {
-                    _Category.NameRus,
-                    _Category.CategoryId
-                } into g
-                select new
-                {
-                    g.Key.NameRus,
-                    CategoryId = (System.Int32?)g.Key.CategoryId,
-                    TotalDishes = ((System.Int32?)g.Sum(p => p.Count) ?? (System.Int32?)0)
-                
-
-                }.ToExpando();
-
-            object D = allCategories.ToList();
-            ViewBag.AllCategories = D;
+            ViewBag.AllCategories = addCategories;
 
             var totalCategories =
                 (
@@ -109,7 +91,7 @@ namespace WebApplication1.Controllers
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                    category.NameUkr = "ukrxxxName"; //exception avoid
+                   
                     context.Categories.Add(category);
                     context.SaveChanges();
                     return RedirectToAction("Category", "Admin");
@@ -118,38 +100,49 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Category", "Admin");
         }
 
+       
+        [HttpPost]
+        public ActionResult FindCategory(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var context = new SushiTest1Entities1())
+                {
+                   var c = context.FindCategory(category.NameRus).ToList();
+                    ViewBag.AllCategories = c;
+                    ViewBag.TotalCategories = category.NameRus.Length.ToString();
+                }
+            }
+            //return View(Url.RouteUrl(Category().Result));
+            //return RedirectToAction("FindCategory", "Admin");
+           // return Redirect("/Admin/Category");
+            return View("~/Views/Admin/Category.cshtml", ViewBag.AllCategories);
+
+        }
+        [HttpPost]
+        public ActionResult ModifyCategoryModal(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var context = new SushiTest1Entities1())
+                {
+                    var d = context.Categories.First(i => i.NameRus == category.NameRus);
+                    d.Priority = category.Priority;
+                    context.SaveChanges();
+                  
+                }
+            }
+            return RedirectToAction("Category", "Admin");
+           // return View();
+        }
+
         public  ActionResult Index()
         {
             var context = new SushiTest1Entities1();
-            var OrderDetails = context.OrderDetails.ToList();
-            var Orders = context.Orders.ToList();
+            var showUnprocessedOrders = context.ShowUnprocessedOrders().ToList();
+            
             var Products = context.Products.ToList();
-            var OrdersTimeChangeds = context.OrdersTimeChangeds;
-
-            var OrdersTimeChanged = context.OrdersTimeChangeds;
-
-
-            var unprocessedOrders = from _OrderDetails in OrderDetails
-                                    from _OrdersTimeChanged in OrdersTimeChanged
-                                    where
-                                      _OrdersTimeChanged.Order.StatusId == 2
-                                    group new { _OrdersTimeChanged.Order, _OrderDetails.Product, OrderDetails } by new
-                                    {
-
-                                        OrderId = (System.Int32?)_OrdersTimeChanged.Order.OrderId,
-                                        Time = _OrdersTimeChanged.Time
-                                    } into g
-                                    select new
-                                    {
-                                        _OrderId = (System.Int32?)g.Key.OrderId,
-                                       // TotalPrice = (System.Decimal?)g.Sum(p => p.OrderDetails.Product.Price * p.OrderDetails.Count),
-                                         TotalPrice = (System.Decimal?)g.Sum(p => p.OrderDetails.Sum(product => product.Price * product.Count)),
-                                         //TotalPrice = g.Sum(OrderDetails.Select(product => product.Price * product.Count)),
-                                        Time = (System.DateTime?)g.Key.Time
-                                    }.ToExpando();
-
-            object T = unprocessedOrders;
-            ViewBag.List1 = T;
+            ViewBag.List1 = showUnprocessedOrders;
 
 
 

@@ -11,11 +11,13 @@ namespace WebApplication1
 {
     using System;
     
-    public partial class ShowAllCategories_Result
+    public partial class ShowUnprocessedOrders_Result
     {
-        public string NameRus { get; set; }
-        public int CategoryId { get; set; }
-        public int Priority { get; set; }
-        public int TotalDishes { get; set; }
+        public int OrderId { get; set; }
+        public string Street { get; set; }
+        public string House { get; set; }
+        public string Room { get; set; }
+        public Nullable<decimal> TotalPrice { get; set; }
+        public System.DateTime Time { get; set; }
     }
 }

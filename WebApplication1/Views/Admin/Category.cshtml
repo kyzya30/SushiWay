@@ -4,181 +4,139 @@
     Layout = "~/Views/Shared/AdminMasterPage.cshtml";
 }
 
-<div class="row" style="padding-top: 40px; padding-left: 30px">
-    <div class="row col-sx-12" style="padding-top: 15px">
-        <div class="col-xs-6">
-            <h3 class="header">
-                Категории блюд <img style="padding-left: 20px" data-toggle="modal" data-target="#myModal" src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>
-            </h3>
-         
+
+
+<div class="container-fluid " style="padding-top: 0px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px" >
+    <div class="row" style="padding-top: 40px; padding-left: 30px">
+        <div class="row col-sx-12" style="padding-top: 15px">
+            <div class="col-xs-6">
+                <h3 class="header">
+                    Категории блюд <img style="padding-left: 20px" data-toggle="modal" data-target="#myModal" src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>
+                </h3>
+
+            </div>
+            <div class="col-xs-6 clearfix" style="padding-top: 5px; ">
+                <div class="text-right pull-right" >
+                    @Html.Partial("FindCategory", new Category())
+                </div>
+            </div>
+
+
+
         </div>
-            <div class="col-xs-6" >
-                  <span style="padding-right: 30px;">
-                    <input type="text" class="mysearch" placeholder="Поиск">
-                </span>
-</div>
-            
-            
-        
-    </div>
-    <div class="row col-xs-12 " >
-        <div class="col-xs-1 funcElements greyColorLnk" data-toggle="modal" data-target="#DeleteCategoryModal"><a href="">Удалить</a></div> 
-        <div class="col-xs-1 funcElements" data-toggle="modal" data-target="#ModifyCategoryModal"><a href="">Редактировать</a></div>
-        @*Категории блюд <img style="padding-left: 20px" data-toggle="modal" data-target="#myModal" src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>*@
-        <div class="col-xs-2 funcElements"> Перейти на страницу</div>
-        
-        <div class="col-xs-8" style="text-align: right">
-@{
+        <div class="row col-xs-12 ">
+            <div class="col-xs-1 funcElements greyColorLnk" data-toggle="modal" data-target="#DeleteCategoryModal"><a href="">Удалить</a></div>
+            <div class="col-xs-1 funcElements" data-toggle="modal" data-target="#ModifyCategoryModal"><a href="">Редактировать</a></div>
+            <div class="col-xs-2 funcElements"> Перейти на страницу</div>
+
+            <div class="col-xs-8" style="text-align: right">
+                @{
                 string tmp="0";
-    foreach (var D in  ViewBag.TotalCategories)
-     {
-          tmp = D.ToString();
-     }
-    string cnt = tmp;
-  @cnt.ToString();
-}
-            категорий
+                foreach (var D in  ViewBag.TotalCategories)
+                {
+                tmp = D.ToString();
+                }
+                string cnt = tmp;
+                @cnt.ToString();
+                }
+                категорий
+            </div>
         </div>
-    </div>
-    <div class="row col-xs-12" style=" padding-top: 10px ; padding-bottom: 10px; border-bottom-width: 3px; border-bottom-style: solid;  ">
-        <div class="col-xs-1"><img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>
+        <div class="row col-xs-12" style=" padding-top: 10px ; padding-bottom: 10px; border-bottom-width: 3px; border-bottom-style: solid;  ">
+            <div class="col-xs-1">
+                <img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>
+            </div>
+            <div class="col-xs-1" style="text-align: left"><b>Название</b> </div>
+            <div class="col-xs-1">
+                <img src=@Url.Content("~/Content/Images/Controls/Admin/icon-sort-down.png")>
+            </div>
+            <div class="col-xs-5"></div>
+            <div class="col-xs-2"><b>Приоритет</b></div>
+            <div class="col-xs-2" style="position: absolute; top: 0;right:10px"><b>Количество <br>блюд</br></b></div>
         </div>
-        <div class="col-xs-1" style="text-align: left"><b>Название</b> </div>
-        <div class="col-xs-1"><img src=@Url.Content("~/Content/Images/Controls/Admin/icon-sort-down.png")>
-        </div>
-        <div class="col-xs-5"></div>
-        <div class="col-xs-2"><b>Приоритет</b></div>
-        <div class="col-xs-2" style="position: absolute; top: 0;right:10px"><b>Количество <br>блюд</br></b></div>
-    </div>
 
-    @foreach (var D in ViewBag.AllCategories)
-    {
+        @foreach (var D in ViewBag.AllCategories)
+        {
+
         var nameRusCategory = D.NameRus.ToString();
-        var categoryPriority = D.CategoryId.ToString();
+        var categoryPriority = D.Priority.ToString();
         var totalDishes = D.TotalDishes.ToString();
-        
-        
-    <div class="row col-xs-12" style="padding-top: 10px; padding-bottom: 10px; border-width: 1px; border-bottom-style: solid;border-color: #7F7F7F ">
-        <div class="col-xs-1 ">
-            <img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>
-        </div>
-        <div class="col-xs-1" style="text-align: left">@nameRusCategory</div>
-        <div class="col-xs-1"></div>
-        <div class="col-xs-5"></div>
-        <div class="col-xs-2">@categoryPriority</div>
-        <div class="col-xs-2">@totalDishes</div>
-    </div>
-    }
 
 
-    <div class="row col-xs-12" style="padding-top: 15px">
-        <div class="col-xs-1 funcElements greyColorLnk" data-toggle="modal" data-target="#DeleteCategoryModal"><a href="">Удалить</a></div> 
-        <div class="col-xs-1 funcElements greyColorLnk" data-toggle="modal" data-target="#ModifyCategoryModal"><a href="">Редактировать</a></div>
-        <div class="col-xs-2 funcElements greyColorLnk">Перейти на страницу</div>
-        <div class="col-xs-8"></div>
-    </div>
-</div>
-
-
-
-
-
-@Html.Partial("AddCategory", new Category())
-
-
-<div>
-    <!-- Modal -->
-
-    <div class="modal fade" id="ModifyCategoryModal" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content" style="width: 470px; height: 224px; border-width: 1px; border-style: solid; border-color: #4b4b4b; border-radius: 0; color: white">
-                <div class="modal-header" style="background: #4b4b4b; text-color: white; height: 50px">
-
-                    <h4 class="modal-title"><b>Редактировать категорию</b></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-
-                        <input name="name" type="text" class="form-control" style="border-radius: 0; width: 195px; height: 40px; position: fixed; top: 80px; left: 103px; margin-top: 30px; margin-left: 5px;" placeholder="Название категории"/>
-                        <input type="number" name="quantity" min="1" max="999" value="1" style="width: 59px; height: 39px; position: fixed; top: 80px; left: 315px; margin-top: 30px; border-width: 1px; border-style: solid; border-color: #bfbfbf;">
-                    </div>
-
-
-                    <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
-                </div>
-                <!--<div class="modal-footer"></div>-->
-                <button type="button" class="btn btn-default" style="border-radius: 0; background: #bfbfbf; color: #ffffff; width: 127px; height: 40px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    position: fixed; top: 150px; left: 103px; margin-top: 30px;"
-                        data-dismiss="modal">
-                    <b>Отмена</b>
-                </button>
-
-                <button type="submit" class="btn btn-default" style="border-radius: 0; background: #808080; color: #ffffff; width: 127px; height: 40px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           position: fixed; top: 150px; left: 243px; margin-top: 30px;">
-                    <b>Изменить</b>
-                </button>
-
-                <!--<input type="button" class="btn btn-default" style="border-radius:0 ; background:#808080;color="#ffffff; width:127px;height:40px;position:fixed; top:150px;left:246px" value="Отправить"/>-->
-
-
-                
-                <p><img style="position: absolute; bottom: 0;right: 0" src=@Url.Content("~/Content/Images/Controls/Admin/bg-alert-edit.png") /> </p>
-                
-
+        <div class="row col-xs-12" style="padding-top: 10px; padding-bottom: 10px; border-width: 1px; border-bottom-style: solid;border-color: #7F7F7F ">
+            <div class="col-xs-1 ">
+                <img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>
             </div>
+            <div class="col-xs-1" style="text-align: left">@nameRusCategory</div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-5"></div>
+            <div class="col-xs-2">@categoryPriority</div>
+            <div class="col-xs-2">@totalDishes</div>
+        </div>
+        }
 
+
+        <div class="row col-xs-12" style="padding-top: 15px">
+            <div class="col-xs-1 funcElements greyColorLnk" data-toggle="modal" data-target="#DeleteCategoryModal"><a href="">Удалить</a></div>
+            <div class="col-xs-1 funcElements greyColorLnk" data-toggle="modal" data-target="#ModifyCategoryModal"><a href="">Редактировать</a></div>
+            <div class="col-xs-2 funcElements greyColorLnk">Перейти на страницу</div>
+            <div class="col-xs-8"></div>
         </div>
     </div>
 
-</div>
 
 
 
 
+    @Html.Partial("AddCategory", new Category())
 
-<div>
-    <!-- Modal -->
 
-    <div class="modal fade" id="DeleteCategoryModal" role="dialog">
-        <div class="modal-dialog">
+    @Html.Partial("ModifyCategoryModal", new Category())
 
-            <!-- Modal content-->
-            <div class="modal-content" style=" width: 470px; height: 224px; border-width: 1px; border-style: solid; border-color: #4b4b4b; border-radius: 0; color: white">
-                <div class="modal-header" style="background: #4b4b4b; text-color: white; height: 50px">
 
-                    <h4 class="modal-title"><b>Удалить категорию</b></h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <p class="text-center" style="color: black">Вы уверенны, что хотите удалить категорию <br><b>categoryName</b>?</p>
-                      
+
+    <div>
+        <!-- Modal -->
+
+        <div class="modal fade" id="DeleteCategoryModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content" style=" width: 470px; height: 224px; border-width: 1px; border-style: solid; border-color: #4b4b4b; border-radius: 0; color: white">
+                    <div class="modal-header" style="background: #4b4b4b; text-color: white; height: 50px">
+
+                        <h4 class="modal-title"><b>Удалить категорию</b></h4>
                     </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <p class="text-center" style="color: black">Вы уверенны, что хотите удалить категорию <br><b>categoryName</b>?</p>
+
+                        </div>
 
 
-                    <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
-                </div>
-                <!--<div class="modal-footer"></div>-->
-                <button type="button" class="btn btn-default" style="border-radius: 0; background: #bfbfbf; color: #ffffff; width: 127px; height: 40px;
+                        <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
+                    </div>
+                    <!--<div class="modal-footer"></div>-->
+                    <button type="button" class="btn btn-default" style="border-radius: 0; background: #bfbfbf; color: #ffffff; width: 127px; height: 40px;
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        position: fixed; top: 150px; left: 103px; margin-top: 30px;"
-                        data-dismiss="modal">
-                    <b>Отмена</b>
-                </button>
+                            data-dismiss="modal">
+                        <b>Отмена</b>
+                    </button>
 
-                <button type="submit" class="btn btn-default" style="border-radius: 0; background: #808080; color: #ffffff; width: 127px; height: 40px;
+                    <button type="submit" class="btn btn-default" style="border-radius: 0; background: #808080; color: #ffffff; width: 127px; height: 40px;
                                                                                                   position: fixed; top: 150px; left: 243px; margin-top: 30px;">
-                    <b>Удалить</b>
-                </button>
+                        <b>Удалить</b>
+                    </button>
 
-                <!--<input type="button" class="btn btn-default" style="border-radius:0 ; background:#808080;color="#ffffff; width:127px;height:40px;position:fixed; top:150px;left:246px" value="Отправить"/>-->
+                    <!--<input type="button" class="btn btn-default" style="border-radius:0 ; background:#808080;color="#ffffff; width:127px;height:40px;position:fixed; top:150px;left:246px" value="Отправить"/>-->
 
 
-                <p><img style="position: absolute; bottom: 0;right: 0" src=@Url.Content("~/Content/Images/Controls/Admin/bg-alert-remove.png") /> </p>
+                    <p><img style="position: absolute; bottom: 0;right: 0" src=@Url.Content("~/Content/Images/Controls/Admin/bg-alert-remove.png") /> </p>
+
+                </div>
 
             </div>
-
         </div>
-    </div>
 
+    </div>
 </div>

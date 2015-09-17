@@ -185,7 +185,7 @@ GO
 
 Create table OrdersTimeChanged
 (
-	[OrderId] int NOT NULL,
+	[OrderId] int identity(1,1) NOT NULL,
 	[OrderStatus] int  NOT NULL,
 	[Time] datetime2 (2) NOT NULL,
 

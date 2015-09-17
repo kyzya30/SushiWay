@@ -340,7 +340,8 @@
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\angular\angular.js" />
-    <Content Include="Scripts\angular\controllers\sushiGlobalCtrl.js" />
+    <Content Include="Scripts\angular\controllers\sushiProductCtrl.js" />
+    <Content Include="Scripts\angular\directives\cartSummary.js" />
     <Content Include="Scripts\angular\filters\productFilter.js" />
     <Content Include="Scripts\angular\modules\sushiApp.js" />
     <Content Include="Scripts\angular\services\angular-route.js" />
@@ -407,7 +408,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Scripts\angular\directives\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

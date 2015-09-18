@@ -265,8 +265,12 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AllDishes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="FindCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CategoryName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="FindDishes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DishName" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="ShowAllCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -631,7 +635,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <End Role="Ingridients" Type="Self.Ingridient" Multiplicity="*" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="SushiTest1Entities7" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities12" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Ingridients" EntityType="Self.Ingridient" />
@@ -680,8 +684,12 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
             <End Role="Ingridients" EntitySet="Ingridients" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <FunctionImport Name="AllDishes" ReturnType="Collection(SushiTest1Model.AllDishes_Result)" />
           <FunctionImport Name="FindCategory" ReturnType="Collection(SushiTest1Model.FindCategory_Result)">
             <Parameter Name="CategoryName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="FindDishes" ReturnType="Collection(SushiTest1Model.FindDishes_Result)">
+            <Parameter Name="DishName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="ShowAllCategories" ReturnType="Collection(SushiTest1Model.ShowAllCategories_Result)" />
           <FunctionImport Name="ShowUnprocessedOrders" ReturnType="Collection(SushiTest1Model.ShowUnprocessedOrders_Result)" />
@@ -716,11 +724,29 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
+        <ComplexType Name="AllDishes_Result">
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+          <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Priority" Nullable="false" />
+          <Property Type="String" Name="Category" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Weight" Nullable="false" Precision="9" Scale="3" />
+          <Property Type="String" Name="NameOfWeight" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
+        </ComplexType>
         <ComplexType Name="FindCategory_Result">
           <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="CategoryId" Nullable="false" />
           <Property Type="Int32" Name="Priority" Nullable="false" />
           <Property Type="Int32" Name="TotalDishes" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="FindDishes_Result">
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+          <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Priority" Nullable="false" />
+          <Property Type="String" Name="Category" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Weight" Nullable="false" Precision="9" Scale="3" />
+          <Property Type="String" Name="NameOfWeight" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
         </ComplexType>
         <ComplexType Name="ShowAllCategories_Result">
           <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
@@ -752,7 +778,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities7">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities12">
           <EntitySetMapping Name="Administrators">
             <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">
@@ -886,6 +912,19 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
               <ScalarProperty Name="ProductId" ColumnName="ProductId" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="AllDishes" FunctionName="SushiTest1Model.Store.AllDishes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.AllDishes_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="NameOfWeight" ColumnName="NameOfWeight" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="FindCategory" FunctionName="SushiTest1Model.Store.FindCategory">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SushiTest1Model.FindCategory_Result">
@@ -893,6 +932,19 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="TotalDishes" ColumnName="TotalDishes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FindDishes" FunctionName="SushiTest1Model.Store.FindDishes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.FindDishes_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="NameOfWeight" ColumnName="NameOfWeight" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -40,6 +40,11 @@ namespace WebApplication1
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<OrdersTimeChanged> OrdersTimeChangeds { get; set; }
     
+        public virtual ObjectResult<AllDishes_Result> AllDishes()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AllDishes_Result>("AllDishes");
+        }
+    
         public virtual ObjectResult<FindCategory_Result> FindCategory(string categoryName)
         {
             var categoryNameParameter = categoryName != null ?
@@ -47,6 +52,15 @@ namespace WebApplication1
                 new ObjectParameter("CategoryName", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindCategory_Result>("FindCategory", categoryNameParameter);
+        }
+    
+        public virtual ObjectResult<FindDishes_Result> FindDishes(string dishName)
+        {
+            var dishNameParameter = dishName != null ?
+                new ObjectParameter("DishName", dishName) :
+                new ObjectParameter("DishName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindDishes_Result>("FindDishes", dishNameParameter);
         }
     
         public virtual ObjectResult<ShowAllCategories_Result> ShowAllCategories()

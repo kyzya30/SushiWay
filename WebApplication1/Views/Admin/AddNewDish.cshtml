@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "AddNewDish";
+    Layout = "~/Views/Shared/AdminMasterPage.cshtml";
+}
+
+<div class="container-fluid " style="padding-top: 40px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
+<div class="row">
+    <div class="col-xs-12">
+        <div class="col-xs-7">
+            <div class="form-group">
+
+                <input name="nameRus" type="text" class="form-control" style="border-radius: 0; height: 40px; margin-top: 30px;" placeholder="Название категории"/>
+
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <button type="button" class=" orange-line" style="border-radius: 0; margin-top: 30px; color: #ffffff; height: 40px;">
+                Сохранить изменения
+            </button>
+            <p>
+                <p>Блюдо отображаеться на сайте</p>
+            </p><span class="checkbox">
+    <label><input type="checkbox" value=""></label>
+</span>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="col-xs-4">
+
+            </div>
+            <div class="col-xs-2">
+                Приоритет <input type="number" name="Priority" min="1" max="999" value="1" style="width: 59px; height: 39px; margin-top: 30px; border-width: 1px; border-style: solid; border-color: #bfbfbf;">
+            </div>
+            <div class="col-xs-2">
+                <input name="nameRus" type="text" class="form-control" style="border-radius: 0; height: 40px; margin-top: 30px;" placeholder="Цена  грн"/>
+            </div>
+            <div class="col-xs-4">
+
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Dropdown
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    </div></div>

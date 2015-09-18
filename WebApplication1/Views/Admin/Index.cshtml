@@ -4,13 +4,13 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/AdminMasterPage.cshtml";
 }
-<div class="container-fluid " style="padding-top: 30px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
+<div class="container-fluid " style="padding-top: 30px; padding-left: 30px; padding-right: 30px; padding-bottom: 40px">
     <div style="padding-top: 15px; padding-left:30px">
         <h3 class="header">Статистика</h3>
         <div class="row col-sm-6">
             <h4><b>Необработанные заказы</b></h4>
             <div class="">
-                <table class="table table-hover table-bordered" style="width: 385px; height: 335px;">
+                <table class="table table-hover table-bordered" style="width: 385px; height: 55px; ">
                     @foreach(var T in ViewBag.List1)
                     {
                     var time = T.Time.ToString();
@@ -18,7 +18,7 @@
                     var house = T.House.ToString();
                     var room = T.Room.ToString();
                     var totalPrice = T.TotalPrice.ToString();
-                    <tr style="height: 15px;border-width: 1px; border-bottom: 1px; border-top: 1px; border-style: solid; ">
+                    <tr style="height: 15px;border-width: 1px; border-bottom: 1px; border-top: 1px; border-style: solid;border-color:#7F7F7F ">
 
                         <td ><img class="t-img" src=@Url.Content("~/Content/Images/Controls/Admin/icon-eye-grey.png")></td>
                         <td >
@@ -59,8 +59,8 @@
                 </ul>
             </div>
 
-            <div class="table-span">
-                <table class="table table-hover table-bordered">
+            <div class="table-span" style="width: 385px; height: 70px; padding-bottom: 40px">
+                <table class="table table-hover table-bordered" >
 
                     @foreach (var T in ViewBag.MostPopularDishes)
                     {
@@ -69,13 +69,13 @@
                     var productId = T.ProductId.ToString();
                     var price = T.Price.ToString();
                     var srcPict = productId += ".jpeg";
-                    <tr>
-                        <td><b>заказан <br> @numberOfOrders <br> раз</b><br></td>
+                    <tr style="height: 15px;border-width: 1px; border-bottom: 1px; border-top: 1px; border-style: solid;border-color:#7F7F7F ">
+                        <td>заказан <br><b> @numberOfOrders </b><br> раз<br></td>
                         <td><img class="t-img" style="width: 50px; height: 50px; " src=@Url.Content("~/Content/Images/Products/"+@srcPict)></td>
-                        <td>@nameRus <b>@price грн</b></td>
+                        <td>@nameRus @price грн</td>
                     </tr>
                     }
-                    <tr>
+                    
                 </table>
             </div>
         </div>

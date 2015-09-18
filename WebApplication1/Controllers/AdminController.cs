@@ -43,24 +43,15 @@ namespace WebApplication1.Controllers
         {                                                                                 //
             var context = new SushiTest1Entities1();                                      //
             var productWeightDetails =  await context.ProductWeightDetails.ToListAsync(); //
-          
 
-            var allDishesQuery =
-                from _ProductWeightDetails in productWeightDetails
-                select new
-                {
-                    ProductId = (System.Int32?)_ProductWeightDetails.Product.ProductId,
-                    _ProductWeightDetails.Product.NameRus,
-                    Priority = (System.Int32?)_ProductWeightDetails.Product.CategoryId,
-                    Category = _ProductWeightDetails.Product.Category.NameRus,
-                    Weight = _ProductWeightDetails.Value,
-                    _ProductWeightDetails.Name,
-                    Price = (System.Decimal?)_ProductWeightDetails.Product.Price
-                }.ToExpando();
-            var allDishes = allDishesQuery;
-            ViewBag.AllDishes = allDishes;
+
+           
+            ViewBag.AllDishes = context.AllDishes().ToList();
             return View();
         }
+
+       
+
         public async Task<ActionResult> Category()                      //C# Homework Async/Await by R.Kuzmenko
         {      
            
@@ -100,7 +91,29 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Category", "Admin");
         }
 
-       
+        public ActionResult AddNewDish()
+        {
+            
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult FindDishes(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var context = new SushiTest1Entities1())
+                {
+                    //var c = context.FindCategory(category.NameRus).ToList();
+                    //ViewBag.AllCategories = c;
+                    var c = context.FindDishes(product.NameRus).ToList();
+                    ViewBag.AllDishes = c;
+
+                }
+            }
+            return View("~/Views/Admin/Dishes.cshtml", ViewBag.AllDishes);
+        }
         [HttpPost]
         public ActionResult FindCategory(Category category)
         {

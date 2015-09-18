@@ -43,15 +43,11 @@ namespace WebApplication1.Controllers
         {                                                                                 //
             var context = new SushiTest1Entities1();                                      //
             var productWeightDetails =  await context.ProductWeightDetails.ToListAsync(); //
-
-
-           
+         
             ViewBag.AllDishes = context.AllDishes().ToList();
             return View();
         }
-
-       
-
+     
         public async Task<ActionResult> Category()                      //C# Homework Async/Await by R.Kuzmenko
         {      
            
@@ -69,9 +65,7 @@ namespace WebApplication1.Controllers
                 select Category.Count);
            var totalCat = totalCategories.ToList();
             ViewBag.TotalCategories = totalCat;
-
-           
-
+        
             return View();
         }
 
@@ -97,7 +91,6 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-
         [HttpPost]
         public ActionResult FindDishes(Product product)
         {
@@ -114,6 +107,7 @@ namespace WebApplication1.Controllers
             }
             return View("~/Views/Admin/Dishes.cshtml", ViewBag.AllDishes);
         }
+
         [HttpPost]
         public ActionResult FindCategory(Category category)
         {
@@ -130,8 +124,8 @@ namespace WebApplication1.Controllers
             //return RedirectToAction("FindCategory", "Admin");
            // return Redirect("/Admin/Category");
             return View("~/Views/Admin/Category.cshtml", ViewBag.AllCategories);
-
         }
+
         [HttpPost]
         public ActionResult ModifyCategoryModal(Category category)
         {
@@ -146,7 +140,6 @@ namespace WebApplication1.Controllers
                 }
             }
             return RedirectToAction("Category", "Admin");
-           // return View();
         }
 
         public  ActionResult Index()
@@ -156,10 +149,6 @@ namespace WebApplication1.Controllers
             
             var Products = context.Products.ToList();
             ViewBag.List1 = showUnprocessedOrders;
-
-
-
-
 
             var mostPopularDishes =
                 (from _Product in Products
@@ -177,10 +166,7 @@ namespace WebApplication1.Controllers
             object T2 = mostPopularDishes.ToList();
             ViewBag.MostPopularDishes = T2;
 
-            return View();
-
-           
+            return View();          
         }
-
     }
 }

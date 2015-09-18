@@ -36,6 +36,10 @@
             $location.path("/cart");
         }
 
+        $scope.goFiltr = function (i) {
+            $scope.category = i;
+            $location.path("/productcategoriesfilter");
+        }
         $scope.goToMenu = function () {
             $location.path("/menu");
         }

@@ -96,7 +96,7 @@ warning 6002: The table/view 'SushiTest1.dbo.OrdersTimeChanged' does not have a 
             <PropertyRef Name="OrderStatus" />
             <PropertyRef Name="Time" />
           </Key>
-          <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
           <Property Name="OrderStatus" Type="int" Nullable="false" />
           <Property Name="Time" Type="datetime2" Precision="2" Nullable="false" />
         </EntityType>
@@ -529,7 +529,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
             <PropertyRef Name="OrderStatus" />
             <PropertyRef Name="Time" />
           </Key>
-          <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
           <Property Name="OrderStatus" Type="Int32" Nullable="false" />
           <Property Name="Time" Type="DateTime" Nullable="false" Precision="2" />
           <NavigationProperty Name="Order" Relationship="Self.FK_OrdersTimeChanged_OrderId" FromRole="OrdersTimeChanged" ToRole="Orders" />
@@ -635,7 +635,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <End Role="Ingridients" Type="Self.Ingridient" Multiplicity="*" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="SushiTest1Entities12" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities13" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Ingridients" EntityType="Self.Ingridient" />
@@ -778,7 +778,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities12">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities13">
           <EntitySetMapping Name="Administrators">
             <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">

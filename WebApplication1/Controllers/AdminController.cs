@@ -174,10 +174,6 @@ namespace WebApplication1.Controllers
             var Products = context.Products.ToList();
             ViewBag.List1 = showUnprocessedOrders;
 
-
-
-
-
             var mostPopularDishes =
                 (from _Product in Products
                  where

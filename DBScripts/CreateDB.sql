@@ -117,7 +117,7 @@ GO
 
 CREATE TABLE OrderStatus
 (
-	[StatusId] int identity(1,1) NOT NULL,
+	[OrderStatusId] int identity(1,1) NOT NULL,
 	[StatusNameRus] NVARCHAR (50) NOT NULL,
 	[StatusNameUkr] NVARCHAR (50) NOT NULL
 )
@@ -185,9 +185,9 @@ GO
 
 Create table OrdersTimeChanged
 (
-	[OrderId] int identity(1,1) NOT NULL,
+	[OrderId] int NOT NULL,
 	[OrderStatus] int  NOT NULL,
-	[Time] datetime2 (2) NOT NULL,
+	[Time] datetime2 (2) NOT NULL default(getdate()) 
 
 )
 GO

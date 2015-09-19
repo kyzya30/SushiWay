@@ -1,7 +1,9 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Dynamic;
+using System.IO.MemoryMappedFiles;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -9,6 +11,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.Ajax.Utilities;
+using EmitMapper;
+
 
 namespace WebApplication1.Controllers
 {
@@ -43,14 +47,9 @@ namespace WebApplication1.Controllers
         {                                                                                 //
             var context = new SushiTest1Entities1();                                      //
             var productWeightDetails =  await context.ProductWeightDetails.ToListAsync(); //
-
-
-           
-            ViewBag.AllDishes = context.AllDishes().ToList();
-            return View();
+            List<AllDishes_Result> addDishes = context.AllDishes().ToList();
+            return View(addDishes);
         }
-
-       
 
         public async Task<ActionResult> Category()                      //C# Homework Async/Await by R.Kuzmenko
         {      
@@ -58,19 +57,7 @@ namespace WebApplication1.Controllers
             var context = new SushiTest1Entities1();                    //
             var Product = await context.Products.ToListAsync();       //  
             var Category = await context.Categories.ToListAsync();      //
-           // var category = context.Categories;
-            //var addCategories = context.ShowAllCategories().ToList();
-
-            List<ShowAllCategories_Result> addCategories = context.ShowAllCategories().ToList();
-           // ViewBag.AllCategories = addCategories;
-
-           // var totalCategories =
-           //     (
-           //     from _Category in Category
-           //     select Category.Count);
-           //var totalCat = totalCategories.ToList();
-           // ViewBag.TotalCategories = totalCat;
-
+            var addCategories = context.ShowAllCategories().ToList();
             return View(addCategories);
         }
 
@@ -92,7 +79,15 @@ namespace WebApplication1.Controllers
 
         public ActionResult AddNewDish()
         {
-            
+            var context = new SushiTest1Entities1();                    
+            var Category = context.Categories.ToList();
+
+
+
+
+            ViewBag.Categories = Category;
+
+
             return View();
         }
 
@@ -100,32 +95,45 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult FindDishes(Product product)
         {
+            List<AllDishes_Result> allD = new List<AllDishes_Result>();
+
             if (ModelState.IsValid)
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                    //var c = context.FindCategory(category.NameRus).ToList();
-                    //ViewBag.AllCategories = c;
-                    var c = context.FindDishes(product.NameRus).ToList();
-                    ViewBag.AllDishes = c;
-
+                    List<FindDishes_Result> c = context.FindDishes(product.NameRus).ToList();
+                    for (int i = 0; i < c.Count; i++)
+                    {
+                        allD.Add(new AllDishes_Result());
+                    }
+                    for (int i = 0; i < c.Count; i++)
+                    {
+                        allD[i].ProductId = c[i].ProductId;
+                        allD[i].NameRus = c[i].NameRus;
+                        allD[i].Priority = c[i].Priority;
+                        allD[i].Category = c[i].Category;
+                        allD[i].Weight = c[i].Weight;
+                        allD[i].NameOfWeight = c[i].NameRus;
+                        allD[i].Price = c[i].Price;
+                        allD[i].TotalDishes = c[i].TotalDishes;
+                    }
                 }
             }
-            return View("~/Views/Admin/Dishes.cshtml", ViewBag.AllDishes);
+            return View("~/Views/Admin/Dishes.cshtml", allD);
         }
         [HttpPost]
         public ActionResult FindCategory(Category category)
         {
-            List<FindCategory_Result> c;
+            List<ShowAllCategories_Result> addCategories = new List<ShowAllCategories_Result>();
             if (ModelState.IsValid)
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                     c = context.FindCategory(category.NameRus).ToList();
-                    List<FindCategory_Result> findCategory =  c.ToList();
-                    List<ShowAllCategories_Result> addCategories = new List<ShowAllCategories_Result>(); //return res
-                    //findCategory[0]. = addCategories[0].
-
+                    List<FindCategory_Result> findCategory = context.FindCategory(category.NameRus).ToList();
+                    for (int i = 0; i < findCategory.Count; i++)
+                    {
+                        addCategories.Add(new ShowAllCategories_Result());
+                    }
                     for (int i = 0; i < findCategory.Count; i++)
                     {
                         addCategories[i].TotalCategories = findCategory[i].TotalCategories;
@@ -134,20 +142,10 @@ namespace WebApplication1.Controllers
                         addCategories[i].Priority = findCategory[i].Priority;
                         addCategories[i].TotalDishes = findCategory[i].TotalDishes;
                     }
-                    
-                    return View("~/Views/Admin/Category.cshtml", addCategories);
-                    //ViewBag.TotalCategories = category.NameRus.Length.ToString();
                 }
 
             }
-            return View();
-            //return View(Url.RouteUrl(Category().Result));
-            //return RedirectToAction("FindCategory", "Admin");
-            // return Redirect("/Admin/Category");
-            //return RedirectToAction("Category", "Admin");
-            // return View("~/Views/Admin/Category.cshtml", ViewBag.AllCategories);
-            //return View(findCategory);
-
+             return View("~/Views/Admin/Category.cshtml", addCategories);
         }
         [HttpPost]
         public ActionResult ModifyCategoryModal(Category category)

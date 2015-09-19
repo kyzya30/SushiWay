@@ -20,5 +20,9 @@ namespace WebApplication1
         public decimal Weight { get; set; }
         public string NameOfWeight { get; set; }
         public decimal Price { get; set; }
+        public Nullable<int> TotalDishes { get; set; }
+        public bool Sale { get; set; }
+        public bool IsHided { get; set; }
+        public System.DateTime AddDate { get; set; }
     }
 }

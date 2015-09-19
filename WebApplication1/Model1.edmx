@@ -635,7 +635,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <End Role="Ingridients" Type="Self.Ingridient" Multiplicity="*" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="SushiTest1Entities16" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities20" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Ingridients" EntityType="Self.Ingridient" />
@@ -732,6 +732,10 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <Property Type="Decimal" Name="Weight" Nullable="false" Precision="9" Scale="3" />
           <Property Type="String" Name="NameOfWeight" Nullable="false" MaxLength="50" />
           <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
+          <Property Type="Int32" Name="TotalDishes" Nullable="true" />
+          <Property Type="Boolean" Name="Sale" Nullable="false" />
+          <Property Type="Boolean" Name="IsHided" Nullable="false" />
+          <Property Type="DateTime" Name="AddDate" Nullable="false" />
         </ComplexType>
         <ComplexType Name="FindCategory_Result">
           <Property Type="Int32" Name="TotalCategories" Nullable="true" />
@@ -748,6 +752,10 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <Property Type="Decimal" Name="Weight" Nullable="false" Precision="9" Scale="3" />
           <Property Type="String" Name="NameOfWeight" Nullable="false" MaxLength="50" />
           <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
+          <Property Type="Int32" Name="TotalDishes" Nullable="true" />
+          <Property Type="Boolean" Name="Sale" Nullable="false" />
+          <Property Type="Boolean" Name="IsHided" Nullable="false" />
+          <Property Type="DateTime" Name="AddDate" Nullable="false" />
         </ComplexType>
         <ComplexType Name="ShowAllCategories_Result">
           <Property Type="Int32" Name="TotalCategories" Nullable="true" />
@@ -780,7 +788,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities16">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities20">
           <EntitySetMapping Name="Administrators">
             <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">
@@ -924,6 +932,10 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="NameOfWeight" ColumnName="NameOfWeight" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="TotalDishes" ColumnName="TotalDishes" />
+                <ScalarProperty Name="Sale" ColumnName="Sale" />
+                <ScalarProperty Name="IsHided" ColumnName="IsHided" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -948,6 +960,10 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
                 <ScalarProperty Name="NameOfWeight" ColumnName="NameOfWeight" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="TotalDishes" ColumnName="TotalDishes" />
+                <ScalarProperty Name="Sale" ColumnName="Sale" />
+                <ScalarProperty Name="IsHided" ColumnName="IsHided" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

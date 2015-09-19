@@ -8,6 +8,7 @@
     <div class="row" style="margin-top: 30px;">
         <div class="col-sm-8">
             <input type="text" placeholder="Название" class="nameText form-control"/>
+            <input style="margin-top: 10px" type="text" placeholder="Назва" class="nameText form-control" />
         </div>
         <div class="col-sm-2">
             <button class="btn pull-left" id="btnSaveChanges">Сохранить изменения</button><br/>
@@ -25,15 +26,18 @@
             </div>
         </div>
         <div class="col-sm-7">
+            
             <label for="priority">Приоритет</label>
-            <input type="number" name="priority" id="priority" class="form-control addNewDishTxt" min="1" max="5">
-            <input type="text" id="" class="form-control addNewDishTxt" placeholder=""/>
+            <input type="number" name="priority" id="priority" class="form-control addNewDishTxt" min="1" max="999" value="1">
+            <input type="text" id="" class="form-control addNewDishTxt" placeholder="цена грн"/>
             <select class="form-control addNewDishTxt">
-                <option>Выберите категорию</option>
-                <option>Суши</option>
-                <option>Роллы</option>
-                <option>Соусы</option>
-                <option>Дополнительно</option>
+                @foreach (var item in ViewBag.Categories)
+                {
+                    var nameRusCategory = item.NameRus.ToString();
+                    var catId = item.CategoryId.ToString();
+                    <option name="@catId">@nameRusCategory</option>
+                   
+                }
             </select><br/>
             <input type="text" id="" class="form-control addNewDishTxt" placeholder="Вес"/>
             <input type="text" id="" class="form-control addNewDishTxt" placeholder="Калорийность"/>

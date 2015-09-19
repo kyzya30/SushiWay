@@ -13,6 +13,7 @@ namespace WebApplication1
     
     public partial class FindCategory_Result
     {
+        public Nullable<int> TotalCategories { get; set; }
         public string NameRus { get; set; }
         public int CategoryId { get; set; }
         public int Priority { get; set; }

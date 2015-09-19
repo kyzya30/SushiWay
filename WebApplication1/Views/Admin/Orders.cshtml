@@ -27,7 +27,18 @@
         </div>
         <div class="row col-xs-12" style="padding-top: 10px; padding-bottom: 10px; border-width: 3px; border-bottom-style: solid;">
             <div class="col-xs-1">
-                <img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>
+
+                <script type="text/javascript">
+                    $(function () {
+                        $('input[name="selectAllOrders"]').change(function () {
+                            $(".checkboxes").prop('checked', this.checked);
+                        });
+                    });
+                </script>
+
+                @*<img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>*@
+                <input id="selectAllOrders" name="selectAllOrders" type="checkbox" hidden />
+                <label for="selectAllOrders"></label>
             </div>
             <div class="col-xs-1" style="text-align: left"><b>Номер</b> </div>
             <div class="col-xs-1"><b>Адрес</b></div>
@@ -47,7 +58,8 @@
 
         <div class="row col-xs-12" style="padding-top: 10px; padding-bottom: 10px; border-width: 1px; border-bottom-style: solid;border-color: #7F7F7F ">
             <div class="col-xs-1">
-                <img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>
+                <input id="ch" type="checkbox" class="checkboxes" name="first" hidden />
+                <label for="ch"></label>
             </div>
             <div class="col-xs-1" style="text-align: left">5354363 </div>
             <div class="col-xs-3">Ул. Победы. 47 .кв 172</div>

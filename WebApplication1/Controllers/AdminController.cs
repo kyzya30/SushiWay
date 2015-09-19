@@ -59,20 +59,19 @@ namespace WebApplication1.Controllers
             var Product = await context.Products.ToListAsync();       //  
             var Category = await context.Categories.ToListAsync();      //
            // var category = context.Categories;
-            var addCategories = context.ShowAllCategories().ToList();
+            //var addCategories = context.ShowAllCategories().ToList();
 
-            ViewBag.AllCategories = addCategories;
+            List<ShowAllCategories_Result> addCategories = context.ShowAllCategories().ToList();
+           // ViewBag.AllCategories = addCategories;
 
-            var totalCategories =
-                (
-                from _Category in Category
-                select Category.Count);
-           var totalCat = totalCategories.ToList();
-            ViewBag.TotalCategories = totalCat;
+           // var totalCategories =
+           //     (
+           //     from _Category in Category
+           //     select Category.Count);
+           //var totalCat = totalCategories.ToList();
+           // ViewBag.TotalCategories = totalCat;
 
-           
-
-            return View();
+            return View(addCategories);
         }
 
         [HttpPost]
@@ -117,19 +116,37 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult FindCategory(Category category)
         {
+            List<FindCategory_Result> c;
             if (ModelState.IsValid)
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                   var c = context.FindCategory(category.NameRus).ToList();
-                    ViewBag.AllCategories = c;
-                    ViewBag.TotalCategories = category.NameRus.Length.ToString();
+                     c = context.FindCategory(category.NameRus).ToList();
+                    List<FindCategory_Result> findCategory =  c.ToList();
+                    List<ShowAllCategories_Result> addCategories = new List<ShowAllCategories_Result>(); //return res
+                    //findCategory[0]. = addCategories[0].
+
+                    for (int i = 0; i < findCategory.Count; i++)
+                    {
+                        addCategories[i].TotalCategories = findCategory[i].TotalCategories;
+                        addCategories[i].NameRus = findCategory[i].NameRus;
+                        addCategories[i].CategoryId = findCategory[i].CategoryId;
+                        addCategories[i].Priority = findCategory[i].Priority;
+                        addCategories[i].TotalDishes = findCategory[i].TotalDishes;
+                    }
+                    
+                    return View("~/Views/Admin/Category.cshtml", addCategories);
+                    //ViewBag.TotalCategories = category.NameRus.Length.ToString();
                 }
+
             }
+            return View();
             //return View(Url.RouteUrl(Category().Result));
             //return RedirectToAction("FindCategory", "Admin");
-           // return Redirect("/Admin/Category");
-            return View("~/Views/Admin/Category.cshtml", ViewBag.AllCategories);
+            // return Redirect("/Admin/Category");
+            //return RedirectToAction("Category", "Admin");
+            // return View("~/Views/Admin/Category.cshtml", ViewBag.AllCategories);
+            //return View(findCategory);
 
         }
         [HttpPost]

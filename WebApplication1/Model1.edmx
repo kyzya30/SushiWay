@@ -635,7 +635,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <End Role="Ingridients" Type="Self.Ingridient" Multiplicity="*" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="SushiTest1Entities13" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities16" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Ingridients" EntityType="Self.Ingridient" />
@@ -734,6 +734,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
         </ComplexType>
         <ComplexType Name="FindCategory_Result">
+          <Property Type="Int32" Name="TotalCategories" Nullable="true" />
           <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="CategoryId" Nullable="false" />
           <Property Type="Int32" Name="Priority" Nullable="false" />
@@ -749,6 +750,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
         </ComplexType>
         <ComplexType Name="ShowAllCategories_Result">
+          <Property Type="Int32" Name="TotalCategories" Nullable="true" />
           <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="CategoryId" Nullable="false" />
           <Property Type="Int32" Name="Priority" Nullable="false" />
@@ -778,7 +780,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities13">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities16">
           <EntitySetMapping Name="Administrators">
             <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">
@@ -928,6 +930,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <FunctionImportMapping FunctionImportName="FindCategory" FunctionName="SushiTest1Model.Store.FindCategory">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SushiTest1Model.FindCategory_Result">
+                <ScalarProperty Name="TotalCategories" ColumnName="TotalCategories" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
@@ -951,6 +954,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <FunctionImportMapping FunctionImportName="ShowAllCategories" FunctionName="SushiTest1Model.Store.ShowAllCategories">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllCategories_Result">
+                <ScalarProperty Name="TotalCategories" ColumnName="TotalCategories" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />

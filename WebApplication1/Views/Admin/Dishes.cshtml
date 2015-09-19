@@ -44,7 +44,16 @@
         </div>
         <div class="row col-xs-12" style="padding-top: 10px; padding-bottom: 10px; border-width: 3px; border-bottom-style: solid;">
             <div class="col-xs-1">
-                <img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>
+                <script type="text/javascript">
+                    $(function () {
+                        $('input[name="selectAllDishes"]').change(function () {
+                            $(".checkboxes").prop('checked', this.checked);
+                        });
+                    });
+                </script>
+
+                <input id="selectAllDishes" type="checkbox" name="selectAllDishes" hidden/>
+                <label for="selectAllDishes"></label>
             </div>
             <div class="col-xs-1" style="text-align: left">
                 <b>Изображение</b>
@@ -69,6 +78,7 @@
         </div>
         @foreach (var T in ViewBag.AllDishes)
         {
+            var prodId = T.ProductId.ToString();
         var Name = T.NameRus.ToString();
         var Priority = T.Priority.ToString();
         var Category = T.Category.ToString();
@@ -79,7 +89,8 @@
         var srcPict = productId += ".jpeg";
         <div class="row col-xs-12" style="padding-top: 25px; padding-bottom: 30px; border-width: 1px; border-bottom-style: solid;">
             <div class="col-xs-1">
-                <img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>
+                <input id="@prodId" type="checkbox" class="checkboxes" name="first" hidden />
+                <label for="@prodId"></label>
             </div>
             <div class="col-xs-1" style="text-align: left">
                 <img class="t-img" style="width: 70px; height: 50px;" src=@Url.Content("~/Content/Images/Products/" + @srcPict)>

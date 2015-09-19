@@ -340,3 +340,27 @@ div.pageWrapperStyle {
     margin-left: 169px;
     margin-top: 2px;
 }
+
+
+input[type="checkbox"] {
+    display:none;            
+}
+input[type="checkbox"] + label{
+  font: 18px bold;
+  color: #444;
+  cursor: pointer;
+}
+    input[type="checkbox"] + label::before {
+        content: "";
+        display: inline-block;
+        height: 22px;
+        width: 22px;
+        margin: 0 5px 0 0;
+        background-image: url(../../Content/Images/Controls/Admin/checkbox-off.png);
+        background-repeat: no-repeat;
+    }
+
+input[type="checkbox"]:checked + label::before {
+    background-image: url(../../Content/Images/Controls/Admin/checkbox-on.png);
+}
+

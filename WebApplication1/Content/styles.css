@@ -364,3 +364,32 @@ input[type="checkbox"]:checked + label::before {
     background-image: url(../../Content/Images/Controls/Admin/checkbox-on.png);
 }
 
+
+.nameText {
+    width: 100%;
+}
+
+#btnSaveChanges {
+    margin: 0;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.addImg {
+    border: 1px solid black;
+    padding: 30px 0;
+}
+
+.addNewDishTxt {
+    width: auto;
+    display: inline-block;
+    margin: 7px 0;
+}
+
+#ingredientsTxt {
+    width: 100%;
+}
+
+#loadImgBtn {
+    margin-top: 20px;
+}

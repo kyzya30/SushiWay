@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using WebApplication1.Addition_Classes;
 
 
@@ -20,24 +21,39 @@ namespace WebApplication1.Controllers
 
         public JsonResult GetSushi()
         {
-            //var context = new SushiTest1Entities1();
-            //var product = context.Products.ToList();
-            //var model = new object[product.Count];
+            var context = new SushiTest1Entities1();
+            var product = context.Products.ToList();
+            var model = new object[product.Count];
 
-            //for (int i = 0; i < product.Count; i++)
-            //{
-            //    model[i] = product[i];
-            //}
+            for (int i = 0; i < product.Count; i++)
+            {
+                model[i] = new
+                {
+                    id = product[i].ProductId,
+                    categoryId = product[i].CategoryId,
+                    name = product[i].NameRus,
+                    price = product[i].Price
+                };
+            }
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
 
-            var model = new object[]
-                        {
-                            new {id = 0, name = "name 1", price = 65},
-                            new {id = 1, name = "name 2", price = 42},
-                            new {id = 2, name = "name 3", price = 26},
-                            new {id = 3, name = "name 4", price = 29},
-                            new {id = 4, name = "name 5", price = 20},
-                            new {id = 5, name = "name 6", price = 85}
-                        };
+        public JsonResult GetCategory()
+        {
+            var context = new SushiTest1Entities1();
+            var category = context.Categories.ToList();
+            var model = new object[category.Count];
+
+            for (int i = 0; i < category.Count; i++)
+            {
+                model[i] = new
+                {
+                    id = category[i].CategoryId,
+                    name = category[i].NameRus
+                };
+            }
+
+            //var model = new JavaScriptSerializer().Serialize(category);
 
             return Json(model, JsonRequestBehavior.AllowGet);
         }

@@ -38,7 +38,7 @@
         }
 
         $scope.goFiltr = function (i) {
-            $scope.category = i;
+            $scope.findCategory = i;
             $location.path("/productcategoriesfilter");
         }
         $scope.goToMenu = function () {
@@ -54,23 +54,24 @@
             $scope.items = res.data;
         });
 
+        sushiService.getCategory().then(function (res1) {
+            console.log(res1);
+            $scope.category = res1.data;
+        });
+
         $scope.isSelected = function (item) {
             item.count = 1;
             $scope.cartSum += item.price;
             item.selected = true;
         }
 
-        $scope.addToCart = function(item) {
-            //$scope.cartCollection = $scope.cartCollection ? $scope.cartCollection.concat(item) : [].concat(item);
-            //console.log($scope.cartCollection);          
+        $scope.addToCart = function(item) {               
             item.count = +item.count + 1;       
                 
             $scope.cartSum += item.price;
         }
 
-        $scope.removeFromCart = function (item) {
-            //$scope.cartCollection = $scope.cartCollection ? $scope.cartCollection.concat(item) : [].concat(item);
-            //console.log($scope.cartCollection);
+        $scope.removeFromCart = function (item) {           
             if (item.count > 1) {
                 item.count--;
                 
@@ -81,17 +82,8 @@
             $scope.cartSum -= item.price;
         }
 
-        //$scope.items = [
-        //            { id: 1, name: "Item 1", price: 10, category:1 },
-        //            { id: 2, name: "Item 2", price: 12, category:1 },
-        //            { id: 3, name: "Item 3", price: 15, category:1 },
-        //            { id: 4, name: "Item 12", price: 110, category:2 },
-        //            { id: 5, name: "Item 23", price: 122, category:3 },
-        //            { id: 6, name: "Item 34", price: 152, category:4 },
-        //            { id: 7, name: "Item 15", price: 103, category:4 },
-        //            { id: 8, name: "Item 26", price: 125, category:4 },
-        //            { id: 9, name: "Item 37", price: 151, category:5 }
-        //];
+        
+
         //$scope.method =  function() {
         //    myService.sendData(data).then(function() {
 
@@ -102,9 +94,10 @@
         this.getSushi = function() {
             return $http.get("/Home/GetSushi");
         }
-        //this.getCategory = function(data) {
-        //    return $http.post("/Home/GetCategory",data);
-        //}
+
+        this.getCategory = function() {
+            return $http.get("/Home/GetCategory");
+        }
     })
 
 

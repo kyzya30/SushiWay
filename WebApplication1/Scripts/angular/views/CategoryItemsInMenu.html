@@ -5,13 +5,10 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             Меню<span class="caret"></span>
         </a>
-        <ul class="dropdown-menu">
-            <li><a href="filter" >Роллы</a></li>
-            <li><a href="filter">Сеты</a></li>
-            <li><a href="filter">Прочее</a></li>
-            <li><a href="filter">Супы</a></li>
-            <li><a href="filter">Соусы</a></li>
-            <li><a href="filter">Напитки</a></li>
+        <ul class="dropdown-menu" >
+            <li ng-repeat="cat in category">
+                <button ng-click="goFiltr({{cat.id}})">{{cat.name}}</button>
+            </li>    
         </ul>
 
     </li>

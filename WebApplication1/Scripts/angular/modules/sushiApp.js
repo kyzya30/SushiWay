@@ -84,8 +84,12 @@
         }
 
         $scope.sortProduct = function (item) {
-            return item.category = $scope.findCategory;
+            return item.categoryId == $scope.findCategory;
+        }
 
+        $scope.countFilter = function (item) {
+            //return item.count > 0;
+            return item.selected;
         }
 
         //$scope.method =  function() {

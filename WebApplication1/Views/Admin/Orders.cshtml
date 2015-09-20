@@ -8,11 +8,12 @@
         <div class="col-sx-12">
             <p>
                 <h3 class="header">
-                    Заказы <img style="padding-left: 20px" src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>
+                    Заказы <a href="@Url.Action("AddNewOrder", "Admin")">
+                        <img style="padding-left: 20px" src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")></a>
 
 
-                    <input type="text" class="span3 search-query" style="margin-left: 500px" placeholder="Поиск">
-                </h3>
+    <input type="text" class="span3 search-query" style="margin-left: 500px" placeholder="Поиск">
+</h3>
             </p>
         </div>
         <div class="row col-xs-12">

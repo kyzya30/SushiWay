@@ -393,3 +393,23 @@ input[type="checkbox"]:checked + label::before {
 #loadImgBtn {
     margin-top: 20px;
 }
+
+.dishDivStyle {
+    background: #FEF7F3;
+}
+
+.borderRight {
+    border-right: 1px solid #ccc;
+    padding: 40px;
+    height: 370px;
+}
+
+.borderRight input[type="text"] {
+    margin: 7px 5px;
+    max-width: 270px;
+    display: inline-block;
+}
+
+.imgCloseShow {
+    display: none;
+}

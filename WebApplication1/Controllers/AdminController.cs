@@ -91,6 +91,11 @@ namespace WebApplication1.Controllers
             return View();
         }
 
+        public ActionResult AddNewOrder()
+        {
+            return View();
+        }
+
 
         [HttpPost]
         public ActionResult FindDishes(Product product)

@@ -37,10 +37,11 @@
             $location.path("/cart");
         }
 
-        $scope.goFiltr = function (i) {
-            $scope.findCategory = i;
-            $location.path("/productcategoriesfilter");
+        $scope.goFiltr = function (cat) {
+            $scope.findCategory = cat.id;
+            $location.path("/filter");
         }
+
         $scope.goToMenu = function () {
             $location.path("/menu");
         }
@@ -82,7 +83,10 @@
             $scope.cartSum -= item.price;
         }
 
-        
+        $scope.sortProduct = function (item) {
+            return item.category = $scope.findCategory;
+
+        }
 
         //$scope.method =  function() {
         //    myService.sendData(data).then(function() {

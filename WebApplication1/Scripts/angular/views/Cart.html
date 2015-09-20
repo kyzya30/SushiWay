@@ -7,6 +7,12 @@
             <div>
                 <span class="product-price">{{item.price}}</span>
                 <span>Count {{item.count}}</span>
+                <button ng-click="isSelected(item)" ng-show="!item.selected" class="btn">Заказать</button>
+                <span ng-show="item.selected">
+                    <button data-ng-click="removeFromCart(item)" type="button">-</button>
+                    <button>{{item.count}}</button>
+                    <button data-ng-click="addToCart(item)" type="button">+</button>
+                </span>
             </div>
         </div>
     </div>

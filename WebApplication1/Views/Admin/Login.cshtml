@@ -20,29 +20,20 @@
 </head>
 
 <body style="background-color:#E9E9E9">
-    <div class="row" style="height: 50px;  "></div>
-    <div class="row" style="padding-left:450px">
-        <div class="col-sx-4"></div>
-        <div class="col-sx-4" style="height:200px ;width: 400px; background-color: #3F3F3F;display:table-cell;vertical-align:middle; margin: auto ">
 
-            <div style="width: 25%;margin:0 auto; "><img src="../../Content/Images/Controls/Admin/logo.png"></div>
+
+<div class="row">
+    <div class="login text-center" style="margin-top: 200px;">
+        <div class="loginH">
+            <img src="@Url.Content("~/Content/Images/Controls/Admin/logo.png")" style="width: 25%;">
         </div>
-        <div class="col-sx-4"></div>
-    </div>
-    <div class="row" style="padding-left: 450px">
-        <div class="col-sx-4"></div>
-        <div class="col-sx-4" style="height:270px ;width: 400px; background-color: white; border-bottom-style: solid; border-right-style: solid; border-bottom-width: 1px; border-left-width:1px; border-left-style: solid ; border-right-width:1px; position: absolute">
-
-            <p></p>
-            <input type="text" placeholder="Электронная почта" class="form-control" style="width:80%; margin-left:auto; margin-right:auto;margin-top:60px " />
-            <p></p>
-            <input type="text" placeholder="Пароль" class="form-control" style="width:80%; margin-left:auto;margin-right:auto; margin-top:20px" />
-
-            <p align="center" style="margin-top:20px">
-                <a href="@Url.Action("Index","Admin")"> <img src="../../Content/Images/Controls/Admin/enter.jpg"></a>
-            </p>
+        <div class="loginF">
+            <input type="text" placeholder="Электронная почта" class="form-control"/>
+            <input type="text" placeholder="Пароль" class="form-control" />
+            <a href="@Url.Action("Index", "Admin")"> <img src="@Url.Content("~/Content/Images/Controls/Admin/enter.jpg")"></a>
         </div>
     </div>
+</div>
 
 
 

@@ -6,6 +6,7 @@
             <img src="/Content/Images/Products/{{item.id}}.jpeg" class="img-Product" />
             <div>
                 <span class="product-price">{{item.price}}</span>
+                <span>Count {{item.count}}</span>
             </div>
         </div>
     </div>
@@ -15,9 +16,9 @@
 <h3 class="index-descr">Дополнительно к заказу</h3>
 <div class="row">
    
-    <div class="col-xs-6 col-sm-3">
+    <div class="col-xs-12 col-sm-4">
         <h3>Product name</h3>
-        <img src="/Content/Images/Products/GoldDracon.png" />
+        <img src="/Content/Images/Products/GoldDracon.png" class="img-Product"/>
         <div>
             <span>UAH30</span>
             <button class="btn">Add to basket</button>
@@ -26,7 +27,7 @@
 
     
 </div>
-<h2 class="index-descr">{{cartSum}}</h2>
+<h2 class="index-descr">Всего : {{cartSum}}</h2>
 
 <form>
     <div class="row">

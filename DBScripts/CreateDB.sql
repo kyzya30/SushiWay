@@ -51,7 +51,7 @@ GO
 
 CREATE TABLE Ingridients
 (
-	[IngridientId] int  NOT NULL,
+	[IngridientId] int identity(1,1)  NOT NULL,
 	[NameRus] NVARCHAR (50) NOT NULL UNIQUE,
 	[NameUkr] NVARCHAR (50) NOT NULL UNIQUE
 	)

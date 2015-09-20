@@ -1,12 +1,12 @@
-﻿(function () {
-    'use strict';
+﻿//(function () {
+//    'use strict';
 
-    angular.module('sushiApp').controller('sushiGlobalCtrl', sushiGlobalCtrl);
+//    angular.module('sushiApp').controller('sushiGlobalCtrl', d);
 
     
-    function sushiGlobalCtrl($scope, sushiService, cartFactory) {
-            sushiService.getSushi().then(function(response) {
-                $scope.sushiList = response.data;
-            });
-    }
-})()
+//  var d =  function sushiGlobalCtrl($scope, sushiService, cartFactory) {
+//            sushiService.getSushi().then(function(response) {
+//                $scope.sushiList = response.data;
+//            });
+//    }
+//})()

@@ -1,21 +1,21 @@
-﻿(function () {
-    'use strict';
+﻿//(function () {
+//    'use strict';
 
-    function sushiService($http) {
-        // Return public API
-        function getSushi() {
-            var request = $http({
-                method: "GET",
-                url: '/Home/GetSushi'
-            });
+//    function sushiService($http) {
+//        // Return public API
+//        function getSushi() {
+//            var request = $http({
+//                method: "GET",
+//                url: '/Home/GetSushi'
+//            });
 
-            return request;
-        }
+//            return request;
+//        }
 
-        return ({
-            getSushi: getSushi
-        });
-    }
+//        return ({
+//            getSushi: getSushi
+//        });
+//    }
 
-    angular.module('sushiApp').service("sushiService", sushiService);
-})()
+//    angular.module('sushiApp').service("sushiService", sushiService);
+//})()

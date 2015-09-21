@@ -103,8 +103,7 @@ CREATE TABLE Orders
 	[Email] NVARCHAR (250)  NULL,
 	[Street] NVARCHAR (50) NOT NULL,
 	[House] NVARCHAR (10) NOT NULL,
-	[Room] NVARCHAR (10) NOT NULL,
-	[StatusId]int NOT NULL
+	[Room] NVARCHAR (10) NOT NULL
 	)
 
 GO
@@ -167,13 +166,7 @@ GO
 
 ALTER TABLE OrderStatus
 add constraint 
-PK_OrderStatus_StatusId PRIMARY KEY(StatusId)
-GO
-
-ALTER TABLE Orders
-add constraint 
-FK_Orders_StatusId FOREIGN KEY(StatusId)
-REFERENCES OrderStatus(StatusId)  
+PK_OrderStatus_StatusId PRIMARY KEY(OrderStatusId)
 GO
 
 Create table Administrator
@@ -201,7 +194,7 @@ GO
 ALTER TABLE OrdersTimeChanged
 add constraint 
 FK_OrdersTimeChanged_OrderStatus FOREIGN KEY(OrderStatus) 
-	REFERENCES OrderStatus(StatusId)  
+	REFERENCES OrderStatus(OrderStatusId)  
 GO
 
 Create table Messages

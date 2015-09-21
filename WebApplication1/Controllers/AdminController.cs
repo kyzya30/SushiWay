@@ -91,7 +91,7 @@ namespace WebApplication1.Controllers
         public ActionResult Orders()
         {
             var context = new SushiTest1Entities1();
-            List<ShowAllOrders_Result> showAllOrders = context.ShowAllOrders().ToList();
+            List<ShowAllCategories_Result> showAllOrders = context.ShowAllCategories().ToList();
             return View(showAllOrders);
         }
         [HttpPost]
@@ -152,31 +152,32 @@ namespace WebApplication1.Controllers
         public ActionResult FindOrders(Order order)
         {
 
-            List<ShowAllOrders_Result> addOrders = new List<ShowAllOrders_Result>();
-            if (ModelState.IsValid)
-            {
-                using (var contex = new SushiTest1Entities1())
-                {
-                    List<FindOrders_Result> findOrders = contex.FindOrders(order.OrderId).ToList();
-                    for (int i = 0; i < findOrders.Count; i++)
-                    {
-                        addOrders.Add(new ShowAllOrders_Result());
-                    }
-                    for (int i = 0; i < findOrders.Count; i++)
-                    {
-                        addOrders[i].OrderId = findOrders[i].OrderId;
-                        addOrders[i].Street = findOrders[i].Street;
-                        addOrders[i].House = findOrders[i].Street;
-                        addOrders[i].Room = findOrders[i].Room;
-                        addOrders[i].MaxStatusTime = findOrders[i].MaxStatusTime;
-                        addOrders[i].TotalPrice = findOrders[i].TotalPrice;
-                        addOrders[i].StatusNameRus = findOrders[i].StatusNameRus;
+            //List<ShowAllCategories_Result> addOrders = new List<ShowAllCategories_Result>();
+            //if (ModelState.IsValid)
+            //{
+            //    using (var contex = new SushiTest1Entities1())
+            //    {
+            //        List<FindOrders_Result> findOrders = contex.FindOrders(order.OrderId).ToList();
+            //        for (int i = 0; i < findOrders.Count; i++)
+            //        {
+            //            addOrders.Add(new ShowAllOrders_Result());
+            //        }
+            //        for (int i = 0; i < findOrders.Count; i++)
+            //        {
+            //            addOrders[i].OrderId = findOrders[i].OrderId;
+            //            addOrders[i].Street = findOrders[i].Street;
+            //            addOrders[i].House = findOrders[i].Street;
+            //            addOrders[i].Room = findOrders[i].Room;
+            //            addOrders[i].MaxStatusTime = findOrders[i].MaxStatusTime;
+            //            addOrders[i].TotalPrice = findOrders[i].TotalPrice;
+            //            addOrders[i].StatusNameRus = findOrders[i].StatusNameRus;
 
-                    }
-                }
+            //        }
+            //    }
 
-            }
-            return View("~/Views/Admin/Orders.cshtml", addOrders);
+            //}
+            //return View("~/Views/Admin/Orders.cshtml", addOrders);
+            return View();
         }
         [HttpPost]
         public ActionResult ModifyCategoryModal(Category category)
@@ -197,27 +198,27 @@ namespace WebApplication1.Controllers
 
         public  ActionResult Index()
         {
-            var context = new SushiTest1Entities1();
-            var showUnprocessedOrders = context.ShowUnprocessedOrders().ToList();
+            //var context = new SushiTest1Entities1();
+            //var showUnprocessedOrders = context.ShowUnprocessedOrders().ToList();
             
-            var Products = context.Products.ToList();
-            ViewBag.List1 = showUnprocessedOrders;
+            //var Products = context.Products.ToList();
+            //ViewBag.List1 = showUnprocessedOrders;
 
-            var mostPopularDishes =
-                (from _Product in Products
-                 where
-                     _Product.CategoryId == 1
-                 orderby
-                     _Product.NumberOfOrders descending
-                 select new
-                 {
-                     _Product.NumberOfOrders,
-                     _Product.ProductId,
-                     _Product.NameRus,
-                     _Product.Price
-                 }.ToExpando()).Take(5);
-            object T2 = mostPopularDishes.ToList();
-            ViewBag.MostPopularDishes = T2;
+            //var mostPopularDishes =
+            //    (from _Product in Products
+            //     where
+            //         _Product.CategoryId == 1
+            //     orderby
+            //         _Product.NumberOfOrders descending
+            //     select new
+            //     {
+            //         _Product.NumberOfOrders,
+            //         _Product.ProductId,
+            //         _Product.NameRus,
+            //         _Product.Price
+            //     }.ToExpando()).Take(5);
+            //object T2 = mostPopularDishes.ToList();
+            //ViewBag.MostPopularDishes = T2;
 
             return View();
 

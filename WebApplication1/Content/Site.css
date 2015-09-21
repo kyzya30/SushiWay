@@ -43,6 +43,8 @@ textarea {
 
 .img-Product {
     width: 100%;
+    max-height: 300px;
+    max-width: 350px;
 }
 
 .container  .navbar-collapse{

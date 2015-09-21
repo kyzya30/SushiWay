@@ -58,6 +58,14 @@ namespace WebApplication1.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult AddOrderToDb(FormCollection id)
+        {
+
+            var model = new object();
+
+            return Json(model);
+        }
+
         public async Task<ActionResult> MarkTask()
         {
             using (HttpClient httpClient = new HttpClient())                   //

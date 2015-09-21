@@ -28,11 +28,9 @@ namespace WebApplication1
         public string Street { get; set; }
         public string House { get; set; }
         public string Room { get; set; }
-        public int StatusId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-        public virtual OrderStatu OrderStatu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdersTimeChanged> OrdersTimeChangeds { get; set; }
     }

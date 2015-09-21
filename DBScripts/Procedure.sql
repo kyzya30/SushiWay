@@ -38,6 +38,7 @@ FROM [SushiTest1].[dbo].[Category]
 left join Product on Product.CategoryId = Category.CategoryId
 Where Category.NameRus  Like  '%'+@CategoryName+'%'
 Group by Category.NameRus,Category.CategoryId,Category.[Priority]
+GO
 -----------------------
 CREATE PROC AllDishes
 AS
@@ -80,7 +81,7 @@ inner join OrderStatus os on os.StatusId = q.OrderStatus
 inner join OrderDetails od on od.OrderDetailsId = o.OrderId
 join Product p on p.ProductId = od.ProductId 
 group by o.OrderId, o.Street, o.House, o.Room, os.StatusNameRus, q.MaxStatusTime
-
+GO
 --------------------
 
 CREATE PROC FindOrders @Order nvarchar(50)
@@ -104,9 +105,7 @@ inner join OrderDetails od on od.OrderDetailsId = o.OrderId
 join Product p on p.ProductId = od.ProductId 
 where o.OrderId Like @Order+'%'
 group by o.OrderId, o.Street, o.House, o.Room, os.StatusNameRus, q.MaxStatusTime
-
-
-
+GO
 
 
 

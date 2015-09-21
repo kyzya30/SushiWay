@@ -17,16 +17,13 @@ namespace WebApplication1
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public OrderStatu()
         {
-            this.Orders = new HashSet<Order>();
             this.OrdersTimeChangeds = new HashSet<OrdersTimeChanged>();
         }
     
-        public int StatusId { get; set; }
+        public int OrderStatusId { get; set; }
         public string StatusNameRus { get; set; }
         public string StatusNameUkr { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdersTimeChanged> OrdersTimeChangeds { get; set; }
     }

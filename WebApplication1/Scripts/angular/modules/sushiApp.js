@@ -72,6 +72,12 @@
             $scope.cartSum += item.price;
         }
 
+        $scope.findOredrById = 0;
+
+        $scope.findOrderStatus = function () {
+            $scope.findOredrById = $("#check-order-status").valueOf();
+        }
+
         $scope.removeFromCart = function (item) {           
             if (item.count > 1) {
                 item.count--;
@@ -89,7 +95,11 @@
 
         $scope.countFilter = function (item) {
             //return item.count > 0;
-            return item.selected;
+            return ((item.selected) && (item.categoryId != 3));
+        }
+
+        $scope.addProduct = function(item) {
+            return item.categoryId == 3;
         }
 
         //$scope.method =  function() {

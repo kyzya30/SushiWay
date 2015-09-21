@@ -19,7 +19,16 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <link href="~/Content/Numeric.css" rel="stylesheet" />
     <script src="~/Scripts/NumericStyles.js"></script>
-  
+    <script>
+        function ShowAllSelected() {
+            var list = $('.checkboxes');
+            for (var i = 0; i < list.length; i++) {
+                if (list[i].checked == true) {
+                    alert(list[i].id + list[i].name);
+                }
+            }
+        };
+    </script>
     
 </head>
 
@@ -84,7 +93,7 @@
     </div>
     <!-- /#page-wrapper -->
     <div class="navbar-default navbar-fixed-bottom bottom_navbar_style">
-        <span style="color: #EAEAEA; padding-right: 20px; font-size: 11px; line-height: 30px; bor">&copy; 2015 Softheme&reg;. Все права защищены.</span>
+        <span style="color: #EAEAEA; padding-right: 20px; font-size: 11px; line-height: 30px; ">&copy; 2015 Softheme&reg;. Все права защищены.</span>
         <div class="col-xs-2 bottom_navbar_style1"></div>
 
     </div>

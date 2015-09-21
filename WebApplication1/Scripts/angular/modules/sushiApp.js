@@ -72,10 +72,12 @@
             $scope.cartSum += item.price;
         }
 
-        $scope.findOredrById = 0;
+        $scope.findOredrById = "";
+
+        $scope.matchPattern = new RegExp("[0-9]");
 
         $scope.findOrderStatus = function () {
-            $scope.findOredrById = $("#check-order-status").valueOf();
+           
         }
 
         $scope.removeFromCart = function (item) {           

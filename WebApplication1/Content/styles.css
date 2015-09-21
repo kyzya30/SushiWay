@@ -41,6 +41,10 @@ input[type="radio"]:checked + label::before {
 	margin: 0 auto;
 }
 
+.container {
+    max-width: 1070px;
+}
+
 .logo{
 	background: url(../../Content/Images/Controls/logo-with-bg.png) no-repeat; 
 	background-size: 248px 100px; 
@@ -48,7 +52,7 @@ input[type="radio"]:checked + label::before {
 	width: 248px;
 	height: 100px; 
 	top: 0; 
-	left: 30px;
+	left: 15px;
     z-index: 1;
 }
 .logobg{
@@ -58,7 +62,7 @@ input[type="radio"]:checked + label::before {
 	width: 28px;
 	height: 99px; 
 	top: 0;
-	left: 270px;
+	left: 255px;
 	z-index:0;
 }
 
@@ -70,7 +74,7 @@ input[type="radio"]:checked + label::before {
 	height: 99px; 
 	top: 0;
     float: right;
-	right: 275px;
+	right: 257px;
 	z-index:0;
 }
 
@@ -82,7 +86,7 @@ input[type="radio"]:checked + label::before {
 	width: 248px;
 	height: 100px; 
 	top: 0; 
-	right: 30px;
+	right: 12px;
 }
 
 .footer{
@@ -437,4 +441,16 @@ input[type="checkbox"]:checked + label::before {
 .loginF input {
     width: 60%;
     margin: 15px 20%;
+}
+
+.catItemsInMenu {
+    width: 100%;
+    background: #FCE1CB;
+    border: none;
+    cursor: pointer;
+}
+
+.catItemsInMenu : hover {
+    background: #F1882A;
+    color: #ffffff;
 }

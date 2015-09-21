@@ -7,7 +7,7 @@
         </a>
         <ul class="dropdown-menu" >
             <li ng-repeat="cat in category">
-                <button ng-click="goFiltr(cat)">{{cat.name}}</button>
+                <a ng-click="goFiltr(cat)" class="catItemsInMenu">{{cat.name}}</a>
             </li>    
         </ul>
 

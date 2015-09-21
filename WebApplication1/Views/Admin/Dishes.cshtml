@@ -1,93 +1,93 @@
 ﻿@model IEnumerable<WebApplication1.AllDishes_Result>
-    @{
+@{
     ViewBag.Title = "Dishes";
     Layout = "~/Views/Shared/AdminMasterPage.cshtml";
-    }
-
-
-    <div class="container-fluid " style="padding-top: 10px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
-        <div class="row" style="padding-top: 40px; padding-left: 30px">
-            <div class="col-sx-12">
-                <div class="col-xs-6">
-                    <h3 class="header">
-                        Блюда <a href="@Url.Action("AddNewDish", "Admin" )"><img style="margin-left: 20px" src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")> </a>
-                    </h3>
-
-                </div>
-
-                <div class="col-xs-6 clearfix" style="padding-top: 5px;">
-                    <div class="text-right pull-right">
-
-                        @Html.Partial("FindDishes", new Product())
-
-                    </div>
-                </div>
-
-
-
-
-            </div>
-        </div>
-        <div class="row col-xs-12">
-            <div class="col-xs-1 funcElements greyColorLnk">
-                <a href="">Скрыть на сайте</a>
-            </div>
-            <div class="col-xs-2 funcElements greyColorLnk">
-                <a href="">Удалить</a>
-            </div>
-            <div class="col-xs-2"> </div>
-
-            <div class="col-xs-6" style="text-align: right">
-
-                блюд из
-                @{
-                    int tmp = 0;
-    foreach (var val in Model)
-    {
-        tmp = val.TotalDishes.Value;
-    }
-                <span>@tmp.ToString()</span> 
-
 }
 
+
+<div class="container-fluid " style="padding-top: 10px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
+    <div class="row" style="padding-top: 40px; padding-left: 30px">
+        <div class="col-sx-12">
+            <div class="col-xs-6">
+                <h3 class="header">
+                    Блюда <a href="@Url.Action("AddNewDish", "Admin" )"><img style="margin-left: 20px" src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")> </a>
+                </h3>
+
             </div>
+
+            <div class="col-xs-6 clearfix" style="padding-top: 5px;">
+                <div class="text-right pull-right">
+
+                    @Html.Partial("FindDishes", new Product())
+
+                </div>
+            </div>
+
+
+
+
         </div>
-        <div class="row col-xs-12" style="padding-top: 10px; padding-bottom: 10px; border-width: 3px; border-bottom-style: solid;">
-            <div class="col-xs-1">
-                <script type="text/javascript">
-                    $(function () {
-                        $('input[name="selectAllDishes"]').change(function () {
-                            $(".checkboxes").prop('checked', this.checked);
-                        });
+    </div>
+    <div class="row col-xs-12">
+        <div class="col-xs-1 funcElements greyColorLnk">
+            <a href="">Скрыть на сайте</a>
+        </div>
+        <div class="col-xs-2 funcElements greyColorLnk">
+            <a href="">Удалить</a>
+        </div>
+        <div class="col-xs-2"> </div>
+
+        <div class="col-xs-6" style="text-align: right">
+
+            блюд из
+            @{
+                int tmp = 0;
+                foreach (var val in Model)
+                {
+                    tmp = val.TotalDishes.Value;
+                }
+                <span>@tmp.ToString()</span>
+
+            }
+
+        </div>
+    </div>
+    <div class="row col-xs-12" style="padding-top: 10px; padding-bottom: 10px; border-width: 3px; border-bottom-style: solid;">
+        <div class="col-xs-1">
+            <script type="text/javascript">
+                $(function () {
+                    $('input[name="selectAllDishes"]').change(function () {
+                        $(".checkboxes").prop('checked', this.checked);
                     });
-                </script>
+                });
+            </script>
 
-                <input id="selectAllDishes" type="checkbox" name="selectAllDishes" hidden />
-                <label for="selectAllDishes"></label>
-            </div>
-            <div class="col-xs-1" style="text-align: left">
-                <b>Изображение</b>
-            </div>
-            <div class="col-xs-2">
-                <b>Название</b>
-            </div>
-
-
-            <div class="col-xs-5" style="text-align: right">
-                <b>Приоритет</b>
-            </div>
-            <div class="col-xs-1">
-                <b>Категория</b>
-            </div>
-            <div class="col-xs-1">
-                <b>Вес</b>
-            </div>
-            <div class="col-xs-1">
-                <b>Цена</b>
-            </div>
+            <input id="selectAllDishes" type="checkbox" name="selectAllDishes" hidden />
+            <label for="selectAllDishes"></label>
         </div>
-        @foreach (var T in Model)
-        {
+        <div class="col-xs-1" style="text-align: left">
+            <b>Изображение</b>
+        </div>
+        <div class="col-xs-2">
+            <b>Название</b>
+        </div>
+
+
+        <div class="col-xs-5" style="text-align: right">
+            <b>Приоритет</b>
+        </div>
+        <div class="col-xs-1">
+            <b>Категория</b>
+        </div>
+        <div class="col-xs-1">
+            <b>Вес</b>
+        </div>
+        <div class="col-xs-1">
+            <b>Цена</b>
+        </div>
+    </div>
+    @foreach (var T in Model)
+    {
         var prodId = T.ProductId.ToString();
         var Name = T.NameRus.ToString();
         var Priority = T.Priority.ToString();
@@ -95,9 +95,9 @@
         var Weight = T.Weight.ToString();
         var NameOfWeight = T.NameOfWeight.ToString();
         var Price = T.Price.ToString();
-            var IsHidden = T.IsHided;
+        var IsHidden = T.IsHided;
         var productId = T.ProductId.ToString();
-            var sale = T.Sale;
+        var sale = T.Sale;
         var srcPict = productId += ".jpeg";
         <div class="row col-xs-12" style="padding-top: 25px; padding-bottom: 30px; border-width: 1px; border-bottom-style: solid;">
             <div class="col-xs-1">
@@ -107,31 +107,31 @@
             <div class="col-xs-1" style="text-align: left">
                 <img class="t-img" style="width: 70px; height: 50px;" src=@Url.Content("~/Content/Images/Products/" + @srcPict)>
             </div>
-            <div class="col-xs-2">@Name
-                @if(sale==true)
-                {<b><p style="color: green;font-size: 11px">Акция</p></b>}
-                @if(IsHidden==true)
-                {<p style="color: grey;font-size: 11px">Не отображается на сайте</p>     }
+            <div class="col-xs-2">
+                @Name
+            @if (sale == true)
+            {<b><p style="color: green;font-size: 11px">Акция</p></b>}
+            @if (IsHidden == true)
+            {<p style="color: grey;font-size: 11px">Не отображается на сайте</p>     }
 
 
-            </div>
-
-
-            <div class="col-xs-5" style="text-align: right">@Priority</div>
-            <div class="col-xs-1">@Category</div>
-            <div class="col-xs-1">@Weight @NameOfWeight</div>
-            <div class="col-xs-1">@Price</div>
         </div>
-        }
-        <div class="row col-xs-12" style="padding-top: 15px">
-            <div class="col-xs-2 funcElements greyColorLnk">
-                <a href="">Скрыть на сайте</a>
-            </div>
-            <div class="col-xs-2 funcElements greyColorLnk">
-                <a href="">Удалить</a>
-            </div>
-            <div class="col-xs-2"></div>
-            <div class="col-xs-6"></div>
+
+
+        <div class="col-xs-5" style="text-align: right">@Priority</div>
+        <div class="col-xs-1">@Category</div>
+        <div class="col-xs-1">@Weight @NameOfWeight</div>
+        <div class="col-xs-1">@Price</div>
+    </div>
+    }
+    <div class="row col-xs-12" style="padding-top: 15px">
+        <div class="col-xs-2 funcElements greyColorLnk">
+            <a href="">Скрыть на сайте</a>
         </div>
+        <div class="col-xs-2 funcElements greyColorLnk">
+            <a href="">Удалить</a>
+        </div>
+        <div class="col-xs-2"></div>
+        <div class="col-xs-6"></div>
     </div>
-    </div>
+</div>

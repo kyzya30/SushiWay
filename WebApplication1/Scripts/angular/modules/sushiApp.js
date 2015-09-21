@@ -84,6 +84,10 @@
             
         }
 
+        $scope.sendMessage = function(newMessage) {
+            
+        }
+
         $scope.removeFromCart = function (item) {           
             if (item.count > 1) {
                 item.count--;

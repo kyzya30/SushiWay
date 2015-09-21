@@ -8,18 +8,18 @@
     <div class="col-xs-12 col-sm-3">
         <div class="col-xs-12 col-sm-12 div-contact text-center">
             <h4>Свяжитесь с нами</h4>
-            <img src="/Content/Images/Controls/icon-phone.png"/>
+            <img src="/Content/Images/Controls/icon-phone.png" />
             <span class="contact-tel">(044) 551-20-98</span><br />
             <span class="contact-tel">(050) 345-92-00</span><br />
             <span class="contact-tel">(097) 381-87-12</span><br /><br />
-            <img src="/Content/Images/Controls/icon-email.png"/>
+            <img src="/Content/Images/Controls/icon-email.png" />
             <span class="contact-tel">info@sushiway.com</span>
         </div>
         <div class="col-xs-12 col-sm-12 div-contact text-center">
             <p>
                 <b>Доставка в течении часа в любую точку Киева</b>
             </p>
-            <img src= "/Content/Images/Controls/delivery-banner.png"/>
+            <img src="/Content/Images/Controls/delivery-banner.png" />
             <p>1 минута опоздания = 10 грн</p>
         </div>
     </div>
@@ -47,19 +47,21 @@
     </div>
     <div class="col-xs-2 col-sm-2">
         <a href="#">
-            <img src="/Content/Images/Controls/btn-instagram.png"/>
+            <img src="/Content/Images/Controls/btn-instagram.png" />
         </a>
     </div>
 </div>
 <div class="row">
     <div class="col-xs-12 col-sm-5">
-        <h4>Оставить сообщение</h4>
-        <div class="col-xs-12 col-sm-12 div-contact div-leave-message">
-            <input type="text" class="form-control" placeholder="Имя" />
-            <input type="email" class="form-control" placeholder="user@email.com" />
-            <textarea class="form-control" id="contact-message" placeholder="Сообщение"></textarea>
-            <button class="btn" id="contact-button">Отправить</button>
-        </div>
+        <form name="MessageForm" ng-submit="sendMessage(message)">
+            <h4>Оставить сообщение</h4>
+            <div class="col-xs-12 col-sm-12 div-contact div-leave-message">
+                <input type="text" class="form-control" placeholder="Имя" required ng-model="message.name" />
+                <input type="email" class="form-control" placeholder="user@email.com" required ng-model="message.email" />
+                <textarea class="form-control" id="contact-message" placeholder="Сообщение" required ng-model="message.text"></textarea>
+                <button class="btn" id="contact-button">Отправить</button>
+            </div>
+        </form>
     </div>
     <div class="col-xs-12 col-sm-5">
         <h4>Рестораны Sushi Way</h4>

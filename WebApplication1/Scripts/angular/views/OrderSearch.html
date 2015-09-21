@@ -2,20 +2,22 @@
 
 <div class="row">
     <div class="col-xs-12 col-sm-9">
-        <div class="div-contact text-center">
-            <h4 class="index-descr">Введите номер заказа, что бы узнать в каком состоянии он находится:</h4>
-            <input ng-model="findOredrById" class="form-control form-group" ng-pattern="matchPattern" id="check-order-status" placeholder="XXXXXXX"/>
-            <br/>
-            <input type="submit" class="btn" id="check-order-status-btn" ng-click="findOrderStatus()" title="Проверить"/>
-        </div>
+        <form name="CheckOrderStatus" ng-submit="findOrderStatus()">
+            <div class="div-contact text-center">
+                <h4 class="index-descr">Введите номер заказа, что бы узнать в каком состоянии он находится:</h4>
+                <input ng-model="findOredrById" class="form-control form-group" ng-pattern="matchPattern" id="check-order-status" placeholder="XXXXXXX" />
+                <br />
+                <input type="submit" class="btn" id="check-order-status-btn" title="Проверить" />
+            </div>
+        </form>
     </div>
- 
+
     <div class="col-xs-12 col-sm-3">
         <div class="div-contact text-center" style="margin: 0px 10px;">
             <p>
                 <b>Доставка в течении часа в любую точку Киева</b>
             </p>
-            <img src="/Content/Images/Controls/delivery-banner.png"/>
+            <img src="/Content/Images/Controls/delivery-banner.png" />
             <p>1 минута опоздания = 10 грн</p>
         </div>
     </div>

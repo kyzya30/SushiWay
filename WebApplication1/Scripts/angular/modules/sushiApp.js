@@ -74,10 +74,14 @@
 
         $scope.findOredrById = "";
 
-        $scope.matchPattern = new RegExp("[0-9]");
+        $scope.matchPattern = /^\d+$/;
 
         $scope.findOrderStatus = function () {
            
+        }
+
+        $scope.makeOrder = function (newOrder) {
+            
         }
 
         $scope.removeFromCart = function (item) {           

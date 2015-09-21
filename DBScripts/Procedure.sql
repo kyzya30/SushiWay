@@ -1,5 +1,3 @@
-
-
 CREATE PROC ShowAllCategories 
 AS
 Select (select count(*) from Category) as TotalCategories,
@@ -20,7 +18,7 @@ From OrderDetails
 join dbo.Product on Product.ProductId = OrderDetails.ProductId 
 join dbo.Orders on Orders.OrderId = OrderDetails.OrderDetailsId 
 join dbo.OrdersTimeChanged on OrdersTimeChanged.OrderId = Orders.OrderId
-Where StatusId =2 
+
 GROUP BY Street,House,Room,Orders.OrderId, OrdersTimeChanged.Time
 GO
 -------------------------
@@ -77,7 +75,7 @@ inner join
 		group by OrderId
 	) q on q.MaxStatusTime = otch.Time
 ) q on q.OrderId = o.OrderId
-inner join OrderStatus os on os.StatusId = q.OrderStatus
+inner join OrderStatus os on os.OrderStatusId = q.OrderStatus
 inner join OrderDetails od on od.OrderDetailsId = o.OrderId
 join Product p on p.ProductId = od.ProductId 
 group by o.OrderId, o.Street, o.House, o.Room, os.StatusNameRus, q.MaxStatusTime
@@ -100,13 +98,9 @@ inner join
 		group by OrderId
 	) q on q.MaxStatusTime = otch.Time
 ) q on q.OrderId = o.OrderId
-inner join OrderStatus os on os.StatusId = q.OrderStatus
+inner join OrderStatus os on os.OrderStatusId = q.OrderStatus
 inner join OrderDetails od on od.OrderDetailsId = o.OrderId
 join Product p on p.ProductId = od.ProductId 
 where o.OrderId Like @Order+'%'
 group by o.OrderId, o.Street, o.House, o.Room, os.StatusNameRus, q.MaxStatusTime
 GO
-
-
-
-

@@ -1,19 +1,20 @@
-﻿
+﻿@model Product
 @{
     ViewBag.Title = "AddNewDish";
     Layout = "~/Views/Shared/AdminMasterPage.cshtml";
 }
-
+@using (Html.BeginForm("AddNewDish","Admin", FormMethod.Post))
+{
 <div class="container-fluid " style="padding-top: 40px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
     <div class="row" style="margin-top: 30px;">
         <div class="col-sm-8">
-            <input type="text" placeholder="Название" class="nameText form-control"/>
-            <input style="margin-top: 10px" type="text" placeholder="Назва" class="nameText form-control" />
+            <input name="NameRus" type="text" placeholder="Название" class="nameText form-control"/>
+            <input name="NameUkr" style="margin-top: 10px" type="text" placeholder="Назва" class="nameText form-control" />
         </div>
         <div class="col-sm-2">
-            <button class="btn pull-left" id="btnSaveChanges">Сохранить изменения</button><br/>
+            <button type="submit" class="btn pull-left" id="btnSaveChanges">Сохранить изменения</button><br/>
             <label>Блюдо отображается на сайте</label>
-            <input id="selectAllOrders" name="selectAllOrders" type="checkbox" hidden />
+            <input id="selectAllOrders" name="isHided" type="checkbox" hidden />
             <label for="selectAllOrders"></label>
         </div>
     </div>
@@ -28,8 +29,8 @@
         <div class="col-sm-7">
             
             <label for="priority">Приоритет</label>
-            <input type="number" name="priority" id="priority" class="form-control addNewDishTxt" min="1" max="999" value="1">
-            <input type="text" id="" class="form-control addNewDishTxt" placeholder="цена грн"/>
+            <input type="number" name="Priority" id="priority" class="form-control addNewDishTxt" min="1" max="999" value="1">
+            <input name="Price" type="text" id="" class="form-control addNewDishTxt" placeholder="цена грн"/>
             <select class="form-control addNewDishTxt">
                 @foreach (var item in ViewBag.Categories)
                 {
@@ -39,9 +40,9 @@
                    
                 }
             </select><br/>
-            <input type="text" id="" class="form-control addNewDishTxt" placeholder="Вес"/>
-            <input type="text" id="" class="form-control addNewDishTxt" placeholder="Калорийность"/>
-            <input type="text" id="" class="form-control addNewDishTxt" placeholder="Количество"/><br/>
+            <input name="Weight" type="text" id="" class="form-control addNewDishTxt" placeholder="Вес"/>
+            <input name="Energy" type="text" id="" class="form-control addNewDishTxt" placeholder="Калорийность"/>
+            <input name="Count" type="text" id="" class="form-control addNewDishTxt" placeholder="Количество"/><br/>
             <input type="text" id="ingredientsTxt" class="form-control addNewDishTxt" placeholder="Состав"/>
         </div>
     </div>
@@ -54,10 +55,11 @@
                 <input type="radio" id="prod2" name="prod" onclick="goToCart" />
                 <label for="prod2">Популярные</label>
                 <input type="radio" id="prod3" name="prod" />
-                <label for="prod3">Акции</label>
+                <label name="Sale" for="prod3">Акции</label>
                 <input type="radio" id="prod4" name="prod" />
                 <label for="prod4">Новинки</label>
             </div>
         </div>
     </div>
 </div>
+}

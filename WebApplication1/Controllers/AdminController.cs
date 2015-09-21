@@ -91,7 +91,8 @@ namespace WebApplication1.Controllers
         public ActionResult Orders()
         {
             var context = new SushiTest1Entities1();
-            List<ShowAllCategories_Result> showAllOrders = context.ShowAllCategories().ToList();
+            //List<ShowAllCategories_Result> showAllOrders = context.ShowAllCategories().ToList();
+            List<ShowAllOrders_Result> showAllOrders = context.ShowAllOrders().ToList();
             return View(showAllOrders);
         }
         [HttpPost]
@@ -152,32 +153,31 @@ namespace WebApplication1.Controllers
         public ActionResult FindOrders(Order order)
         {
 
-            //List<ShowAllCategories_Result> addOrders = new List<ShowAllCategories_Result>();
-            //if (ModelState.IsValid)
-            //{
-            //    using (var contex = new SushiTest1Entities1())
-            //    {
-            //        List<FindOrders_Result> findOrders = contex.FindOrders(order.OrderId).ToList();
-            //        for (int i = 0; i < findOrders.Count; i++)
-            //        {
-            //            addOrders.Add(new ShowAllOrders_Result());
-            //        }
-            //        for (int i = 0; i < findOrders.Count; i++)
-            //        {
-            //            addOrders[i].OrderId = findOrders[i].OrderId;
-            //            addOrders[i].Street = findOrders[i].Street;
-            //            addOrders[i].House = findOrders[i].Street;
-            //            addOrders[i].Room = findOrders[i].Room;
-            //            addOrders[i].MaxStatusTime = findOrders[i].MaxStatusTime;
-            //            addOrders[i].TotalPrice = findOrders[i].TotalPrice;
-            //            addOrders[i].StatusNameRus = findOrders[i].StatusNameRus;
-
-            //        }
-            //    }
-
-            //}
-            //return View("~/Views/Admin/Orders.cshtml", addOrders);
-            return View();
+            List<ShowAllOrders_Result> addOrders = new List<ShowAllOrders_Result>();
+            if (ModelState.IsValid)
+            {
+                using (var contex = new SushiTest1Entities1())
+                {
+                    string s = order.OrderId.ToString();
+                    List<FindOrders_Result> findOrders = contex.FindOrders(s).ToList();
+                    for (int i = 0; i < findOrders.Count; i++)
+                    {
+                        addOrders.Add(new ShowAllOrders_Result());
+                    }
+                    for (int i = 0; i < findOrders.Count; i++)
+                    {
+                        addOrders[i].OrderId = findOrders[i].OrderId;
+                        addOrders[i].Street = findOrders[i].Street;
+                        addOrders[i].House = findOrders[i].Street;
+                        addOrders[i].Room = findOrders[i].Room;
+                        addOrders[i].MaxStatusTime = findOrders[i].MaxStatusTime;
+                        addOrders[i].TotalPrice = findOrders[i].TotalPrice;
+                        addOrders[i].StatusNameRus = findOrders[i].StatusNameRus;
+                    }
+                }
+            }
+            return View("~/Views/Admin/Orders.cshtml", addOrders);
+            
         }
         [HttpPost]
         public ActionResult ModifyCategoryModal(Category category)

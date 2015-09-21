@@ -1,4 +1,4 @@
-﻿@*@model IEnumerable<WebApplication1.ShowAllCategories_Result>*@
+﻿@model IEnumerable<WebApplication1.ShowAllOrders_Result>
     @{
     ViewBag.Title = "Orders";
     Layout = "~/Views/Shared/AdminMasterPage.cshtml";
@@ -80,8 +80,8 @@
                   
 
                 <div class="col-xs-1">
-                    <input id="ch" type="checkbox" class="checkboxes" name="first" hidden />
-                    <label for="ch"></label>
+                    <input id="@ordId" type="checkbox" class="checkboxes" name="first" hidden />
+                    <label for="@ordId"></label>
                 </div>
                 <div class="col-xs-1" style="text-align: left">@ordId </div>
                 <div class="col-xs-3">Ул. @street @House .кв @room</div>

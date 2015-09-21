@@ -1,80 +1,103 @@
-﻿
-@{
+﻿@model IEnumerable<WebApplication1.ShowAllOrders_Result>
+    @{
     ViewBag.Title = "Orders";
     Layout = "~/Views/Shared/AdminMasterPage.cshtml";
-}
-<div class="container-fluid " style="padding-top: 0px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
-    <div class="row" style="padding-top: 40px; padding-left: 30px">
-        <div class="col-sx-12">
-            <p>
-                <h3 class="header">
-                    Заказы <a href="@Url.Action("AddNewOrder", "Admin")">
-                        <img style="padding-left: 20px" src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")></a>
+    }
+    <div class="container-fluid " style="padding-top: 0px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
+        <div class="row" style="padding-top: 40px; padding-left: 30px">
+            <div class="row col-sx-12" style="padding-top: 15px">
+                <div class="col-xs-6">
+                    <h3 class="header">
+    Заказы <a href="@Url.Action("AddNewOrder","Admin")">
 
 
-    <input type="text" class="span3 search-query" style="margin-left: 500px" placeholder="Поиск">
+        <img style="padding-left: 20px"
+             src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>
+    </a>
 </h3>
-            </p>
-        </div>
-        <div class="row col-xs-12">
-            <div class="col-xs-2"><a href="">Изменить статус</a></div>
-            <div class="col-xs-2"><a href="">Удалить</a></div>
-            <div class="col-xs-2"> </div>
 
-            <div class="col-xs-6" style="text-align: right">
+                </div>
+                <div class="col-xs-6 clearfix" style="padding-top: 5px; ">
+                    <div class="text-right pull-right">
+                        @Html.Partial("FindOrders", new Order())
+                    </div>
+                </div>
 
-                заказов из
+
             </div>
-        </div>
-        <div class="row col-xs-12" style="padding-top: 10px; padding-bottom: 10px; border-width: 3px; border-bottom-style: solid;">
-            <div class="col-xs-1">
 
-                <script type="text/javascript">
-                    $(function () {
-                        $('input[name="selectAllOrders"]').change(function () {
-                            $(".checkboxes").prop('checked', this.checked);
+            <div class="row col-xs-12">
+                <div class="col-xs-2"><a href="">Изменить статус</a></div>
+                <div class="col-xs-2"><a href="">Удалить</a></div>
+                <div class="col-xs-2"> </div>
+
+                <div class="col-xs-6" style="text-align: right">
+
+                    заказов из
+                </div>
+            </div>
+            <div class="row col-xs-12" style="padding-top: 10px; padding-bottom: 10px; border-width: 3px; border-bottom-style: solid;">
+                <div class="col-xs-1">
+
+                    <script type="text/javascript">
+                        $(function () {
+                            $('input[name="selectAllOrders"]').change(function () {
+                                $(".checkboxes").prop('checked', this.checked);
+                            });
                         });
-                    });
-                </script>
+                    </script>
 
-                @*<img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>*@
-                <input id="selectAllOrders" name="selectAllOrders" type="checkbox" hidden />
-                <label for="selectAllOrders"></label>
+                    @*<img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>*@
+                    <input id="selectAllOrders" name="selectAllOrders" type="checkbox" hidden />
+                    <label for="selectAllOrders"></label>
+                </div>
+                <div class="col-xs-1" style="text-align: left"><b>Номер</b> </div>
+                <div class="col-xs-1"><b>Адрес</b></div>
+
+
+                <div class="col-xs-5" style="text-align: right"><b>Изменение статуса</b></div>
+                <div class="col-xs-2"><b>Сумма</b></div>
+                <div class="col-xs-2"><b>Состояние</b></div>
             </div>
-            <div class="col-xs-1" style="text-align: left"><b>Номер</b> </div>
-            <div class="col-xs-1"><b>Адрес</b></div>
 
+            @*@foreach (var D in ViewBag.AllCategories)
+            {
 
-            <div class="col-xs-5" style="text-align: right"><b>Изменение статуса</b></div>
-            <div class="col-xs-2"><b>Сумма</b></div>
-            <div class="col-xs-2"><b>Состояние</b></div>
-        </div>
+            var tmpStr = D.CategoryId.ToString();
+            <div>@tmpStr</div>
+            }*@
+            @foreach(var D in Model)
+            {
+            var street = D.Street.ToString();
+            var House = D.House.ToString();
+            var room = D.Room.ToString();
+            var MaxTime = D.MaxStatusTime.ToString();
+            var totalPrice =D.TotalPrice.ToString();
+            var statusNameRus = D.StatusNameRus.ToString();
+            var ordId = D.OrderId.ToString();
+            <div class="row col-xs-12" style="padding-top: 10px; padding-bottom: 10px; border-width: 1px; border-bottom-style: solid;border-color: #7F7F7F ">
+              
+                  
 
-        @*@foreach (var D in ViewBag.AllCategories)
-        {
-
-        var tmpStr = D.CategoryId.ToString();
-        <div>@tmpStr</div>
-        }*@
-
-        <div class="row col-xs-12" style="padding-top: 10px; padding-bottom: 10px; border-width: 1px; border-bottom-style: solid;border-color: #7F7F7F ">
-            <div class="col-xs-1">
-                <input id="ch" type="checkbox" class="checkboxes" name="first" hidden />
-                <label for="ch"></label>
+                <div class="col-xs-1">
+                    <input id="ch" type="checkbox" class="checkboxes" name="first" hidden />
+                    <label for="ch"></label>
+                </div>
+                <div class="col-xs-1" style="text-align: left">@ordId </div>
+                <div class="col-xs-3">Ул. @street @House .кв @room</div>
+                <div class="col-xs-3" style="text-align: right">@MaxTime</div>
+                <div class="col-xs-2">@totalPrice</div>
+                <div class="col-xs-2">@statusNameRus</div>
+               
             </div>
-            <div class="col-xs-1" style="text-align: left">5354363 </div>
-            <div class="col-xs-3">Ул. Победы. 47 .кв 172</div>
-            <div class="col-xs-3" style="text-align: right">12:10 10.04.15</div>
-            <div class="col-xs-2">452</div>
-            <div class="col-xs-2">в ожидании</div>
-        </div>
+            }
 
 
-        <div class="row col-xs-12" style="padding-top: 15px">
-            <div class="col-xs-2"><a href="">Изменить статус</a> </div>
-            <div class="col-xs-2"><a href="">Удалить</a></div>
-            <div class="col-xs-2"></div>
-            <div class="col-xs-6"></div>
+            <div class="row col-xs-12" style="padding-top: 15px">
+                <div class="col-xs-2"><a href="">Изменить статус</a> </div>
+                <div class="col-xs-2"><a href="">Удалить</a></div>
+                <div class="col-xs-2"></div>
+                <div class="col-xs-6"></div>
+            </div>
         </div>
     </div>
-</div>

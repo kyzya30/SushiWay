@@ -63,9 +63,23 @@ namespace WebApplication1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindDishes_Result>("FindDishes", dishNameParameter);
         }
     
+        public virtual ObjectResult<FindOrders_Result> FindOrders(Nullable<int> order)
+        {
+            var orderParameter = order.HasValue ?
+                new ObjectParameter("Order", order) :
+                new ObjectParameter("Order", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindOrders_Result>("FindOrders", orderParameter);
+        }
+    
         public virtual ObjectResult<ShowAllCategories_Result> ShowAllCategories()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ShowAllCategories_Result>("ShowAllCategories");
+        }
+    
+        public virtual ObjectResult<ShowAllOrders_Result> ShowAllOrders()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ShowAllOrders_Result>("ShowAllOrders");
         }
     
         public virtual ObjectResult<ShowUnprocessedOrders_Result> ShowUnprocessedOrders()

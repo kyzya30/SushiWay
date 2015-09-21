@@ -272,8 +272,12 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
         <Function Name="FindDishes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DishName" Type="nvarchar" Mode="In" />
         </Function>
+        <Function Name="FindOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Order" Type="int" Mode="In" />
+        </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="ShowAllCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ShowAllOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ShowUnprocessedOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -635,7 +639,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <End Role="Ingridients" Type="Self.Ingridient" Multiplicity="*" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="SushiTest1Entities20" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities23" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Ingridients" EntityType="Self.Ingridient" />
@@ -691,7 +695,11 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <FunctionImport Name="FindDishes" ReturnType="Collection(SushiTest1Model.FindDishes_Result)">
             <Parameter Name="DishName" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="FindOrders" ReturnType="Collection(SushiTest1Model.FindOrders_Result)">
+            <Parameter Name="Order" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="ShowAllCategories" ReturnType="Collection(SushiTest1Model.ShowAllCategories_Result)" />
+          <FunctionImport Name="ShowAllOrders" ReturnType="Collection(SushiTest1Model.ShowAllOrders_Result)" />
           <FunctionImport Name="ShowUnprocessedOrders" ReturnType="Collection(SushiTest1Model.ShowUnprocessedOrders_Result)" />
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -757,12 +765,30 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <Property Type="Boolean" Name="IsHided" Nullable="false" />
           <Property Type="DateTime" Name="AddDate" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="FindOrders_Result">
+          <Property Type="Int32" Name="OrderId" Nullable="false" />
+          <Property Type="String" Name="Street" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="House" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Room" Nullable="false" MaxLength="10" />
+          <Property Type="DateTime" Name="MaxStatusTime" Nullable="true" />
+          <Property Type="Decimal" Name="TotalPrice" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="String" Name="StatusNameRus" Nullable="false" MaxLength="50" />
+        </ComplexType>
         <ComplexType Name="ShowAllCategories_Result">
           <Property Type="Int32" Name="TotalCategories" Nullable="true" />
           <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="CategoryId" Nullable="false" />
           <Property Type="Int32" Name="Priority" Nullable="false" />
           <Property Type="Int32" Name="TotalDishes" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ShowAllOrders_Result">
+          <Property Type="Int32" Name="OrderId" Nullable="false" />
+          <Property Type="String" Name="Street" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="House" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Room" Nullable="false" MaxLength="10" />
+          <Property Type="DateTime" Name="MaxStatusTime" Nullable="true" />
+          <Property Type="Decimal" Name="TotalPrice" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="String" Name="StatusNameRus" Nullable="false" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="ShowUnprocessedOrders_Result">
           <Property Type="Int32" Name="OrderId" Nullable="false" />
@@ -788,7 +814,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities20">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities23">
           <EntitySetMapping Name="Administrators">
             <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">
@@ -967,6 +993,19 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FindOrders" FunctionName="SushiTest1Model.Store.FindOrders">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.FindOrders_Result">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="MaxStatusTime" ColumnName="MaxStatusTime" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="StatusNameRus" ColumnName="StatusNameRus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="ShowAllCategories" FunctionName="SushiTest1Model.Store.ShowAllCategories">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllCategories_Result">
@@ -975,6 +1014,19 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="TotalDishes" ColumnName="TotalDishes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ShowAllOrders" FunctionName="SushiTest1Model.Store.ShowAllOrders">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllOrders_Result">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="MaxStatusTime" ColumnName="MaxStatusTime" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="StatusNameRus" ColumnName="StatusNameRus" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

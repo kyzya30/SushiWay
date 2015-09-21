@@ -34,10 +34,7 @@ namespace WebApplication1.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        public ActionResult Orders()
-        {
-            return View();
-        }
+        
 
         public ActionResult Login()
         {  
@@ -81,22 +78,22 @@ namespace WebApplication1.Controllers
         {
             var context = new SushiTest1Entities1();                    
             var Category = context.Categories.ToList();
-
-
-
-
             ViewBag.Categories = Category;
-
-
             return View();
         }
 
         public ActionResult AddNewOrder()
         {
+           
             return View();
         }
-
-
+       
+        public ActionResult Orders()
+        {
+            var context = new SushiTest1Entities1();
+            List<ShowAllOrders_Result> showAllOrders = context.ShowAllOrders().ToList();
+            return View(showAllOrders);
+        }
         [HttpPost]
         public ActionResult FindDishes(Product product)
         {
@@ -148,9 +145,38 @@ namespace WebApplication1.Controllers
                         addCategories[i].TotalDishes = findCategory[i].TotalDishes;
                     }
                 }
-
             }
              return View("~/Views/Admin/Category.cshtml", addCategories);
+        }
+        [HttpPost]
+        public ActionResult FindOrders(Order order)
+        {
+
+            List<ShowAllOrders_Result> addOrders = new List<ShowAllOrders_Result>();
+            if (ModelState.IsValid)
+            {
+                using (var contex = new SushiTest1Entities1())
+                {
+                    List<FindOrders_Result> findOrders = contex.FindOrders(order.OrderId).ToList();
+                    for (int i = 0; i < findOrders.Count; i++)
+                    {
+                        addOrders.Add(new ShowAllOrders_Result());
+                    }
+                    for (int i = 0; i < findOrders.Count; i++)
+                    {
+                        addOrders[i].OrderId = findOrders[i].OrderId;
+                        addOrders[i].Street = findOrders[i].Street;
+                        addOrders[i].House = findOrders[i].Street;
+                        addOrders[i].Room = findOrders[i].Room;
+                        addOrders[i].MaxStatusTime = findOrders[i].MaxStatusTime;
+                        addOrders[i].TotalPrice = findOrders[i].TotalPrice;
+                        addOrders[i].StatusNameRus = findOrders[i].StatusNameRus;
+
+                    }
+                }
+
+            }
+            return View("~/Views/Admin/Orders.cshtml", addOrders);
         }
         [HttpPost]
         public ActionResult ModifyCategoryModal(Category category)

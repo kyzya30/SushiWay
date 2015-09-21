@@ -8,9 +8,11 @@
                 <span class="product-price">{{item.price}}</span>
                 <button ng-click="isSelected(item)" ng-show="!item.selected" class="btn">Заказать</button>
                 <span ng-show="item.selected">
-                    <button data-ng-click="removeFromCart(item)" type="button">-</button>
-                    <button>{{item.count}}</button>
-                    <button data-ng-click="addToCart(item)" type="button">+</button>
+                    <div class="btn-group btnPlusMinusGroup" role="group">
+                        <button data-ng-click="removeFromCart(item)" type="button" class="btn btnPlusMinus btn-default">-</button>
+                        <button type="button" class="btn btnPlusMinus btn-default">{{item.count}}</button>
+                        <button data-ng-click="addToCart(item)" type="button" class="btn btnPlusMinus btn-default">+</button>
+                    </div> 
                 </span>
             </div>
         </div>
@@ -28,9 +30,11 @@
             <span class="product-price">{{item.price}}</span>
             <button ng-click="isSelected(item)" ng-show="!item.selected" class="btn">Заказать</button>
             <span ng-show="item.selected">
-                <button data-ng-click="removeFromCart(item)" type="button">-</button>
-                <button>{{item.count}}</button>
-                <button data-ng-click="addToCart(item)" type="button">+</button>
+                <div class="btn-group btnPlusMinusGroup" role="group">
+                    <button data-ng-click="removeFromCart(item)" type="button" class="btn btnPlusMinus btn-default">-</button>
+                    <button type="button" class="btn btnPlusMinus btn-default">{{item.count}}</button>
+                    <button data-ng-click="addToCart(item)" type="button" class="btn btnPlusMinus btn-default">+</button>
+                </div> 
             </span>
         </div>
     </div>

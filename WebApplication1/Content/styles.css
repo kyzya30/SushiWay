@@ -120,7 +120,6 @@ input[type="radio"]:checked + label::before {
 .btn{
     font-size: 16px;
     float: right;
-    margin: 5px;
     padding: 10px;
     color: #ffffff;
 	background: #EF5A06;
@@ -130,6 +129,20 @@ input[type="radio"]:checked + label::before {
     background: -ms-linear-gradient(left, #EF5A06 0%, #F1882A 100%);
     background: linear-gradient(left, #EF5A06 0%, #F1882A 100%);
 	border-radius:2px;
+}
+
+.btnPlusMinus{
+    font-size: 14px;
+    float: right;
+    color: #ffffff;
+	background: #F07219;
+	border-radius:2px;
+    margin: -17px 0px;
+}
+
+.btnPlusMinusGroup {
+    float: right;
+    margin: 17px 0;
 }
 
 .product-price {

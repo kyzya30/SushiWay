@@ -92,14 +92,27 @@ form .ng-pristine {
 }
 
 form .ng-invalid.ng-dirty {
-    background-color: lightpink;
+    background-color: transparent;
+    border: 1px solid red;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px red;
 }
 
 form .ng-valid.ng-dirty {
-    background-color: lightgreen;
+    background-color: transparent;
+    border: 1px solid lightgreen;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px lightgreen;
 }
 
 form .ng-invalid-email {
     color: red;
 }
 
+#cartInMenu {
+    display: none;
+}
+
+@media screen and (max-width: 1199px) {
+    #cartInMenu {
+        display: inline-block;
+    }
+}

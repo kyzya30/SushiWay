@@ -66,6 +66,42 @@ namespace WebApplication1.Controllers
             return Json(model);
         }
 
+        public JsonResult GetOrderStatus(object id)
+        {
+            int find = (int)id;
+            var context = new SushiTest1Entities1();
+            var orders = context.Orders.ToList();
+            var status = context.OrderStatus.ToList();
+            var lastStatus = context.OrdersTimeChangeds.ToList();
+            var model = new object[1];
+
+            bool isExsist = orders.Any(q => find == q.OrderId);
+
+            if (isExsist)
+            {
+                var query = (from st in lastStatus
+                             where st.OrderId == find
+                             orderby st.Time descending
+                             select st).Take(1);
+                var d = query.ToList().First();
+
+                foreach (var e in status)
+                {
+                    if (e.OrderStatusId == d.OrderStatus)
+                    {
+                        model[0] = new { res = e.StatusNameRus };
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                model[0] = new { res = "Заказ не найдет" };
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
         public async Task<ActionResult> MarkTask()
         {
             using (HttpClient httpClient = new HttpClient())                   //

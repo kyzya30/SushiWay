@@ -18,6 +18,10 @@
             templateUrl: "scripts/angular/views/OrderSearch.html"
         });
 
+        $routeProvider.when("/productname", {
+            templateUrl: "scripts/angular/views/ProductCategoriesFilter.html"
+        });
+
         $routeProvider.when("/menu", {
             templateUrl: "scripts/angular/views/menu.html"
         });
@@ -46,6 +50,10 @@
             $location.path("/menu");
         }
 
+        $scope.gotoNameFilter = function() {
+            $location.path("/productname");
+        }
+
         $scope.goToOrder = function () {
             $location.path("/order");
         }
@@ -66,9 +74,9 @@
             item.selected = true;
         }
 
-        $scope.addToCart = function(item) {               
-            item.count = +item.count + 1;       
-                
+        $scope.addToCart = function (item) {
+            item.count = +item.count + 1;
+
             $scope.cartSum += item.price;
         }
 
@@ -77,26 +85,32 @@
         $scope.matchPattern = /^\d+$/;
 
         $scope.findOrderStatus = function () {
-           
+
         }
 
         $scope.makeOrder = function (newOrder) {
-            
+
         }
 
-        $scope.sendMessage = function(newMessage) {
-            
+        $scope.sendMessage = function (newMessage) {
+
         }
 
-        $scope.removeFromCart = function (item) {           
+        $scope.removeFromCart = function (item) {
             if (item.count > 1) {
                 item.count--;
-                
+
             } else {
                 item.selected = false;
             }
 
             $scope.cartSum -= item.price;
+        }
+
+        $scope.FindProductName = "";
+
+        $scope.findByNameFilter = function (item) {
+            return item.name == $scope.FindProductName;
         }
 
         $scope.sortProduct = function (item) {
@@ -108,7 +122,7 @@
             return ((item.selected) && (item.categoryId != 3));
         }
 
-        $scope.addProduct = function(item) {
+        $scope.addProduct = function (item) {
             return item.categoryId == 3;
         }
 
@@ -118,12 +132,12 @@
         //    });
         //}
 
-    }]).service('sushiService', function($http) {
-        this.getSushi = function() {
+    }]).service('sushiService', function ($http) {
+        this.getSushi = function () {
             return $http.get("/Home/GetSushi");
         }
 
-        this.getCategory = function() {
+        this.getCategory = function () {
             return $http.get("/Home/GetCategory");
         }
     })

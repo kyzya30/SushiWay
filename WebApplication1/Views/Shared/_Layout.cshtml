@@ -31,7 +31,7 @@
                             <form class="navbar-form navbar-left" role="search">
                                 <div class="form-group">
                                     <a href="#"><img src="@Url.Content("~/Content/Images/Controls/search-icon.png")" id="search-icon" /></a>
-                                    <input type="text" class="form-control" placeholder="Поиск">
+                                    <input  ng-model="FindProductName" class="form-control" placeholder="Поиск" ng-change="gotoNameFilter">
                                 </div>
                             </form>
                         </div><!-- /.navbar-collapse -->

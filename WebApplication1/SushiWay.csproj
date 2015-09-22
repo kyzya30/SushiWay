@@ -372,6 +372,7 @@
     <Content Include="Scripts\angular\views\cartSummary.html" />
     <Content Include="Scripts\angular\views\CategoryItemsInMenu.html" />
     <Content Include="Scripts\angular\views\Contact.html" />
+    <Content Include="Scripts\angular\views\FindByName.html" />
     <Content Include="Scripts\angular\views\menu.html" />
     <Content Include="Scripts\angular\views\OrderSearch.html" />
     <Content Include="Scripts\angular\views\ProductCategoriesFilter.html" />

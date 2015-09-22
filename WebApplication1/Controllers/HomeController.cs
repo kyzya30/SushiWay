@@ -66,9 +66,8 @@ namespace WebApplication1.Controllers
             return Json(model);
         }
 
-        public JsonResult GetOrderStatus(object id)
+        public JsonResult GetOrderStatus(int find)
         {
-            int find = (int)id;
             var context = new SushiTest1Entities1();
             var orders = context.Orders.ToList();
             var status = context.OrderStatus.ToList();

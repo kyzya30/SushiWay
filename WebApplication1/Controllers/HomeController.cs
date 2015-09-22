@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using WebApplication1.Addition_Classes;
@@ -66,6 +67,12 @@ namespace WebApplication1.Controllers
             return Json(model);
         }
 
+        [HttpPost]
+        public JsonResult AddMessageToDB(string id)
+        {
+        
+            return Json(new {res = "good"});
+        }
         public JsonResult GetOrderStatus(string id)
         {
             int find = Convert.ToInt32(id);

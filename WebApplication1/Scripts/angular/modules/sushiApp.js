@@ -121,8 +121,8 @@
         };
 
         $scope.SendToServerMessage = function (id) {
-            $http.get("/Home/GetOrderStatus/" + id).then(function (response) {
-                $scope.resOrderSatus = (response.data[0].res);
+            $http.post("/Home/AddMessageToDB/",{data :JSON.stringify(id)}).then(function (response) {
+                alert(response.res);
             });
             //$http.get("/Home/GetOrderStatus/", { data: id });
         };

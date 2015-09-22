@@ -77,15 +77,11 @@
 
         $scope.matchPattern = /^\d+$/;
 
-        $scope.findOrderStatus = function () {
-
-        };
+        
         $scope.makeOrder = function (newOrder) {
 
         };
-        $scope.sendMessage = function (newMessage) {
-
-        };
+       
         $scope.removeFromCart = function (item) {
             if (item.count > 1) {
                 item.count--;
@@ -102,6 +98,7 @@
             return item.name == $scope.FindProductName;
         };
         $scope.sortProduct = function (item) {
+            
             return item.categoryId == $scope.findCategory;
         };
         $scope.countFilter = function (item) {
@@ -117,13 +114,17 @@
         //}
 
         $scope.SendToServer = function (id) {
-            alert(id);
             $http.get("/Home/GetOrderStatus/" + id).then(function(response) {
-                alert(response.data[0].res);
+                $scope.resOrderSatus = (response.data[0].res);
             });
-
             //$http.get("/Home/GetOrderStatus/", { data: id });
-            alert(id+000);
+        };
+
+        $scope.SendToServerMessage = function (id) {
+            $http.get("/Home/GetOrderStatus/" + id).then(function (response) {
+                $scope.resOrderSatus = (response.data[0].res);
+            });
+            //$http.get("/Home/GetOrderStatus/", { data: id });
         };
 
 

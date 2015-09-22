@@ -6,7 +6,8 @@
             <div class="div-contact text-center">
                 <h4 class="index-descr">Введите номер заказа, что бы узнать в каком состоянии он находится:</h4>
                 <input ng-model="findOredrById" class="form-control form-group" ng-pattern="matchPattern" id="check-order-status" placeholder="XXXXXXX" />
-                <br />
+                <br/>
+                <span >{{resOrderSatus}}</span>
                 <input type="submit" class="btn" ng-click="SendToServer(findOredrById)" id="check-order-status-btn" title="Проверить" />
             </div>
         </form>

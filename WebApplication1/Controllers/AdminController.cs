@@ -180,6 +180,75 @@ namespace WebApplication1.Controllers
             
         }
         [HttpPost]
+        public ActionResult DeleteCategoryItem(int[] idSelected)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var context = new SushiTest1Entities1())
+                {
+                    for (int i = 0; i < idSelected.Length; i++)
+                    {
+                        //var pg = dbContext.Program.First(p => p.Id == Id && p.Name == FName);
+                        //dbContext.Program.Remove(pg);
+                        int f = idSelected[i];
+                        var d = context.Categories.First(z => z.CategoryId == f);
+                        context.Categories.Remove(d);
+
+                    }
+                    context.SaveChanges();
+                    return RedirectToAction("Category", "Admin");
+                }
+            }
+            return RedirectToAction("Category", "Admin");
+        }
+
+        [HttpPost]
+        public ActionResult HideDishModal(int[] idSelected)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var context = new SushiTest1Entities1())
+                {
+                    for (int i = 0; i < idSelected.Length; i++)
+                    {
+                        int f = idSelected[i];
+                        var d = context.Products.First(z => z.ProductId == f);
+                        d.IsHided = true;
+
+                       // var d4 = context.Products.Include(z => z.IsHided = true).Where(z => z.ProductId == f).Single();
+
+                    }
+                    context.SaveChanges();
+                }
+                return RedirectToAction("Dishes", "Admin");
+            }
+
+                return RedirectToAction("Dishes", "Admin");
+        }
+
+        [HttpPost]
+        public ActionResult DeleteDishModal(int[] idSelected)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var context = new SushiTest1Entities1())
+                {
+                    for (int i = 0; i < idSelected.Length; i++)
+                    {
+                        int f = idSelected[i];
+                        var d = context.Products.First(z => z.ProductId == f);
+                        var d1 = context.ProductWeightDetails.First(z => z.ProductId == f);
+                        var d3 = context.AdditionProductsForProducts.First(z => z.ProductId == f);
+                        context.Products.Remove(d);
+                        context.ProductWeightDetails.Remove(d1);
+                        context.AdditionProductsForProducts.Remove(d3); 
+                    }
+                    context.SaveChanges();
+                }
+            }
+            return RedirectToAction("Dishes", "Admin");
+        }
+        [HttpPost]
         public ActionResult ModifyCategoryModal(Category category)
         {
             if (ModelState.IsValid)

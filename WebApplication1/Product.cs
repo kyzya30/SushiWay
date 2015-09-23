@@ -17,7 +17,6 @@ namespace WebApplication1
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.AdditionProductsForProducts = new HashSet<AdditionProductsForProduct>();
             this.OrderDetails = new HashSet<OrderDetail>();
             this.Ingridients = new HashSet<Ingridient>();
         }
@@ -36,8 +35,7 @@ namespace WebApplication1
         public System.DateTime AddDate { get; set; }
     
         public virtual Category Category { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AdditionProductsForProduct> AdditionProductsForProducts { get; set; }
+        public virtual AdditionProductsForProduct AdditionProductsForProduct { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ProductWeightDetail ProductWeightDetail { get; set; }

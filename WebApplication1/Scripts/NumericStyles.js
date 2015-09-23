@@ -68,8 +68,11 @@ function DeleteDishModal()
             content: "application/json; charset=utf-8",
             dataType: "json",
             data: { idSelected: arr },
+            
             success:
-                window.location.href = '/Admin/Dishes.cshtml'
+                setTimeout(function() {location.reload()
+                }, 500)
+                
 
         });
     });
@@ -98,7 +101,9 @@ function HideDishModal()
             content: "application/json; charset=utf-8",
             dataType: "json",
             data: { idSelected: arr },
-            success: location.href = '/Admin/Dishes/'
+            success:
+        setTimeout(function() {location.reload()
+        }, 500)
 
         });
     });

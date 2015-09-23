@@ -203,7 +203,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult HideDishModal(int[] idSelected)
+        public JsonResult HideDishModal(int[] idSelected)
         {
             if (ModelState.IsValid)
             {
@@ -220,14 +220,14 @@ namespace WebApplication1.Controllers
                     }
                     context.SaveChanges();
                 }
-                return RedirectToAction("Dishes", "Admin");
+                return Json(new { Success = true, Url = Url.Action("Dishes", "Admin") });
             }
 
-                return RedirectToAction("Dishes", "Admin");
+            return Json(new { Success = true, Url = Url.Action("Dishes", "Admin") });
         }
 
         [HttpPost]
-        public ActionResult DeleteDishModal(int[] idSelected)
+        public JsonResult DeleteDishModal(int[] idSelected)
         {
             if (ModelState.IsValid)
             {
@@ -236,17 +236,31 @@ namespace WebApplication1.Controllers
                     for (int i = 0; i < idSelected.Length; i++)
                     {
                         int f = idSelected[i];
-                        var d = context.Products.First(z => z.ProductId == f);
+                        //var d = context.Products.First(z => z.ProductId == f);
                         var d1 = context.ProductWeightDetails.First(z => z.ProductId == f);
-                        var d3 = context.AdditionProductsForProducts.First(z => z.ProductId == f);
-                        context.Products.Remove(d);
+                        //var d3 = context.AdditionProductsForProducts.First(z => z.ProductId == f);
+                       // context.AdditionProductsForProducts.Remove(d3);
                         context.ProductWeightDetails.Remove(d1);
-                        context.AdditionProductsForProducts.Remove(d3); 
+                       // context.Products.Remove(d);
+
+                        context.SaveChanges();
                     }
-                    context.SaveChanges();
+                    for (int i = 0; i < idSelected.Length; i++)
+                    {
+                        int f = idSelected[i];
+                        var d = context.Products.First(z => z.ProductId == f);
+                        //var d1 = context.ProductWeightDetails.First(z => z.ProductId == f);
+                        //var d3 = context.AdditionProductsForProducts.First(z => z.ProductId == f);
+                        // context.AdditionProductsForProducts.Remove(d3);
+                        //context.ProductWeightDetails.Remove(d1);
+                         context.Products.Remove(d);
+
+                        context.SaveChanges();
+                    }
+                    return Json(new { Success = true, Url = Url.Action("Dishes", "Admin") });
                 }
             }
-            return RedirectToAction("Dishes", "Admin");
+            return Json(new { Success = true, Url = Url.Action("Dishes", "Admin") });
         }
         [HttpPost]
         public ActionResult ModifyCategoryModal(Category category)

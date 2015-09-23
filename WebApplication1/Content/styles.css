@@ -29,11 +29,11 @@ input[type="radio"] + label::before {
     height: 25px;
     width: 25px;
     margin: 0 5px 0 0;
-    background-image: url(../../Content/Images/Controls/radiobutton-off.png);
+    background-image: url(Images/Controls/radiobutton-off.png);
     background-repeat: no-repeat;
 }
 input[type="radio"]:checked + label::before {
-    background-image: url(../../Content/Images/Controls/radiobutton-on.png);
+    background-image: url(Images/Controls/radiobutton-on.png);
 }
 
 .container  .navbar-collapse{
@@ -368,18 +368,18 @@ input[type="checkbox"] + label{
   color: #444;
   cursor: pointer;
 }
-    input[type="checkbox"] + label::before {
+input[type="checkbox"] + label::before {
         content: "";
         display: inline-block;
         height: 22px;
         width: 22px;
         margin: 0 5px 0 0;
-        background-image: url(../../Content/Images/Controls/Admin/checkbox-off.png);
+        background-image: url(Images/Controls/Admin/checkbox-off.png);
         background-repeat: no-repeat;
     }
 
 input[type="checkbox"]:checked + label::before {
-    background-image: url(../../Content/Images/Controls/Admin/checkbox-on.png);
+    background-image: url(Images/Controls/Admin/checkbox-on.png);
 }
 
 

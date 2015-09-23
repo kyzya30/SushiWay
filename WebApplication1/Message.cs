@@ -12,11 +12,11 @@ namespace WebApplication1
     using System;
     using System.Collections.Generic;
     
-    public partial class Massage
+    public partial class Message
     {
         public int MessagesId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public string Text { get; set; }
+        public string Messages { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 CREATE PROC ShowAllCategories 
 AS
 Select (select count(*) from Category) as TotalCategories,
+Category.[NameUkr],
 Category.[NameRus],
 Category.[CategoryId],
 Category.[Priority],
@@ -8,7 +9,7 @@ ISNULL(sum(Product.[Count]),0) AS TotalDishes
 
 FROM [SushiTest1].[dbo].[Category]
 left join Product on Product.CategoryId = Category.CategoryId 
-Group by Category.NameRus,Category.CategoryId,[Priority]
+Group by Category.NameRus,Category.NameUkr,Category.CategoryId,[Priority]
 GO
 ----------------------
 CREATE PROC ShowUnprocessedOrders
@@ -27,6 +28,7 @@ CREATE PROCEDURE FindCategory @CategoryName nvarchar(50)
 AS
 
 Select (select count(*) from Category) as TotalCategories,
+Category.[NameUkr],
 Category.[NameRus],
 Category.[CategoryId],
 Category.[Priority],
@@ -35,7 +37,7 @@ ISNULL(sum(Product.[Count]),0) AS TotalDishes
 FROM [SushiTest1].[dbo].[Category]
 left join Product on Product.CategoryId = Category.CategoryId
 Where Category.NameRus  Like  '%'+@CategoryName+'%'
-Group by Category.NameRus,Category.CategoryId,Category.[Priority]
+Group by Category.NameRus,Category.NameUkr,Category.CategoryId,[Priority]
 GO
 -----------------------
 CREATE PROC AllDishes
@@ -70,10 +72,10 @@ inner join
 	from OrdersTimeChanged otch
 	inner join
 	(
-		select max(Time) as MaxStatusTime
+		select OrderId, max(Time) as MaxStatusTime
 		from OrdersTimeChanged
 		group by OrderId
-	) q on q.MaxStatusTime = otch.Time
+	) q on otch.OrderId = q.OrderId and q.MaxStatusTime = otch.Time
 ) q on q.OrderId = o.OrderId
 inner join OrderStatus os on os.OrderStatusId = q.OrderStatus
 inner join OrderDetails od on od.OrderDetailsId = o.OrderId
@@ -103,4 +105,24 @@ inner join OrderDetails od on od.OrderDetailsId = o.OrderId
 join Product p on p.ProductId = od.ProductId 
 where o.OrderId Like @Order+'%'
 group by o.OrderId, o.Street, o.House, o.Room, os.StatusNameRus, q.MaxStatusTime
+GO
+----------------------
+CREATE PROC DelOrdersDetailsId @Item nvarchar(50)
+AS
+DELETE From dbo.OrderDetails
+WHERE OrderDetailsId =@Item;
+GO
+----------------------
+CREATE PROC DelOrdersTimeChanged @Item nvarchar(50)
+AS
+DELETE From dbo.OrdersTimeChanged
+WHERE OrderId = @Item;
+GO
+---------------------------
+CREATE PROC InsertValOrdTimeCh @OrdID int, @OrdStatus int
+AS
+DECLARE @Date datetime
+SET @Date= GETDATE()
+Insert INTO OrdersTimeChanged 
+Values (@OrdID,@OrdStatus, @Date);
 GO

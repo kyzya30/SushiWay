@@ -11,13 +11,9 @@ namespace WebApplication1
 {
     using System;
     
-    public partial class FindCategory_Result
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public Nullable<int> TotalCategories { get; set; }
-        public string NameUkr { get; set; }
-        public string NameRus { get; set; }
-        public int CategoryId { get; set; }
-        public int Priority { get; set; }
-        public int TotalDishes { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

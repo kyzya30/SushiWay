@@ -144,6 +144,7 @@ namespace WebApplication1.Controllers
                         addCategories[i].CategoryId = findCategory[i].CategoryId;
                         addCategories[i].Priority = findCategory[i].Priority;
                         addCategories[i].TotalDishes = findCategory[i].TotalDishes;
+                        addCategories[i].NameUkr = findCategory[i].NameUkr;
                     }
                 }
             }
@@ -186,15 +187,17 @@ namespace WebApplication1.Controllers
             {
                 using (var context = new SushiTest1Entities1())
                 {
+                    if(idSelected !=null)
+                    { 
                     for (int i = 0; i < idSelected.Length; i++)
                     {
-                        //var pg = dbContext.Program.First(p => p.Id == Id && p.Name == FName);
-                        //dbContext.Program.Remove(pg);
                         int f = idSelected[i];
                         var d = context.Categories.First(z => z.CategoryId == f);
                         context.Categories.Remove(d);
 
                     }
+                    }
+
                     context.SaveChanges();
                     return RedirectToAction("Category", "Admin");
                 }
@@ -214,15 +217,11 @@ namespace WebApplication1.Controllers
                         int f = idSelected[i];
                         var d = context.Products.First(z => z.ProductId == f);
                         d.IsHided = true;
-
-                       // var d4 = context.Products.Include(z => z.IsHided = true).Where(z => z.ProductId == f).Single();
-
                     }
                     context.SaveChanges();
                 }
                 return Json(new { Success = true, Url = Url.Action("Dishes", "Admin") });
             }
-
             return Json(new { Success = true, Url = Url.Action("Dishes", "Admin") });
         }
 
@@ -236,25 +235,15 @@ namespace WebApplication1.Controllers
                     for (int i = 0; i < idSelected.Length; i++)
                     {
                         int f = idSelected[i];
-                        //var d = context.Products.First(z => z.ProductId == f);
                         var d1 = context.ProductWeightDetails.First(z => z.ProductId == f);
-                        //var d3 = context.AdditionProductsForProducts.First(z => z.ProductId == f);
-                       // context.AdditionProductsForProducts.Remove(d3);
                         context.ProductWeightDetails.Remove(d1);
-                       // context.Products.Remove(d);
-
                         context.SaveChanges();
                     }
                     for (int i = 0; i < idSelected.Length; i++)
                     {
                         int f = idSelected[i];
                         var d = context.Products.First(z => z.ProductId == f);
-                        //var d1 = context.ProductWeightDetails.First(z => z.ProductId == f);
-                        //var d3 = context.AdditionProductsForProducts.First(z => z.ProductId == f);
-                        // context.AdditionProductsForProducts.Remove(d3);
-                        //context.ProductWeightDetails.Remove(d1);
-                         context.Products.Remove(d);
-
+                        context.Products.Remove(d);
                         context.SaveChanges();
                     }
                     return Json(new { Success = true, Url = Url.Action("Dishes", "Admin") });
@@ -276,7 +265,53 @@ namespace WebApplication1.Controllers
                 }
             }
             return RedirectToAction("Category", "Admin");
-           // return View();
+         
+        }
+        [HttpPost]
+        public ActionResult ChangeOrderStatus(int[] idSelected,int drpdwnVal)
+        {
+            using (var context = new SushiTest1Entities1())
+            {    
+                if(idSelected !=null)
+                {      
+                for (int i = 0; i < idSelected.Length; i++)
+                {
+                    context.InsertValOrdTimeCh(idSelected[i], drpdwnVal);
+                }
+                }
+            }
+            return View();
+        }
+        [HttpPost]
+        public ActionResult DeleteOrderModal(int[] idSelected)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var context = new SushiTest1Entities1())
+                {
+                    for (int i = 0; i < idSelected.Length; i++)
+                    {
+                        string f = idSelected[i].ToString();
+                        context.DelOrdersDetailsId(f);  
+                    }
+                    for (int i = 0; i < idSelected.Length; i++)
+                    {
+                        string f = idSelected[i].ToString();
+                    
+                        context.DelOrdersTimeChanged(f);
+                    }
+
+                    for (int i = 0; i < idSelected.Length; i++)
+                    {
+                        int f = idSelected[i];
+                        var d = context.Orders.First(z => z.OrderId == f);
+                        context.Orders.Remove(d);
+                        context.SaveChanges();
+                    }
+                }
+            }
+
+            return View();
         }
 
         public  ActionResult Index()

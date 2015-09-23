@@ -10,14 +10,14 @@
 namespace WebApplication1
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class FindCategory_Result
+    public partial class sysdiagram
     {
-        public Nullable<int> TotalCategories { get; set; }
-        public string NameUkr { get; set; }
-        public string NameRus { get; set; }
-        public int CategoryId { get; set; }
-        public int Priority { get; set; }
-        public int TotalDishes { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

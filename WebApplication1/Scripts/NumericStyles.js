@@ -108,4 +108,77 @@ function HideDishModal()
         });
     });
 }
+function DeleteOrderModal() {
+    var item = $('#deletedItem');
+    var list = $('.checkboxes');
+    var resultString = "";
+    var arr = [];
+    var j = 0;
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].checked == true) {
+            resultString += list[i].name;
+            resultString += ", ";
+            arr[j++] = list[i].id;
+        }
+    }
+    //$.post("/Admin/DeleteCategoryItem/", { data: arr }).then(function () {
+
+    //});
+    $("#delOrderBtn").click(function () {
+        $.ajax({
+           
+            type: "POST",
+            url: '/Admin/DeleteOrderModal/',
+            content: "application/json; charset=utf-8",
+            dataType: "json",
+            data: { idSelected: arr },
+            success: setTimeout(function () {
+                location.reload()
+            }, 500)
+
+        });
+    });
+    resultString = resultString.substring(0, resultString.length - 2);
+    document.getElementById("deletedItem").innerHTML = "<span><b>" + resultString + "</b></span>";
+};
+function ChangeOrderStatus() {
+    var item = $('#deletedItem');
+    var drpdwn = $('#dropdown').val();
+    var list = $('.checkboxes');
+    var resultString = "";
+    var arr = [];
+    var j = 0;
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].checked == true) {
+            resultString += list[i].name;
+            resultString += ", ";
+            arr[j++] = list[i].id;
+        }
+    }
+    
+    //$.post("/Admin/DeleteCategoryItem/", { data: arr }).then(function () {
+
+    //});
+    $("#changeStatus").click(function () {
+        var drpdwnVal = $('#dropdown').val();
+        
+        $.ajax({
+           
+            type: "POST",
+            url: '/Admin/ChangeOrderStatus/',
+            content: "application/json; charset=utf-8",
+            dataType: "json",
+            data: {
+                idSelected: arr,
+                drpdwnVal: drpdwnVal
+            },
+            success: setTimeout(function () {
+                location.reload()
+            }, 500)
+
+        });
+    });
+    resultString = resultString.substring(0, resultString.length - 2);
+    document.getElementById("ChangedItem").innerHTML = "<span><b>" + resultString + "</b></span>";
+};
 

@@ -34,7 +34,7 @@ namespace WebApplication1
         public bool Sale { get; set; }
         public bool IsHided { get; set; }
         public System.DateTime AddDate { get; set; }
-    
+   
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AdditionProductsForProduct> AdditionProductsForProducts { get; set; }

@@ -27,8 +27,8 @@
             </div>
 
             <div class="row col-xs-12">
-                <div class="col-xs-2"><a href="">Изменить статус</a></div>
-                <div class="col-xs-2"><a href="">Удалить</a></div>
+                <div class="col-xs-2 funcElements" onclick="ChangeOrderStatus()" data-toggle="modal" data-target="#ChangeOrderStatus"><a href="">Изменить статус</a></div>
+                <div class="col-xs-2 funcElements" onclick="DeleteOrderModal()" data-toggle="modal" data-target="#DeleteOrderModal"><a href="">Удалить</a></div>
                 <div class="col-xs-2"> </div>
 
                 <div class="col-xs-6" style="text-align: right">
@@ -80,7 +80,7 @@
                   
 
                 <div class="col-xs-1">
-                    <input id="@ordId" type="checkbox" class="checkboxes" name="first" hidden />
+                    <input id="@ordId" type="checkbox" class="checkboxes" name="@ordId" hidden />
                     <label for="@ordId"></label>
                 </div>
                 <div class="col-xs-1" style="text-align: left">@ordId </div>
@@ -94,10 +94,12 @@
 
 
             <div class="row col-xs-12" style="padding-top: 15px">
-                <div class="col-xs-2"><a href="">Изменить статус</a> </div>
-                <div class="col-xs-2"><a href="">Удалить</a></div>
+                <div class="col-xs-2 funcElements" onclick="ChangeOrderStatus()" data-toggle="modal" data-target="#ChangeOrderStatus"><a href="">Изменить статус</a> </div>
+                <div class="col-xs-2 funcElements" onclick="DeleteOrderModal()" data-toggle="modal" data-target="#DeleteOrderModal"><a href="">Удалить</a></div>
                 <div class="col-xs-2"></div>
                 <div class="col-xs-6"></div>
             </div>
         </div>
+        @Html.Partial("DeleteOrderModal", new Order())
+        @Html.Partial("ChangeOrderStatus", new Order())
     </div>

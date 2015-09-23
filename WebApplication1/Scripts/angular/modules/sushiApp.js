@@ -121,10 +121,15 @@
         };
 
         $scope.SendToServerMessage = function (id) {
-            $http.post("/Home/AddMessageToDB/",{data :JSON.stringify(id)}).then(function (response) {
+            var arr = [];
+            arr[0] = id.Name;
+            arr[1] = id.Email;
+            arr[2] = id.Message1;
+            $http.post("/Home/AddMessageToDB/", { data: arr }).then(function (response) {
                 alert(response.res);
             });
             //$http.get("/Home/GetOrderStatus/", { data: id });
+            //JSON.stringify(id)
         };
 
 

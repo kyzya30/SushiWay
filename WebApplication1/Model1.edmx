@@ -4,15 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SushiTest1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SushiTest1Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'SushiTest1.dbo.AdditionProductsForProduct' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AdditionProductsForProduct">
           <Key>
             <PropertyRef Name="ProductId" />
+            <PropertyRef Name="ProductAdditionId" />
           </Key>
           <Property Name="ProductId" Type="int" Nullable="false" />
-          <Property Name="ProductAdditionId" Type="int" />
+          <Property Name="ProductAdditionId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Administrator">
           <Key>
@@ -38,19 +39,14 @@ warning 6002: The table/view 'SushiTest1.dbo.AdditionProductsForProduct' does no
           <Property Name="NameRus" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="NameUkr" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SushiTest1.dbo.Messages' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="Messages">
+        <EntityType Name="Massages">
           <Key>
             <PropertyRef Name="MessagesId" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="Email" />
-            <PropertyRef Name="Message" />
           </Key>
           <Property Name="MessagesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'SushiTest1.dbo.OrderDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -135,7 +131,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
         </EntityType>
         <Association Name="FK_AdditionProdutsForProduct_OrderDetailsId">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="AdditionProductsForProduct" Type="Self.AdditionProductsForProduct" Multiplicity="0..1" />
+          <End Role="AdditionProductsForProduct" Type="Self.AdditionProductsForProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ProductId" />
@@ -254,10 +250,11 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
         <Function Name="ShowAllCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ShowAllOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ShowUnprocessedOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <EntityContainer Name="SushiTest1ModelStoreContainer">
+        <EntityContainer Name="SushiTest1Model1StoreContainer">
           <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ingridients" EntityType="Self.Ingridients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Massages" EntityType="Self.Massages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
@@ -267,14 +264,6 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
     [AdditionProductsForProduct].[ProductId] AS [ProductId], 
     [AdditionProductsForProduct].[ProductAdditionId] AS [ProductAdditionId]
     FROM [dbo].[AdditionProductsForProduct] AS [AdditionProductsForProduct]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Messages" EntityType="Self.Messages" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Messages].[MessagesId] AS [MessagesId], 
-    [Messages].[Name] AS [Name], 
-    [Messages].[Email] AS [Email], 
-    [Messages].[Message] AS [Message]
-    FROM [dbo].[Messages] AS [Messages]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -338,7 +327,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SushiTest1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="SushiTest1Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Administrator">
           <Key>
             <PropertyRef Name="Login" />
@@ -364,6 +353,15 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <Property Name="NameRus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NameUkr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Products" Relationship="Self.ProductIngridients" FromRole="Ingridients" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Massage">
+          <Key>
+            <PropertyRef Name="MessagesId" />
+          </Key>
+          <Property Name="MessagesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -405,7 +403,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <Property Name="IsHided" Type="Boolean" Nullable="false" />
           <Property Name="AddDate" Type="DateTime" Nullable="false" Precision="2" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Product_CategoryId" FromRole="Product" ToRole="Category" />
-          <NavigationProperty Name="AdditionProductsForProduct" Relationship="Self.FK_AdditionProdutsForProduct_OrderDetailsId" FromRole="Product" ToRole="AdditionProductsForProduct" />
+          <NavigationProperty Name="AdditionProductsForProducts" Relationship="Self.FK_AdditionProdutsForProduct_OrderDetailsId" FromRole="Product" ToRole="AdditionProductsForProduct" />
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_ProductId" FromRole="Product" ToRole="OrderDetails" />
           <NavigationProperty Name="ProductWeightDetail" Relationship="Self.FK_ProductWeightDetails_ProductId" FromRole="Product" ToRole="ProductWeightDetails" />
           <NavigationProperty Name="Ingridients" Relationship="Self.ProductIngridients" FromRole="Product" ToRole="Ingridients" />
@@ -422,22 +420,11 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
         <EntityType Name="AdditionProductsForProduct">
           <Key>
             <PropertyRef Name="ProductId" />
+            <PropertyRef Name="ProductAdditionId" />
           </Key>
           <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <Property Name="ProductAdditionId" Type="Int32" />
+          <Property Name="ProductAdditionId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Product" Relationship="Self.FK_AdditionProdutsForProduct_OrderDetailsId" FromRole="AdditionProductsForProduct" ToRole="Product" />
-        </EntityType>
-        <EntityType Name="Message">
-          <Key>
-            <PropertyRef Name="MessagesId" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="Email" />
-            <PropertyRef Name="Message1" />
-          </Key>
-          <Property Name="MessagesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Message1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -515,7 +502,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
         </Association>
         <Association Name="FK_AdditionProdutsForProduct_OrderDetailsId">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="AdditionProductsForProduct" Type="Self.AdditionProductsForProduct" Multiplicity="0..1" />
+          <End Role="AdditionProductsForProduct" Type="Self.AdditionProductsForProduct" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="ProductId" />
@@ -553,16 +540,16 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
           <End Role="Ingridients" Type="Self.Ingridient" Multiplicity="*" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="SushiTest1Entities31" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities33" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Ingridients" EntityType="Self.Ingridient" />
+          <EntitySet Name="Massages" EntityType="Self.Massage" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatu" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductWeightDetails" EntityType="Self.ProductWeightDetail" />
           <EntitySet Name="AdditionProductsForProducts" EntityType="Self.AdditionProductsForProduct" />
-          <EntitySet Name="Messages" EntityType="Self.Message" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="OrdersTimeChangeds" EntityType="Self.OrdersTimeChanged" />
           <AssociationSet Name="FK_Product_CategoryId" Association="Self.FK_Product_CategoryId">
@@ -597,19 +584,19 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
             <End Role="Ingridients" EntitySet="Ingridients" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
-          <FunctionImport Name="AllDishes" ReturnType="Collection(SushiTest1Model.AllDishes_Result)" />
-          <FunctionImport Name="FindCategory" ReturnType="Collection(SushiTest1Model.FindCategory_Result)">
+          <FunctionImport Name="AllDishes" ReturnType="Collection(SushiTest1Model1.AllDishes_Result)" />
+          <FunctionImport Name="FindCategory" ReturnType="Collection(SushiTest1Model1.FindCategory_Result)">
             <Parameter Name="CategoryName" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="FindDishes" ReturnType="Collection(SushiTest1Model.FindDishes_Result)">
+          <FunctionImport Name="FindDishes" ReturnType="Collection(SushiTest1Model1.FindDishes_Result)">
             <Parameter Name="DishName" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="FindOrders" ReturnType="Collection(SushiTest1Model.FindOrders_Result)">
+          <FunctionImport Name="FindOrders" ReturnType="Collection(SushiTest1Model1.FindOrders_Result)">
             <Parameter Name="Order" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="ShowAllCategories" ReturnType="Collection(SushiTest1Model.ShowAllCategories_Result)" />
-          <FunctionImport Name="ShowAllOrders" ReturnType="Collection(SushiTest1Model.ShowAllOrders_Result)" />
-          <FunctionImport Name="ShowUnprocessedOrders" ReturnType="Collection(SushiTest1Model.ShowUnprocessedOrders_Result)" />
+          <FunctionImport Name="ShowAllCategories" ReturnType="Collection(SushiTest1Model1.ShowAllCategories_Result)" />
+          <FunctionImport Name="ShowAllOrders" ReturnType="Collection(SushiTest1Model1.ShowAllOrders_Result)" />
+          <FunctionImport Name="ShowUnprocessedOrders" ReturnType="Collection(SushiTest1Model1.ShowUnprocessedOrders_Result)" />
         </EntityContainer>
         <ComplexType Name="AllDishes_Result">
           <Property Type="Int32" Name="ProductId" Nullable="false" />
@@ -682,9 +669,9 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities31">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1Model1StoreContainer" CdmEntityContainer="SushiTest1Entities33">
           <EntitySetMapping Name="Administrators">
-            <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
+            <EntityTypeMapping TypeName="SushiTest1Model1.Administrator">
               <MappingFragment StoreEntitySet="Administrator">
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -692,7 +679,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="SushiTest1Model.Category">
+            <EntityTypeMapping TypeName="SushiTest1Model1.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
@@ -702,7 +689,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Ingridients">
-            <EntityTypeMapping TypeName="SushiTest1Model.Ingridient">
+            <EntityTypeMapping TypeName="SushiTest1Model1.Ingridient">
               <MappingFragment StoreEntitySet="Ingridients">
                 <ScalarProperty Name="IngridientId" ColumnName="IngridientId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
@@ -710,8 +697,18 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Massages">
+            <EntityTypeMapping TypeName="SushiTest1Model1.Massage">
+              <MappingFragment StoreEntitySet="Massages">
+                <ScalarProperty Name="MessagesId" ColumnName="MessagesId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="SushiTest1Model.Order">
+            <EntityTypeMapping TypeName="SushiTest1Model1.Order">
               <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -724,7 +721,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderStatus">
-            <EntityTypeMapping TypeName="SushiTest1Model.OrderStatu">
+            <EntityTypeMapping TypeName="SushiTest1Model1.OrderStatu">
               <MappingFragment StoreEntitySet="OrderStatus">
                 <ScalarProperty Name="OrderStatusId" ColumnName="OrderStatusId" />
                 <ScalarProperty Name="StatusNameRus" ColumnName="StatusNameRus" />
@@ -733,7 +730,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="SushiTest1Model.Product">
+            <EntityTypeMapping TypeName="SushiTest1Model1.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
@@ -751,7 +748,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductWeightDetails">
-            <EntityTypeMapping TypeName="SushiTest1Model.ProductWeightDetail">
+            <EntityTypeMapping TypeName="SushiTest1Model1.ProductWeightDetail">
               <MappingFragment StoreEntitySet="ProductWeightDetails">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -760,25 +757,15 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AdditionProductsForProducts">
-            <EntityTypeMapping TypeName="SushiTest1Model.AdditionProductsForProduct">
+            <EntityTypeMapping TypeName="SushiTest1Model1.AdditionProductsForProduct">
               <MappingFragment StoreEntitySet="AdditionProductsForProduct">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="ProductAdditionId" ColumnName="ProductAdditionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Messages">
-            <EntityTypeMapping TypeName="SushiTest1Model.Message">
-              <MappingFragment StoreEntitySet="Messages">
-                <ScalarProperty Name="MessagesId" ColumnName="MessagesId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Message1" ColumnName="Message" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="SushiTest1Model.OrderDetail">
+            <EntityTypeMapping TypeName="SushiTest1Model1.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
                 <ScalarProperty Name="OrderDetailsId" ColumnName="OrderDetailsId" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
@@ -788,7 +775,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrdersTimeChangeds">
-            <EntityTypeMapping TypeName="SushiTest1Model.OrdersTimeChanged">
+            <EntityTypeMapping TypeName="SushiTest1Model1.OrdersTimeChanged">
               <MappingFragment StoreEntitySet="OrdersTimeChanged">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
@@ -796,7 +783,7 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="ProductIngridients" TypeName="SushiTest1Model.ProductIngridients" StoreEntitySet="ProductIngridients">
+          <AssociationSetMapping Name="ProductIngridients" TypeName="SushiTest1Model1.ProductIngridients" StoreEntitySet="ProductIngridients">
             <EndProperty Name="Ingridients">
               <ScalarProperty Name="IngridientId" ColumnName="IngridientsId" />
             </EndProperty>
@@ -804,9 +791,9 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
               <ScalarProperty Name="ProductId" ColumnName="ProductId" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="AllDishes" FunctionName="SushiTest1Model.Store.AllDishes">
+          <FunctionImportMapping FunctionImportName="AllDishes" FunctionName="SushiTest1Model1.Store.AllDishes">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.AllDishes_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.AllDishes_Result">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
@@ -821,9 +808,9 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="FindCategory" FunctionName="SushiTest1Model.Store.FindCategory">
+          <FunctionImportMapping FunctionImportName="FindCategory" FunctionName="SushiTest1Model1.Store.FindCategory">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.FindCategory_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.FindCategory_Result">
                 <ScalarProperty Name="TotalCategories" ColumnName="TotalCategories" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
@@ -832,9 +819,9 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="FindDishes" FunctionName="SushiTest1Model.Store.FindDishes">
+          <FunctionImportMapping FunctionImportName="FindDishes" FunctionName="SushiTest1Model1.Store.FindDishes">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.FindDishes_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.FindDishes_Result">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
@@ -849,9 +836,9 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="FindOrders" FunctionName="SushiTest1Model.Store.FindOrders">
+          <FunctionImportMapping FunctionImportName="FindOrders" FunctionName="SushiTest1Model1.Store.FindOrders">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.FindOrders_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.FindOrders_Result">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="House" ColumnName="House" />
@@ -862,9 +849,9 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ShowAllCategories" FunctionName="SushiTest1Model.Store.ShowAllCategories">
+          <FunctionImportMapping FunctionImportName="ShowAllCategories" FunctionName="SushiTest1Model1.Store.ShowAllCategories">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllCategories_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.ShowAllCategories_Result">
                 <ScalarProperty Name="TotalCategories" ColumnName="TotalCategories" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
@@ -873,9 +860,9 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ShowAllOrders" FunctionName="SushiTest1Model.Store.ShowAllOrders">
+          <FunctionImportMapping FunctionImportName="ShowAllOrders" FunctionName="SushiTest1Model1.Store.ShowAllOrders">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllOrders_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.ShowAllOrders_Result">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="House" ColumnName="House" />
@@ -886,9 +873,9 @@ warning 6002: The table/view 'SushiTest1.dbo.ProductIngridients' does not have a
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ShowUnprocessedOrders" FunctionName="SushiTest1Model.Store.ShowUnprocessedOrders">
+          <FunctionImportMapping FunctionImportName="ShowUnprocessedOrders" FunctionName="SushiTest1Model1.Store.ShowUnprocessedOrders">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.ShowUnprocessedOrders_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.ShowUnprocessedOrders_Result">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="House" ColumnName="House" />

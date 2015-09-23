@@ -15,7 +15,7 @@ namespace WebApplication1
     public partial class AdditionProductsForProduct
     {
         public int ProductId { get; set; }
-        public Nullable<int> ProductAdditionId { get; set; }
+        public int ProductAdditionId { get; set; }
     
         public virtual Product Product { get; set; }
     }

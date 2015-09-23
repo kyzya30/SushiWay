@@ -68,10 +68,18 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public JsonResult AddMessageToDB(string id)
+        public JsonResult AddMessageToDB(string[] data)
         {
-        
-            return Json(new {res = "good"});
+            Massage mess = new Massage();
+            mess.Name = data[0];
+            mess.Email = data[1];
+            mess.Text = data[2];
+
+            var context = new SushiTest1Entities1(); ;
+            context.Massages.Add(mess);
+            context.SaveChanges();
+
+            return Json(new { res = "good" });
         }
         public JsonResult GetOrderStatus(string id)
         {

@@ -3,7 +3,7 @@
     ViewBag.Title = "AddNewDish";
     Layout = "~/Views/Shared/AdminMasterPage.cshtml";
 }
-@using (Html.BeginForm("AddNewDish","Admin", FormMethod.Post))
+@using (Html.BeginForm("AddNewDish","Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
 <div class="container-fluid " style="padding-top: 40px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
     <div class="row" style="margin-top: 30px;">
@@ -23,7 +23,7 @@
         <div class="col-sm-3">
             <div class="addImg text-center">
                 <img src="~/Content/Images/Controls/Admin/logo-transparent.png"/><br/>
-                <input type="file" id="loadImgBtn" title="Загрузить изображение"/>
+                <input type="file" id="loadImgBtn" name="uploadPhoto" title="Загрузить изображение"/>
             </div>
         </div>
         <div class="col-sm-7">
@@ -31,32 +31,32 @@
             <label for="priority">Приоритет</label>
             <input type="number" name="Priority" id="priority" class="form-control addNewDishTxt" min="1" max="999" value="1">
             <input name="Price" type="text" id="" class="form-control addNewDishTxt" placeholder="цена грн"/>
-            <select class="form-control addNewDishTxt">
+            <select class="form-control addNewDishTxt" name="dishCategory">
                 @foreach (var item in ViewBag.Categories)
                 {
                     var nameRusCategory = item.NameRus.ToString();
                     var catId = item.CategoryId.ToString();
-                    <option name="@catId">@nameRusCategory</option>
+                    <option name="@catId" value="@catId">@nameRusCategory</option>
                    
                 }
             </select><br/>
             <input name="Weight" type="text" id="" class="form-control addNewDishTxt" placeholder="Вес"/>
             <input name="Energy" type="text" id="" class="form-control addNewDishTxt" placeholder="Калорийность"/>
             <input name="Count" type="text" id="" class="form-control addNewDishTxt" placeholder="Количество"/><br/>
-            <input type="text" id="ingredientsTxt" class="form-control addNewDishTxt" placeholder="Состав"/>
+            <input name="ingredientsTxt" type="text" id="ingredientsTxt" class="form-control addNewDishTxt" placeholder="Состав"/>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-10">
             <div class="pull-right">
                 <label for="prod1">Пометки:</label>
-                <input type="radio" id="prod1" name="prod" checked="checked" />
+                <input type="radio" id="prod1" name="prod" value="1" checked="checked" />
                 <label for="prod1">Без пометок</label>
-                <input type="radio" id="prod2" name="prod" onclick="goToCart" />
+                <input type="radio" id="prod2" name="prod" value="2" onclick="goToCart" />
                 <label for="prod2">Популярные</label>
-                <input type="radio" id="prod3" name="prod" />
+                <input type="radio" id="prod3" name="prod" value="3" />
                 <label name="Sale" for="prod3">Акции</label>
-                <input type="radio" id="prod4" name="prod" />
+                <input type="radio" id="prod4" name="prod" value="4" />
                 <label for="prod4">Новинки</label>
             </div>
         </div>

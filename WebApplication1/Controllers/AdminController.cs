@@ -95,7 +95,8 @@ namespace WebApplication1.Controllers
             context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, false, isHidedProduct);
             context.SaveChanges();
 
-            int fileName = products.Count + 1;
+            int fileName = context.Products.ToList().Last().ProductId;
+            
             uploadPhoto.SaveAs(Server.MapPath("~/Content/Images/Products/" + fileName + ".jpeg"));
             return RedirectToAction("Dishes");
         }

@@ -126,3 +126,23 @@ SET @Date= GETDATE()
 Insert INTO OrdersTimeChanged 
 Values (@OrdID,@OrdStatus, @Date);
 GO
+
+
+----------------------------
+
+CREATE PROC AddProduct 
+@catId int,
+@nameRus nvarchar(50),
+@nameUkr nvarchar(50),
+@numOfOrders int,
+@count int,
+@energy nvarchar(50),
+@balance int,
+@price decimal(9,2),
+@isSale bit,
+@isHided bit
+AS
+insert into Product
+values (@catId, @nameRus, @nameUkr, @numOfOrders, @count, @energy, @balance, @price, @isSale, @isHided,GETDATE());
+
+go

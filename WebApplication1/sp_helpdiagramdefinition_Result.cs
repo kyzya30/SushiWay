@@ -10,13 +10,10 @@
 namespace WebApplication1
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Message
+    public partial class sp_helpdiagramdefinition_Result
     {
-        public int MessagesId { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Message1 { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

@@ -69,6 +69,7 @@
 
             @foreach (var D in Model)
             {
+            var NameUkr = D.NameUkr.ToString();
             var allCatID = D.CategoryId.ToString();
             var nameRusCategory = D.NameRus.ToString();
             var categoryPriority = D.Priority.ToString();
@@ -78,7 +79,7 @@
             <div class="row col-xs-12" style="padding-top: 10px; padding-bottom: 10px; border-width: 1px; border-bottom-style: solid;border-color: #7F7F7F ">
                 <div class="col-xs-1">
 
-                    <input id="@allCatID" type="checkbox" class="checkboxes" name="@nameRusCategory" hidden />
+                    <input id="@allCatID" type="checkbox" class="checkboxes" name="@nameRusCategory"  data-nameukr="@NameUkr"  hidden />
                     <label for="@allCatID"></label>
 
                 </div>

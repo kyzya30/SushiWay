@@ -18,11 +18,10 @@
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                           
-                            <input id="ModifyCategoryName" name="nameRus" type="text" class="form-control" style="border-radius: 0; width: 195px; height: 40px; position: fixed; top: 80px; left: 103px; margin-top: 30px; margin-left: 5px;" placeholder="Название категории"/>
-                            <span id="span1"></span>                            
-<input type="number" name="Priority" min="1" max="999" value="1" style="width: 59px; height: 39px; position: fixed; top: 80px; left: 315px; margin-top: 30px; border-width: 1px; border-style: solid; border-color: #bfbfbf;">
-                            <input name="NameUkr" type="text" class="form-control" style="border-radius: 0; width: 195px; height: 40px; position: fixed; top: 140px; left: 103px; margin-top: 30px; margin-left: 5px;" placeholder="Назва категорії" />
+                            <input id ="CategoryId" name="CategoryId" type="hidden" class="form-control" placeholder="Назва категорії" hidden/>
+                            <input id="ModifyCategoryNameRus" name="NameRus" type="text" class="form-control" style="border-radius: 0; width: 195px; height: 40px; position: fixed; top: 80px; left: 103px; margin-top: 30px; margin-left: 5px;" placeholder="Название категории"/>                        
+                            <input id="Priority" type="number" name="Priority" min="1" max="999" value="1" style="width: 59px; height: 39px; position: fixed; top: 80px; left: 315px; margin-top: 30px; border-width: 1px; border-style: solid; border-color: #bfbfbf;">
+                            <input id="ModifyCategoryNameUkr" name="NameUkr" type="text" class="form-control" style="border-radius: 0; width: 195px; height: 40px; position: fixed; top: 140px; left: 103px; margin-top: 30px; margin-left: 5px;" placeholder="Назва категорії" />
                         </div>
 
 
@@ -35,7 +34,7 @@
                         <b>Отмена</b>
                     </button>
 
-                    <button type="submit" class="btn btn-default" style="border-radius: 0; background: #808080; color: #ffffff; width: 127px; height: 40px;     position: fixed; top: 210px; left: 243px; margin-top: 30px;">
+                    <button type="submit" id="ModifyCategory" class="btn btn-default" style="border-radius: 0; background: #808080; color: #ffffff; width: 127px; height: 40px;     position: fixed; top: 210px; left: 243px; margin-top: 30px;">
                         <b>Изменить</b>
                     </button>
 

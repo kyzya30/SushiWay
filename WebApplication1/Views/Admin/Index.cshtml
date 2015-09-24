@@ -1,82 +1,83 @@
-﻿@using System.Dynamic
+﻿@model IEnumerable<WebApplication1.ShowUnprocessedOrders_Result>
 
-@{
+    @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/AdminMasterPage.cshtml";
-}
-<div class="container-fluid " style="padding-top: 30px; padding-left: 30px; padding-right: 30px; padding-bottom: 40px">
-    <div style="padding-top: 15px; padding-left:30px">
-        <h3 class="header">Статистика</h3>
-        <div class="row col-sm-6">
-            <h4><b>Необработанные заказы</b></h4>
-            <div class="">
-                <table class="table table-hover table-bordered" style="width: 385px; height: 55px; ">
-                    @*@foreach(var T in ViewBag.List1)
-                    {
-                    var time = T.Time.ToString();
-                    var street = T.Street.ToString();
-                    var house = T.House.ToString();
-                    var room = T.Room.ToString();
-                    var totalPrice = T.TotalPrice.ToString();
-                    <tr style="height: 15px;border-width: 1px; border-bottom: 1px; border-top: 1px; border-style: solid;border-color:#7F7F7F ">
+    }
+    <div class="container-fluid " style="padding-top: 30px; padding-left: 30px; padding-right: 30px; padding-bottom: 40px">
+        <div style="padding-top: 15px; padding-left:30px">
+            <h3 class="header">Статистика</h3>
+            <div class="row col-sm-6">
+                <h4><b>Необработанные заказы</b></h4>
+                <div class="">
+                    <table class="table table-hover table-bordered" style="width: 385px; height: 55px; ">
+                        @foreach(var T in Model)
+                        {
+                        var time = T.Time.ToString();
+                        var street = T.Street.ToString();
+                        var house = T.House.ToString();
+                        var room = T.Room.ToString();
+                        var totalPrice = T.TotalPrice.ToString();
+                        <tr style="height: 15px;border-width: 1px; border-bottom: 1px; border-top: 1px; border-style: solid;border-color:#7F7F7F ">
 
-                        <td ><img class="t-img" src=@Url.Content("~/Content/Images/Controls/Admin/icon-eye-grey.png")></td>
-                        <td >
-                            <b>@time</b><br>
-                            @street, @house, @room
-                        </td>
-                        <td>@totalPrice грн</td>
-                    </tr>
+                            <td><img class="t-img" src=@Url.Content("~/Content/Images/Controls/Admin/icon-eye-grey.png")></td>
+                            <td>
+                                <b>@time</b><br>
+                                @street, @house, @room
+                            </td>
+                            <td>@totalPrice грн</td>
+                        </tr>
 
-                    }*@
-                    
+                        }
 
-                </table>
+
+                    </table>
+                </div>
+            </div>
+            <div class="row col-sm-6">
+                <h4><b>Самые популярные блюда</b></h4>
+                <div class="dropdown">
+                    <button class=" btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Роллы
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                    <button class=" btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        5
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </div>
+
+                <div class="table-span" style="width: 385px; height: 70px; padding-bottom: 40px">
+                    <table class="table table-hover table-bordered">
+
+                        @*@foreach (var T in ViewBag.MostPopularDishes)
+                        {
+                        var numberOfOrders = T.NumberOfOrders.ToString();
+                        var nameRus = T.NameRus.ToString();
+                        var productId = T.ProductId.ToString();
+                        var price = T.Price.ToString();
+                        var srcPict = productId += ".jpeg";
+                        <tr style="height: 15px;border-width: 1px; border-bottom: 1px; border-top: 1px; border-style: solid;border-color:#7F7F7F ">
+                            <td>заказан <br><b> @numberOfOrders </b><br> раз<br></td>
+                            <td><img class="t-img" style="width: 50px; height: 50px; " src=@Url.Content("~/Content/Images/Products/"+@srcPict)></td>
+                            <td>@nameRus @price грн</td>
+                        </tr>
+                        }*@
+
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="row col-sm-6">
-            <h4><b>Самые популярные блюда</b></h4>
-            <div class="dropdown">
-                <button class=" btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    Роллы
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-                <button class=" btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    5
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-            </div>
-
-            <div class="table-span" style="width: 385px; height: 70px; padding-bottom: 40px">
-                <table class="table table-hover table-bordered" >
-
-                    @*@foreach (var T in ViewBag.MostPopularDishes)
-                    {
-                    var numberOfOrders = T.NumberOfOrders.ToString();
-                    var nameRus = T.NameRus.ToString();
-                    var productId = T.ProductId.ToString();
-                    var price = T.Price.ToString();
-                    var srcPict = productId += ".jpeg";
-                    <tr style="height: 15px;border-width: 1px; border-bottom: 1px; border-top: 1px; border-style: solid;border-color:#7F7F7F ">
-                        <td>заказан <br><b> @numberOfOrders </b><br> раз<br></td>
-                        <td><img class="t-img" style="width: 50px; height: 50px; " src=@Url.Content("~/Content/Images/Products/"+@srcPict)></td>
-                        <td>@nameRus @price грн</td>
-                    </tr>
-                    }*@
-                    
-                </table>
-            </div>
-        </div>
-    </div></div>
+    </div>

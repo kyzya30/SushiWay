@@ -19,7 +19,7 @@ From OrderDetails
 join dbo.Product on Product.ProductId = OrderDetails.ProductId 
 join dbo.Orders on Orders.OrderId = OrderDetails.OrderDetailsId 
 join dbo.OrdersTimeChanged on OrdersTimeChanged.OrderId = Orders.OrderId
-
+Where OrdersTimeChanged.OrderStatus =2 
 GROUP BY Street,House,Room,Orders.OrderId, OrdersTimeChanged.Time
 GO
 -------------------------
@@ -125,6 +125,14 @@ DECLARE @Date datetime
 SET @Date= GETDATE()
 Insert INTO OrdersTimeChanged 
 Values (@OrdID,@OrdStatus, @Date);
+GO
+----------------------------
+CREATE PROC UpdateCategory @CategoryId int, @NewRusName nvarchar(50)
+,@NewUkrName nvarchar(50), @NewPriority int 
+AS 
+Update Category
+SET NameRus = @NewRusName , NameUkr = @NewUkrName, [Priority] = @NewPriority
+Where CategoryId = @CategoryId
 GO
 
 

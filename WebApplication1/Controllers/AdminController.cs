@@ -202,8 +202,7 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public ActionResult DeleteCategoryItem(int[] idSelected)
         {
-            if (ModelState.IsValid)
-            {
+           
                 using (var context = new SushiTest1Entities1())
                 {
                     if(idSelected !=null)
@@ -213,15 +212,15 @@ namespace WebApplication1.Controllers
                         int f = idSelected[i];
                         var d = context.Categories.First(z => z.CategoryId == f);
                         context.Categories.Remove(d);
-
-                    }
+                            context.SaveChanges();
+                        }
                     }
 
                     context.SaveChanges();
                     return RedirectToAction("Category", "Admin");
-                }
+                
             }
-            return RedirectToAction("Category", "Admin");
+            
         }
 
         [HttpPost]
@@ -270,21 +269,20 @@ namespace WebApplication1.Controllers
             }
             return Json(new { Success = true, Url = Url.Action("Dishes", "Admin") });
         }
+
+      
         [HttpPost]
-        public ActionResult ModifyCategoryModal(Category category)
+        public ActionResult ModifyCategoryModal(int CategoryId, string NameRus, string NameUkr,int Priority)
         {
             if (ModelState.IsValid)
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                    var d = context.Categories.First(i => i.NameRus == category.NameRus);
-                    d.Priority = category.Priority;
-                    context.SaveChanges();
-                  
+                    var d = context.UpdateCategory(CategoryId,NameRus,NameUkr,Priority); 
                 }
             }
             return RedirectToAction("Category", "Admin");
-         
+
         }
         [HttpPost]
         public ActionResult ChangeOrderStatus(int[] idSelected,int drpdwnVal)
@@ -335,9 +333,10 @@ namespace WebApplication1.Controllers
 
         public  ActionResult Index()
         {
-            //var context = new SushiTest1Entities1();
+            var context = new SushiTest1Entities1();
+            List <ShowUnprocessedOrders_Result> ShUnpOrd = context.ShowUnprocessedOrders().ToList();
+
             //var showUnprocessedOrders = context.ShowUnprocessedOrders().ToList();
-            
             //var Products = context.Products.ToList();
             //ViewBag.List1 = showUnprocessedOrders;
 
@@ -357,7 +356,7 @@ namespace WebApplication1.Controllers
             //object T2 = mostPopularDishes.ToList();
             //ViewBag.MostPopularDishes = T2;
 
-            return View();
+            return View(ShUnpOrd);
 
            
         }

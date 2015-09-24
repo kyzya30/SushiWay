@@ -10,13 +10,13 @@
 namespace WebApplication1
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Message
+    public partial class sp_helpdiagrams_Result
     {
-        public int MessagesId { get; set; }
+        public string Database { get; set; }
         public string Name { get; set; }
-        public string Email { get; set; }
-        public string Message1 { get; set; }
+        public int ID { get; set; }
+        public string Owner { get; set; }
+        public int OwnerID { get; set; }
     }
 }

@@ -1,14 +1,60 @@
 ﻿function ShowAllSelected() {
-    var item = $('#ModifyCategoryName');
+    var itemRus = $('#ModifyCategoryNameRus').val();
+    var CatId = 0;
   var  list = $('.checkboxes');
-
+  //var item2 = $('#ModifyCategoryNameUkr');
     for (var i = 0; i < list.length; i++) {
         if (list[i].checked == true) {
-            item.val = list[0].name;
-            document.getElementById("ModifyCategoryName").value = list[i].name;
+            itemRus = list[i].name;
+            CatId = list[i].id;
+            var el = document.getElementById(list[i].id)
+             var nameukr = el.dataset.nameukr;
+           //var drpdwnVal = $('#dropdown').val();
+           // item2.val = list[0].content;//wrong
+          
         //document.getElementById('ModifyCategoryName').textContent(list[i].id + list[i].name);
         }
     }
+    document.getElementById("ModifyCategoryNameUkr").value = nameukr;
+    document.getElementById("ModifyCategoryNameRus").value = itemRus;
+    document.getElementById("CategoryId").value = CatId;
+    
+    //$("#ModifyCategory").click(function (e) {
+       
+    //    e.preventDefault();
+    //    //var NameRus = document.getElementById("ModifyCategoryNameRus");
+    //    //e = NameRus.dataset.placeholder;
+    //    var categoryNameUkr1 = $('#ModifyCategoryNameUkr').val();
+    //    var categoryNameRus1 = $('#ModifyCategoryNameRus').val();
+    //    var Priority = $('#Priority').val();
+    //    var startedValNameRus1 = itemRus;
+    //    var model = {
+    //        //startedValNameRus: startedValNameRus1,
+    //        //NameRus: categoryNameRus1,
+    //        //NameUkr: categoryNameUkr1,
+    //        Priority: Priority
+
+    //    };
+    //    //var model = [];
+    //    //model[0] = startedValNameRus1;
+    //    //model[1] = categoryNameRus1;
+    //    //model[2] = categoryNameUkr1;
+    //    //model[3] = Priority;
+    //    console.log(model);
+    //    alert(123);
+    //    $.ajax({
+
+    //        type: "POST",
+    //        url: '/Admin/ModifyCategoryModal/',
+    //        contentType: "application/json; charset=utf-8",
+    //        dataType: "json",
+    //        data: model,
+    //        success: setTimeout(function () {
+    //            location.reload()
+    //        }, 500)
+
+    //    });
+    //});
     //item.val = list[0].name;
 };
 
@@ -36,7 +82,10 @@ function DeleteItemModal() {
             content: "application/json; charset=utf-8",
             dataType: "json",
             data: { idSelected: arr },
-            success: location.href = '/Admin/Category/'
+            success:
+                 setTimeout(function () {
+                     location.reload()
+                 }, 500)
             
         });
     });

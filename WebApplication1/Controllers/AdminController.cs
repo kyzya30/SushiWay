@@ -74,12 +74,30 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Category", "Admin");
         }
 
+        [HttpGet]
         public ActionResult AddNewDish()
         {
-            var context = new SushiTest1Entities1();                    
+            var context = new SushiTest1Entities1();
             var Category = context.Categories.ToList();
             ViewBag.Categories = Category;
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddNewDish(string NameRus, string NameUkr, string isHided, int? dishCategory, byte prod, int Priority, decimal? Price, double Weight, string Energy, int Count, string ingredientsTxt, HttpPostedFileBase uploadPhoto)
+        {
+            //string fileName = System.IO.Path.GetFileName(uploadPhoto.FileName);
+            var context = new SushiTest1Entities1();
+            var products = context.Products.ToList();
+
+            bool isHidedProduct = (isHided != null) ? true : false;
+
+            context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, false, isHidedProduct);
+            context.SaveChanges();
+
+            int fileName = products.Count + 1;
+            uploadPhoto.SaveAs(Server.MapPath("~/Content/Images/Products/" + fileName + ".jpeg"));
+            return RedirectToAction("Dishes");
         }
 
         public ActionResult AddNewOrder()

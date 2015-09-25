@@ -18,7 +18,7 @@ namespace WebApplication1
     public partial class SushiTest1Entities1 : DbContext
     {
         public SushiTest1Entities1()
-            : base("name=SushiTest1Entities1")
+            : base("name=SushiTest1Entities43")
         {
         }
     
@@ -30,82 +30,18 @@ namespace WebApplication1
         public virtual DbSet<Administrator> Administrators { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Ingridient> Ingridients { get; set; }
+        public virtual DbSet<Massage> Massages { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderStatu> OrderStatus { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductWeightDetail> ProductWeightDetails { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<AdditionProductsForProduct> AdditionProductsForProducts { get; set; }
-        public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<OrdersTimeChanged> OrdersTimeChangeds { get; set; }
-    
-        public virtual int AddProduct(Nullable<int> catId, string nameRus, string nameUkr, Nullable<int> numOfOrders, Nullable<int> count, string energy, Nullable<int> balance, Nullable<decimal> price, Nullable<bool> isSale, Nullable<bool> isHided)
-        {
-            var catIdParameter = catId.HasValue ?
-                new ObjectParameter("catId", catId) :
-                new ObjectParameter("catId", typeof(int));
-    
-            var nameRusParameter = nameRus != null ?
-                new ObjectParameter("nameRus", nameRus) :
-                new ObjectParameter("nameRus", typeof(string));
-    
-            var nameUkrParameter = nameUkr != null ?
-                new ObjectParameter("nameUkr", nameUkr) :
-                new ObjectParameter("nameUkr", typeof(string));
-    
-            var numOfOrdersParameter = numOfOrders.HasValue ?
-                new ObjectParameter("numOfOrders", numOfOrders) :
-                new ObjectParameter("numOfOrders", typeof(int));
-    
-            var countParameter = count.HasValue ?
-                new ObjectParameter("count", count) :
-                new ObjectParameter("count", typeof(int));
-    
-            var energyParameter = energy != null ?
-                new ObjectParameter("energy", energy) :
-                new ObjectParameter("energy", typeof(string));
-    
-            var balanceParameter = balance.HasValue ?
-                new ObjectParameter("balance", balance) :
-                new ObjectParameter("balance", typeof(int));
-    
-            var priceParameter = price.HasValue ?
-                new ObjectParameter("price", price) :
-                new ObjectParameter("price", typeof(decimal));
-    
-            var isSaleParameter = isSale.HasValue ?
-                new ObjectParameter("isSale", isSale) :
-                new ObjectParameter("isSale", typeof(bool));
-    
-            var isHidedParameter = isHided.HasValue ?
-                new ObjectParameter("isHided", isHided) :
-                new ObjectParameter("isHided", typeof(bool));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddProduct", catIdParameter, nameRusParameter, nameUkrParameter, numOfOrdersParameter, countParameter, energyParameter, balanceParameter, priceParameter, isSaleParameter, isHidedParameter);
-        }
     
         public virtual ObjectResult<AllDishes_Result> AllDishes()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AllDishes_Result>("AllDishes");
-        }
-    
-        public virtual int DelOrdersDetailsId(string item)
-        {
-            var itemParameter = item != null ?
-                new ObjectParameter("Item", item) :
-                new ObjectParameter("Item", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelOrdersDetailsId", itemParameter);
-        }
-    
-        public virtual int DelOrdersTimeChanged(string item)
-        {
-            var itemParameter = item != null ?
-                new ObjectParameter("Item", item) :
-                new ObjectParameter("Item", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DelOrdersTimeChanged", itemParameter);
         }
     
         public virtual ObjectResult<FindCategory_Result> FindCategory(string categoryName)
@@ -135,19 +71,6 @@ namespace WebApplication1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindOrders_Result>("FindOrders", orderParameter);
         }
     
-        public virtual int InsertValOrdTimeCh(Nullable<int> ordID, Nullable<int> ordStatus)
-        {
-            var ordIDParameter = ordID.HasValue ?
-                new ObjectParameter("OrdID", ordID) :
-                new ObjectParameter("OrdID", typeof(int));
-    
-            var ordStatusParameter = ordStatus.HasValue ?
-                new ObjectParameter("OrdStatus", ordStatus) :
-                new ObjectParameter("OrdStatus", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertValOrdTimeCh", ordIDParameter, ordStatusParameter);
-        }
-    
         public virtual ObjectResult<ShowAllCategories_Result> ShowAllCategories()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ShowAllCategories_Result>("ShowAllCategories");
@@ -161,130 +84,6 @@ namespace WebApplication1
         public virtual ObjectResult<ShowUnprocessedOrders_Result> ShowUnprocessedOrders()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ShowUnprocessedOrders_Result>("ShowUnprocessedOrders");
-        }
-    
-        public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_alterdiagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_creatediagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var versionParameter = version.HasValue ?
-                new ObjectParameter("version", version) :
-                new ObjectParameter("version", typeof(int));
-    
-            var definitionParameter = definition != null ?
-                new ObjectParameter("definition", definition) :
-                new ObjectParameter("definition", typeof(byte[]));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_creatediagram", diagramnameParameter, owner_idParameter, versionParameter, definitionParameter);
-        }
-    
-        public virtual int sp_dropdiagram(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_dropdiagram", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagramdefinition_Result> sp_helpdiagramdefinition(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagramdefinition_Result>("sp_helpdiagramdefinition", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual ObjectResult<sp_helpdiagrams_Result> sp_helpdiagrams(string diagramname, Nullable<int> owner_id)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_helpdiagrams_Result>("sp_helpdiagrams", diagramnameParameter, owner_idParameter);
-        }
-    
-        public virtual int sp_renamediagram(string diagramname, Nullable<int> owner_id, string new_diagramname)
-        {
-            var diagramnameParameter = diagramname != null ?
-                new ObjectParameter("diagramname", diagramname) :
-                new ObjectParameter("diagramname", typeof(string));
-    
-            var owner_idParameter = owner_id.HasValue ?
-                new ObjectParameter("owner_id", owner_id) :
-                new ObjectParameter("owner_id", typeof(int));
-    
-            var new_diagramnameParameter = new_diagramname != null ?
-                new ObjectParameter("new_diagramname", new_diagramname) :
-                new ObjectParameter("new_diagramname", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_renamediagram", diagramnameParameter, owner_idParameter, new_diagramnameParameter);
-        }
-    
-        public virtual int sp_upgraddiagrams()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
-        }
-    
-        public virtual int UpdateCategory(Nullable<int> categoryId, string newRusName, string newUkrName, Nullable<int> newPriority)
-        {
-            var categoryIdParameter = categoryId.HasValue ?
-                new ObjectParameter("CategoryId", categoryId) :
-                new ObjectParameter("CategoryId", typeof(int));
-    
-            var newRusNameParameter = newRusName != null ?
-                new ObjectParameter("NewRusName", newRusName) :
-                new ObjectParameter("NewRusName", typeof(string));
-    
-            var newUkrNameParameter = newUkrName != null ?
-                new ObjectParameter("NewUkrName", newUkrName) :
-                new ObjectParameter("NewUkrName", typeof(string));
-    
-            var newPriorityParameter = newPriority.HasValue ?
-                new ObjectParameter("NewPriority", newPriority) :
-                new ObjectParameter("NewPriority", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateCategory", categoryIdParameter, newRusNameParameter, newUkrNameParameter, newPriorityParameter);
         }
     }
 }

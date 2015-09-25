@@ -1,15 +1,13 @@
 ﻿<h2 class="index-descr">Состояние заказа</h2>
-
 <div class="row">
     <div class="col-xs-12 col-sm-9">
-        <form name="CheckOrderStatus" >
+        <form name="CheckOrderStatus">
             <div class="div-contact text-center">
-                <h4 class="index-descr">Введите номер заказа, что бы узнать в каком состоянии он находится:</h4>
-                <input ng-model="findOredrById" class="form-control form-group" ng-pattern="matchPattern" id="check-order-status" placeholder="XXXXXXX" />
-                <br/>
-                <input type="submit" class="btn" ng-click="SendToServer(findOredrById)" id="check-order-status-btn" title="Проверить" />
+                <span>Заказ номер {{findOredrById}} </span> <br/>
+                {{resOrderSatus}} <br/>
             </div>
         </form>
+        <input type="button" class="btn"  ng-click="goToMenu()" value="Сделать новый заказ" />
     </div>
 
     <div class="col-xs-12 col-sm-3">

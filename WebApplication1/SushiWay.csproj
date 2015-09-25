@@ -182,7 +182,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Logger.cs" />
-    <Compile Include="Message.cs">
+    <Compile Include="Massage.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Model1.Context.cs">
@@ -226,15 +226,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ShowUnprocessedOrders_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -384,7 +375,9 @@
     <Content Include="Scripts\angular\views\FindByName.html" />
     <Content Include="Scripts\angular\views\menu.html" />
     <Content Include="Scripts\angular\views\OrderSearch.html" />
+    <Content Include="Scripts\angular\views\OrderStatusResult.html" />
     <Content Include="Scripts\angular\views\ProductCategoriesFilter.html" />
+    <Content Include="Scripts\angular\views\SuccessMakeOrder.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Model1.edmx">

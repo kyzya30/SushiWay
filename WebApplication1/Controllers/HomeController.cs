@@ -59,7 +59,7 @@ namespace WebApplication1.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult AddOrderToDb(FormCollection id)
+        public JsonResult AddOrderToDb(string[][] data)
         {
 
             var model = new object();
@@ -70,14 +70,14 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public JsonResult AddMessageToDB(string[] data)
         {
-            //Massage mess = new Massage();
-            //mess.Name = data[0];
-            //mess.Email = data[1];
-            //mess.Text = data[2];
+            Massage mess = new Massage();
+            mess.Name = data[0];
+            mess.Email = data[1];
+            mess.Text = data[2];
 
-            //var context = new SushiTest1Entities1(); ;
-            //context.Massages.Add(mess);
-            //context.SaveChanges();
+            var context = new SushiTest1Entities1(); ;
+            context.Massages.Add(mess);
+            context.SaveChanges();
 
             return Json(new { res = "good" });
         }

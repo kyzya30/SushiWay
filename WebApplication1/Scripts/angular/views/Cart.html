@@ -45,7 +45,7 @@
 
 <h2 class="index-descr">Всего : {{cartSum}}</h2>
 
-<form name="MakeOrder" ng-submit="makeOrder(newOrder)">
+<form name="MakeOrder" ng-submit="SentOrderToServer(newOrder)">
     <div class="row">
         <div class="div-contact" style="min-height: 130px;">
             <div class="col-xs-12 col-md-9">
@@ -87,8 +87,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12">
-            <input type="submit" class="btn submitOrder" style="float: left;"/>
+    <div class="col-xs-12">
+        <button class="btn submitOrder" style="float: left">Заказать</button>
         </div>
     </div>
 </form>

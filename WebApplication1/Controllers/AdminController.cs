@@ -92,7 +92,7 @@ namespace WebApplication1.Controllers
 
             bool isHidedProduct = (isHided != null) ? true : false;
 
-            context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, false, isHidedProduct);
+            //context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, false, isHidedProduct);
             context.SaveChanges();
 
             int fileName = context.Products.ToList().Last().ProductId;
@@ -163,7 +163,7 @@ namespace WebApplication1.Controllers
                         addCategories[i].CategoryId = findCategory[i].CategoryId;
                         addCategories[i].Priority = findCategory[i].Priority;
                         addCategories[i].TotalDishes = findCategory[i].TotalDishes;
-                        addCategories[i].NameUkr = findCategory[i].NameUkr;
+                        //addCategories[i].NameUkr = findCategory[i].NameUkr;
                     }
                 }
             }
@@ -278,7 +278,7 @@ namespace WebApplication1.Controllers
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                    var d = context.UpdateCategory(CategoryId,NameRus,NameUkr,Priority); 
+                    //var d = context.UpdateCategory(CategoryId,NameRus,NameUkr,Priority); 
                 }
             }
             return RedirectToAction("Category", "Admin");
@@ -293,7 +293,7 @@ namespace WebApplication1.Controllers
                 {      
                 for (int i = 0; i < idSelected.Length; i++)
                 {
-                    context.InsertValOrdTimeCh(idSelected[i], drpdwnVal);
+                    //context.InsertValOrdTimeCh(idSelected[i], drpdwnVal);
                 }
                 }
             }
@@ -309,13 +309,13 @@ namespace WebApplication1.Controllers
                     for (int i = 0; i < idSelected.Length; i++)
                     {
                         string f = idSelected[i].ToString();
-                        context.DelOrdersDetailsId(f);  
+                        //context.DelOrdersDetailsId(f);  
                     }
                     for (int i = 0; i < idSelected.Length; i++)
                     {
                         string f = idSelected[i].ToString();
                     
-                        context.DelOrdersTimeChanged(f);
+                        //context.DelOrdersTimeChanged(f);
                     }
 
                     for (int i = 0; i < idSelected.Length; i++)

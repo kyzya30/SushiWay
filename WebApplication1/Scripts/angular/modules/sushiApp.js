@@ -14,12 +14,20 @@
             templateUrl: "scripts/angular/views/Contact.html"
         });
 
+        $routeProvider.when("/result", {
+            templateUrl: "scripts/angular/views/OrderStatusResult.html"
+        });
+
         $routeProvider.when("/order", {
             templateUrl: "scripts/angular/views/OrderSearch.html"
         });
 
         $routeProvider.when("/productname", {
             templateUrl: "scripts/angular/views/ProductCategoriesFilter.html"
+        });
+
+        $routeProvider.when("/Success", {
+            templateUrl: "scripts/angular/views/SuccessMakeOrder.html"
         });
 
         $routeProvider.when("/menu", {
@@ -47,6 +55,9 @@
         $scope.goToMenu = function () {
             $location.path("/menu");
         };
+        $scope.goResult = function () {
+            $location.path("/result");
+        };
         $scope.gotoNameFilter = function() {
             $location.path("/productname");
         };
@@ -73,7 +84,8 @@
 
             $scope.cartSum += item.price;
         };
-        $scope.findOredrById = "";
+        $scope.findOredrById = " ";
+        $scope.resOrderSatus = " ";
 
         $scope.matchPattern = /^\d+$/;
 
@@ -107,15 +119,18 @@
         };
         $scope.addProduct = function (item) {
             return item.categoryId == 3;
-        }; //$scope.method =  function() {
+        }; 
+        //$scope.method =  function() {
         //    myService.sendData(data).then(function() {
 
         //    });
         //}
 
         $scope.SendToServer = function (id) {
+            $scope.findOredrById = id;
             $http.get("/Home/GetOrderStatus/" + id).then(function(response) {
                 $scope.resOrderSatus = (response.data[0].res);
+                $location.path("/result");
             });
             //$http.get("/Home/GetOrderStatus/", { data: id });
         };
@@ -126,11 +141,30 @@
             arr[1] = id.Email;
             arr[2] = id.Message1;
             $http.post("/Home/AddMessageToDB/", { data: arr }).then(function (response) {
-                alert(response.res);
+                alert(response.data[0].res);
             });
             //$http.get("/Home/GetOrderStatus/", { data: id });
             //JSON.stringify(id)
         };
+
+        $scope.SentOrderToServer = function(details) {
+            var arr = [];
+            arr.push(details);
+            var product = new Object();
+            for (var i = 0; i < $scope.items.length; i++) {
+                if ($scope.items[i].selected == true) {
+
+                    product.id = $scope.items[i].id;
+                    product.count = $scope.items[i].count;
+                    product.price = $scope.items[i].price;
+                    arr.push(product);
+                }
+            }
+            $http.post("Home/AddOrderToDb",{data: arr}).then(function(response) {
+                alert("good");
+            });
+            $location.path("/Success");
+        }
 
 
     }]).service('sushiService', function ($http) {

@@ -11,7 +11,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Microsoft.Ajax.Utilities;
-using EmitMapper;
+using WebApplication1.Models;
 
 
 namespace WebApplication1.Controllers
@@ -34,26 +34,26 @@ namespace WebApplication1.Controllers
     public class AdminController : Controller
     {
         // GET: Admin
-        
+
 
         public ActionResult Login()
-        {  
+        {
             return View();
         }
         public async Task<ActionResult> Dishes()                                          //C# Homework Async/Await by R.Kuzmenko
         {                                                                                 //
             var context = new SushiTest1Entities1();                                      //
-            var productWeightDetails =  await context.ProductWeightDetails.ToListAsync(); //
+            var productWeightDetails = await context.ProductWeightDetails.ToListAsync(); //
             List<AllDishes_Result> addDishes = context.AllDishes().ToList();
             return View(addDishes);
         }
 
-        public async Task<ActionResult> Category()                      //C# Homework Async/Await by R.Kuzmenko
-        {      
-           
+        public ActionResult Category()                      //C# Homework Async/Await by R.Kuzmenko
+        {
+
             var context = new SushiTest1Entities1();                    //
-            var Product = await context.Products.ToListAsync();       //  
-            var Category = await context.Categories.ToListAsync();      //
+                                                                        //  
+
             var addCategories = context.ShowAllCategories().ToList();
             return View(addCategories);
         }
@@ -65,7 +65,7 @@ namespace WebApplication1.Controllers
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                   
+
                     context.Categories.Add(category);
                     context.SaveChanges();
                     return RedirectToAction("Category", "Admin");
@@ -78,39 +78,37 @@ namespace WebApplication1.Controllers
         public ActionResult AddNewDish()
         {
             var context = new SushiTest1Entities1();
-            var Category = context.Categories.ToList();
-            ViewBag.Categories = Category;
+            var category = context.Categories.ToList();
+            ViewBag.Categories = category;
             return View();
         }
 
         [HttpPost]
-        public ActionResult AddNewDish(string NameRus, string NameUkr, string isHided, int? dishCategory, byte prod, int Priority,
-            decimal? Price, double Weight, string Energy, int Count, string ingredientsTxtRus, string ingredientsTxtUkr, HttpPostedFileBase uploadPhoto)
+        public ActionResult AddNewDish(string NameRus, string NameUkr, string isHided, int? dishCategory, byte prod, int Priority, decimal? Price, double Weight, string Energy, int Count, string ingredientsTxt, HttpPostedFileBase uploadPhoto)
         {
             var context = new SushiTest1Entities1();
             var products = context.Products.ToList();
 
             bool isHidedProduct = (isHided != null) ? true : false;
 
-            context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, false, isHidedProduct,
-                            ingredientsTxtRus, ingredientsTxtUkr); context.SaveChanges();
+            context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, false, isHidedProduct, "", "");
+            context.SaveChanges();
 
             int fileName = context.Products.ToList().Last().ProductId;
-            
+
             uploadPhoto.SaveAs(Server.MapPath("~/Content/Images/Products/" + fileName + ".jpeg"));
             return RedirectToAction("Dishes");
         }
 
         public ActionResult AddNewOrder()
         {
-           
+
             return View();
         }
-       
+
         public ActionResult Orders()
         {
             var context = new SushiTest1Entities1();
-            //List<ShowAllCategories_Result> showAllOrders = context.ShowAllCategories().ToList();
             List<ShowAllOrders_Result> showAllOrders = context.ShowAllOrders().ToList();
             return View(showAllOrders);
         }
@@ -167,7 +165,7 @@ namespace WebApplication1.Controllers
                     }
                 }
             }
-             return View("~/Views/Admin/Category.cshtml", addCategories);
+            return View("~/Views/Admin/Category.cshtml", addCategories);
         }
         [HttpPost]
         public ActionResult FindOrders(Order order)
@@ -197,30 +195,30 @@ namespace WebApplication1.Controllers
                 }
             }
             return View("~/Views/Admin/Orders.cshtml", addOrders);
-            
+
         }
         [HttpPost]
         public ActionResult DeleteCategoryItem(int[] idSelected)
         {
-           
-                using (var context = new SushiTest1Entities1())
+
+            using (var context = new SushiTest1Entities1())
+            {
+                if (idSelected != null)
                 {
-                    if(idSelected !=null)
-                    { 
                     for (int i = 0; i < idSelected.Length; i++)
                     {
                         int f = idSelected[i];
                         var d = context.Categories.First(z => z.CategoryId == f);
                         context.Categories.Remove(d);
-                            context.SaveChanges();
-                        }
+                        context.SaveChanges();
                     }
+                }
 
-                    context.SaveChanges();
-                    return RedirectToAction("Category", "Admin");
-                
+                context.SaveChanges();
+                return RedirectToAction("Category", "Admin");
+
             }
-            
+
         }
 
         [HttpPost]
@@ -270,35 +268,50 @@ namespace WebApplication1.Controllers
             return Json(new { Success = true, Url = Url.Action("Dishes", "Admin") });
         }
 
-      
+
         [HttpPost]
-        public ActionResult ModifyCategoryModal(int CategoryId, string NameRus, string NameUkr,int Priority)
+        public ActionResult ModifyCategoryModal(int CategoryId, string NameRus, string NameUkr, int Priority)
         {
             if (ModelState.IsValid)
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                    //var d = context.UpdateCategory(CategoryId,NameRus,NameUkr,Priority); 
+                    var d = context.UpdateCategory(CategoryId, NameRus, NameUkr, Priority);
                 }
             }
             return RedirectToAction("Category", "Admin");
 
         }
         [HttpPost]
-        public ActionResult ChangeOrderStatus(int[] idSelected,int drpdwnVal)
+        public ActionResult ChangeOrderStatus(int[] idSelected, int drpdwnVal)
         {
             using (var context = new SushiTest1Entities1())
-            {    
-                if(idSelected !=null)
-                {      
-                for (int i = 0; i < idSelected.Length; i++)
+            {
+                if (idSelected != null)
                 {
+                    for (int i = 0; i < idSelected.Length; i++)
+                    {
                         context.InsertValOrdTimeCh(idSelected[i], drpdwnVal);
                     }
                 }
             }
             return View();
         }
+        [HttpPost]
+        public ActionResult MostPopularDishesChangeValues(int? categoryId, int topCategoryVal)
+        {
+            var context = new SushiTest1Entities1();
+            var category = context.Categories.ToList();
+            ViewBag.Categories = category;
+            StatisticModel st = new StatisticModel
+            {
+                mostPopularDishes = context.MostPopularDishes(topCategoryVal, categoryId).ToList(),
+                showUnprocessedOrders = context.ShowUnprocessedOrders().ToList()
+            };
+            return View("~/Views/Admin/Index.cshtml", st);
+
+        }
+
         [HttpPost]
         public ActionResult DeleteOrderModal(int[] idSelected)
         {
@@ -331,34 +344,26 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public  ActionResult Index()
+        public ActionResult Index()
         {
             var context = new SushiTest1Entities1();
-            List <ShowUnprocessedOrders_Result> ShUnpOrd = context.ShowUnprocessedOrders().ToList();
+            var category = context.Categories.ToList();
+            ViewBag.Categories = category;
+            //List <ShowUnprocessedOrders_Result> ShUnpOrd = context.ShowUnprocessedOrders().ToList();
+            //List<StatisticModel> st = new List<StatisticModel>();//addOrders.Add(new ShowAllOrders_Result());
+            //st.Add(new StatisticModel());
+            //st[0].showUnprocessedOrders = context.ShowUnprocessedOrders().ToList();
+            //st[0].mostPopularDishes = context.MostPopularDishes(5, category[0].CategoryId).ToList();
 
-            //var showUnprocessedOrders = context.ShowUnprocessedOrders().ToList();
-            //var Products = context.Products.ToList();
-            //ViewBag.List1 = showUnprocessedOrders;
+            StatisticModel st = new StatisticModel
+            {
+                mostPopularDishes = context.MostPopularDishes(5, category[0].CategoryId).ToList(),
+                showUnprocessedOrders = context.ShowUnprocessedOrders().ToList()
+            };
 
-            //var mostPopularDishes =
-            //    (from _Product in Products
-            //     where
-            //         _Product.CategoryId == 1
-            //     orderby
-            //         _Product.NumberOfOrders descending
-            //     select new
-            //     {
-            //         _Product.NumberOfOrders,
-            //         _Product.ProductId,
-            //         _Product.NameRus,
-            //         _Product.Price
-            //     }.ToExpando()).Take(5);
-            //object T2 = mostPopularDishes.ToList();
-            //ViewBag.MostPopularDishes = T2;
+            return View(st);
 
-            return View(ShUnpOrd);
 
-           
         }
 
     }

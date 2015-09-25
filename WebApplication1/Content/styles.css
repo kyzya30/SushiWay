@@ -402,6 +402,7 @@ input[type="checkbox"]:checked + label::before {
     width: auto;
     display: inline-block;
     margin: 7px 0;
+    border-radius: 0;
 }
 
 #ingredientsTxt {

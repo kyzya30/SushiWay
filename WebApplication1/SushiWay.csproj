@@ -194,6 +194,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\StatisticModel.cs" />
+    <Compile Include="MostPopularDishes_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Order.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -433,10 +437,10 @@
     <Content Include="Views\Admin\HideDishModal.cshtml" />
     <Content Include="Views\Admin\DeleteOrderModal.cshtml" />
     <Content Include="Views\Admin\ChangeOrderStatus.cshtml" />
+    <Content Include="Views\Admin\MostPopularDishesChangeValues.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

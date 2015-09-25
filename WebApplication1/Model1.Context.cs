@@ -18,7 +18,7 @@ namespace WebApplication1
     public partial class SushiTest1Entities1 : DbContext
     {
         public SushiTest1Entities1()
-            : base("name=SushiTest1Entities46")
+            : base("name=SushiTest1Entities1")
         {
         }
     
@@ -29,13 +29,13 @@ namespace WebApplication1
     
         public virtual DbSet<Administrator> Administrators { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Massage> Massages { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderStatu> OrderStatus { get; set; }
         public virtual DbSet<OrdersTimeChanged> OrdersTimeChangeds { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductWeightDetail> ProductWeightDetails { get; set; }
-        public virtual DbSet<Massage> Massages { get; set; }
     
         public virtual int AddProduct(Nullable<int> catId, string nameRus, string nameUkr, Nullable<int> numOfOrders, Nullable<int> count, string energy, Nullable<int> balance, Nullable<decimal> price, Nullable<bool> isSale, Nullable<bool> isHided, string rusIngr, string ukrIngr)
         {
@@ -151,6 +151,19 @@ namespace WebApplication1
                 new ObjectParameter("OrdStatus", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InsertValOrdTimeCh", ordIDParameter, ordStatusParameter);
+        }
+    
+        public virtual ObjectResult<MostPopularDishes_Result> MostPopularDishes(Nullable<int> topVal, Nullable<int> catId)
+        {
+            var topValParameter = topVal.HasValue ?
+                new ObjectParameter("topVal", topVal) :
+                new ObjectParameter("topVal", typeof(int));
+    
+            var catIdParameter = catId.HasValue ?
+                new ObjectParameter("catId", catId) :
+                new ObjectParameter("catId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MostPopularDishes_Result>("MostPopularDishes", topValParameter, catIdParameter);
         }
     
         public virtual ObjectResult<ShowAllCategories_Result> ShowAllCategories()

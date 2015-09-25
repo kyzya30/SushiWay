@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WebApplication1.MostPopularDishes_Result>
+
+
+@using (Html.BeginForm("MostPopularDishesChangeValues", "Admin", FormMethod.Post))
+{
+                      <div class="row col-sm-6">
+                          <h4><b>Самые популярные блюда</b></h4>
+                          <span>
+                              <select id="categoryDropdown" class="form-control addNewDishTxt" name="categoryId" type="submit">
+                                  @foreach (var item in ViewBag.Categories)
+                                  {
+                                      var nameRusCategory = item.NameRus.ToString();
+                                      var catId = item.CategoryId.ToString();
+                                      <option name="@catId" value="@catId">@nameRusCategory</option>
+
+                                  }
+                              </select>
+
+                          </span>
+                          <span>
+                              <select id="TopValDropdown" class="form-control addNewDishTxt" name="topCategoryVal" type="submit">
+                                  <option value="5">5</option>
+                                  <option value="10">10</option>
+                                  <option value="20">20</option>
+                                  <option value="50">50</option>
+                                  }
+                              </select>
+                          </span>
+
+
+                          <div class="table-span" style="width: 385px; height: 70px; padding-bottom: 40px">
+                              <table class="table table-hover table-bordered">
+
+                                  @foreach (var T in Model)
+                                  {
+                                  var numberOfOrders = T.NumberOfOrders.ToString();
+                                  var nameRus = T.NameRus.ToString();
+                                  var productId = T.ProductId.ToString();
+                                  var price = T.Price.ToString();
+                                  var srcPict = productId += ".jpeg";
+                                  <tr style="height: 15px;border-width: 1px; border-bottom: 1px; border-top: 1px; border-style: solid;border-color:#7F7F7F ">
+                                      <td>заказан <br><b> @numberOfOrders </b><br> раз<br></td>
+                                      <td><img class="t-img" style="width: 80px; height: 50px; " src=@Url.Content("~/Content/Images/Products/"+@srcPict)></td>
+                                      <td>@nameRus @price грн</td>
+                                  </tr>
+                                  }
+
+                              </table>
+                          </div>
+                      </div>
+                      <script>
+    $(document).ready(function() {
+        //$('#categoryDropdown').change(
+        //    function() {
+
+        //        $(this.form).submit();
+
+        //    });
+        $('#TopValDropdown').change(
+            function() {
+
+                $(this.form).submit();
+
+            });
+
+    });
+                      </script>
+
+
+
+
+}

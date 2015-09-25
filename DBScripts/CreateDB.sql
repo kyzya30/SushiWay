@@ -149,7 +149,10 @@ Create table Massages
 	[Text]NVARCHAR (MAX) NOT NULL
 )
 GO
-
+ALTER TABLE Massages
+add constraint 
+PK_Massages_Messagesid PRIMARY KEY(MessagesId)
+GO
 ALTER TABLE Administrator
 add constraint 
 PK_Administrator_Login PRIMARY KEY(Login)

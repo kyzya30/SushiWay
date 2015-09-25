@@ -118,7 +118,7 @@ namespace WebApplication1.Controllers
             mess.Email = data[1];
             mess.Text = data[2];
 
-            var context = new SushiTest1Entities1(); ;
+            var context = new SushiTest1Entities1(); 
             context.Massages.Add(mess);
             context.SaveChanges();
 

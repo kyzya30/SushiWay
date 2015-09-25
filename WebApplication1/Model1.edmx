@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SushiTest1Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SushiTest1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Administrator">
           <Key>
             <PropertyRef Name="Login" />
@@ -21,14 +21,9 @@
           <Property Name="NameUkr" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Priority" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Massages">
           <Key>
             <PropertyRef Name="MessagesId" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="Email" />
-            <PropertyRef Name="Text" />
           </Key>
           <Property Name="MessagesId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="30" Nullable="false" />
@@ -159,6 +154,10 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
           <Parameter Name="OrdID" Type="int" Mode="In" />
           <Parameter Name="OrdStatus" Type="int" Mode="In" />
         </Function>
+        <Function Name="MostPopularDishes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="topVal" Type="int" Mode="In" />
+          <Parameter Name="catId" Type="int" Mode="In" />
+        </Function>
         <Function Name="ShowAllCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ShowAllOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ShowUnprocessedOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -168,23 +167,16 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
           <Parameter Name="NewUkrName" Type="nvarchar" Mode="In" />
           <Parameter Name="NewPriority" Type="int" Mode="In" />
         </Function>
-        <EntityContainer Name="SushiTest1Model1StoreContainer">
+        <EntityContainer Name="SushiTest1ModelStoreContainer">
           <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Massages" EntityType="Self.Massages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdersTimeChanged" EntityType="Self.OrdersTimeChanged" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductWeightDetails" EntityType="Self.ProductWeightDetails" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Massages" EntityType="Self.Massages" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Massages].[MessagesId] AS [MessagesId], 
-    [Massages].[Name] AS [Name], 
-    [Massages].[Email] AS [Email], 
-    [Massages].[Text] AS [Text]
-    FROM [dbo].[Massages] AS [Massages]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Product_CategoryId" Association="Self.FK_Product_CategoryId">
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
@@ -198,7 +190,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SushiTest1Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="SushiTest1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Administrator">
           <Key>
             <PropertyRef Name="Login" />
@@ -215,6 +207,15 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
           <Property Name="NameUkr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Priority" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_CategoryId" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Massage">
+          <Key>
+            <PropertyRef Name="MessagesId" />
+          </Key>
+          <Property Name="MessagesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -285,18 +286,6 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
           <Property Name="Value" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductWeightDetails_ProductId" FromRole="ProductWeightDetails" ToRole="Product" />
         </EntityType>
-        <EntityType Name="Massage">
-          <Key>
-            <PropertyRef Name="MessagesId" />
-            <PropertyRef Name="Name" />
-            <PropertyRef Name="Email" />
-            <PropertyRef Name="Text" />
-          </Key>
-          <Property Name="MessagesId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <Association Name="FK_Product_CategoryId">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -321,16 +310,16 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SushiTest1Entities46" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities49" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Massages" EntityType="Self.Massage" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatu" />
           <EntitySet Name="OrdersTimeChangeds" EntityType="Self.OrdersTimeChanged" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductWeightDetails" EntityType="Self.ProductWeightDetail" />
-          <EntitySet Name="Massages" EntityType="Self.Massage" />
           <AssociationSet Name="FK_Product_CategoryId" Association="Self.FK_Product_CategoryId">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
@@ -353,29 +342,33 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
             <Parameter Name="RusIngr" Mode="In" Type="String" />
             <Parameter Name="UkrIngr" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="AllDishes" ReturnType="Collection(SushiTest1Model1.AllDishes_Result)" />
+          <FunctionImport Name="AllDishes" ReturnType="Collection(SushiTest1Model.AllDishes_Result)" />
           <FunctionImport Name="DelOrdersDetailsId">
             <Parameter Name="Item" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="DelOrdersTimeChanged">
             <Parameter Name="Item" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="FindCategory" ReturnType="Collection(SushiTest1Model1.FindCategory_Result)">
+          <FunctionImport Name="FindCategory" ReturnType="Collection(SushiTest1Model.FindCategory_Result)">
             <Parameter Name="CategoryName" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="FindDishes" ReturnType="Collection(SushiTest1Model1.FindDishes_Result)">
+          <FunctionImport Name="FindDishes" ReturnType="Collection(SushiTest1Model.FindDishes_Result)">
             <Parameter Name="DishName" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="FindOrders" ReturnType="Collection(SushiTest1Model1.FindOrders_Result)">
+          <FunctionImport Name="FindOrders" ReturnType="Collection(SushiTest1Model.FindOrders_Result)">
             <Parameter Name="Order" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="InsertValOrdTimeCh">
             <Parameter Name="OrdID" Mode="In" Type="Int32" />
             <Parameter Name="OrdStatus" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="ShowAllCategories" ReturnType="Collection(SushiTest1Model1.ShowAllCategories_Result)" />
-          <FunctionImport Name="ShowAllOrders" ReturnType="Collection(SushiTest1Model1.ShowAllOrders_Result)" />
-          <FunctionImport Name="ShowUnprocessedOrders" ReturnType="Collection(SushiTest1Model1.ShowUnprocessedOrders_Result)" />
+          <FunctionImport Name="MostPopularDishes" ReturnType="Collection(SushiTest1Model.MostPopularDishes_Result)">
+            <Parameter Name="topVal" Mode="In" Type="Int32" />
+            <Parameter Name="catId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ShowAllCategories" ReturnType="Collection(SushiTest1Model.ShowAllCategories_Result)" />
+          <FunctionImport Name="ShowAllOrders" ReturnType="Collection(SushiTest1Model.ShowAllOrders_Result)" />
+          <FunctionImport Name="ShowUnprocessedOrders" ReturnType="Collection(SushiTest1Model.ShowUnprocessedOrders_Result)" />
           <FunctionImport Name="UpdateCategory">
             <Parameter Name="CategoryId" Mode="In" Type="Int32" />
             <Parameter Name="NewRusName" Mode="In" Type="String" />
@@ -426,6 +419,12 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
           <Property Type="Decimal" Name="TotalPrice" Nullable="true" Precision="38" Scale="2" />
           <Property Type="String" Name="StatusNameRus" Nullable="false" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="MostPopularDishes_Result">
+          <Property Type="Int32" Name="NumberOfOrders" Nullable="false" />
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+          <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
+        </ComplexType>
         <ComplexType Name="ShowAllCategories_Result">
           <Property Type="Int32" Name="TotalCategories" Nullable="true" />
           <Property Type="String" Name="NameUkr" Nullable="false" MaxLength="50" />
@@ -456,9 +455,9 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1Model1StoreContainer" CdmEntityContainer="SushiTest1Entities46">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities49">
           <EntitySetMapping Name="Administrators">
-            <EntityTypeMapping TypeName="SushiTest1Model1.Administrator">
+            <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -466,7 +465,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="SushiTest1Model1.Category">
+            <EntityTypeMapping TypeName="SushiTest1Model.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
@@ -475,8 +474,18 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Massages">
+            <EntityTypeMapping TypeName="SushiTest1Model.Massage">
+              <MappingFragment StoreEntitySet="Massages">
+                <ScalarProperty Name="MessagesId" ColumnName="MessagesId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="SushiTest1Model1.OrderDetail">
+            <EntityTypeMapping TypeName="SushiTest1Model.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
                 <ScalarProperty Name="OrderDetailsId" ColumnName="OrderDetailsId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
@@ -487,7 +496,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="SushiTest1Model1.Order">
+            <EntityTypeMapping TypeName="SushiTest1Model.Order">
               <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -500,7 +509,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderStatus">
-            <EntityTypeMapping TypeName="SushiTest1Model1.OrderStatu">
+            <EntityTypeMapping TypeName="SushiTest1Model.OrderStatu">
               <MappingFragment StoreEntitySet="OrderStatus">
                 <ScalarProperty Name="OrderStatusId" ColumnName="OrderStatusId" />
                 <ScalarProperty Name="StatusNameRus" ColumnName="StatusNameRus" />
@@ -509,7 +518,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrdersTimeChangeds">
-            <EntityTypeMapping TypeName="SushiTest1Model1.OrdersTimeChanged">
+            <EntityTypeMapping TypeName="SushiTest1Model.OrdersTimeChanged">
               <MappingFragment StoreEntitySet="OrdersTimeChanged">
                 <ScalarProperty Name="OrdersTimeChangedId" ColumnName="OrdersTimeChangedId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
@@ -519,7 +528,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="SushiTest1Model1.Product">
+            <EntityTypeMapping TypeName="SushiTest1Model.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
@@ -539,7 +548,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductWeightDetails">
-            <EntityTypeMapping TypeName="SushiTest1Model1.ProductWeightDetail">
+            <EntityTypeMapping TypeName="SushiTest1Model.ProductWeightDetail">
               <MappingFragment StoreEntitySet="ProductWeightDetails">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -547,20 +556,10 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Massages">
-            <EntityTypeMapping TypeName="SushiTest1Model1.Massage">
-              <MappingFragment StoreEntitySet="Massages">
-                <ScalarProperty Name="MessagesId" ColumnName="MessagesId" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="AddProduct" FunctionName="SushiTest1Model1.Store.AddProduct" />
-          <FunctionImportMapping FunctionImportName="AllDishes" FunctionName="SushiTest1Model1.Store.AllDishes">
+          <FunctionImportMapping FunctionImportName="AddProduct" FunctionName="SushiTest1Model.Store.AddProduct" />
+          <FunctionImportMapping FunctionImportName="AllDishes" FunctionName="SushiTest1Model.Store.AllDishes">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.AllDishes_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model.AllDishes_Result">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
@@ -575,11 +574,11 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="DelOrdersDetailsId" FunctionName="SushiTest1Model1.Store.DelOrdersDetailsId" />
-          <FunctionImportMapping FunctionImportName="DelOrdersTimeChanged" FunctionName="SushiTest1Model1.Store.DelOrdersTimeChanged" />
-          <FunctionImportMapping FunctionImportName="FindCategory" FunctionName="SushiTest1Model1.Store.FindCategory">
+          <FunctionImportMapping FunctionImportName="DelOrdersDetailsId" FunctionName="SushiTest1Model.Store.DelOrdersDetailsId" />
+          <FunctionImportMapping FunctionImportName="DelOrdersTimeChanged" FunctionName="SushiTest1Model.Store.DelOrdersTimeChanged" />
+          <FunctionImportMapping FunctionImportName="FindCategory" FunctionName="SushiTest1Model.Store.FindCategory">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.FindCategory_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model.FindCategory_Result">
                 <ScalarProperty Name="TotalCategories" ColumnName="TotalCategories" />
                 <ScalarProperty Name="NameUkr" ColumnName="NameUkr" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
@@ -589,9 +588,9 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="FindDishes" FunctionName="SushiTest1Model1.Store.FindDishes">
+          <FunctionImportMapping FunctionImportName="FindDishes" FunctionName="SushiTest1Model.Store.FindDishes">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.FindDishes_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model.FindDishes_Result">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
@@ -606,9 +605,9 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="FindOrders" FunctionName="SushiTest1Model1.Store.FindOrders">
+          <FunctionImportMapping FunctionImportName="FindOrders" FunctionName="SushiTest1Model.Store.FindOrders">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.FindOrders_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model.FindOrders_Result">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="House" ColumnName="House" />
@@ -619,10 +618,20 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="InsertValOrdTimeCh" FunctionName="SushiTest1Model1.Store.InsertValOrdTimeCh" />
-          <FunctionImportMapping FunctionImportName="ShowAllCategories" FunctionName="SushiTest1Model1.Store.ShowAllCategories">
+          <FunctionImportMapping FunctionImportName="InsertValOrdTimeCh" FunctionName="SushiTest1Model.Store.InsertValOrdTimeCh" />
+          <FunctionImportMapping FunctionImportName="MostPopularDishes" FunctionName="SushiTest1Model.Store.MostPopularDishes">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.ShowAllCategories_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model.MostPopularDishes_Result">
+                <ScalarProperty Name="NumberOfOrders" ColumnName="NumberOfOrders" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ShowAllCategories" FunctionName="SushiTest1Model.Store.ShowAllCategories">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllCategories_Result">
                 <ScalarProperty Name="TotalCategories" ColumnName="TotalCategories" />
                 <ScalarProperty Name="NameUkr" ColumnName="NameUkr" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
@@ -632,9 +641,9 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ShowAllOrders" FunctionName="SushiTest1Model1.Store.ShowAllOrders">
+          <FunctionImportMapping FunctionImportName="ShowAllOrders" FunctionName="SushiTest1Model.Store.ShowAllOrders">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.ShowAllOrders_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllOrders_Result">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="House" ColumnName="House" />
@@ -645,9 +654,9 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ShowUnprocessedOrders" FunctionName="SushiTest1Model1.Store.ShowUnprocessedOrders">
+          <FunctionImportMapping FunctionImportName="ShowUnprocessedOrders" FunctionName="SushiTest1Model.Store.ShowUnprocessedOrders">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.ShowUnprocessedOrders_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model.ShowUnprocessedOrders_Result">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="House" ColumnName="House" />
@@ -657,7 +666,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Massages' does not have a primary k
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="UpdateCategory" FunctionName="SushiTest1Model1.Store.UpdateCategory" />
+          <FunctionImportMapping FunctionImportName="UpdateCategory" FunctionName="SushiTest1Model.Store.UpdateCategory" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

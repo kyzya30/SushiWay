@@ -84,15 +84,16 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddNewDish(string NameRus, string NameUkr, string isHided, int? dishCategory, byte prod, int Priority, decimal? Price, double Weight, string Energy, int Count, string ingredientsTxt, HttpPostedFileBase uploadPhoto)
+        public ActionResult AddNewDish(string NameRus, string NameUkr, string isHided, int? dishCategory, byte prod, int Priority,
+            decimal? Price, double Weight, string Energy, int Count, string ingredientsTxtRus, string ingredientsTxtUkr, HttpPostedFileBase uploadPhoto)
         {
             var context = new SushiTest1Entities1();
             var products = context.Products.ToList();
 
             bool isHidedProduct = (isHided != null) ? true : false;
 
-            context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, false, isHidedProduct, "","");
-            context.SaveChanges();
+            context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, false, isHidedProduct,
+                            ingredientsTxtRus, ingredientsTxtUkr); context.SaveChanges();
 
             int fileName = context.Products.ToList().Last().ProductId;
             

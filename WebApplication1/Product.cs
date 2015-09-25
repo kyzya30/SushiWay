@@ -14,12 +14,6 @@ namespace WebApplication1
     
     public partial class Product
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
-        {
-            this.OrderDetails = new HashSet<OrderDetail>();
-        }
-    
         public int ProductId { get; set; }
         public int CategoryId { get; set; }
         public string NameRus { get; set; }
@@ -36,8 +30,6 @@ namespace WebApplication1
         public string IngridientsUkr { get; set; }
     
         public virtual Category Category { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ProductWeightDetail ProductWeightDetail { get; set; }
     }
 }

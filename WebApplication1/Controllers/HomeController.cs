@@ -82,11 +82,10 @@ namespace WebApplication1.Controllers
             OrderDetail orderDetail = new OrderDetail();
             for (int i = 0; i < data[1].Length; i++)
             {
-                orderDetail.OrderDetailsId = lastId; 
+                orderDetail.OrderId = lastId; 
                 orderDetail.ProductId = Convert.ToInt32(data[1][i]);
                 orderDetail.Count = Convert.ToInt32(data[2][i]);
-                orderDetail.Price = Convert.ToInt32(data[3][i]);
-                orderDetail.Product = productList.First();            
+                orderDetail.Price = Convert.ToInt32(data[3][i]);        
                 nextContext.OrderDetails.Add(orderDetail);
                 nextContext.SaveChanges();
             }

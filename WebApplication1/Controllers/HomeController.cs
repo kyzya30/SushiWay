@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Web.WebSockets;
 using WebApplication1.Addition_Classes;
 
 
@@ -59,11 +60,40 @@ namespace WebApplication1.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult AddOrderToDb(string[][] data)
+        public JsonResult AddOrderToDb(string [][] data)
         {
+            var context = new SushiTest1Entities1();
+            var ordersDetails = context.OrderDetails.ToList();           
+            Order order = new Order();
+            order.Name = data[0][0];
+            order.PhoneNumber = data[0][1];
+            order.Email = data[0][3];
+            order.Street = data[0][4];
+            order.House = data[0][5];
+            order.Room = data[0][6];
+
+            context.Orders.Add(order);
+            context.SaveChanges();
+
+             var nextContext = new SushiTest1Entities1();
+            var productList = context.Products.ToList();
+            var orders = nextContext.Orders.ToList();
+            var lastId = orders[orders.Count - 1].OrderId;
+            OrderDetail orderDetail = new OrderDetail();
+            for (int i = 0; i < data[1].Length; i++)
+            {
+                orderDetail.OrderDetailsId = lastId; 
+                orderDetail.ProductId = Convert.ToInt32(data[1][i]);
+                orderDetail.Count = Convert.ToInt32(data[2][i]);
+                orderDetail.Price = Convert.ToInt32(data[3][i]);
+                orderDetail.Product = productList.First();            
+                nextContext.OrderDetails.Add(orderDetail);
+                nextContext.SaveChanges();
+            }
+
+           
 
             var model = new object();
-
             return Json(model);
         }
 

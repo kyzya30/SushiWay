@@ -4,26 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d099373a2b764526b25311d5fff0bf3c" Name="Diagram1">
+      <Diagram DiagramId="94b015bfcc544b9fa46729b4a8167951" Name="Diagram1">
         <EntityTypeShape EntityType="SushiTest1Model1.Administrator" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SushiTest1Model1.Category" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SushiTest1Model1.Ingridient" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SushiTest1Model1.Massage" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SushiTest1Model1.Order" Width="1.5" PointX="6" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="SushiTest1Model1.OrderStatu" Width="1.5" PointX="6" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SushiTest1Model1.Product" Width="1.5" PointX="3" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SushiTest1Model1.ProductWeightDetail" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SushiTest1Model1.AdditionProductsForProduct" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SushiTest1Model1.OrderDetail" Width="1.5" PointX="8.25" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="SushiTest1Model1.OrdersTimeChanged" Width="1.5" PointX="8.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushiTest1Model1.Category" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushiTest1Model1.OrderDetail" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushiTest1Model1.Order" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushiTest1Model1.OrderStatu" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushiTest1Model1.Product" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushiTest1Model1.ProductWeightDetail" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushiTest1Model1.Massage" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushiTest1Model1.OrdersTimeChanged" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
         <AssociationConnector Association="SushiTest1Model1.FK_Product_CategoryId" ManuallyRouted="false" />
-        <AssociationConnector Association="SushiTest1Model1.FK_OrderDetails_OrderDetailsId" ManuallyRouted="false" />
+        <AssociationConnector Association="SushiTest1Model1.FK_OrderDetails_OrderId" ManuallyRouted="false" />
+        <AssociationConnector Association="SushiTest1Model1.FK_OrderDetails_ProductId" ManuallyRouted="false" />
         <AssociationConnector Association="SushiTest1Model1.FK_OrdersTimeChanged_OrderId" ManuallyRouted="false" />
         <AssociationConnector Association="SushiTest1Model1.FK_OrdersTimeChanged_OrderStatus" ManuallyRouted="false" />
-        <AssociationConnector Association="SushiTest1Model1.FK_AdditionProdutsForProduct_OrderDetailsId" ManuallyRouted="false" />
-        <AssociationConnector Association="SushiTest1Model1.FK_OrderDetails_ProductId" ManuallyRouted="false" />
         <AssociationConnector Association="SushiTest1Model1.FK_ProductWeightDetails_ProductId" ManuallyRouted="false" />
-        <AssociationConnector Association="SushiTest1Model1.ProductIngridients" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

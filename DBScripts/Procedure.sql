@@ -148,9 +148,11 @@ CREATE PROC AddProduct
 @balance int,
 @price decimal(9,2),
 @isSale bit,
-@isHided bit
+@isHided bit,
+@RusIngr nvarchar(max),
+@UkrIngr nvarchar(max)
 AS
 insert into Product
-values (@catId, @nameRus, @nameUkr, @numOfOrders, @count, @energy, @balance, @price, @isSale, @isHided,GETDATE());
+values (@catId, @nameRus, @nameUkr, @numOfOrders, @count, @energy, @balance, @price, @isSale, @isHided,GETDATE(),@RusIngr,@UkrIngr);
 
 go

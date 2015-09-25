@@ -52,13 +52,13 @@
 
                 <div class="row">
                     <div class="col-xs-12 col-md-4">
-                        <input type="text" placeholder="Имя" class="max-size" />
+                        <input type="text" placeholder="Имя" class="max-size" ng-model="newOrder.name" />
                     </div>
                     <div class="col-xs-12 col-md-4">
                         <input type="text" placeholder="Телефон" class="max-size" required ng-model="newOrder.phoneNumber" ng-pattern="matchPattern" />
                     </div>
                     <div class="col-xs-12 col-md-4">
-                        <input type="text" placeholder="E-mail" class="max-size" />
+                        <input type="text" placeholder="E-mail" class="max-size" ng-model="newOrder.email" />
                     </div>
                 </div>
 
@@ -76,7 +76,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <input type="text" placeholder="Коментарии" class="max-size" />
+                        <input type="text" placeholder="Коментарии" class="max-size" ng-model="newOrder.text" />
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-Create DataBase SushiTest1
+Create DataBase SushiTest1 collate Cyrillic_General_CI_AS
 GO
 
 use SushiTest1
@@ -17,7 +17,9 @@ Create table Product
 	[Price] decimal(9,2) NOT NULL,
 	[Sale] bit NOT NULL,
 	[IsHided] bit NOT NULL,
-	[AddDate] datetime2 (2) NOT NULL
+	[AddDate] datetime2 (2) NOT NULL,
+	[IngridientsRus] NVARCHAR (max),
+	[IngridientsUkr] NVARCHAR (max),
 	)
 	GO
 ALTER TABLE Product
@@ -47,37 +49,6 @@ GO
 ALTER TABLE ProductWeightDetails
 add constraint 
 PK_ProductWeightDetails_ProductId PRIMARY KEY(ProductId)
-GO
-
-CREATE TABLE Ingridients
-(
-	[IngridientId] int identity(1,1)  NOT NULL,
-	[NameRus] NVARCHAR (50) NOT NULL UNIQUE,
-	[NameUkr] NVARCHAR (50) NOT NULL UNIQUE
-	)
-GO
-ALTER TABLE Ingridients
-add constraint 
-PK_Ingridients_IngridientId PRIMARY KEY(IngridientId)
-GO
-
-CREATE TABLE ProductIngridients
-(
-	[ProductId] int  NOT NULL,
-	[IngridientsId] int NOT NULL
-	)
-GO
-
-ALTER TABLE ProductIngridients
-add constraint 
-FK_ProductIngridients_ProductId FOREIGN KEY(ProductId)
-REFERENCES Product(ProductId) 
-GO
-
-ALTER TABLE ProductIngridients
-add constraint 
-FK_ProductIngridients_IngridientsId FOREIGN KEY(IngridientsId)
-REFERENCES Ingridients(IngridientId) 
 GO
 
 
@@ -125,29 +96,21 @@ GO
 
 CREATE TABLE OrderDetails
 (
-	[OrderDetailsId] int  NOT NULL,
+	[OrderDetailsId] int identity(1,1) NOT NULL ,
+	[OrderId] int  NOT NULL,
 	[ProductId] int NOT NULL,
 	[Count] int NOT NULL,
 	[Price] decimal(9,2) NOT NULL
 	)
 GO
-CREATE TABLE AdditionProductsForProduct
-(
-	[ProductId] int  NOT NULL,
-	[ProductAdditionId] int  NOT NULL
-
-	)
-GO
-
-ALTER TABLE AdditionProductsForProduct
+ALTER TABLE OrderDetails
 add constraint 
-FK_AdditionProdutsForProduct_OrderDetailsId FOREIGN KEY(ProductId)
-REFERENCES Product(ProductId) 
+PK_OrderDetails_OrderDetailsId PRIMARY KEY(OrderDetailsId)
 GO
 	
 ALTER TABLE OrderDetails
 add constraint 
-FK_OrderDetails_OrderDetailsId FOREIGN KEY(OrderDetailsId)
+FK_OrderDetails_OrderId FOREIGN KEY(OrderId)
 REFERENCES Orders(OrderId) 
 GO
 
@@ -197,12 +160,12 @@ FK_OrdersTimeChanged_OrderStatus FOREIGN KEY(OrderStatus)
 	REFERENCES OrderStatus(OrderStatusId)  
 GO
 
-Create table Messages
+Create table Massages
 (
 	[MessagesId] int identity(1,1) NOT NULL,
 	[Name] NVARCHAR (30) NOT NULL,
 	[Email]NVARCHAR (250) NOT NULL,
-	[Message]NVARCHAR (MAX) NOT NULL
+	[Text]NVARCHAR (MAX) NOT NULL
 )
 GO
 

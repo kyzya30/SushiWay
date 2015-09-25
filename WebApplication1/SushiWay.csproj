@@ -144,9 +144,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Addition Classes\Pause.cs" />
-    <Compile Include="AdditionProductsForProduct.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Administrator.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -177,9 +174,6 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Ingridient.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Logger.cs" />
     <Compile Include="Massage.cs">

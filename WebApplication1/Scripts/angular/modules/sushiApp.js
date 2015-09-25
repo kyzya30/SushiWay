@@ -147,20 +147,36 @@
             //JSON.stringify(id)
         };
 
-        $scope.SentOrderToServer = function(details) {
-            var arr = [];
-            arr.push(details);
+        $scope.SentOrderToServer = function (details) {
+            var orderDet = [];
+            orderDet.push(details.name);
+            orderDet.push(details.phoneNumber);
+            orderDet.push(details.email);
+            orderDet.push(details.street);
+            orderDet.push(details.house);
+            orderDet.push(details.room);
+            orderDet.push(details.text);
+
+            var prodId = [];
+            var prodPrice = [];
+            var prodCount=[];
             var product = new Object();
             for (var i = 0; i < $scope.items.length; i++) {
                 if ($scope.items[i].selected == true) {
 
-                    product.id = $scope.items[i].id;
-                    product.count = $scope.items[i].count;
-                    product.price = $scope.items[i].price;
-                    arr.push(product);
+                    prodId.push($scope.items[i].id);
+                    prodCount.push($scope.items[i].count);
+                    prodPrice.push($scope.items[i].price);
                 }
             }
-            $http.post("Home/AddOrderToDb",{data: arr}).then(function(response) {
+            var mass = [];
+            mass[0] = orderDet;
+            mass[1] = prodId;
+            mass[2] = prodCount;
+            mass[3] = prodPrice;
+
+
+            $http.post("Home/AddOrderToDb", { data: mass }).then(function (response) {
                 alert("good");
             });
             $location.path("/Success");

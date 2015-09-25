@@ -22,8 +22,19 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="addImg text-center">
-                <img src="~/Content/Images/Controls/Admin/logo-transparent.png"/><br/>
-                <input type="file" id="loadImgBtn" name="uploadPhoto" title="Загрузить изображение"/>
+                <img id="output" src="~/Content/Images/Controls/Admin/logo-transparent.png" style="width:103px;"/><br/>
+                <input type="file" id="inputFile" name="uploadPhoto" style="display:none;" onchange="loadFile(event)"/>
+                <button type="button" id="fileButton">Загрузить изображение</button>
+                <script>
+                        $('#fileButton').click(function () {
+                            $("#inputFile").click();
+                        });
+
+                    var loadFile = function(event) {
+                        var output = document.getElementById('output');
+                        output.src = URL.createObjectURL(event.target.files[0]);
+                    };
+                </script>
             </div>
         </div>
         <div class="col-sm-7">

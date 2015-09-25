@@ -26,16 +26,15 @@
             </div>
         </div>
     </div>
-    <div class="row col-xs-12">
-        <div class="col-xs-1 funcElements greyColorLnk" data-toggle="modal" data-target="#HideDishModal" onclick="HideDishModal()">
+    <div class="row">
+        <div class="col-xs-1 funcElements greyColorLnk hideBtns" data-toggle="modal" data-target="#HideDishModal" onclick="HideDishModal()">
             <a href="">Скрыть на сайте</a>
         </div>
-        <div class="col-xs-2 funcElements greyColorLnk" data-toggle="modal" data-target="#DeleteDishModal" onclick="DeleteDishModal()">
+        <div class="col-xs-2 funcElements greyColorLnk hideBtns" data-toggle="modal" data-target="#DeleteDishModal" onclick="DeleteDishModal()">
             <a  href="">Удалить</a>
         </div>
-        <div class="col-xs-2"> </div>
 
-        <div class="col-xs-6" style="text-align: right">
+        <div class="col-xs-9 pull-right" style="text-align: right;margin-right:10;">
 
             блюд из
             @{
@@ -53,11 +52,27 @@
     <div class="row col-xs-12" style="padding-top: 10px; padding-bottom: 10px; border-width: 3px; border-bottom-style: solid;">
         <div class="col-xs-1">
             <script type="text/javascript">
-                $(function () {
-                    $('input[name="selectAllDishes"]').change(function () {
-                        $(".checkboxes").prop('checked', this.checked);
+                $(document).ready(function () {
+                    $(function () {
+                        $('input[name="selectAllDishes"]').change(function () {
+                            $(".checkboxes").prop('checked', this.checked);
+                            if ($('input[name="selectAllDishes"]').is(':checked'))
+                                $('.hideBtns').css("visibility", "visible");
+                            else
+                                $('.hideBtns').css("visibility", "hidden");
+                        });
                     });
-                });
+
+                    $('.hideBtns').css("visibility", "hidden");
+
+                    $(".checkboxes").change(function () {
+                        if ($(".checkboxes").filter(":checked").length)
+                            $('.hideBtns').css("visibility", "visible");
+                        else
+                            $('.hideBtns').css("visibility", "hidden");
+                    });
+
+                })
             </script>
 
             <input id="selectAllDishes" type="checkbox" name="selectAllDishes" hidden />
@@ -125,10 +140,10 @@
 
     }
     <div class="row col-xs-12" style="padding-top: 15px">
-        <div class="col-xs-1 funcElements greyColorLnk" data-toggle="modal" data-target="#HideDishModal" onclick="HideDishModal()">
+        <div class="col-xs-1 funcElements greyColorLnk hideBtns" data-toggle="modal" data-target="#HideDishModal" onclick="HideDishModal()">
             <a href="">Скрыть на сайте</a>
         </div>
-        <div class="col-xs-2 funcElements greyColorLnk" data-toggle="modal" data-target="#DeleteDishModal" onclick="DeleteDishModal()">
+        <div class="col-xs-2 funcElements greyColorLnk hideBtns" data-toggle="modal" data-target="#DeleteDishModal" onclick="DeleteDishModal()">
              <a  href="">Удалить</a>
         </div>
         <div class="col-xs-2"></div>

@@ -27,8 +27,8 @@
             </div>
 
             <div class="row col-xs-12">
-                <div class="col-xs-2 funcElements" onclick="ChangeOrderStatus()" data-toggle="modal" data-target="#ChangeOrderStatus"><a href="">Изменить статус</a></div>
-                <div class="col-xs-2 funcElements" onclick="DeleteOrderModal()" data-toggle="modal" data-target="#DeleteOrderModal"><a href="">Удалить</a></div>
+                <div class="col-xs-2 funcElements hideBtns" onclick="ChangeOrderStatus()" data-toggle="modal" data-target="#ChangeOrderStatus"><a href="">Изменить статус</a></div>
+                <div class="col-xs-2 funcElements hideBtns" onclick="DeleteOrderModal()" data-toggle="modal" data-target="#DeleteOrderModal"><a href="">Удалить</a></div>
                 <div class="col-xs-2"> </div>
 
                 <div class="col-xs-6" style="text-align: right">
@@ -40,11 +40,27 @@
                 <div class="col-xs-1">
 
                     <script type="text/javascript">
-                        $(function () {
-                            $('input[name="selectAllOrders"]').change(function () {
-                                $(".checkboxes").prop('checked', this.checked);
+                        $(document).ready(function () {
+                            $(function () {
+                                $('input[name="selectAllOrders"]').change(function () {
+                                    $(".checkboxes").prop('checked', this.checked);
+                                    if ($('input[name="selectAllOrders"]').is(':checked'))
+                                        $('.hideBtns').css("visibility", "visible");
+                                    else
+                                        $('.hideBtns').css("visibility", "hidden");
+                                });
                             });
-                        });
+
+                            $('.hideBtns').css("visibility", "hidden");
+
+                            $(".checkboxes").change(function () {
+                                if ($(".checkboxes").filter(":checked").length)
+                                    $('.hideBtns').css("visibility", "visible");
+                                else
+                                    $('.hideBtns').css("visibility", "hidden");
+                            });
+
+                        })
                     </script>
 
                     @*<img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>*@
@@ -94,8 +110,8 @@
 
 
             <div class="row col-xs-12" style="padding-top: 15px">
-                <div class="col-xs-2 funcElements" onclick="ChangeOrderStatus()" data-toggle="modal" data-target="#ChangeOrderStatus"><a href="">Изменить статус</a> </div>
-                <div class="col-xs-2 funcElements" onclick="DeleteOrderModal()" data-toggle="modal" data-target="#DeleteOrderModal"><a href="">Удалить</a></div>
+                <div class="col-xs-2 funcElements hideBtns" onclick="ChangeOrderStatus()" data-toggle="modal" data-target="#ChangeOrderStatus"><a href="">Изменить статус</a> </div>
+                <div class="col-xs-2 funcElements hideBtns" onclick="DeleteOrderModal()" data-toggle="modal" data-target="#DeleteOrderModal"><a href="">Удалить</a></div>
                 <div class="col-xs-2"></div>
                 <div class="col-xs-6"></div>
             </div>

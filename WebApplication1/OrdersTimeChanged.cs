@@ -14,11 +14,9 @@ namespace WebApplication1
     
     public partial class OrdersTimeChanged
     {
+        public int OrdersTimeChangedId { get; set; }
         public int OrderId { get; set; }
         public int OrderStatus { get; set; }
         public System.DateTime Time { get; set; }
-    
-        public virtual Order Order { get; set; }
-        public virtual OrderStatu OrderStatu { get; set; }
     }
 }

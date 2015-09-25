@@ -177,7 +177,7 @@
 
 
             $http.post("Home/AddOrderToDb", { data: mass }).then(function (response) {
-                alert("good");
+                $scope.myOrderID = (response.data[0].res);
             });
             $location.path("/Success");
         }

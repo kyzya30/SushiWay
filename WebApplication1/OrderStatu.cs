@@ -14,17 +14,8 @@ namespace WebApplication1
     
     public partial class OrderStatu
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public OrderStatu()
-        {
-            this.OrdersTimeChangeds = new HashSet<OrdersTimeChanged>();
-        }
-    
         public int OrderStatusId { get; set; }
         public string StatusNameRus { get; set; }
         public string StatusNameUkr { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrdersTimeChanged> OrdersTimeChangeds { get; set; }
     }
 }

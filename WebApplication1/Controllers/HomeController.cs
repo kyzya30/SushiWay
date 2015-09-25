@@ -74,12 +74,25 @@ namespace WebApplication1.Controllers
 
             context.Orders.Add(order);
             context.SaveChanges();
-
+            
              var nextContext = new SushiTest1Entities1();
-            var productList = context.Products.ToList();
+            var statusList = nextContext.OrderStatus.ToList();
             var orders = nextContext.Orders.ToList();
             var lastId = orders[orders.Count - 1].OrderId;
+
+            var myStatus = statusList[4];
+            var myOrder = orders[orders.Count - 1];
+
+            var lastStatus = new OrdersTimeChanged();        
+            
+            lastStatus.OrderId = lastId;
+            lastStatus.OrderStatus = 5;
+            lastStatus.Time = DateTime.Now;
+            nextContext.OrdersTimeChangeds.Add(lastStatus);
+            nextContext.SaveChanges();
+
             OrderDetail orderDetail = new OrderDetail();
+         
             for (int i = 0; i < data[1].Length; i++)
             {
                 orderDetail.OrderId = lastId; 
@@ -92,7 +105,8 @@ namespace WebApplication1.Controllers
 
            
 
-            var model = new object();
+            var model = new object[1];
+            model[0] = new {res = lastId};
             return Json(model);
         }
 

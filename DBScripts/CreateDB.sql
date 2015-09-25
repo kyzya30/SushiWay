@@ -106,19 +106,7 @@ GO
 ALTER TABLE OrderDetails
 add constraint 
 PK_OrderDetails_OrderDetailsId PRIMARY KEY(OrderDetailsId)
-GO
-	
-ALTER TABLE OrderDetails
-add constraint 
-FK_OrderDetails_OrderId FOREIGN KEY(OrderId)
-REFERENCES Orders(OrderId) 
-GO
-
-ALTER TABLE OrderDetails
-add constraint 
-FK_OrderDetails_ProductId FOREIGN KEY(ProductId)
-REFERENCES Product(ProductId) 
-GO
+GO	
 
 
 ALTER TABLE Product
@@ -141,23 +129,16 @@ GO
 
 Create table OrdersTimeChanged
 (
+	[OrdersTimeChangedId] int identity(1,1) NOT NULL,
 	[OrderId] int NOT NULL,
 	[OrderStatus] int  NOT NULL,
 	[Time] datetime2 (2) NOT NULL default(getdate()) 
 
 )
 GO
-
 ALTER TABLE OrdersTimeChanged
 add constraint 
-FK_OrdersTimeChanged_OrderId FOREIGN KEY(OrderId) 
-	REFERENCES Orders(OrderId)  
-GO
-
-ALTER TABLE OrdersTimeChanged
-add constraint 
-FK_OrdersTimeChanged_OrderStatus FOREIGN KEY(OrderStatus) 
-	REFERENCES OrderStatus(OrderStatusId)  
+PK_OrdersTimeChanged_OrdersTimeChangedIdPRIMARY PRIMARY KEY(OrdersTimeChangedId)
 GO
 
 Create table Massages

@@ -18,7 +18,7 @@ namespace WebApplication1
     public partial class SushiTest1Entities1 : DbContext
     {
         public SushiTest1Entities1()
-            : base("name=SushiTest1Entities44")
+            : base("name=SushiTest1Entities46")
         {
         }
     
@@ -32,10 +32,10 @@ namespace WebApplication1
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<OrderStatu> OrderStatus { get; set; }
+        public virtual DbSet<OrdersTimeChanged> OrdersTimeChangeds { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductWeightDetail> ProductWeightDetails { get; set; }
         public virtual DbSet<Massage> Massages { get; set; }
-        public virtual DbSet<OrdersTimeChanged> OrdersTimeChangeds { get; set; }
     
         public virtual int AddProduct(Nullable<int> catId, string nameRus, string nameUkr, Nullable<int> numOfOrders, Nullable<int> count, string energy, Nullable<int> balance, Nullable<decimal> price, Nullable<bool> isSale, Nullable<bool> isHided, string rusIngr, string ukrIngr)
         {

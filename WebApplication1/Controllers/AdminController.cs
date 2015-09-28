@@ -32,6 +32,15 @@ namespace WebApplication1.Controllers
             }
         }
 
+        public ActionResult DishesInBlock()                                      
+        {
+            using (var context = new SushiTest1Entities1())
+            {
+                List<AllDishes_Result> allDishesModel = context.AllDishes().ToList();
+                return View(allDishesModel);
+            }
+        }
+
         public ActionResult Category() //Show all categories on Category view                   
         {
             using (var context = new SushiTest1Entities1())

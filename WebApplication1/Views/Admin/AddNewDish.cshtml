@@ -52,12 +52,16 @@
                             }
                         });
 
-                        $("#addNewDishForm").submit(function(event) {
+                        $("#addNewDishForm").submit(function (event) {
+                            $(".addImg").removeClass("errorStyle");
                             CheckField($("#NameRus"), event);
                             CheckField($("#NameUkr"), event);
                             CheckField($("#Price"), event);
+                            CheckField($("#inputFile"), event);
                             if ($("#inputFile").get(0).files.length === 0) {
-                                $('.addImg').css("border", "1px solid red");
+                                event.preventDefault();
+                                $(".addImg").addClass("errorStyle");
+                                $("#errorMessage").text("Выделенные поля должны быть заполнены");
                             }
                         });
                     });

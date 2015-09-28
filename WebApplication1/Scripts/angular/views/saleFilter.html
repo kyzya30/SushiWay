@@ -7,13 +7,13 @@
 </div>
 <div class="row">
     <div class="pull-right">
-        <input type="radio" class="index-radio" id="prod1" name="prod" checked="checked" ng-click="goToMenu()"  />
+        <input type="radio" class="index-radio" id="prod1" name="prod" checked="checked" ng-click="goToMenu()" />
         <label for="prod1">Все</label>
-        <input type="radio" class="index-radio" id="prod2" name="prod" data-ng-click="topProducts()" />
+        <input type="radio" class="index-radio" id="prod2" name="prod" ng-click="topProducts()" />
         <label for="prod2">Популярные</label>
-        <input type="radio" class="index-radio" id="prod3" name="prod" data-ng-click="saleProducts()"  />
+        <input type="radio" class="index-radio" id="prod3" name="prod" ng-click="saleProducts()" />
         <label for="prod3">Акции</label>
-        <input type="radio" class="index-radio" id="prod4" name="prod" data-ng-click="hotProducts()"  />
+        <input type="radio" class="index-radio" id="prod4" name="prod" ng-click="hotProducts()" />
         <label for="prod4">Новинки</label>
     </div>
 </div>
@@ -22,9 +22,9 @@
         <div class="form-group div-product">
             <!--<h3>{{item.name}}</h3>-->
             <span>{{item.name}}</span>
-            <img ng-show="item.top" src="/Content/Images/Controls/label-hit.png"/>
-            <img ng-show="item.hot"  src="/Content/Images/Controls/label-new.png"/>
-            <img ng-show="item.sale"  src="/Content/Images/Controls/label-stock.png" />
+            <img ng-show="item.top" src="/Content/Images/Controls/label-hit.png" />
+            <img ng-show="item.hot" src="/Content/Images/Controls/label-new.png" />
+            <img ng-show="item.sale" src="/Content/Images/Controls/label-stock.png" />
             <img src="/Content/Images/Products/{{item.id}}.jpeg" class="img-Product" />
             <div>
                 <span class="product-price">{{item.price}} ГРН</span>
@@ -34,7 +34,7 @@
                         <button data-ng-click="removeFromCart(item)" type="button" class="btn btnPlusMinus btn-default">-</button>
                         <button type="button" class="btn btnPlusMinus btn-default">{{item.count}}</button>
                         <button data-ng-click="addToCart(item)" type="button" class="btn btnPlusMinus btn-default">+</button>
-                    </div> 
+                    </div>
                 </span>
             </div>
         </div>

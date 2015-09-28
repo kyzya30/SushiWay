@@ -20,13 +20,27 @@
             templateUrl: "scripts/angular/views/OrderStatusResult.html"
         });
 
+        $routeProvider.when("/productname", {
+            templateUrl: "scripts/angular/views/productname.html"
+        });
+
         $routeProvider.when("/order", {
             templateUrl: "scripts/angular/views/OrderSearch.html"
         });
 
-        $routeProvider.when("/productname", {
-            templateUrl: "scripts/angular/views/ProductCategoriesFilter.html"
+        $routeProvider.when("/topProducts", {
+            templateUrl: "scripts/angular/views/topFilter.html"
         });
+        $routeProvider.when("/hotProducts", {
+            templateUrl: "scripts/angular/views/hotFilter.html"
+        });
+        $routeProvider.when("/saleProducts", {
+            templateUrl: "scripts/angular/views/saleFilter.html"
+        });
+
+        //$routeProvider.when("/productname", {
+        //    templateUrl: "scripts/angular/views/ProductCategoriesFilter.html"
+        //});
 
         $routeProvider.when("/Success", {
             templateUrl: "scripts/angular/views/SuccessMakeOrder.html"
@@ -44,7 +58,7 @@
             templateUrl: "/scripts/angular/views/menu.html"
         });
     }])
-    .controller("navCtrl", ['$scope', '$location', 'sushiService','$http', function ($scope, $location, sushiService, $http) {
+    .controller("navCtrl", ['$scope', '$location', 'sushiService', '$http', function ($scope, $location, sushiService, $http) {
         $scope.cartSum = 0;
 
         $scope.goToCart = function () {
@@ -60,11 +74,22 @@
         $scope.goResult = function () {
             $location.path("/result");
         };
-        $scope.gotoNameFilter = function() {
+        $scope.gotoNameFilter = function () {
             $location.path("/productname");
         };
         $scope.goToOrder = function () {
             $location.path("/order");
+        };
+
+        $scope.topProduct = function () {
+            $location.path("/topProducts");
+        };
+        $scope.hotProduct = function () {
+            alert("111");
+            $location.path("/hotProducts");
+        };
+        $scope.saleProduct = function () {
+            $location.path("/saleProducts");
         };
         sushiService.getSushi().then(function (res) {
             console.log(res);
@@ -91,11 +116,11 @@
 
         $scope.matchPattern = /^\d+$/;
 
-        
+
         $scope.makeOrder = function (newOrder) {
 
         };
-       
+
         $scope.removeFromCart = function (item) {
             if (item.count > 1) {
                 item.count--;
@@ -109,17 +134,18 @@
         $scope.FindProductName = "";
 
         $scope.findByNameFilter = function (item) {
-            return item.name == $scope.FindProductName;
-        };
+            return item.name.indexOf(FindProductName) > -1;
+        }
+
         $scope.sortProduct = function (item) {
-            
+
             return item.categoryId == $scope.findCategory;
         };
-        $scope.menuFiltr = function(item) {
+        $scope.menuFiltr = function (item) {
             return item.categoryId != 3;
         }
 
-        $scope.categoryWithOutAddProductFilter = function(cat) {
+        $scope.categoryWithOutAddProductFilter = function (cat) {
             return cat.id != 3;
         }
 
@@ -129,16 +155,26 @@
         };
         $scope.addProduct = function (item) {
             return item.categoryId == 3;
-        }; 
+        };
         //$scope.method =  function() {
         //    myService.sendData(data).then(function() {
 
         //    });
         //}
+        $scope.hotFilter = function (item) {
+            return item.hot === true;
+        }
+        $scope.topFilter = function (item) {
+            return item.top === true;
+        }
+        $scope.saleFilter = function (item) {
+            return item.sale === true;
+        }
+
 
         $scope.SendToServer = function (id) {
             $scope.findOredrById = id;
-            $http.get("/Home/GetOrderStatus/" + id).then(function(response) {
+            $http.get("/Home/GetOrderStatus/" + id).then(function (response) {
                 $scope.resOrderSatus = (response.data[0].res);
                 $location.path("/result");
             });
@@ -158,6 +194,10 @@
         };
 
         $scope.SentOrderToServer = function (details) {
+            if ($scope.cartSum < 1) {
+                alert("Купите что то");
+                return;
+            }
             var orderDet = [];
             orderDet.push(details.name);
             orderDet.push(details.phoneNumber);
@@ -169,7 +209,7 @@
 
             var prodId = [];
             var prodPrice = [];
-            var prodCount=[];
+            var prodCount = [];
             var product = new Object();
             for (var i = 0; i < $scope.items.length; i++) {
                 if ($scope.items[i].selected == true) {

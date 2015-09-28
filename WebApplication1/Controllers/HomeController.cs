@@ -27,8 +27,8 @@ namespace WebApplication1.Controllers
             var products = context.Products.ToList();
             var model = new object[products.Count];
             var topQuery = from product in products
-                orderby product.Count
-                select product.Count;
+                           orderby product.NumberOfOrders descending 
+                           select product.NumberOfOrders;
 
             var topList = topQuery.ToList();
 
@@ -48,8 +48,8 @@ namespace WebApplication1.Controllers
                         ingridients = products[i].IngridientsRus,
                         kkal = products[i].Energy,
                         sale = products[i].Sale,
-                        top =  products[i].Sale != true && products[i].Count >= topNumber,
-                        hot =  (products[i].AddDate == DateTime.Today) && (products[i].Sale != true) && (products[i].Count < topNumber)
+                        top = products[i].Sale != true && products[i].NumberOfOrders >= topNumber,
+                        hot = (products[i].AddDate == DateTime.Today) && (products[i].Sale != true) && (products[i].NumberOfOrders < topNumber)
                     };
                 }
 
@@ -177,16 +177,16 @@ namespace WebApplication1.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        private int TopProduct(List<int?> list)
+        private int TopProduct(List<int> list)
         {
-            if (list.Count <5)
+            if (list.Count < 5)
             {
                 return int.MaxValue;
             }
             else
             {
-                return list[4] ?? Int32.MaxValue;
+                return list[4];
             }
-        }  
+        }
     }
 }

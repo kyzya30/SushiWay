@@ -371,11 +371,15 @@
     <Content Include="Scripts\angular\views\CategoryItemsInMenu.html" />
     <Content Include="Scripts\angular\views\Contact.html" />
     <Content Include="Scripts\angular\views\FindByName.html" />
+    <Content Include="Scripts\angular\views\hotFilter.html" />
     <Content Include="Scripts\angular\views\menu.html" />
     <Content Include="Scripts\angular\views\OrderSearch.html" />
     <Content Include="Scripts\angular\views\OrderStatusResult.html" />
     <Content Include="Scripts\angular\views\ProductCategoriesFilter.html" />
+    <Content Include="Scripts\angular\views\productname.html" />
+    <Content Include="Scripts\angular\views\saleFilter.html" />
     <Content Include="Scripts\angular\views\SuccessMakeOrder.html" />
+    <Content Include="Scripts\angular\views\topFilter.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Model1.edmx">

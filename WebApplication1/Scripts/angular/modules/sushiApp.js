@@ -1,10 +1,12 @@
 ﻿angular.module("sushiApp", ["ngRoute"])
     .config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
 
-        $locationProvider.html5Mode({
-            enabled: true,
-            requireBase: false
-        });
+        //$locationProvider.html5Mode({
+        //    enabled: true,
+        //    requireBase: false
+        //});
+
+        $locationProvider.html5Mode(false);
 
         $routeProvider.when("/cart", {
             templateUrl: "scripts/angular/views/Cart.html"
@@ -113,6 +115,14 @@
             
             return item.categoryId == $scope.findCategory;
         };
+        $scope.menuFiltr = function(item) {
+            return item.categoryId != 3;
+        }
+
+        $scope.categoryWithOutAddProductFilter = function(cat) {
+            return cat.id != 3;
+        }
+
         $scope.countFilter = function (item) {
             //return item.count > 0;
             return ((item.selected) && (item.categoryId != 3));

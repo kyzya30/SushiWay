@@ -134,9 +134,17 @@ Update Category
 SET NameRus = @NewRusName , NameUkr = @NewUkrName, [Priority] = @NewPriority
 Where CategoryId = @CategoryId
 GO
-
-
 ----------------------------
+CREATE Procedure MostPopularDishes @topVal int, @catId int 
+AS  
+SELECT TOP (@topVal) NumberOfOrders,ProductId,NameRus,Price 
+From dbo.Product 
+Where CategoryId =@catId
+
+Order by NumberOfOrders desc
+
+GO
+-----------------------
 
 CREATE PROC AddProduct 
 @catId int,
@@ -156,3 +164,40 @@ insert into Product
 values (@catId, @nameRus, @nameUkr, @numOfOrders, @count, @energy, @balance, @price, @isSale, @isHided,GETDATE(),@RusIngr,@UkrIngr);
 
 go
+--------------------
+
+CREATE PROC DeleteCategory @item int 
+AS
+DELETE FROM Category
+Where CategoryId = @item 
+GO
+---------------------
+
+CREATE PROC HideDish @item int 
+AS
+UPDATE Product
+SET IsHided = 'True'
+Where ProductId = @item
+GO
+-----------------------
+
+CREATE PROC DeleteProductWeightDetails @item int
+AS 
+DELETE ProductWeightDetails
+WHERE ProductWeightDetails.ProductId = @item
+GO
+------------------------
+
+CREATE PROC DeleteDish @item int
+AS 
+DELETE Product
+WHERE Product.ProductId = @item
+GO
+---------------------------
+
+
+CREATE PROC DeleteOrder @item int
+AS 
+DELETE Orders
+Where Orders.OrderId = @item
+GO

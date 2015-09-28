@@ -193,12 +193,14 @@ namespace WebApplication1.Controllers
                     for(int i = 0; i < idSelected.Length; i++) // Find item to delete
                     {
                         int selectedIdItem = idSelected[i];
-                        var removedCategory = context.Categories.First(category => category.CategoryId == selectedIdItem);
-                        context.Categories.Remove(removedCategory);
-                        context.SaveChanges();
+                       //var removedCategory = context.Categories.First(category => category.CategoryId == selectedIdItem);
+                        context.DeleteCategory(selectedIdItem);
+                    
+                       // context.Categories.Remove(removedCategory);
+                      //  context.SaveChanges();
                     }
                 }
-                context.SaveChanges(); 
+               //context.SaveChanges(); 
             }
 
             return RedirectToAction("Category", "Admin");
@@ -214,10 +216,11 @@ namespace WebApplication1.Controllers
                     for(int i = 0; i < idSelected.Length; i++) // Find item to hide
                     {
                         int selectedIdItem = idSelected[i];
-                        var hidedProduct = context.Products.First(product => product.ProductId == selectedIdItem);
-                        hidedProduct.IsHided = true;
+                        //var hidedProduct = context.Products.First(product => product.ProductId == selectedIdItem);
+                        context.HideDish(selectedIdItem);
+                        //hidedProduct.IsHided = true;
                     }
-                    context.SaveChanges();
+                    //context.SaveChanges();
                 }
             }
 
@@ -234,16 +237,18 @@ namespace WebApplication1.Controllers
                     for(int i = 0; i < idSelected.Length; i++)//Delete related item from ProductWeightDetails
                     {
                         int selectedIdItem = idSelected[i];
-                        var removedItemFromProductWeightDetails = context.ProductWeightDetails.First(productWeightDetail => productWeightDetail.ProductId == selectedIdItem);
-                        context.ProductWeightDetails.Remove(removedItemFromProductWeightDetails);
-                        context.SaveChanges();
+                        context.DeleteProductWeightDetails(selectedIdItem);
+                        //var removedItemFromProductWeightDetails = context.ProductWeightDetails.First(productWeightDetail => productWeightDetail.ProductId == selectedIdItem);
+                       // context.ProductWeightDetails.Remove(removedItemFromProductWeightDetails);
+                       // context.SaveChanges();
                     }
                     for(int i = 0; i < idSelected.Length; i++)// Del dish from table
                     {
                         int selectedIdItem = idSelected[i];
-                        var delProduct = context.Products.First(product => product.ProductId == selectedIdItem);
-                        context.Products.Remove(delProduct);
-                        context.SaveChanges();
+                        context.DeleteDish(selectedIdItem);
+                        //var delProduct = context.Products.First(product => product.ProductId == selectedIdItem);
+                       // context.Products.Remove(delProduct);
+                        //context.SaveChanges();
                     }
                 }
             }
@@ -319,9 +324,10 @@ namespace WebApplication1.Controllers
                     for(int i = 0; i < idSelected.Length; i++) //Del order
                     {
                         int selectedItem = idSelected[i];
-                        var delOrder = context.Orders.First(order => order.OrderId == selectedItem);
-                        context.Orders.Remove(delOrder);
-                        context.SaveChanges();
+                        context.DeleteOrder(selectedItem);
+                        // var delOrder = context.Orders.First(order => order.OrderId == selectedItem);
+                        //context.Orders.Remove(delOrder);
+                        //context.SaveChanges();
                     }
                 }
             }

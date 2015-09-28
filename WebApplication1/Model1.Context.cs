@@ -95,6 +95,42 @@ namespace WebApplication1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AllDishes_Result>("AllDishes");
         }
     
+        public virtual int DeleteCategory(Nullable<int> item)
+        {
+            var itemParameter = item.HasValue ?
+                new ObjectParameter("item", item) :
+                new ObjectParameter("item", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteCategory", itemParameter);
+        }
+    
+        public virtual int DeleteDish(Nullable<int> item)
+        {
+            var itemParameter = item.HasValue ?
+                new ObjectParameter("item", item) :
+                new ObjectParameter("item", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteDish", itemParameter);
+        }
+    
+        public virtual int DeleteOrder(Nullable<int> item)
+        {
+            var itemParameter = item.HasValue ?
+                new ObjectParameter("item", item) :
+                new ObjectParameter("item", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteOrder", itemParameter);
+        }
+    
+        public virtual int DeleteProductWeightDetails(Nullable<int> item)
+        {
+            var itemParameter = item.HasValue ?
+                new ObjectParameter("item", item) :
+                new ObjectParameter("item", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteProductWeightDetails", itemParameter);
+        }
+    
         public virtual int DelOrdersDetailsId(string item)
         {
             var itemParameter = item != null ?
@@ -138,6 +174,15 @@ namespace WebApplication1
                 new ObjectParameter("Order", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindOrders_Result>("FindOrders", orderParameter);
+        }
+    
+        public virtual int HideDish(Nullable<int> item)
+        {
+            var itemParameter = item.HasValue ?
+                new ObjectParameter("item", item) :
+                new ObjectParameter("item", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("HideDish", itemParameter);
         }
     
         public virtual int InsertValOrdTimeCh(Nullable<int> ordID, Nullable<int> ordStatus)

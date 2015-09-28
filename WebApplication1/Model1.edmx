@@ -135,6 +135,18 @@
           <Parameter Name="UkrIngr" Type="nvarchar(max)" Mode="In" />
         </Function>
         <Function Name="AllDishes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="DeleteCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="item" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteDish" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="item" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="item" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteProductWeightDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="item" Type="int" Mode="In" />
+        </Function>
         <Function Name="DelOrdersDetailsId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Item" Type="nvarchar" Mode="In" />
         </Function>
@@ -149,6 +161,9 @@
         </Function>
         <Function Name="FindOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Order" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="HideDish" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="item" Type="int" Mode="In" />
         </Function>
         <Function Name="InsertValOrdTimeCh" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="OrdID" Type="int" Mode="In" />
@@ -310,7 +325,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SushiTest1Entities50" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities56" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Massages" EntityType="Self.Massage" />
@@ -343,6 +358,18 @@
             <Parameter Name="UkrIngr" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="AllDishes" ReturnType="Collection(SushiTest1Model.AllDishes_Result)" />
+          <FunctionImport Name="DeleteCategory">
+            <Parameter Name="item" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteDish">
+            <Parameter Name="item" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteOrder">
+            <Parameter Name="item" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteProductWeightDetails">
+            <Parameter Name="item" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="DelOrdersDetailsId">
             <Parameter Name="Item" Mode="In" Type="String" />
           </FunctionImport>
@@ -357,6 +384,9 @@
           </FunctionImport>
           <FunctionImport Name="FindOrders" ReturnType="Collection(SushiTest1Model.FindOrders_Result)">
             <Parameter Name="Order" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="HideDish">
+            <Parameter Name="item" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="InsertValOrdTimeCh">
             <Parameter Name="OrdID" Mode="In" Type="Int32" />
@@ -455,7 +485,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities50">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities56">
           <EntitySetMapping Name="Administrators">
             <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">
@@ -574,6 +604,10 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DeleteCategory" FunctionName="SushiTest1Model.Store.DeleteCategory" />
+          <FunctionImportMapping FunctionImportName="DeleteDish" FunctionName="SushiTest1Model.Store.DeleteDish" />
+          <FunctionImportMapping FunctionImportName="DeleteOrder" FunctionName="SushiTest1Model.Store.DeleteOrder" />
+          <FunctionImportMapping FunctionImportName="DeleteProductWeightDetails" FunctionName="SushiTest1Model.Store.DeleteProductWeightDetails" />
           <FunctionImportMapping FunctionImportName="DelOrdersDetailsId" FunctionName="SushiTest1Model.Store.DelOrdersDetailsId" />
           <FunctionImportMapping FunctionImportName="DelOrdersTimeChanged" FunctionName="SushiTest1Model.Store.DelOrdersTimeChanged" />
           <FunctionImportMapping FunctionImportName="FindCategory" FunctionName="SushiTest1Model.Store.FindCategory">
@@ -618,6 +652,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="HideDish" FunctionName="SushiTest1Model.Store.HideDish" />
           <FunctionImportMapping FunctionImportName="InsertValOrdTimeCh" FunctionName="SushiTest1Model.Store.InsertValOrdTimeCh" />
           <FunctionImportMapping FunctionImportName="MostPopularDishes" FunctionName="SushiTest1Model.Store.MostPopularDishes">
             <ResultMapping>

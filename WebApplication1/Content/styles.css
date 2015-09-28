@@ -495,3 +495,16 @@ input[type="checkbox"]:checked + label::before {
     border: 1px solid red;
     box-shadow: none;
 }
+
+.typeTableStyle{
+    border: 1px solid #ccc;
+    margin:3px;
+    padding:3px 0 5px 3px;
+}
+
+.dishInBlockStyle{
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    margin:10px;
+    padding:10px 10px 30px 10px;
+}

@@ -13,64 +13,46 @@ using System.Web.Routing;
 using Microsoft.Ajax.Utilities;
 using WebApplication1.Models;
 
-
 namespace WebApplication1.Controllers
 {
-    public static class ExtensionClass
-    {
-        public static ExpandoObject ToExpando(this object anonymousObject)
-        {
-            IDictionary<string, object> anonymousDictionary = HtmlHelper.AnonymousObjectToHtmlAttributes(anonymousObject);
-
-            IDictionary<string, object> expando = new ExpandoObject();
-
-            foreach (var item in anonymousDictionary)
-            {
-                expando.Add(item);
-            }
-            return (ExpandoObject)expando;
-        }
-    }
+   
     public class AdminController : Controller
     {
-        // GET: Admin
-
-
         public ActionResult Login()
         {
             return View();
         }
-        public async Task<ActionResult> Dishes()                                          //C# Homework Async/Await by R.Kuzmenko
-        {                                                                                 //
-            var context = new SushiTest1Entities1();                                      //
-            var productWeightDetails = await context.ProductWeightDetails.ToListAsync(); //
-            List<AllDishes_Result> addDishes = context.AllDishes().ToList();
-            return View(addDishes);
+
+        public ActionResult Dishes() //Show all dishes on Dishes view                                         
+        {
+            using (var context = new SushiTest1Entities1())
+            {
+               List<AllDishes_Result> allDishesModel = context.AllDishes().ToList();
+               return View(allDishesModel);
+            }
         }
 
-        public ActionResult Category()                      //C# Homework Async/Await by R.Kuzmenko
+        public ActionResult Category() //Show all categories on Category view                   
         {
-
-            var context = new SushiTest1Entities1();                    //
-                                                                        //  
-
-            var addCategories = context.ShowAllCategories().ToList();
-            return View(addCategories);
+            using (var context = new SushiTest1Entities1())
+            {
+                List<ShowAllCategories_Result> allCategoriesModel = context.ShowAllCategories().ToList();
+                return View(allCategoriesModel);
+            }
         }
 
         [HttpPost]
-        public ActionResult AddCategory(Category category)
+        public ActionResult AddCategory(Category newCategory) //Action from modal window AddCategory.cshtml, to add category to database
         {
             if (ModelState.IsValid)
             {
                 using (var context = new SushiTest1Entities1())
                 {
-
-                    context.Categories.Add(category);
+                    context.Categories.Add(newCategory);
                     context.SaveChanges();
-                    return RedirectToAction("Category", "Admin");
                 }
             }
+
             return RedirectToAction("Category", "Admin");
         }
 
@@ -108,188 +90,190 @@ namespace WebApplication1.Controllers
 
         public ActionResult Orders()
         {
-            var context = new SushiTest1Entities1();
-            List<ShowAllOrders_Result> showAllOrders = context.ShowAllOrders().ToList();
-            return View(showAllOrders);
+            using (var context = new SushiTest1Entities1())
+            {
+                List<ShowAllOrders_Result> showAllOrdersModel = context.ShowAllOrders().ToList();
+                return View(showAllOrdersModel);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult FindDishes(Product product) //Find dishes on Dishes view
+        {
+            List<AllDishes_Result> allDishesModel = new List<AllDishes_Result>();
+            if(ModelState.IsValid)
+            {
+                using (var context = new SushiTest1Entities1())
+                {
+                    List<FindDishes_Result> findDishesModel = context.FindDishes(product.NameRus).ToList();
+                    for (int i = 0; i < findDishesModel.Count; i++) //Adding count for first model to be equal another model 
+                    {
+                        allDishesModel.Add(new AllDishes_Result());
+                    }
+                    for (int i = 0; i < findDishesModel.Count; i++) //Mapping findDishesModel to allDishesModel
+                    {
+                        allDishesModel[i].ProductId = findDishesModel[i].ProductId;
+                        allDishesModel[i].NameRus = findDishesModel[i].NameRus;
+                        allDishesModel[i].Priority = findDishesModel[i].Priority;
+                        allDishesModel[i].Category = findDishesModel[i].Category;
+                        allDishesModel[i].Weight = findDishesModel[i].Weight;
+                        allDishesModel[i].NameOfWeight = findDishesModel[i].NameOfWeight;
+                        allDishesModel[i].Price = findDishesModel[i].Price;
+                        allDishesModel[i].TotalDishes = findDishesModel[i].TotalDishes;
+                    }
+                }
+            }
+
+            return View("~/Views/Admin/Dishes.cshtml", allDishesModel);
         }
         [HttpPost]
-        public ActionResult FindDishes(Product product)
+        public ActionResult FindCategory(Category category) //Find Categories on Category view
         {
-            List<AllDishes_Result> allD = new List<AllDishes_Result>();
-
+            List<ShowAllCategories_Result> addCategoriesModel = new List<ShowAllCategories_Result>();
             if (ModelState.IsValid)
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                    List<FindDishes_Result> c = context.FindDishes(product.NameRus).ToList();
-                    for (int i = 0; i < c.Count; i++)
+                    List<FindCategory_Result> findCategoryModel = context.FindCategory(category.NameRus).ToList();
+                    for (int i = 0; i < findCategoryModel.Count; i++) //Adding count for first model to be equal another model 
                     {
-                        allD.Add(new AllDishes_Result());
+                        addCategoriesModel.Add(new ShowAllCategories_Result());
                     }
-                    for (int i = 0; i < c.Count; i++)
+                    for (int i = 0; i < findCategoryModel.Count; i++) //Mapping findCategoryModel to AddCategoriesModel
                     {
-                        allD[i].ProductId = c[i].ProductId;
-                        allD[i].NameRus = c[i].NameRus;
-                        allD[i].Priority = c[i].Priority;
-                        allD[i].Category = c[i].Category;
-                        allD[i].Weight = c[i].Weight;
-                        allD[i].NameOfWeight = c[i].NameRus;
-                        allD[i].Price = c[i].Price;
-                        allD[i].TotalDishes = c[i].TotalDishes;
+                        addCategoriesModel[i].TotalCategories = findCategoryModel[i].TotalCategories;
+                        addCategoriesModel[i].NameRus = findCategoryModel[i].NameRus;
+                        addCategoriesModel[i].CategoryId = findCategoryModel[i].CategoryId;
+                        addCategoriesModel[i].Priority = findCategoryModel[i].Priority;
+                        addCategoriesModel[i].TotalDishes = findCategoryModel[i].TotalDishes;
+                        addCategoriesModel[i].NameUkr = findCategoryModel[i].NameUkr;
                     }
                 }
             }
-            return View("~/Views/Admin/Dishes.cshtml", allD);
+            return View("~/Views/Admin/Category.cshtml", addCategoriesModel);
         }
-        [HttpPost]
-        public ActionResult FindCategory(Category category)
-        {
-            List<ShowAllCategories_Result> addCategories = new List<ShowAllCategories_Result>();
-            if (ModelState.IsValid)
-            {
-                using (var context = new SushiTest1Entities1())
-                {
-                    List<FindCategory_Result> findCategory = context.FindCategory(category.NameRus).ToList();
-                    for (int i = 0; i < findCategory.Count; i++)
-                    {
-                        addCategories.Add(new ShowAllCategories_Result());
-                    }
-                    for (int i = 0; i < findCategory.Count; i++)
-                    {
-                        addCategories[i].TotalCategories = findCategory[i].TotalCategories;
-                        addCategories[i].NameRus = findCategory[i].NameRus;
-                        addCategories[i].CategoryId = findCategory[i].CategoryId;
-                        addCategories[i].Priority = findCategory[i].Priority;
-                        addCategories[i].TotalDishes = findCategory[i].TotalDishes;
-                        addCategories[i].NameUkr = findCategory[i].NameUkr;
-                    }
-                }
-            }
-            return View("~/Views/Admin/Category.cshtml", addCategories);
-        }
-        [HttpPost]
-        public ActionResult FindOrders(Order order)
-        {
 
-            List<ShowAllOrders_Result> addOrders = new List<ShowAllOrders_Result>();
+        [HttpPost]
+        public ActionResult FindOrders(Order order) //Find Orders on Orders view
+        {
+            List<ShowAllOrders_Result> allOrdersModel = new List<ShowAllOrders_Result>();
             if (ModelState.IsValid)
             {
                 using (var contex = new SushiTest1Entities1())
                 {
-                    string s = order.OrderId.ToString();
-                    List<FindOrders_Result> findOrders = contex.FindOrders(s).ToList();
-                    for (int i = 0; i < findOrders.Count; i++)
+                    string orderId = order.OrderId.ToString(); //Value to find
+                    List<FindOrders_Result> findOrdersModel = contex.FindOrders(orderId).ToList();
+                    for (int i = 0; i < findOrdersModel.Count; i++) //Adding count for first model to be equal another model 
                     {
-                        addOrders.Add(new ShowAllOrders_Result());
+                        allOrdersModel.Add(new ShowAllOrders_Result());
                     }
-                    for (int i = 0; i < findOrders.Count; i++)
+                    for (int i = 0; i < findOrdersModel.Count; i++) //Mapping findOrdersModel to allOrdersModel
                     {
-                        addOrders[i].OrderId = findOrders[i].OrderId;
-                        addOrders[i].Street = findOrders[i].Street;
-                        addOrders[i].House = findOrders[i].Street;
-                        addOrders[i].Room = findOrders[i].Room;
-                        addOrders[i].MaxStatusTime = findOrders[i].MaxStatusTime;
-                        addOrders[i].TotalPrice = findOrders[i].TotalPrice;
-                        addOrders[i].StatusNameRus = findOrders[i].StatusNameRus;
+                        allOrdersModel[i].OrderId = findOrdersModel[i].OrderId;
+                        allOrdersModel[i].Street = findOrdersModel[i].Street;
+                        allOrdersModel[i].House = findOrdersModel[i].Street;
+                        allOrdersModel[i].Room = findOrdersModel[i].Room;
+                        allOrdersModel[i].MaxStatusTime = findOrdersModel[i].MaxStatusTime;
+                        allOrdersModel[i].TotalPrice = findOrdersModel[i].TotalPrice;
+                        allOrdersModel[i].StatusNameRus = findOrdersModel[i].StatusNameRus;
                     }
                 }
             }
-            return View("~/Views/Admin/Orders.cshtml", addOrders);
 
+            return View("~/Views/Admin/Orders.cshtml", allOrdersModel);
         }
-        [HttpPost]
-        public ActionResult DeleteCategoryItem(int[] idSelected)
-        {
 
+        [HttpPost]
+        public ActionResult DeleteCategoryItem(int[] idSelected) //Action from modal window DeleteCategoryItem.cshtml, to del category from database
+        {
             using (var context = new SushiTest1Entities1())
             {
-                if (idSelected != null)
+                if (idSelected != null)// Check idSelected
                 {
-                    for (int i = 0; i < idSelected.Length; i++)
+                    for(int i = 0; i < idSelected.Length; i++) // Find item to delete
                     {
-                        int f = idSelected[i];
-                        var d = context.Categories.First(z => z.CategoryId == f);
-                        context.Categories.Remove(d);
+                        int selectedIdItem = idSelected[i];
+                        var removedCategory = context.Categories.First(category => category.CategoryId == selectedIdItem);
+                        context.Categories.Remove(removedCategory);
                         context.SaveChanges();
                     }
                 }
-
-                context.SaveChanges();
-                return RedirectToAction("Category", "Admin");
-
+                context.SaveChanges(); 
             }
 
+            return RedirectToAction("Category", "Admin");
         }
 
         [HttpPost]
-        public JsonResult HideDishModal(int[] idSelected)
+        public JsonResult HideDishModal(int[] idSelected) //Action from modal window HideDishModal, to hide dish from main page
         {
             if (ModelState.IsValid)
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                    for (int i = 0; i < idSelected.Length; i++)
+                    for(int i = 0; i < idSelected.Length; i++) // Find item to hide
                     {
-                        int f = idSelected[i];
-                        var d = context.Products.First(z => z.ProductId == f);
-                        d.IsHided = true;
+                        int selectedIdItem = idSelected[i];
+                        var hidedProduct = context.Products.First(product => product.ProductId == selectedIdItem);
+                        hidedProduct.IsHided = true;
                     }
                     context.SaveChanges();
                 }
-                return Json(new { Success = true, Url = Url.Action("Dishes", "Admin") });
             }
+
             return Json(new { Success = true, Url = Url.Action("Dishes", "Admin") });
         }
 
         [HttpPost]
-        public JsonResult DeleteDishModal(int[] idSelected)
+        public JsonResult DeleteDishModal(int[] idSelected) //Action from modal window DeleteDishModal, to del dish
         {
             if (ModelState.IsValid)
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                    for (int i = 0; i < idSelected.Length; i++)
+                    for(int i = 0; i < idSelected.Length; i++)//Delete related item from ProductWeightDetails
                     {
-                        int f = idSelected[i];
-                        var d1 = context.ProductWeightDetails.First(z => z.ProductId == f);
-                        context.ProductWeightDetails.Remove(d1);
+                        int selectedIdItem = idSelected[i];
+                        var removedItemFromProductWeightDetails = context.ProductWeightDetails.First(productWeightDetail => productWeightDetail.ProductId == selectedIdItem);
+                        context.ProductWeightDetails.Remove(removedItemFromProductWeightDetails);
                         context.SaveChanges();
                     }
-                    for (int i = 0; i < idSelected.Length; i++)
+                    for(int i = 0; i < idSelected.Length; i++)// Del dish from table
                     {
-                        int f = idSelected[i];
-                        var d = context.Products.First(z => z.ProductId == f);
-                        context.Products.Remove(d);
+                        int selectedIdItem = idSelected[i];
+                        var delProduct = context.Products.First(product => product.ProductId == selectedIdItem);
+                        context.Products.Remove(delProduct);
                         context.SaveChanges();
                     }
-                    return Json(new { Success = true, Url = Url.Action("Dishes", "Admin") });
                 }
             }
+
             return Json(new { Success = true, Url = Url.Action("Dishes", "Admin") });
         }
 
-
         [HttpPost]
-        public ActionResult ModifyCategoryModal(int CategoryId, string NameRus, string NameUkr, int Priority)
+        public ActionResult ModifyCategoryModal(int CategoryId, string NameRus, string NameUkr, int Priority) //Action from modal window ModifyCategoryModal, to change category values
         {
             if (ModelState.IsValid)
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                    var d = context.UpdateCategory(CategoryId, NameRus, NameUkr, Priority);
+                    var updateSelectedCategoryValues = context.UpdateCategory(CategoryId, NameRus, NameUkr, Priority);
+                    context.SaveChanges();
                 }
             }
+     
             return RedirectToAction("Category", "Admin");
-
         }
+
         [HttpPost]
-        public ActionResult ChangeOrderStatus(int[] idSelected, int drpdwnVal)
+        public ActionResult ChangeOrderStatus(int[] idSelected, int drpdwnVal) //Action from modal window CahngeOrderStatus to update ord.status
         {
             using (var context = new SushiTest1Entities1())
             {
                 if (idSelected != null)
                 {
-                    for (int i = 0; i < idSelected.Length; i++)
+                    for(int i = 0; i < idSelected.Length; i++)
                     {
                         context.InsertValOrdTimeCh(idSelected[i], drpdwnVal);
                     }
@@ -297,45 +281,46 @@ namespace WebApplication1.Controllers
             }
             return View();
         }
+
         [HttpPost]
-        public ActionResult MostPopularDishesChangeValues(int? categoryId, int topCategoryVal)
+        public ActionResult MostPopularDishesChangeValues(int? categoryId, int topCategoryVal)//Update Index view, selected val from partial view MostPopularDishes
         {
-            var context = new SushiTest1Entities1();
-            var category = context.Categories.ToList();
-            ViewBag.Categories = category;
-            StatisticModel st = new StatisticModel
+            using (var context = new SushiTest1Entities1())
             {
-                mostPopularDishes = context.MostPopularDishes(topCategoryVal, categoryId).ToList(),
-                showUnprocessedOrders = context.ShowUnprocessedOrders().ToList()
-            };
-            return View("~/Views/Admin/Index.cshtml", st);
+                var category = context.Categories.ToList();
+                ViewBag.Categories = category;//Show all category on drpdwn partialView
+                StatisticModel newStatisticModel = new StatisticModel //Create new model for Index view
+                {
+                    mostPopularDishes = context.MostPopularDishes(topCategoryVal, categoryId).ToList(),
+                    showUnprocessedOrders = context.ShowUnprocessedOrders().ToList()
+                };
+                return View("~/Views/Admin/Index.cshtml", newStatisticModel);
+            }
 
         }
 
         [HttpPost]
-        public ActionResult DeleteOrderModal(int[] idSelected)
+        public ActionResult DeleteOrderModal(int[] idSelected) //Action from this Modal to Del order
         {
             if (ModelState.IsValid)
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                    for (int i = 0; i < idSelected.Length; i++)
+                    for(int i = 0; i < idSelected.Length; i++) //Del related item from table OrderDetails
                     {
-                        string f = idSelected[i].ToString();
-                        context.DelOrdersDetailsId(f);
+                        string selectedItem = idSelected[i].ToString();
+                        context.DelOrdersDetailsId(selectedItem);
                     }
-                    for (int i = 0; i < idSelected.Length; i++)
+                    for(int i = 0; i < idSelected.Length; i++) //Del related item from table OrderTimeChanged
                     {
-                        string f = idSelected[i].ToString();
-
-                        context.DelOrdersTimeChanged(f);
+                        string selectedItem = idSelected[i].ToString();
+                        context.DelOrdersTimeChanged(selectedItem);
                     }
-
-                    for (int i = 0; i < idSelected.Length; i++)
+                    for(int i = 0; i < idSelected.Length; i++) //Del order
                     {
-                        int f = idSelected[i];
-                        var d = context.Orders.First(z => z.OrderId == f);
-                        context.Orders.Remove(d);
+                        int selectedItem = idSelected[i];
+                        var delOrder = context.Orders.First(order => order.OrderId == selectedItem);
+                        context.Orders.Remove(delOrder);
                         context.SaveChanges();
                     }
                 }
@@ -344,27 +329,20 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public ActionResult Index()
+        public ActionResult Index() //Show statistic in Index view
         {
-            var context = new SushiTest1Entities1();
-            var category = context.Categories.ToList();
-            ViewBag.Categories = category;
-            //List <ShowUnprocessedOrders_Result> ShUnpOrd = context.ShowUnprocessedOrders().ToList();
-            //List<StatisticModel> st = new List<StatisticModel>();//addOrders.Add(new ShowAllOrders_Result());
-            //st.Add(new StatisticModel());
-            //st[0].showUnprocessedOrders = context.ShowUnprocessedOrders().ToList();
-            //st[0].mostPopularDishes = context.MostPopularDishes(5, category[0].CategoryId).ToList();
-
-            StatisticModel st = new StatisticModel
+            using (var context = new SushiTest1Entities1())
             {
-                mostPopularDishes = context.MostPopularDishes(5, category[0].CategoryId).ToList(),
-                showUnprocessedOrders = context.ShowUnprocessedOrders().ToList()
-            };
+                var category = context.Categories.ToList();
+                ViewBag.Categories = category; //Show all categories on drpdwn Index view
+                StatisticModel statisticModel = new StatisticModel 
+                {
+                    mostPopularDishes = context.MostPopularDishes(5, category[0].CategoryId).ToList(),
+                    showUnprocessedOrders = context.ShowUnprocessedOrders().ToList()
+                };
 
-            return View(st);
-
-
+                return View(statisticModel);
+            }
         }
-
     }
 }

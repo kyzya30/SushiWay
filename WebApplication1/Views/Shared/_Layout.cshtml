@@ -33,7 +33,8 @@
 
                         <!-- Collect the nav links, forms, and other content for toggling -->
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ng-include src="'scripts/angular/views/CategoryItemsInMenu.html'"></ng-include>
+                            @*<ng-include src="'~/scripts/angular/views/CategoryItemsInMenu.html'"></ng-include>*@
+                            <ng-include src="~/Scripts/angular/views/CategoryItemsInMenu.html"></ng-include>
                             <form class="navbar-form navbar-left" role="search">
                                 <div class="form-group">
                                     <a href="#"><img src="@Url.Content("~/Content/Images/Controls/search-icon.png")" id="search-icon" /></a>
@@ -68,19 +69,20 @@
             <div class="row orange-line"></div>
             <div class="row footer">
                 <a href="#">
-                    <img src="@Url.Content("~/Content/Images/Controls/btn-facebook-footer.png")" />
+                    @*<img src="@Url.Content("~/Content/Images/Controls/btn-facebook-footer.png")" />*@
+                    <img src="~/Content/Images/Controls/btn-facebook-footer.png"/>
                 </a>
                 <a href="#">
-                    <img src="@Url.Content("~/Content/Images/Controls/btn-twitter-footer.png")" />
+                    <img src="~/Content/Images/Controls/btn-twitter-footer.png" />
                 </a>
                 <a href="#">
-                    <img src="@Url.Content("~/Content/Images/Controls/btn-google-footer.png")" />
+                    <img src="~/Content/Images/Controls/btn-google-footer.png" />
                 </a>
                 <a href="#">
-                    <img src="@Url.Content("~/Content/Images/Controls/btn-youtube-footer.png")" />
+                    <img src="~/Content/Images/Controls/btn-youtube-footer.png" />
                 </a>
                 <a href="#">
-                    <img src="@Url.Content("~/Content/Images/Controls/btn-instagram-footer.png")" />
+                    <img src="~/Content/Images/Controls/btn-instagram-footer.png" />
                 </a>
                 <span class="footer-phone">(044) 551-20-98<br />(050) 345-92-00</span>
                 <img src="@Url.Content("~/Content/Images/Controls/icon-phone.png")" class="footer-phone" />

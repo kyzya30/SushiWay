@@ -24,10 +24,16 @@ namespace WebApplication1.Controllers
         public JsonResult GetSushi()
         {
             var context = new SushiTest1Entities1();
-            var products = context.Products.ToList();
+            var productsList = context.Products.ToList();
+            var productQuery = from product in productsList
+                               where product.IsHided == false
+                               select product;
+
+            var products = productQuery.ToList();
+
             var model = new object[products.Count];
             var topQuery = from product in products
-                           orderby product.NumberOfOrders descending 
+                           orderby product.NumberOfOrders descending
                            select product.NumberOfOrders;
 
             var topList = topQuery.ToList();

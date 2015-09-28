@@ -332,6 +332,17 @@ div.pageWrapperStyle {
     margin: 5px 5px 0 5px;
 }
 
+.custom_table-hover > tbody > tr:hover > td,
+.custom_table-hover > tbody > tr:hover > th {
+  background-color: #fef7f3;
+}
+.custom_table-hover_div:hover{
+  background-color: #fef7f3;
+}
+.grayStyle {
+    background-color: black;
+
+}
 .table-bordered > tbody > tr > td {
     border: none;
 }

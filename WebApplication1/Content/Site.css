@@ -91,6 +91,10 @@ form .ng-pristine {
     border: 1px dotted gray;
 }
 
+form ng-pristine ng-required  {
+    border: 1px dotted red;
+}
+
 form .ng-invalid.ng-dirty {
     background-color: transparent;
     border: 1px solid red;

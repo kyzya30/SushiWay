@@ -24,18 +24,35 @@ namespace WebApplication1.Controllers
         public JsonResult GetSushi()
         {
             var context = new SushiTest1Entities1();
-            var product = context.Products.ToList();
-            var model = new object[product.Count];
+            var products = context.Products.ToList();
+            var model = new object[products.Count];
+            var topQuery = from product in products
+                orderby product.Count
+                select product.Count;
 
-            for (int i = 0; i < product.Count; i++)
+            var topList = topQuery.ToList();
+
+            int topNumber = TopProduct(topList);
+
+
+            for (int i = 0; i < products.Count; i++)
             {
-                model[i] = new
+                if (!products[i].IsHided)
                 {
-                    id = product[i].ProductId,
-                    categoryId = product[i].CategoryId,
-                    name = product[i].NameRus,
-                    price = product[i].Price
-                };
+                    model[i] = new
+                    {
+                        id = products[i].ProductId,
+                        categoryId = products[i].CategoryId,
+                        name = products[i].NameRus,
+                        price = products[i].Price,
+                        ingridients = products[i].IngridientsRus,
+                        kkal = products[i].Energy,
+                        sale = products[i].Sale,
+                        top =  products[i].Sale != true && products[i].Count >= topNumber,
+                        hot =  (products[i].AddDate == DateTime.Today) && (products[i].Sale != true) && (products[i].Count < topNumber)
+                    };
+                }
+
             }
             return Json(model, JsonRequestBehavior.AllowGet);
         }
@@ -60,10 +77,10 @@ namespace WebApplication1.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult AddOrderToDb(string [][] data)
+        public JsonResult AddOrderToDb(string[][] data)
         {
             var context = new SushiTest1Entities1();
-            var ordersDetails = context.OrderDetails.ToList();           
+            var ordersDetails = context.OrderDetails.ToList();
             Order order = new Order();
             order.Name = data[0][0];
             order.PhoneNumber = data[0][1];
@@ -74,8 +91,8 @@ namespace WebApplication1.Controllers
 
             context.Orders.Add(order);
             context.SaveChanges();
-            
-             var nextContext = new SushiTest1Entities1();
+
+            var nextContext = new SushiTest1Entities1();
             var statusList = nextContext.OrderStatus.ToList();
             var orders = nextContext.Orders.ToList();
             var lastId = orders[orders.Count - 1].OrderId;
@@ -83,8 +100,8 @@ namespace WebApplication1.Controllers
             var myStatus = statusList[4];
             var myOrder = orders[orders.Count - 1];
 
-            var lastStatus = new OrdersTimeChanged();        
-            
+            var lastStatus = new OrdersTimeChanged();
+
             lastStatus.OrderId = lastId;
             lastStatus.OrderStatus = 5;
             lastStatus.Time = DateTime.Now;
@@ -92,21 +109,21 @@ namespace WebApplication1.Controllers
             nextContext.SaveChanges();
 
             OrderDetail orderDetail = new OrderDetail();
-         
+
             for (int i = 0; i < data[1].Length; i++)
             {
-                orderDetail.OrderId = lastId; 
+                orderDetail.OrderId = lastId;
                 orderDetail.ProductId = Convert.ToInt32(data[1][i]);
                 orderDetail.Count = Convert.ToInt32(data[2][i]);
-                orderDetail.Price = Convert.ToInt32(data[3][i]);        
+                orderDetail.Price = Convert.ToInt32(data[3][i]);
                 nextContext.OrderDetails.Add(orderDetail);
                 nextContext.SaveChanges();
             }
 
-           
+
 
             var model = new object[1];
-            model[0] = new {res = lastId};
+            model[0] = new { res = lastId };
             return Json(model);
         }
 
@@ -118,7 +135,7 @@ namespace WebApplication1.Controllers
             mess.Email = data[1];
             mess.Text = data[2];
 
-            var context = new SushiTest1Entities1(); 
+            var context = new SushiTest1Entities1();
             context.Massages.Add(mess);
             context.SaveChanges();
 
@@ -160,11 +177,16 @@ namespace WebApplication1.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 
-       
-
-
-       
-
-        
+        private int TopProduct(List<int?> list)
+        {
+            if (list.Count <5)
+            {
+                return int.MaxValue;
+            }
+            else
+            {
+                return list[4] ?? Int32.MaxValue;
+            }
+        }  
     }
 }

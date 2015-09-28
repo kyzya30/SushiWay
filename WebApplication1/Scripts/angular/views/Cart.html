@@ -45,7 +45,7 @@
 
 <h2 class="index-descr">Всего : {{cartSum}}</h2>
 
-<form name="MakeOrder" ng-submit="SentOrderToServer(newOrder)">
+<form name="MakeOrder"    ng-submit="SentOrderToServer(newOrder)">
     <div class="row">
         <div class="div-contact" style="min-height: 130px;">
             <div class="col-xs-12 col-md-9">
@@ -88,7 +88,7 @@
     </div>
     <div class="row">
     <div class="col-xs-12">
-        <button class="btn submitOrder" style="float: left">Заказать</button>
+        <button class="btn submitOrder" ng-disabled="MakeOrder.$invalid" style="float: left">Заказать</button>
         </div>
     </div>
 </form>

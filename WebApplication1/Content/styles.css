@@ -159,7 +159,7 @@ input[type="radio"]:checked + label::before {
     background:#fff;
     margin: 7px;
     border-radius: 7px;
-    box-shadow: 0 0 7px #ccc;
+    box-shadow: 0 4px 5px #ccc;
     padding:25px;
     min-height: 330px;
 }
@@ -167,7 +167,7 @@ input[type="radio"]:checked + label::before {
 .div-contact{
     background:#fff;
     border-radius: 7px;
-    box-shadow: 0 0 7px #ccc;
+    box-shadow: 0 4px 5px #ccc;
     padding:8px;
     margin-bottom: 10px;
 }
@@ -389,13 +389,13 @@ input[type="checkbox"]:checked + label::before {
 
 #btnSaveChanges {
     margin: 0;
-    width: 100%;
     margin-bottom: 5px;
 }
 
 .addImg {
     border: 1px solid black;
     padding: 30px 0;
+    margin-top: 20px;
 }
 
 .addNewDishTxt {
@@ -478,4 +478,9 @@ input[type="checkbox"]:checked + label::before {
     padding:5px;
     border:none;
     outline: none;
+}
+
+.errorStyle {
+    border: 1px solid red;
+    box-shadow: none;
 }

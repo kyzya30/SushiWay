@@ -2,17 +2,17 @@
 
 <ul class="nav navbar-nav">
     <li class="active">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <a  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
             Меню<span class="caret"></span>
         </a>
         <ul class="dropdown-menu" >
-            <li ng-repeat="cat in category">
+            <li ng-repeat="cat in category | filter : categoryWithOutAddProductFilter">
                 <a ng-click="goFiltr(cat)" class="catItemsInMenu">{{cat.name}}</a>
             </li>    
         </ul>
 
     </li>
-    <li><a href="order">Заказ</a></li>
-    <li><a href="contact">Контакты</a></li>
-    <li id="cartInMenu"><a href="cart">Корзина</a></li>
+    <li><a href="#/order">Заказ</a></li>
+    <li><a href="#/contact">Контакты</a></li>
+    <li id="cartInMenu"><a href="#/cart">Корзина</a></li>
 </ul>

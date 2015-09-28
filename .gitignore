@@ -212,3 +212,10 @@ _Pvt_Extensions/
 ModelManifest.xml
 WebApplication1/Model1.Context.cs
 WebApplication1/Model1.edmx.diagram
+WebApplication1/Model1.edmx.diagram
+*.config
+WebApplication1/Model1.Designer.cs
+*.edmx
+*.config
+*.diagram
+*.config

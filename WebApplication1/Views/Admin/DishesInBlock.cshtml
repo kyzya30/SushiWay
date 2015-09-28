@@ -83,10 +83,10 @@
 
                     $(".checkboxes").change(function () {
                         if ($(this).is(':checked')){
-                            $(this).parent().parent().css("background-color", "#fef7f3");
+                            $(this).parent().parent().addClass("dishDivChecked");
                         }
                         else if (!$(this).is(':checked')) {
-                            $(this).parent().parent().css("background-color", "#ffffff");
+                            $(this).parent().parent().removeClass("dishDivChecked");
                         }
 
                     });
@@ -94,56 +94,62 @@
                 })
             </script>
 
-        
-    @foreach (var T in Model)
-    {
+    <div class="row">
+        <div class="col-sm-10">
+            @foreach (var T in Model)
+            {
 
-        var prodId = T.ProductId.ToString();
-        var name = T.NameRus.ToString();
-        var priority = T.Priority.ToString();
-        var category = T.Category.ToString();
-        var weight = T.Weight.ToString();
-        var nameOfWeight = T.NameOfWeight.ToString();
-        var Price = T.Price.ToString();
-        var isHidden = T.IsHided;
-        var productId = T.ProductId.ToString();
-        var sale = T.Sale;
-        var srcPict = productId += ".jpeg";
+            var prodId = T.ProductId.ToString();
+            var name = T.NameRus.ToString();
+            var priority = T.Priority.ToString();
+            var category = T.Category.ToString();
+            var weight = T.Weight.ToString();
+            var nameOfWeight = T.NameOfWeight.ToString();
+            var Price = T.Price.ToString();
+            var isHidden = T.IsHided;
+            var productId = T.ProductId.ToString();
+            var sale = T.Sale;
+            var srcPict = productId += ".jpeg";
 
-        <div class="row col-xs-4">
-            <div class="dishInBlockStyle" style="height:270px;">
-                <div>
-                    <input id="@prodId" type="checkbox" class="checkboxes" name="@name" hidden />
-                    <label for="@prodId"></label>
-                    <a style="color:black; font-size:17px;" href="#">@name</a><br/>
-                    <img class="t-img" style="width: 110px;display: block;margin: 0 auto;" src=@Url.Content("~/Content/Images/Products/" + @srcPict)><br/>
-                    @if (sale == true)
-                    {<b><p style="color: green;font-size: 11px">Акция</p></b>}
-                    @if (isHidden == true)
-                    {<p class="greyDivForHidedDish" style="color: grey;font-size: 11px">Не отображается на сайте</p>     }
-                    <br/>
-                    <span><span style="color:#ccc;">Категория: </span>@category</span><br/>
-                    <span><span style="color:#ccc;">Вес: </span>@weight</span><br />
-                    <span><span style="color:#ccc;">Приоритет: </span>@priority</span>
-                    <button class="btn">@Price</button>
+            <div class="col-xs-12 col-md-6 col-lg-4">
+                <div class="dishInBlockStyle custom_table-hover_div" style="height:250px;">
+                    <div>
+                        <input id="@prodId" type="checkbox" class="checkboxes" name="@name" hidden />
+                        <label for="@prodId"></label>
+                        <a style="color:black; font-size:17px;" href="#">@name</a><br />
+                        @if (sale == true)
+                        {<b><span style="color: green;font-size: 11px; position:absolute;">Акция</span></b>}
+                        @if (isHidden == true)
+                        {<span class="greyDivForHidedDish" style="color: grey;font-size: 11px">Не отображается на сайте</span>     }
+                        <img class="t-img" style="width: 120px;display:block;margin:0 auto;" src="@Url.Content("~/Content/Images/Products/"+@srcPict)" /><br />
+
+                        <br />
+                        <span><span style="color:#ccc;">Категория: </span>@category</span><br />
+                        <span><span style="color:#ccc;">Вес: </span>@weight</span><br />
+                        <span><span style="color:#ccc;">Приоритет: </span>@priority</span>
+                        <div class="priceForDishes">@Price</div>
+                    </div>
+                    <script type="text/javascript">
+                        $(".greyDivForHidedDish").parent().parent().css("background-color", "#e8e8e8");
+                    </script>
+
                 </div>
-                <script type="text/javascript">
-                    $(".greyDivForHidedDish").parent().parent().css("background-color", "#e8e8e8");
-                </script>
-
             </div>
+            }
         </div>
-    }
-            <div class="row col-xs-12" style="padding-top: 15px">
-                <div class="col-xs-1 funcElements greyColorLnk hideBtns" data-toggle="modal" data-target="#HideDishModal" onclick="HideDishModal()">
-                    <a href="">Скрыть на сайте</a>
-                </div>
-                <div class="col-xs-2 funcElements greyColorLnk hideBtns" data-toggle="modal" data-target="#DeleteDishModal" onclick="DeleteDishModal()">
-                    <a href="">Удалить</a>
-                </div>
-                <div class="col-xs-2"></div>
-                <div class="col-xs-6"></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12" style="padding-top: 15px">
+            <div class="col-xs-1 funcElements greyColorLnk hideBtns" data-toggle="modal" data-target="#HideDishModal" onclick="HideDishModal()">
+                <a href="">Скрыть на сайте</a>
             </div>
+            <div class="col-xs-2 funcElements greyColorLnk hideBtns" data-toggle="modal" data-target="#DeleteDishModal" onclick="DeleteDishModal()">
+                <a href="">Удалить</a>
+            </div>
+            <div class="col-xs-2"></div>
+            <div class="col-xs-6"></div>
+        </div>
+    </div>
         
 
     @Html.Partial("DeleteDishModal", new Product())

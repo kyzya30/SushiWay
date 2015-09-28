@@ -85,10 +85,10 @@
 
                     $(".checkboxes").change(function () {
                         if ($(this).is(':checked')){
-                            $(this).parent().parent().css("background-color", "#fef7f3");
+                            $(this).parent().parent().addClass("dishDivChecked");
                         }
                         else if (!$(this).is(':checked')) {
-                            $(this).parent().parent().css("background-color", "#ffffff");
+                            $(this).parent().parent().removeClass("dishDivChecked");
                         }
 
                     });

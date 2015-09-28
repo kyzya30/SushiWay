@@ -50,7 +50,15 @@
                                         $('.hideBtns').css("visibility", "hidden");
                                 });
                             });
+                            $(".checkboxes").change(function () {
+                                if ($(this).is(':checked')) {
+                                    $(this).parent().parent().css("background-color", "#fef7f3");
+                                }
+                                else if (!$(this).is(':checked')) {
+                                    $(this).parent().parent().css("background-color", "#ffffff");
+                                }
 
+                            });
                             $('.hideBtns').css("visibility", "hidden");
 
                             $(".checkboxes").change(function () {

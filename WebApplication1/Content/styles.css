@@ -334,10 +334,10 @@ div.pageWrapperStyle {
 
 .custom_table-hover > tbody > tr:hover > td,
 .custom_table-hover > tbody > tr:hover > th {
-  background-color: #fef7f3;
+  background-color: #fff9ee;
 }
 .custom_table-hover_div:hover{
-  background-color: #fef7f3;
+  background-color: #fff9ee;
 }
 .grayStyle {
     background-color: black;

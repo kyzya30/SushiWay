@@ -53,9 +53,28 @@ namespace WebApplication1.Controllers
         [HttpGet]
         public ActionResult EditDish(int productId)
         {
-           
-            
-            return View();
+            using (var context = new SushiTest1Entities1())
+            {
+                var dish = context.FindDishById(productId).ToList();
+                NewDishModel newDishModel = new NewDishModel
+                {
+                    ProductId = dish[0].ProductId,
+                    CategoryId = dish[0].CategoryId,
+                    NameRus = dish[0].NameRus,
+                    NameUkr = dish[0].NameUkr,
+                    NumberOfOrders = dish[0].NumberOfOrders.ToString(),
+                    Energy = dish[0].Energy,
+                    Price = dish[0].Price.ToString(),
+                    Priority = dish[0].Priority,
+                    Sale = dish[0].Sale,
+                    IsHided = dish[0].IsHided,
+                    IngridientsRus = dish[0].IngridientsRus,
+                    IngridientsUkr = dish[0].IngridientsUkr,
+                    categories = context.Categories.ToList(),
+                    productWeightDetails = context.ProductWeightDetails.ToList()
+                };
+            return View(newDishModel);
+            }
         }
 
         [HttpPost]
@@ -96,7 +115,7 @@ namespace WebApplication1.Controllers
             if (Count == null)
                 Count = 0;
 
-            context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, false, isHidedProduct, ingredientsTxtRus, ingredientsTxtUkr);
+            context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, false, isHidedProduct,0, ingredientsTxtRus, ingredientsTxtUkr);
             context.SaveChanges();
 
             int fileName = context.Products.ToList().Last().ProductId;

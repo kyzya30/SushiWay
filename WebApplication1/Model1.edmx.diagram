@@ -4,16 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5a20c9cbd14a49b482e65dbf60d21eea" Name="Diagram1">
-        <EntityTypeShape EntityType="SushiTest1Model.Administrator" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SushiTest1Model.Category" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+      <Diagram DiagramId="0bef7d47e06148d8b3fec37461cf892b" Name="Diagram1">
+        <EntityTypeShape EntityType="SushiTest1Model.Administrator" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushiTest1Model.Category" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="SushiTest1Model.Massage" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SushiTest1Model.OrderDetail" Width="1.5" PointX="2.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SushiTest1Model.Order" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SushiTest1Model.OrderStatu" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SushiTest1Model.OrdersTimeChanged" Width="1.5" PointX="4.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushiTest1Model.OrdersTimeChanged" Width="1.5" PointX="7.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SushiTest1Model.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="SushiTest1Model.ProductWeightDetail" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SushiTest1Model.ProductWeightDetail" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
         <AssociationConnector Association="SushiTest1Model.FK_Product_CategoryId" ManuallyRouted="false" />
         <AssociationConnector Association="SushiTest1Model.FK_ProductWeightDetails_ProductId" ManuallyRouted="false" />
       </Diagram>

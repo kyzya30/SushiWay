@@ -85,6 +85,7 @@
           <Property Name="Sale" Type="bit" Nullable="false" />
           <Property Name="IsHided" Type="bit" Nullable="false" />
           <Property Name="AddDate" Type="datetime2" Precision="2" Nullable="false" />
+          <Property Name="Priority" Type="int" />
           <Property Name="IngridientsRus" Type="nvarchar(max)" />
           <Property Name="IngridientsUkr" Type="nvarchar(max)" />
         </EntityType>
@@ -131,6 +132,7 @@
           <Parameter Name="price" Type="decimal" Mode="In" />
           <Parameter Name="isSale" Type="bit" Mode="In" />
           <Parameter Name="isHided" Type="bit" Mode="In" />
+          <Parameter Name="Priority" Type="int" Mode="In" />
           <Parameter Name="RusIngr" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="UkrIngr" Type="nvarchar(max)" Mode="In" />
         </Function>
@@ -155,6 +157,9 @@
         </Function>
         <Function Name="FindCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CategoryName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="FindDishById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
         </Function>
         <Function Name="FindDishes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DishName" Type="nvarchar" Mode="In" />
@@ -287,6 +292,7 @@
           <Property Name="Sale" Type="Boolean" Nullable="false" />
           <Property Name="IsHided" Type="Boolean" Nullable="false" />
           <Property Name="AddDate" Type="DateTime" Nullable="false" Precision="2" />
+          <Property Name="Priority" Type="Int32" />
           <Property Name="IngridientsRus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IngridientsUkr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Product_CategoryId" FromRole="Product" ToRole="Category" />
@@ -325,7 +331,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SushiTest1Entities57" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities58" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Massages" EntityType="Self.Massage" />
@@ -354,6 +360,7 @@
             <Parameter Name="price" Mode="In" Type="Decimal" />
             <Parameter Name="isSale" Mode="In" Type="Boolean" />
             <Parameter Name="isHided" Mode="In" Type="Boolean" />
+            <Parameter Name="Priority" Mode="In" Type="Int32" />
             <Parameter Name="RusIngr" Mode="In" Type="String" />
             <Parameter Name="UkrIngr" Mode="In" Type="String" />
           </FunctionImport>
@@ -378,6 +385,9 @@
           </FunctionImport>
           <FunctionImport Name="FindCategory" ReturnType="Collection(SushiTest1Model.FindCategory_Result)">
             <Parameter Name="CategoryName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="FindDishById" ReturnType="Collection(SushiTest1Model.FindDishById_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="FindDishes" ReturnType="Collection(SushiTest1Model.FindDishes_Result)">
             <Parameter Name="DishName" Mode="In" Type="String" />
@@ -426,6 +436,20 @@
           <Property Type="Int32" Name="CategoryId" Nullable="false" />
           <Property Type="Int32" Name="Priority" Nullable="false" />
           <Property Type="Int32" Name="TotalDishes" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="FindDishById_Result">
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+          <Property Type="Int32" Name="CategoryId" Nullable="false" />
+          <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NameUkr" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="NumberOfOrders" Nullable="false" />
+          <Property Type="String" Name="Energy" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
+          <Property Type="Int32" Name="Priority" Nullable="true" />
+          <Property Type="Boolean" Name="Sale" Nullable="false" />
+          <Property Type="Boolean" Name="IsHided" Nullable="false" />
+          <Property Type="String" Name="IngridientsRus" Nullable="true" />
+          <Property Type="String" Name="IngridientsUkr" Nullable="true" />
         </ComplexType>
         <ComplexType Name="FindDishes_Result">
           <Property Type="Int32" Name="ProductId" Nullable="false" />
@@ -485,7 +509,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities57">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities58">
           <EntitySetMapping Name="Administrators">
             <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">
@@ -572,6 +596,7 @@
                 <ScalarProperty Name="Sale" ColumnName="Sale" />
                 <ScalarProperty Name="IsHided" ColumnName="IsHided" />
                 <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="IngridientsRus" ColumnName="IngridientsRus" />
                 <ScalarProperty Name="IngridientsUkr" ColumnName="IngridientsUkr" />
               </MappingFragment>
@@ -619,6 +644,24 @@
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="TotalDishes" ColumnName="TotalDishes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FindDishById" FunctionName="SushiTest1Model.Store.FindDishById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.FindDishById_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="NameUkr" ColumnName="NameUkr" />
+                <ScalarProperty Name="NumberOfOrders" ColumnName="NumberOfOrders" />
+                <ScalarProperty Name="Energy" ColumnName="Energy" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Sale" ColumnName="Sale" />
+                <ScalarProperty Name="IsHided" ColumnName="IsHided" />
+                <ScalarProperty Name="IngridientsRus" ColumnName="IngridientsRus" />
+                <ScalarProperty Name="IngridientsUkr" ColumnName="IngridientsUkr" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

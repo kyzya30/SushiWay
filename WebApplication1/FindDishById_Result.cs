@@ -10,27 +10,20 @@
 namespace WebApplication1
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Product
+    public partial class FindDishById_Result
     {
         public int ProductId { get; set; }
         public int CategoryId { get; set; }
         public string NameRus { get; set; }
         public string NameUkr { get; set; }
         public int NumberOfOrders { get; set; }
-        public Nullable<int> Count { get; set; }
         public string Energy { get; set; }
-        public int Balance { get; set; }
         public decimal Price { get; set; }
+        public Nullable<int> Priority { get; set; }
         public bool Sale { get; set; }
         public bool IsHided { get; set; }
-        public System.DateTime AddDate { get; set; }
-        public Nullable<int> Priority { get; set; }
         public string IngridientsRus { get; set; }
         public string IngridientsUkr { get; set; }
-    
-        public virtual Category Category { get; set; }
-        public virtual ProductWeightDetail ProductWeightDetail { get; set; }
     }
 }

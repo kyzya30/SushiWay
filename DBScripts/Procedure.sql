@@ -9,7 +9,7 @@ ISNULL(sum(Product.[Count]),0) AS TotalDishes
 
 FROM [SushiTest1].[dbo].[Category]
 left join Product on Product.CategoryId = Category.CategoryId 
-Group by Category.NameRus,Category.NameUkr,Category.CategoryId,[Priority]
+Group by Category.NameRus,Category.NameUkr,Category.CategoryId,Category.[Priority]
 GO
 ----------------------
 CREATE PROC ShowUnprocessedOrders
@@ -37,7 +37,7 @@ ISNULL(sum(Product.[Count]),0) AS TotalDishes
 FROM [SushiTest1].[dbo].[Category]
 left join Product on Product.CategoryId = Category.CategoryId
 Where Category.NameRus  Like  '%'+@CategoryName+'%'
-Group by Category.NameRus,Category.NameUkr,Category.CategoryId,[Priority]
+Group by Category.NameRus,Category.NameUkr,Category.CategoryId,Category.[Priority]
 GO
 -----------------------
 Create proc AllDishes
@@ -168,11 +168,12 @@ CREATE PROC AddProduct
 @price decimal(9,2),
 @isSale bit,
 @isHided bit,
+@Priority int,
 @RusIngr nvarchar(max),
 @UkrIngr nvarchar(max)
 AS
 insert into Product
-values (@catId, @nameRus, @nameUkr, @numOfOrders, @count, @energy, @balance, @price, @isSale, @isHided,GETDATE(),@RusIngr,@UkrIngr);
+values (@catId, @nameRus, @nameUkr, @numOfOrders, @count, @energy, @balance, @price, @isSale, @isHided,GETDATE(),@Priority,@RusIngr,@UkrIngr);
 
 go
 --------------------
@@ -212,3 +213,15 @@ AS
 DELETE Orders
 Where Orders.OrderId = @item
 GO
+-------------------------------!!!!!!!!!!!!!!!!!!!
+CREATE PROC FindDishById @id int
+AS
+SELECT ProductId,CategoryId,NameRus,NameUkr
+,NumberOfOrders,Energy,Price,Product.[Priority],Sale,IsHided,
+
+ISNULL((IngridientsRus),0) as IngridientsRus,
+ISNULL((IngridientsUkr),0) as IngridientsUkr
+
+From Product
+WHERE ProductId = @id
+

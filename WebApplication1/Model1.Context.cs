@@ -37,7 +37,7 @@ namespace WebApplication1
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductWeightDetail> ProductWeightDetails { get; set; }
     
-        public virtual int AddProduct(Nullable<int> catId, string nameRus, string nameUkr, Nullable<int> numOfOrders, Nullable<int> count, string energy, Nullable<int> balance, Nullable<decimal> price, Nullable<bool> isSale, Nullable<bool> isHided, string rusIngr, string ukrIngr)
+        public virtual int AddProduct(Nullable<int> catId, string nameRus, string nameUkr, Nullable<int> numOfOrders, Nullable<int> count, string energy, Nullable<int> balance, Nullable<decimal> price, Nullable<bool> isSale, Nullable<bool> isHided, Nullable<int> priority, string rusIngr, string ukrIngr)
         {
             var catIdParameter = catId.HasValue ?
                 new ObjectParameter("catId", catId) :
@@ -79,6 +79,10 @@ namespace WebApplication1
                 new ObjectParameter("isHided", isHided) :
                 new ObjectParameter("isHided", typeof(bool));
     
+            var priorityParameter = priority.HasValue ?
+                new ObjectParameter("Priority", priority) :
+                new ObjectParameter("Priority", typeof(int));
+    
             var rusIngrParameter = rusIngr != null ?
                 new ObjectParameter("RusIngr", rusIngr) :
                 new ObjectParameter("RusIngr", typeof(string));
@@ -87,7 +91,7 @@ namespace WebApplication1
                 new ObjectParameter("UkrIngr", ukrIngr) :
                 new ObjectParameter("UkrIngr", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddProduct", catIdParameter, nameRusParameter, nameUkrParameter, numOfOrdersParameter, countParameter, energyParameter, balanceParameter, priceParameter, isSaleParameter, isHidedParameter, rusIngrParameter, ukrIngrParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddProduct", catIdParameter, nameRusParameter, nameUkrParameter, numOfOrdersParameter, countParameter, energyParameter, balanceParameter, priceParameter, isSaleParameter, isHidedParameter, priorityParameter, rusIngrParameter, ukrIngrParameter);
         }
     
         public virtual ObjectResult<AllDishes_Result> AllDishes()
@@ -156,6 +160,15 @@ namespace WebApplication1
                 new ObjectParameter("CategoryName", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindCategory_Result>("FindCategory", categoryNameParameter);
+        }
+    
+        public virtual ObjectResult<FindDishById_Result> FindDishById(Nullable<int> id)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindDishById_Result>("FindDishById", idParameter);
         }
     
         public virtual ObjectResult<FindDishes_Result> FindDishes(string dishName)

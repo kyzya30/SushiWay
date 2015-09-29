@@ -18,6 +18,7 @@ Create table Product
 	[Sale] bit NOT NULL,
 	[IsHided] bit NOT NULL,
 	[AddDate] datetime2 (2) NOT NULL,
+	[Priority] int NULL,
 	[IngridientsRus] NVARCHAR (max),
 	[IngridientsUkr] NVARCHAR (max),
 	)

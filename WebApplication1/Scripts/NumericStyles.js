@@ -126,6 +126,7 @@ function DeleteDishModal() {
     });
 }
 function HideDishModal() {
+    
     var item = $('#hidedItem');
     var list = $('.checkboxes');
     var resultString = "";
@@ -209,9 +210,7 @@ function ChangeOrderStatus() {
     //});
     $("#changeStatus").click(function () {
         var drpdwnVal = $('#dropdown').val();
-
         $.ajax({
-
             type: "POST",
             url: $(this).data('url'),
             content: "application/json; charset=utf-8",
@@ -230,3 +229,20 @@ function ChangeOrderStatus() {
     document.getElementById("ChangedItem").innerHTML = "<span><b>" + resultString + "</b></span>";
 };
 
+//function SelectDishId(el) {
+
+//    var productId = el.id;
+//    //alert($(el).data('url'));
+
+//    $.ajax({    
+//        type: "POST",
+//        url: $(el).data('url'),
+//        content: "application/json; charset=utf-8",
+//        dataType: "json",
+//        data: {
+//            idSelected: productId
+//        },
+//        success: $(el).data('url')
+
+//    });
+//}

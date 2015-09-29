@@ -144,14 +144,22 @@
                 <img class="t-img" style="width: 70px; height: 50px;" src=@Url.Content("~/Content/Images/Products/" + @srcPict)>
             </div>
             <div class="col-xs-3" style="padding-left: 50px;">
-                <a style="color:black" href="">@name</a>
-            @if (sale == true)
-            {<b><p style="color: green;font-size: 11px">Акция</p></b>}
-            @if (isHidden == true)
-            {<p class="greyDivForHidedDish" style="color: grey;font-size: 11px">Не отображается на сайте</p>     }
+
+                @*<a id="@prodId" data-url="@Url.Action("EditDish", "Admin")" style="color: black" onclick="SelectDishId(this)" href="">@name</a>*@
+
+                @*<a type="submit" style="color: black" href="">@name</a>*@
+                @Html.ActionLink(name,"EditDish", "Admin", new{productId = prodId} , null)
 
 
-        </div>
+                @if (sale == true)
+                {<b>
+                     <p style="color: green; font-size: 11px">Акция</p></b>}
+                @if (isHidden == true)
+                {<p class="greyDivForHidedDish" style="color: grey; font-size: 11px">Не отображается на сайте</p>
+                }
+
+
+            </div>
             <script type="text/javascript">
                 $(".greyDivForHidedDish").parent().parent().css("background-color", "#e8e8e8");
             </script>

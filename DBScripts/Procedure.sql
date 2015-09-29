@@ -19,7 +19,7 @@ From OrderDetails
 join dbo.Product on Product.ProductId = OrderDetails.ProductId 
 join dbo.Orders on Orders.OrderId = OrderDetails.OrderDetailsId 
 join dbo.OrdersTimeChanged on OrdersTimeChanged.OrderId = Orders.OrderId
-Where OrdersTimeChanged.OrderStatus =2 
+Where OrdersTimeChanged.OrderStatus =5 
 GROUP BY Street,House,Room,Orders.OrderId, OrdersTimeChanged.Time
 GO
 -------------------------
@@ -40,19 +40,30 @@ Where Category.NameRus  Like  '%'+@CategoryName+'%'
 Group by Category.NameRus,Category.NameUkr,Category.CategoryId,[Priority]
 GO
 -----------------------
-CREATE PROC AllDishes
+Create proc AllDishes
 AS
-SELECT Product.ProductId,Product.NameRus, (Category.[Priority]) AS [Priority],Category.NameRus AS Category, (ProductWeightDetails.Value) AS [Weight],(ProductWeightDetails.Name) AS NameOfWeight  ,Product.Price, (select count(*) from Product) as TotalDishes,
+SELECT Product.ProductId,Product.NameRus, (Category.[Priority]) AS [Priority],Category.NameRus AS Category,
+
+ISNULL((ProductWeightDetails.Value),0) AS [Weight],
+ISNULL((ProductWeightDetails.Name),0) AS NameOfWeight,
+
+Product.Price, (select count(*) from Product) as TotalDishes,
 Product.Sale,Product.IsHided, Product.AddDate
 From Product
-join Category on Category.CategoryId = Product.CategoryId 
-join ProductWeightDetails on ProductWeightDetails.ProductId = Product.ProductId
+left join Category on Category.CategoryId = Product.CategoryId 
+left join ProductWeightDetails on ProductWeightDetails.ProductId = Product.ProductId
 GO
 ------------
 
 CREATE PROC FindDishes @DishName nvarchar(50)
 AS
-SELECT Product.ProductId,Product.NameRus, (Category.[Priority]) AS [Priority],Category.NameRus AS Category, (ProductWeightDetails.Value) AS [Weight],(ProductWeightDetails.Name) AS NameOfWeight  ,Product.Price, (select count(*) from Product) as TotalDishes,
+SELECT Product.ProductId,Product.NameRus, (Category.[Priority]) AS [Priority],Category.NameRus AS Category, 
+
+ISNULL((ProductWeightDetails.Value),0) AS [Weight],
+ISNULL((ProductWeightDetails.Name),0) AS NameOfWeight,
+
+
+Product.Price, (select count(*) from Product) as TotalDishes,
 Product.Sale,Product.IsHided, Product.AddDate
 From Product
 join Category on Category.CategoryId = Product.CategoryId 

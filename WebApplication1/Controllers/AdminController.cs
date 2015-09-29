@@ -50,8 +50,11 @@ namespace WebApplication1.Controllers
             }
         }
 
-        public ActionResult EditDish()
+        [HttpGet]
+        public ActionResult EditDish(int productId)
         {
+           
+            
             return View();
         }
 

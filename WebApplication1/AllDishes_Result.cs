@@ -15,7 +15,7 @@ namespace WebApplication1
     {
         public int ProductId { get; set; }
         public string NameRus { get; set; }
-        public int Priority { get; set; }
+        public Nullable<int> Priority { get; set; }
         public string Category { get; set; }
         public decimal Weight { get; set; }
         public string NameOfWeight { get; set; }

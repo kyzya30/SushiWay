@@ -50,6 +50,11 @@ namespace WebApplication1.Controllers
             }
         }
 
+        public ActionResult EditDish()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult AddCategory(Category newCategory) //Action from modal window AddCategory.cshtml, to add category to database
         {

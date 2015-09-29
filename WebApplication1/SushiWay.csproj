@@ -443,6 +443,8 @@
     <Content Include="Views\Admin\DeleteOrderModal.cshtml" />
     <Content Include="Views\Admin\ChangeOrderStatus.cshtml" />
     <Content Include="Views\Admin\MostPopularDishesChangeValues.cshtml" />
+    <Content Include="Views\Admin\DishesInBlock.cshtml" />
+    <Content Include="Views\Admin\EditDish.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

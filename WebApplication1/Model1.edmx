@@ -325,7 +325,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SushiTest1Entities56" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities57" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Massages" EntityType="Self.Massage" />
@@ -409,8 +409,8 @@
         <ComplexType Name="AllDishes_Result">
           <Property Type="Int32" Name="ProductId" Nullable="false" />
           <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="Priority" Nullable="false" />
-          <Property Type="String" Name="Category" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Priority" Nullable="true" />
+          <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
           <Property Type="Decimal" Name="Weight" Nullable="false" Precision="9" Scale="3" />
           <Property Type="String" Name="NameOfWeight" Nullable="false" MaxLength="50" />
           <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
@@ -485,7 +485,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities56">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities57">
           <EntitySetMapping Name="Administrators">
             <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">

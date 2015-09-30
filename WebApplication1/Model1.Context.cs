@@ -259,5 +259,75 @@ namespace WebApplication1
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateCategory", categoryIdParameter, newRusNameParameter, newUkrNameParameter, newPriorityParameter);
         }
+    
+        public virtual int UpdateProduct(Nullable<int> productId, Nullable<int> categoryId, string nameRus, Nullable<decimal> price, string nameUkr, Nullable<int> count, Nullable<int> energy, Nullable<bool> sale, Nullable<bool> isHided, Nullable<int> priority, string ingrRus, string ingrUkr)
+        {
+            var productIdParameter = productId.HasValue ?
+                new ObjectParameter("ProductId", productId) :
+                new ObjectParameter("ProductId", typeof(int));
+    
+            var categoryIdParameter = categoryId.HasValue ?
+                new ObjectParameter("CategoryId", categoryId) :
+                new ObjectParameter("CategoryId", typeof(int));
+    
+            var nameRusParameter = nameRus != null ?
+                new ObjectParameter("NameRus", nameRus) :
+                new ObjectParameter("NameRus", typeof(string));
+    
+            var priceParameter = price.HasValue ?
+                new ObjectParameter("Price", price) :
+                new ObjectParameter("Price", typeof(decimal));
+    
+            var nameUkrParameter = nameUkr != null ?
+                new ObjectParameter("NameUkr", nameUkr) :
+                new ObjectParameter("NameUkr", typeof(string));
+    
+            var countParameter = count.HasValue ?
+                new ObjectParameter("Count", count) :
+                new ObjectParameter("Count", typeof(int));
+    
+            var energyParameter = energy.HasValue ?
+                new ObjectParameter("Energy", energy) :
+                new ObjectParameter("Energy", typeof(int));
+    
+            var saleParameter = sale.HasValue ?
+                new ObjectParameter("Sale", sale) :
+                new ObjectParameter("Sale", typeof(bool));
+    
+            var isHidedParameter = isHided.HasValue ?
+                new ObjectParameter("IsHided", isHided) :
+                new ObjectParameter("IsHided", typeof(bool));
+    
+            var priorityParameter = priority.HasValue ?
+                new ObjectParameter("Priority", priority) :
+                new ObjectParameter("Priority", typeof(int));
+    
+            var ingrRusParameter = ingrRus != null ?
+                new ObjectParameter("IngrRus", ingrRus) :
+                new ObjectParameter("IngrRus", typeof(string));
+    
+            var ingrUkrParameter = ingrUkr != null ?
+                new ObjectParameter("IngrUkr", ingrUkr) :
+                new ObjectParameter("IngrUkr", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateProduct", productIdParameter, categoryIdParameter, nameRusParameter, priceParameter, nameUkrParameter, countParameter, energyParameter, saleParameter, isHidedParameter, priorityParameter, ingrRusParameter, ingrUkrParameter);
+        }
+    
+        public virtual int UpdateProductWeightDetails(Nullable<int> productId, string name, Nullable<decimal> value)
+        {
+            var productIdParameter = productId.HasValue ?
+                new ObjectParameter("ProductId", productId) :
+                new ObjectParameter("ProductId", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("Name", name) :
+                new ObjectParameter("Name", typeof(string));
+    
+            var valueParameter = value.HasValue ?
+                new ObjectParameter("Value", value) :
+                new ObjectParameter("Value", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateProductWeightDetails", productIdParameter, nameParameter, valueParameter);
+        }
     }
 }

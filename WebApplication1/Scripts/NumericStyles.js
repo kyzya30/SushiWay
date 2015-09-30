@@ -228,7 +228,43 @@ function ChangeOrderStatus() {
     resultString = resultString.substring(0, resultString.length - 2);
     document.getElementById("ChangedItem").innerHTML = "<span><b>" + resultString + "</b></span>";
 };
+function DeleteDishModal() {
+    //var item = $('#deletedItem');
+    //var list = $('.checkboxes');
+    //var resultString = "";
+    //var arr = [];
+    //var j = 0;
+    //for (var i = 0; i < list.length; i++) {
+    //    if (list[i].checked == true) {
+    //        resultString += list[i].name;
+    //        resultString += ", ";
+    //        arr[j++] = list[i].id;
+    //    }
+    //}
+    // resultString = resultString.substring(0, resultString.length - 2);
+    var name = $('#NameRus').val();
+    
+    var arr = [];
+    arr= $('#ProductId').val();
+    document.getElementById("deletedItem").innerHTML = "<span><b>" + name  +"</b></span>";
 
+    $("#delDishBtn").click(function () {
+        $.ajax({
+            type: "POST",
+            url: $(this).data('url'),
+            content: "application/json; charset=utf-8",
+            dataType: "json",
+            data: { idSelected: arr },
+
+            success:
+                setTimeout(function () {
+                    location.reload()
+                }, 500)
+
+
+        });
+    });
+}
 //function SelectDishId(el) {
 
 //    var productId = el.id;

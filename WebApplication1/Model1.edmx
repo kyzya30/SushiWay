@@ -187,6 +187,25 @@
           <Parameter Name="NewUkrName" Type="nvarchar" Mode="In" />
           <Parameter Name="NewPriority" Type="int" Mode="In" />
         </Function>
+        <Function Name="UpdateProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductId" Type="int" Mode="In" />
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+          <Parameter Name="NameRus" Type="nvarchar" Mode="In" />
+          <Parameter Name="Price" Type="decimal" Mode="In" />
+          <Parameter Name="NameUkr" Type="nvarchar" Mode="In" />
+          <Parameter Name="Count" Type="int" Mode="In" />
+          <Parameter Name="Energy" Type="int" Mode="In" />
+          <Parameter Name="Sale" Type="bit" Mode="In" />
+          <Parameter Name="IsHided" Type="bit" Mode="In" />
+          <Parameter Name="Priority" Type="int" Mode="In" />
+          <Parameter Name="IngrRus" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IngrUkr" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="UpdateProductWeightDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductId" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Value" Type="decimal" Mode="In" />
+        </Function>
         <EntityContainer Name="SushiTest1ModelStoreContainer">
           <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -331,7 +350,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SushiTest1Entities58" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities62" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Massages" EntityType="Self.Massage" />
@@ -415,6 +434,25 @@
             <Parameter Name="NewUkrName" Mode="In" Type="String" />
             <Parameter Name="NewPriority" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="UpdateProduct">
+            <Parameter Name="ProductId" Mode="In" Type="Int32" />
+            <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="NameRus" Mode="In" Type="String" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+            <Parameter Name="NameUkr" Mode="In" Type="String" />
+            <Parameter Name="Count" Mode="In" Type="Int32" />
+            <Parameter Name="Energy" Mode="In" Type="Int32" />
+            <Parameter Name="Sale" Mode="In" Type="Boolean" />
+            <Parameter Name="IsHided" Mode="In" Type="Boolean" />
+            <Parameter Name="Priority" Mode="In" Type="Int32" />
+            <Parameter Name="IngrRus" Mode="In" Type="String" />
+            <Parameter Name="IngrUkr" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateProductWeightDetails">
+            <Parameter Name="ProductId" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Value" Mode="In" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="AllDishes_Result">
           <Property Type="Int32" Name="ProductId" Nullable="false" />
@@ -448,6 +486,7 @@
           <Property Type="Int32" Name="Priority" Nullable="true" />
           <Property Type="Boolean" Name="Sale" Nullable="false" />
           <Property Type="Boolean" Name="IsHided" Nullable="false" />
+          <Property Type="Int32" Name="Count" Nullable="true" />
           <Property Type="String" Name="IngridientsRus" Nullable="true" />
           <Property Type="String" Name="IngridientsUkr" Nullable="true" />
         </ComplexType>
@@ -509,7 +548,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities58">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities62">
           <EntitySetMapping Name="Administrators">
             <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">
@@ -660,6 +699,7 @@
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
                 <ScalarProperty Name="Sale" ColumnName="Sale" />
                 <ScalarProperty Name="IsHided" ColumnName="IsHided" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="IngridientsRus" ColumnName="IngridientsRus" />
                 <ScalarProperty Name="IngridientsUkr" ColumnName="IngridientsUkr" />
               </ComplexTypeMapping>
@@ -745,6 +785,8 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="UpdateCategory" FunctionName="SushiTest1Model.Store.UpdateCategory" />
+          <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="SushiTest1Model.Store.UpdateProduct" />
+          <FunctionImportMapping FunctionImportName="UpdateProductWeightDetails" FunctionName="SushiTest1Model.Store.UpdateProductWeightDetails" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

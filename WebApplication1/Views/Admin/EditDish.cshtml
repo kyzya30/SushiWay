@@ -3,4 +3,193 @@
     ViewBag.Title = "EditDish";
     Layout = "~/Views/Shared/AdminMasterPage.cshtml";
 }
-<h2>EditDish</h2>
+@using (Html.BeginForm("EditDish", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "addNewDishForm" }))
+{
+
+    var categoryId = Model.CategoryId;
+    var productId = Model.ProductId;
+    string weight ="";
+
+    foreach (var mass in Model.productWeightDetails)
+    {
+        if (mass.ProductId == productId)
+        {
+            weight = mass.Value.ToString();
+        }
+    }
+    string srcPict = productId.ToString();
+    srcPict += ".jpeg";
+    var sale = Model.Sale;
+    var numOfOrders = Model.NumberOfOrders;
+    var nameUkr = Model.NameUkr;
+    var nameRus = Model.NameRus;
+    var price = Model.Price;
+    var energy = Model.Energy;
+    var ingrRus = Model.IngridientsRus;
+    var ingrUkr = Model.IngridientsUkr;
+    var priority = Model.Priority;
+    var count = Model.Count;
+    var isHided = Model.IsHided;
+    <div class="container-fluid " style="padding-top: 40px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-sm-8">
+                <input id="ProductId" name="ProductId" value="@productId" hidden/>
+                <input id="NameRus" name="NameRus" style="width: 100%;" type="text" placeholder="Название" class="nameText form-control addNewDishTxt" value="@nameRus"/>
+                <input id="NameUkr" name="NameUkr" style="width: 100%;" type="text" placeholder="Назва" class="nameText form-control addNewDishTxt" value="@nameUkr"/>
+            </div>
+            <div class="col-sm-4">
+                <button type="submit" class="btn pull-left" id="btnSaveChanges">Сохранить изменения</button><br /><br /><br />
+                <label>Блюдо отображается на сайте</label>
+                @if(isHided == true)
+                {
+                <input id="selectAllOrders" name="isHided" type="checkbox" hidden />
+                <label for="selectAllOrders"></label>
+                }
+                else
+                {
+                <input id="selectAllOrders" name="isHided" type="checkbox" checked="checked" />
+                <label for="selectAllOrders"></label>
+                }
+                
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <p id="errorMessage" style='color: red;'></p>
+                <div class="addImg text-center">
+                    
+                    @*<img id="output" src="~/Content/Images/Controls/Admin/logo-transparent.png" style="width: 103px;"/><br/>*@
+                    <img id="output" src=@Url.Content("~/Content/Images/Products/" + @srcPict) style="width: 103px;" /><br />
+
+
+                    <input type="file" id="inputFile" name="uploadPhoto" style="display: none;" onchange="loadFile(event)"/>
+                    <button type="button" id="fileButton">Загрузить изображение</button>
+                    <script>
+                        $('#fileButton').click(function() {
+                            $("#inputFile").click();
+                        });
+
+                        var loadFile = function(event) {
+                            var output = document.getElementById('output');
+                            output.src = URL.createObjectURL(event.target.files[0]);
+                        };
+                        $(document).ready(function() {
+
+                            function CheckField(element, event) {
+                                if (element.val() == "") {
+                                    event.preventDefault();
+                                    element.addClass("errorStyle");
+                                    $("#errorMessage").text("Выделенные поля должны быть заполнены");
+                                }
+                            }
+
+                            $("#NameRus, #NameUkr, #Price").change(function() {
+                                if ($(this).val() != "") {
+                                    $(this).removeClass("errorStyle");
+                                    $("#errorMessage").text("");
+                                }
+                            });
+
+                            $("#addNewDishForm").submit(function(event) {
+                                $(".addImg").removeClass("errorStyle");
+                                CheckField($("#NameRus"), event);
+                                CheckField($("#NameUkr"), event);
+                                CheckField($("#Price"), event);
+                                //CheckField($("#inputFile"), event);
+                               // if ($("#inputFile").get(0).files.length === 0) {
+                                    //event.preventDefault();
+                                    //$(".addImg").addClass("errorStyle");
+                                    $("#errorMessage").text("Выделенные поля должны быть заполнены");
+                                //}
+                            });
+                        });
+
+                    </script>
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <label for="priority">Приоритет</label>
+                <input type="number" name="Priority" id="priority" class="form-control addNewDishTxt" min="1" max="999" value="@priority" style="width: 120px;" />
+                <input name="Price" type="text" id="Price" class="form-control addNewDishTxt" placeholder="цена грн" style="width: 200px;" value="@price"/>
+                <select class="form-control addNewDishTxt" name="dishCategory" style="width: 200px;">
+                    
+                    @foreach (var item in Model.categories)
+                    {
+                        var nameRusCategory = item.NameRus.ToString();
+                        var catId = item.CategoryId.ToString();
+                        if (item.CategoryId == categoryId)
+                        {
+                            <option name="@catId" value="@catId">@nameRusCategory </option>
+                        }
+                    }
+                    @foreach (var item in Model.categories)
+                    {
+                        var nameRusCategory = item.NameRus.ToString();
+                        var catId = item.CategoryId.ToString();
+                        if (item.CategoryId != categoryId)
+                        {
+                            <option name="@catId" value="@catId">@nameRusCategory </option>
+
+                        }
+                    }
+                </select><br />
+                <input name="Weight" type="text" id="" class="form-control addNewDishTxt" placeholder="Вес" style="width: 200px;" value="@weight"/>
+                <select class="form-control addNewDishTxt" name="WeightName" style="width: 105px;">
+                @foreach (var item in Model.productWeightDetails)
+                {
+                    if (item.ProductId == productId)
+                    {
+                        var sel = item.Name.ToString();
+                        <option name="@sel" value="@sel">@sel</option>
+                        if (sel == "граммы")
+                        {
+                            <option name="мл" value="мл">мл</option>
+                        }
+                        else
+                        {
+                            <option name="граммы" value="граммы">граммы</option>
+                        }
+                    }
+                }
+                </select>
+                <input name="Energy" type="text" id="" class="form-control addNewDishTxt" placeholder="Калорийность" style="width: 140px;" value="@energy" />
+                    <input name="Count" type="text" id="" class="form-control addNewDishTxt" placeholder="Количество" style="width: 150px;" value="@count" />
+                    <br />
+                    <input name="ingredientsTxtRus" type="text" id="ingredientsTxtRus" class="form-control addNewDishTxt" placeholder="Состав" style="width: 608px;" value="@ingrRus" />
+                    <input name="ingredientsTxtUkr" type="text" id="ingredientsTxtUkr" class="form-control addNewDishTxt" placeholder="Склад" style="width: 608px;" value="@ingrUkr" />
+</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10">
+                <div class="pull-right">
+                    <label for="prod1">Пометки:</label>
+                    @if (sale == true)
+                    {
+                        <input type="radio" id="prod1" name="prod" value="1"/>
+                        <label for="prod1">Без пометок</label>
+                        <input type="radio" id="prod3" name="prod" value="3" checked="checked"/>
+                        <label name="Sale" for="prod3">Акции</label>
+                    }
+                    else
+                    {
+                        <input type="radio" id="prod1" name="prod" value="1" checked="checked"/>
+                        <label for="prod1">Без пометок</label>
+                        <input type="radio" id="prod3" name="prod" value="3"/>
+                        <label name="Sale" for="prod3">Акции</label>
+                    }
+
+                    @*<input type="radio" id="prod2" name="prod" value="2" onclick="goToCart" />
+                    <label for="prod2">Популярные</label>*@
+
+                    @*<input type="radio" id="prod4" name="prod" value="4" />
+                    <label for="prod4">Новинки</label>*@
+                    <p class="text-right">заказано @numOfOrders раз</p>
+                    <button id="#delDishBtn" type="button" data-url = "@Url.Action("DeleteDishModal","Admin")" class="btn pull-right" style="background: grey" data-toggle="modal" data-target="#DeleteDishModal" onclick="DeleteDishModal()">Удалить</button>
+                </div>
+            </div>
+
+        </div>
+        @Html.Partial("DeleteDishModal", new Product())
+    </div>
+}

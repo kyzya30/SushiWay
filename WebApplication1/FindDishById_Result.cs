@@ -23,6 +23,7 @@ namespace WebApplication1
         public Nullable<int> Priority { get; set; }
         public bool Sale { get; set; }
         public bool IsHided { get; set; }
+        public Nullable<int> Count { get; set; }
         public string IngridientsRus { get; set; }
         public string IngridientsUkr { get; set; }
     }

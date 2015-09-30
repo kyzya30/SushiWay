@@ -51,32 +51,110 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditDish(int productId)
+        public ActionResult EditDish(int? productId)
         {
-            using (var context = new SushiTest1Entities1())
+            if (productId == null)
             {
-                var dish = context.FindDishById(productId).ToList();
-                NewDishModel newDishModel = new NewDishModel
+                return RedirectToAction("Dishes", "Admin");
+            }
+            else
+            {
+                using (var context = new SushiTest1Entities1())
                 {
-                    ProductId = dish[0].ProductId,
-                    CategoryId = dish[0].CategoryId,
-                    NameRus = dish[0].NameRus,
-                    NameUkr = dish[0].NameUkr,
-                    NumberOfOrders = dish[0].NumberOfOrders.ToString(),
-                    Energy = dish[0].Energy,
-                    Price = dish[0].Price.ToString(),
-                    Priority = dish[0].Priority,
-                    Sale = dish[0].Sale,
-                    IsHided = dish[0].IsHided,
-                    IngridientsRus = dish[0].IngridientsRus,
-                    IngridientsUkr = dish[0].IngridientsUkr,
-                    categories = context.Categories.ToList(),
-                    productWeightDetails = context.ProductWeightDetails.ToList()
-                };
-            return View(newDishModel);
+                    
+                    var dish = context.FindDishById(productId).ToList();
+                    if (!dish.Any())
+                    {
+                        return RedirectToAction("Dishes", "Admin");
+                    }
+                    
+                    NewDishModel newDishModel = new NewDishModel
+                    {
+                        ProductId = dish[0].ProductId,
+                        CategoryId = dish[0].CategoryId,
+                        NameRus = dish[0].NameRus,
+                        NameUkr = dish[0].NameUkr,
+                        NumberOfOrders = dish[0].NumberOfOrders.ToString(),
+                        Energy = dish[0].Energy,
+                        Price = dish[0].Price.ToString(),
+                        Priority = dish[0].Priority,
+                        Sale = dish[0].Sale,
+                        Count = dish[0].Count,
+                        IsHided = dish[0].IsHided,
+                        IngridientsRus = dish[0].IngridientsRus,
+                        IngridientsUkr = dish[0].IngridientsUkr,
+                        categories = context.Categories.ToList(),
+                        productWeightDetails = context.ProductWeightDetails.ToList()
+                    };
+                    return View(newDishModel);
+                }
+                
             }
         }
 
+        [HttpPost]
+        public ActionResult EditDish(int ProductId,string NameRus, string NameUkr, string isHided, int Priority,
+            decimal? Price, int? dishCategory,decimal? Weight,string WeightName, string Energy, int? Count,
+            string ingredientsTxtRus, string ingredientsTxtUkr, int? prod, HttpPostedFileBase uploadPhoto)
+        {
+            using (var context = new SushiTest1Entities1())
+            {
+                bool sale = true;
+                if (prod == 3)
+                {
+                    sale = true;
+                }
+                else if (prod == 1)
+                {
+                    sale = false;
+                }
+                bool hide = true;
+                if (isHided == "on")
+                {
+                    hide = false;
+                }
+                else
+                {
+                    hide = true;
+                }
+                
+                context.UpdateProductWeightDetails((int)ProductId, WeightName, Weight);
+                //int energy = Convert.ToInt32(Energy);
+                context.UpdateProduct(ProductId, dishCategory, NameRus, Price, NameUkr, Count, Convert.ToInt32(Energy), sale, hide,
+                    Priority, ingredientsTxtRus, ingredientsTxtUkr);
+                if(uploadPhoto != null)
+                { 
+                int fileName = ProductId;
+                uploadPhoto.SaveAs(Server.MapPath("~/Content/Images/Products/" + fileName + ".jpeg"));
+                }
+
+            }
+
+            return RedirectToAction("Dishes","Admin");
+        }
+
+        [HttpPost]
+        public ActionResult AddNewDish(string NameRus, string NameUkr, string isHided, int? dishCategory, byte? prod, int? Priority, decimal? Price, double? Weight, string Energy,
+           int? Count, string ingredientsTxtRus, string ingredientsTxtUkr, HttpPostedFileBase uploadPhoto)
+        {
+            var context = new SushiTest1Entities1();
+            var products = context.Products.ToList();
+
+            bool isHidedProduct = (isHided != null) ? false : true;
+
+            if (Weight == null)
+                Weight = 0;
+            if (Count == null)
+                Count = 0;
+
+            context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, false, isHidedProduct, 0, ingredientsTxtRus, ingredientsTxtUkr);
+            context.SaveChanges();
+
+            int fileName = context.Products.ToList().Last().ProductId;
+
+            uploadPhoto.SaveAs(Server.MapPath("~/Content/Images/Products/" + fileName + ".jpeg"));
+            return RedirectToAction("Dishes");
+        }
         [HttpPost]
         public ActionResult AddCategory(Category newCategory) //Action from modal window AddCategory.cshtml, to add category to database
         {
@@ -101,28 +179,7 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult AddNewDish(string NameRus, string NameUkr, string isHided, int? dishCategory, byte? prod, int? Priority, decimal? Price, double? Weight, string Energy, 
-            int? Count, string ingredientsTxtRus, string ingredientsTxtUkr, HttpPostedFileBase uploadPhoto)
-        {
-            var context = new SushiTest1Entities1();
-            var products = context.Products.ToList();
-
-            bool isHidedProduct = (isHided != null) ? false : true;
-
-            if (Weight == null)
-                Weight = 0;
-            if (Count == null)
-                Count = 0;
-
-            context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, false, isHidedProduct,0, ingredientsTxtRus, ingredientsTxtUkr);
-            context.SaveChanges();
-
-            int fileName = context.Products.ToList().Last().ProductId;
-
-            uploadPhoto.SaveAs(Server.MapPath("~/Content/Images/Products/" + fileName + ".jpeg"));
-            return RedirectToAction("Dishes");
-        }
+       
 
         public ActionResult AddNewOrder()
         {
@@ -168,6 +225,37 @@ namespace WebApplication1.Controllers
 
             return View("~/Views/Admin/Dishes.cshtml", allDishesModel);
         }
+
+        [HttpPost]
+        public ActionResult FindDishesInBlock(Product product)
+        {
+            List<AllDishes_Result> allDishesModel = new List<AllDishes_Result>();
+            if (ModelState.IsValid)
+            {
+                using (var context = new SushiTest1Entities1())
+                {
+                    List<FindDishes_Result> findDishesModel = context.FindDishes(product.NameRus).ToList();
+                    for (int i = 0; i < findDishesModel.Count; i++) //Adding count for first model to be equal another model 
+                    {
+                        allDishesModel.Add(new AllDishes_Result());
+                    }
+                    for (int i = 0; i < findDishesModel.Count; i++) //Mapping findDishesModel to allDishesModel
+                    {
+                        allDishesModel[i].ProductId = findDishesModel[i].ProductId;
+                        allDishesModel[i].NameRus = findDishesModel[i].NameRus;
+                        allDishesModel[i].Priority = findDishesModel[i].Priority;
+                        allDishesModel[i].Category = findDishesModel[i].Category;
+                        allDishesModel[i].Weight = findDishesModel[i].Weight;
+                        allDishesModel[i].NameOfWeight = findDishesModel[i].NameOfWeight;
+                        allDishesModel[i].Price = findDishesModel[i].Price;
+                        allDishesModel[i].TotalDishes = findDishesModel[i].TotalDishes;
+                    }
+                }
+            }
+
+            return View("~/Views/Admin/DishesInBlock.cshtml", allDishesModel);
+        }
+
         [HttpPost]
         public ActionResult FindCategory(Category category) //Find Categories on Category view
         {

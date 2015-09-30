@@ -15,6 +15,7 @@ namespace WebApplication1.Models
         public string Energy { get; set; }
         public string Price { get; set; }
         public int? Priority { get; set; }
+        public int? Count { get; set; }
         public bool Sale { get; set; }
         public bool IsHided { get; set; }
         public string IngridientsRus { get; set; }

@@ -224,6 +224,15 @@ namespace WebApplication1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<MostPopularDishes_Result>("MostPopularDishes", topValParameter, catIdParameter);
         }
     
+        public virtual ObjectResult<SelectOrderContactInfo_Result> SelectOrderContactInfo(Nullable<int> orderId)
+        {
+            var orderIdParameter = orderId.HasValue ?
+                new ObjectParameter("OrderId", orderId) :
+                new ObjectParameter("OrderId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectOrderContactInfo_Result>("SelectOrderContactInfo", orderIdParameter);
+        }
+    
         public virtual ObjectResult<ShowAllCategories_Result> ShowAllCategories()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ShowAllCategories_Result>("ShowAllCategories");

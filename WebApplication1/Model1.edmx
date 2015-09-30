@@ -178,6 +178,9 @@
           <Parameter Name="topVal" Type="int" Mode="In" />
           <Parameter Name="catId" Type="int" Mode="In" />
         </Function>
+        <Function Name="SelectOrderContactInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OrderId" Type="int" Mode="In" />
+        </Function>
         <Function Name="ShowAllCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ShowAllOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ShowUnprocessedOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -350,7 +353,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SushiTest1Entities62" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities65" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Massages" EntityType="Self.Massage" />
@@ -425,6 +428,9 @@
             <Parameter Name="topVal" Mode="In" Type="Int32" />
             <Parameter Name="catId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="SelectOrderContactInfo" ReturnType="Collection(SushiTest1Model.SelectOrderContactInfo_Result)">
+            <Parameter Name="OrderId" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="ShowAllCategories" ReturnType="Collection(SushiTest1Model.ShowAllCategories_Result)" />
           <FunctionImport Name="ShowAllOrders" ReturnType="Collection(SushiTest1Model.ShowAllOrders_Result)" />
           <FunctionImport Name="ShowUnprocessedOrders" ReturnType="Collection(SushiTest1Model.ShowUnprocessedOrders_Result)" />
@@ -493,7 +499,7 @@
         <ComplexType Name="FindDishes_Result">
           <Property Type="Int32" Name="ProductId" Nullable="false" />
           <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
-          <Property Type="Int32" Name="Priority" Nullable="false" />
+          <Property Type="Int32" Name="Priority" Nullable="true" />
           <Property Type="String" Name="Category" Nullable="false" MaxLength="50" />
           <Property Type="Decimal" Name="Weight" Nullable="false" Precision="9" Scale="3" />
           <Property Type="String" Name="NameOfWeight" Nullable="false" MaxLength="50" />
@@ -517,6 +523,12 @@
           <Property Type="Int32" Name="ProductId" Nullable="false" />
           <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
           <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="SelectOrderContactInfo_Result">
+          <Property Type="String" Name="PhoneNumber" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Street" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="House" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Room" Nullable="false" MaxLength="10" />
         </ComplexType>
         <ComplexType Name="ShowAllCategories_Result">
           <Property Type="Int32" Name="TotalCategories" Nullable="true" />
@@ -548,7 +560,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities62">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities65">
           <EntitySetMapping Name="Administrators">
             <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">
@@ -744,6 +756,16 @@
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectOrderContactInfo" FunctionName="SushiTest1Model.Store.SelectOrderContactInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.SelectOrderContactInfo_Result">
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

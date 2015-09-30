@@ -217,14 +217,14 @@ GO
 CREATE PROC FindDishById @id int
 AS
 SELECT ProductId,CategoryId,NameRus,NameUkr
-,NumberOfOrders,Energy,Price,Product.[Priority],Sale,IsHided,
+,NumberOfOrders,Energy,Price,Product.[Priority],Sale,IsHided,[Count],
 
 ISNULL((IngridientsRus),0) as IngridientsRus,
 ISNULL((IngridientsUkr),0) as IngridientsUkr
 
 From Product
 WHERE ProductId = @id
-
+GO
 ---------------------------------
 
 CREATE PROC UpdateProductWeightDetails @ProductId int, @Name nvarchar(50), @Value decimal
@@ -232,7 +232,7 @@ AS
 Update ProductWeightDetails
 SET Name = @Name , Value = @Value
 Where ProductId = @ProductId
-
+GO
 ---------------------------------
 CREATE PROC UpdateProduct @ProductId int, @CategoryId int, @NameRus nvarchar(50), @Price decimal,
 @NameUkr nvarchar(50), @Count int, @Energy int, @Sale bit,@IsHided bit, @Priority int, @IngrRus nvarchar(max),
@@ -244,5 +244,11 @@ SET CategoryId = @CategoryId, NameRus = @NameRus, NameUkr = @NameUkr,
 [Count] = @Count,Energy = @Energy, Price = @Price, Sale = @Sale, IsHided = @IsHided, [Priority] = @Priority,
 IngridientsRus = @IngrRus, IngridientsUkr = @IngrUkr
 Where ProductId = @ProductId
+GO
+----------------------------------
 
-
+Create proc SelectOrderContactInfo @OrderId int
+AS
+SELECT PhoneNumber,Street,House,Room
+From Orders
+Where OrderId = @OrderId

@@ -51,6 +51,35 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
+        public ActionResult EditOrder(int? orderId)
+        {
+            if (orderId == null)
+            {
+                return RedirectToAction("Orders", "Admin");
+            }
+            using (var context = new SushiTest1Entities1())
+            {
+               
+                var contactInfo = context.SelectOrderContactInfo(orderId).ToList();
+                if (!contactInfo.Any())
+                {
+                    return RedirectToAction("Orders", "Admin");
+                }
+                EditOrderModel editOrderModel = new EditOrderModel
+                {
+                    OrderId = orderId,
+                    House = contactInfo[0].House,
+                    PhoneNumber = contactInfo[0].PhoneNumber,
+                    Room = contactInfo[0].Room,
+                    Street = contactInfo[0].Street
+
+                };
+                return View(editOrderModel);
+            } 
+            
+        }
+
+        [HttpGet]
         public ActionResult EditDish(int? productId)
         {
             if (productId == null)

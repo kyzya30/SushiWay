@@ -265,20 +265,27 @@ function DeleteDishModal() {
         });
     });
 }
-//function SelectDishId(el) {
 
-//    var productId = el.id;
-//    //alert($(el).data('url'));
+function DeleteOrder() {
+    var orderId = $('#OrderId').val();
+    var arr = [];
+    arr = orderId;
+    document.getElementById("deletedItem").innerHTML = "<span><b>" + orderId + "</b></span>";
+    $("#delOrderBtn").click(function () {
+        $.ajax({
+            type: "POST",
+            url: $(this).data('url'),
+            content: "application/json; charset=utf-8",
+            dataType: "json",
+            data: { idSelected: arr },
 
-//    $.ajax({    
-//        type: "POST",
-//        url: $(el).data('url'),
-//        content: "application/json; charset=utf-8",
-//        dataType: "json",
-//        data: {
-//            idSelected: productId
-//        },
-//        success: $(el).data('url')
+            success:
+                setTimeout(function () {
+                    location.reload()
+                }, 500)
 
-//    });
-//}
+
+        });
+    });
+
+}

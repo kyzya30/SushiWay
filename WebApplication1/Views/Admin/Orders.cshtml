@@ -107,7 +107,11 @@
                     <input id="@ordId" type="checkbox" class="checkboxes" name="@ordId" hidden />
                     <label for="@ordId"></label>
                 </div>
-                <div class="col-xs-1" style="text-align: left">@ordId </div>
+                <div class="col-xs-1" style="text-align: left">
+
+                    @Html.ActionLink(ordId, "EditOrder", "Admin", new { orderId = ordId }, null)
+                    
+                </div>
                 <div class="col-xs-3">Ул. @street @House .кв @room</div>
                 <div class="col-xs-3" style="text-align: right">@MaxTime</div>
                 <div class="col-xs-2">@totalPrice</div>

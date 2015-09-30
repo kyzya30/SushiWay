@@ -45,30 +45,52 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex0-collapse nav_collapse">
             <ul class="nav navbar-nav side-nav leftNavBar">
-                <li class="active activeStyle" style="background-color: #5F5F5F">
+                <li class="active activeStyle">
                     <a class="class3 activeStyle" href="@Url.Action("Index", "Admin" )">
                         &nbsp; <img src=@Url.Content("~/Content/Images/Controls/Admin/icon-statistic.png")> &nbsp; Статистика
-                        <div class="bg-active-menu_style">
+                        <div class="bg-active-menu_style" style="visibility: hidden">
                             <img src=@Url.Content("~/Content/Images/Controls/Admin/bg-active-menu-item.png")>
                         </div>
                     </a>
                 </li>
                 <li class="activeStyle">
-                    <a class="class3" href="@Url.Action("Category", "Admin" )">
+                    <a class="class3 activeStyle" href="@Url.Action("Category", "Admin" )">
                         &nbsp;<img src=@Url.Content("~/Content/Images/Controls/Admin/icon-category.png")> &nbsp; Категории блюд
-
+                        <div class="bg-active-menu_style" style="visibility: hidden">
+                            <img src=@Url.Content("~/Content/Images/Controls/Admin/bg-active-menu-item.png")>
+                        </div>
                     </a>
                 </li>
                 <li class="activeStyle">
-                    <a class="class3" href="@Url.Action("Dishes", "Admin" )">&nbsp;<img src=@Url.Content("~/Content/Images/Controls/Admin/icon-dishes.png")> &nbsp; Блюда</a>
-
+                    <a class="class3" href="@Url.Action("Dishes", "Admin" )">
+                        &nbsp;<img src=@Url.Content("~/Content/Images/Controls/Admin/icon-dishes.png")> &nbsp; Блюда
+                        <div class="bg-active-menu_style" style="visibility: hidden">
+                            <img src=@Url.Content("~/Content/Images/Controls/Admin/bg-active-menu-item.png")>
+                        </div>
+                    </a>
                 </li>
                 <li class="activeStyle">
-                    <a class="class3" href="@Url.Action("Orders", "Admin" )">&nbsp;<img src=@Url.Content("~/Content/Images/Controls/Admin/icon-orders.png")> &nbsp; Заказы</a>
+                    <a class="class3" href="@Url.Action("Orders", "Admin")">&nbsp;<img src=@Url.Content("~/Content/Images/Controls/Admin/icon-orders.png")> &nbsp; Заказы
+                        <div class="bg-active-menu_style" style="visibility: hidden">
+                            <img src=@Url.Content("~/Content/Images/Controls/Admin/bg-active-menu-item.png")>
+                        </div>
+                    </a>
                 </li>
             </ul>
         </div>
 
+        <script type="text/javascript">
+            $(document).ready(function() {
+                
+                $(function () {
+
+                    var url = window.location.pathname;
+                    $("li a[href='" + url + "']").parent().css("background-color", "#5F5F5F");
+                    $("li a[href='" + url + "']").children().css("visibility", "visible");
+                });
+            });
+            
+        </script>
 
         <div id="page-wrapper pageWrapperStyle">
 

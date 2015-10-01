@@ -79,14 +79,18 @@
                     var nameRusCategory = item.NameRus.ToString();
                     var catId = item.CategoryId.ToString();
                     <option name="@catId" value="@catId">@nameRusCategory</option>
-                   
                 }
             </select><br/>
             <input name="Weight" type="text" id="" class="form-control addNewDishTxt" placeholder="Вес" style="width: 200px;"/>
-            <input name="Energy" type="text" id="" class="form-control addNewDishTxt" placeholder="Калорийность" style="width: 200px;"/>
-            <input name="Count" type="text" id="" class="form-control addNewDishTxt" placeholder="Количество" style="width: 200px;"/><br/>
+            <select class="form-control addNewDishTxt" name="WeightName" style="width: 105px;">
+                <option name="мл" value="1">мл</option>
+                <option name="граммы" value="2">граммы</option>
+            </select>
+            <input name="Energy" type="text" id="" class="form-control addNewDishTxt" placeholder="Калорийность" style="width: 146px;"/>
+            <input name="Count" type="text" id="" class="form-control addNewDishTxt" placeholder="Количество" style="width: 146px;"/>
+            <br/>
             <input name="ingredientsTxtRus" type="text" id="ingredientsTxtRus" class="form-control addNewDishTxt" placeholder="Состав" style="width: 608px;"/>
-            <input name="ingredientsTxtUkr" type="text" id="ingredientsTxtUkr" class="form-control addNewDishTxt" placeholder="Склад" style="width: 608px;" />
+            <input name="ingredientsTxtUkr" type="text" id="ingredientsTxtUkr" class="form-control addNewDishTxt" placeholder="Склад" style="width: 608px;"/>
 
         </div>
     </div>
@@ -96,12 +100,8 @@
                 <label for="prod1">Пометки:</label>
                 <input type="radio" id="prod1" name="prod" value="1" checked="checked" />
                 <label for="prod1">Без пометок</label>
-                <input type="radio" id="prod2" name="prod" value="2" onclick="goToCart" />
-                <label for="prod2">Популярные</label>
-                <input type="radio" id="prod3" name="prod" value="3" />
-                <label name="Sale" for="prod3">Акции</label>
-                <input type="radio" id="prod4" name="prod" value="4" />
-                <label for="prod4">Новинки</label>
+                <input type="radio" id="prod2" name="prod" value="3" />
+                <label name="Sale" for="prod2">Акции</label>
             </div>
         </div>
     </div>

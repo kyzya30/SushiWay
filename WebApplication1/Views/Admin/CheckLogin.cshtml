@@ -1,21 +1,46 @@
 ﻿@model Administrator
 
 
-@using (Html.BeginForm("CheckLogin", "Admin", FormMethod.Post))
+@using (Html.BeginForm("CheckLogin", "Admin", FormMethod.Post,new {id="LoginForm"}))
 {
 
 
     <div class="loginF">
-        <input type="text" name="Login" placeholder="Электронная почта" class="form-control" />
-        <input type="password" name="Password" placeholder="Пароль" class="form-control"/>
+        <span id="errorMessage" style="color: red; font-size: 14px;"></span>
+        <input type="text" id="Login" name="Login" placeholder="Электронная почта" class="form-control" style="border-radius: 0;"/>
+        <input type="password" id="Password" name="Password" placeholder="Пароль" class="form-control" style="border-radius: 0;"/>
 
         @*<input type="submit" style="background: url(/Content/Images/Controls/Admin/enter.jpg) no-repeat;" />*@
 
-       
-            
-            <button type="submit" style="padding: 0;border: none" >
-         <img id="img" src="@Url.Content("~/Content/Images/Controls/Admin/enter.jpg")">
-            </button>
+        <script type="text/javascript">
+            $(document).ready(function() {
+
+                function CheckField(element, event) {
+                    if (element.val().trim() == "") {
+                        event.preventDefault();
+                        element.addClass("errorStyle");
+                        $("#errorMessage").html("<img src='@Url.Content("~/Content/Images/Controls/Admin/icon-error.png")'/> Выделенные поля должны быть заполнены");
+                    }
+                }
+
+                $("#Login, #Password").change(function () {
+                    if ($(this).val() != "") {
+                        $(this).removeClass("errorStyle");
+                        $("#errorMessage").text("");
+                    }
+                });
+
+                $("#LoginForm").submit(function (event) {
+                    CheckField($("#Login"), event);
+                    CheckField($("#Password"), event);
+                });
+            });
+        </script>
+
+
+        <button type="submit" style="padding: 0; border: none">
+            <img id="img" src="@Url.Content("~/Content/Images/Controls/Admin/enter.jpg")">
+        </button>
 
     </div>
 }

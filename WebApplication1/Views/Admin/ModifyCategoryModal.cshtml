@@ -29,7 +29,7 @@
                         <script type="text/javascript">
                             $(document).ready(function () {
                                 function CheckField(element, event) {
-                                    if (element.val() == "") {
+                                    if (element.val().trim() == "") {
                                         event.preventDefault();
                                         element.addClass("errorStyle");
                                         $("#errorMessage").text("Выделенные поля должны быть заполнены");

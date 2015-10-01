@@ -43,6 +43,7 @@
                     <img src="@Url.Content("~/Content/Images/Controls/Admin/type-block.png")" />
                 </a>
             </span>
+            <span id="dishesLength"></span>
             блюд из
             @{
                 int tmp = 0;
@@ -64,9 +65,9 @@
                     $(function () {
                         $('input[name="selectAllDishes"]').change(function () {
                             $(".checkboxes").prop('checked', this.checked);
-                            if ($('input[name="selectAllDishes"]').is(':checked')){
+                            if ($('input[name="selectAllDishes"]').is(':checked')) {
                                 $('.hideBtns').css("visibility", "visible");
-                                
+
                             }
                             else
                                 $('.hideBtns').css("visibility", "hidden");
@@ -84,7 +85,7 @@
 
 
                     $(".checkboxes").change(function () {
-                        if ($(this).is(':checked')){
+                        if ($(this).is(':checked')) {
                             $(this).parent().parent().addClass("dishDivChecked");
                         }
                         else if (!$(this).is(':checked')) {
@@ -93,7 +94,9 @@
 
                     });
 
-                })
+                    $("#dishesLength").text($(".checkboxes").length);
+
+                });
             </script>
 
             <input id="selectAllDishes" type="checkbox" name="selectAllDishes" hidden />

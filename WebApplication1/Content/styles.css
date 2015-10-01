@@ -175,7 +175,7 @@ input[type="radio"]:checked + label::before {
     border-radius: 7px;
     box-shadow: 0 4px 5px #ccc;
     padding:25px;
-    min-height: 330px;
+    min-height: 400px;
 }
 
 .div-contact{

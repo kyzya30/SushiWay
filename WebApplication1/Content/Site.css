@@ -120,3 +120,8 @@ form .ng-invalid-email {
         display: inline-block;
     }
 }
+.big-div {
+    min-height: 400px;
+    max-height: 450px;
+
+}

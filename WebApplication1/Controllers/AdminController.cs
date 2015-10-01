@@ -293,12 +293,22 @@ namespace WebApplication1.Controllers
             if (Count == null)
                 Count = 0;
 
+            foreach (var product in products)
+            {
+                if (product.NameRus == NameRus || product.NameUkr == NameUkr)
+                {
+                    ViewBag.ExistDish = "Блюдо с таким названием уже существует.";
+                    return View("~/Views/Admin/ExistDishPage.cshtml");
+                }
+            }
+
             context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, false, isHidedProduct, 0, ingredientsTxtRus, ingredientsTxtUkr);
             context.SaveChanges();
 
             int fileName = context.Products.ToList().Last().ProductId;
 
             uploadPhoto.SaveAs(Server.MapPath("~/Content/Images/Products/" + fileName + ".jpeg"));
+
             return RedirectToAction("Dishes");
         }
         [HttpPost]
@@ -322,6 +332,7 @@ namespace WebApplication1.Controllers
             var context = new SushiTest1Entities1();
             var category = context.Categories.ToList();
             ViewBag.Categories = category;
+            
             return View();
         }
 

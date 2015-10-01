@@ -186,6 +186,9 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
         </Function>
         <Function Name="ShowAllCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ShowAllOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ShowAllTimeStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OrderId" Type="int" Mode="In" />
+        </Function>
         <Function Name="ShowUnprocessedOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="UpdateCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CategoryId" Type="int" Mode="In" />
@@ -362,7 +365,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SushiTest1Entities66" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities67" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Massages" EntityType="Self.Massage" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
@@ -442,6 +445,9 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
           </FunctionImport>
           <FunctionImport Name="ShowAllCategories" ReturnType="Collection(SushiTest1Model.ShowAllCategories_Result)" />
           <FunctionImport Name="ShowAllOrders" ReturnType="Collection(SushiTest1Model.ShowAllOrders_Result)" />
+          <FunctionImport Name="ShowAllTimeStatus" ReturnType="Collection(SushiTest1Model.ShowAllTimeStatus_Result)">
+            <Parameter Name="OrderId" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="ShowUnprocessedOrders" ReturnType="Collection(SushiTest1Model.ShowUnprocessedOrders_Result)" />
           <FunctionImport Name="UpdateCategory">
             <Parameter Name="CategoryId" Mode="In" Type="Int32" />
@@ -557,6 +563,11 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
           <Property Type="Decimal" Name="TotalPrice" Nullable="true" Precision="38" Scale="2" />
           <Property Type="String" Name="StatusNameRus" Nullable="false" MaxLength="50" />
         </ComplexType>
+        <ComplexType Name="ShowAllTimeStatus_Result">
+          <Property Type="String" Name="StatusNameRus" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Time" Nullable="false" />
+          <Property Type="Int32" Name="OrderStatus" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="ShowUnprocessedOrders_Result">
           <Property Type="Int32" Name="OrderId" Nullable="false" />
           <Property Type="String" Name="Street" Nullable="false" MaxLength="50" />
@@ -570,7 +581,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities66">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities67">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="SushiTest1Model.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -802,6 +813,15 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
                 <ScalarProperty Name="MaxStatusTime" ColumnName="MaxStatusTime" />
                 <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
                 <ScalarProperty Name="StatusNameRus" ColumnName="StatusNameRus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ShowAllTimeStatus" FunctionName="SushiTest1Model.Store.ShowAllTimeStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllTimeStatus_Result">
+                <ScalarProperty Name="StatusNameRus" ColumnName="StatusNameRus" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

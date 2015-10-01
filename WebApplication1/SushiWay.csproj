@@ -231,6 +231,9 @@
     <Compile Include="ShowAllOrders_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="ShowAllTimeStatus_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="ShowUnprocessedOrders_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -457,6 +460,7 @@
     <Content Include="Views\Admin\EditOrder.cshtml" />
     <Content Include="Views\Admin\CheckLogin.cshtml" />
     <Content Include="Views\Home\SearchOrderStatusByNumber.cshtml" />
+    <Content Include="Views\Admin\ExistDishPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

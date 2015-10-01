@@ -87,6 +87,47 @@
             <select class="form-control" style="max-width: 270px;">
                 <option>Состояние заказа</option>
             </select>
+            @foreach (var item in Model.showAllTimeStatus)
+            {
+                var time = item.Time.ToString();
+                var StatusName = item.StatusNameRus.ToString();
+                <br>
+                @time
+                <br>
+                @StatusName<br>
+                <br>
+                if (item.OrderStatus == 1)
+                {
+                    <span>             
+                        <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-delivered.png") />
+                    </span>
+                }
+                if (item.OrderStatus == 5)// V puti
+                {
+                    <span>
+                        
+                        <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-on-way.png") />
+                    </span>
+                }
+                if (item.OrderStatus == 4)
+                {
+                    <span>
+                        
+                        <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-canceled.png") />
+
+                    </span>
+                }
+                if (item.OrderStatus == 2)
+                {
+                    <span>
+                       
+                        <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-received.png") />
+                        
+                    </span>
+                }
+               
+            }
+          
         </div>
     </div>
     <div class="row">

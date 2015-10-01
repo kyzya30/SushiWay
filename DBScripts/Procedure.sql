@@ -254,3 +254,12 @@ AS
 SELECT PhoneNumber,Street,House,Room
 From Orders
 Where OrderId = @OrderId
+-----------------------------------
+CREATE PROC ShowAllTimeStatus @OrderId int
+AS
+SELECT OrderStatus.StatusNameRus , [Time] , OrderStatus
+From OrdersTimeChanged
+
+join OrderStatus on OrderStatus.OrderStatusId = OrdersTimeChanged.OrderStatus
+WHERE OrderId = @OrderId
+order by Time

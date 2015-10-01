@@ -23,12 +23,8 @@ namespace WebApplication1.Controllers
     {
         static bool VerifyLogin(string input, string dbval)
         {
-            // Hash the input.
-            
-
             // Create a StringComparer an compare the hashes.
             StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-
             if (0 == comparer.Compare(input, dbval))
             {
                 return true;
@@ -42,10 +38,8 @@ namespace WebApplication1.Controllers
         {
             // Hash the input.
             //string hashOfInput = GetMd5Hash(md5Hash, input);
-
             // Create a StringComparer an compare the hashes.
             StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-
             if (0 == comparer.Compare(input, hash))
             {
                 return true;
@@ -57,21 +51,17 @@ namespace WebApplication1.Controllers
         }
         static string GetMd5Hash(MD5 md5Hash, string input)
         {
-
             // Convert the input string to a byte array and compute the hash.
             byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-
             // Create a new Stringbuilder to collect the bytes
             // and create a string.
             StringBuilder sBuilder = new StringBuilder();
-
             // Loop through each byte of the hashed data 
             // and format each one as a hexadecimal string.
             for (int i = 0; i < data.Length; i++)
             {
                 sBuilder.Append(data[i].ToString("x2"));
             }
-
             // Return the hexadecimal string.
             return sBuilder.ToString();
         }
@@ -81,27 +71,15 @@ namespace WebApplication1.Controllers
         {
             return View();
         }
-        //[HttpPost]
-        //public ActionResult Login(string login,string password)
-        //{
-        //    return View();
-        //}
         [AllowAnonymous]
         [HttpPost]
         public ActionResult CheckLogin(string Login, string Password)
-
         {
             using (var context = new SushiTest1Entities1())
-            {
-                
-           
+            {       
             using (MD5 md5Hash = MD5.Create())
             {
                 string hash = GetMd5Hash(md5Hash, Password);
-
-               // Console.WriteLine("The MD5 hash of " + source + " is: " + hash + ".");
-
-               // Console.WriteLine("Verifying the hash...");
 
                 var DBHashPassword = context.Administrators.Select(i => i.Password).FirstOrDefault();
                 var DBLogin = context.Administrators.Select(i => i.Login).FirstOrDefault();
@@ -127,17 +105,13 @@ namespace WebApplication1.Controllers
                 {
                         FormsAuthentication.SetAuthCookie(Login, true);
                         return RedirectToAction("Index","Admin");
-
                 }
                 else
                 {
                     return RedirectToAction("Login", "Admin");
                 }
-
-
-            }
-            }
-           
+              }
+            }      
         }
 
         public ActionResult Dishes() //Show all dishes on Dishes view                                         
@@ -178,6 +152,7 @@ namespace WebApplication1.Controllers
             {
                
                 var contactInfo = context.SelectOrderContactInfo(orderId).ToList();
+               
                 if (!contactInfo.Any())
                 {
                     return RedirectToAction("Orders", "Admin");
@@ -188,12 +163,11 @@ namespace WebApplication1.Controllers
                     House = contactInfo[0].House,
                     PhoneNumber = contactInfo[0].PhoneNumber,
                     Room = contactInfo[0].Room,
-                    Street = contactInfo[0].Street
-
-                };
+                    Street = contactInfo[0].Street,
+                    showAllTimeStatus = context.ShowAllTimeStatus(orderId).ToList()
+            };
                 return View(editOrderModel);
-            } 
-            
+            }  
         }
 
         [HttpGet]
@@ -231,6 +205,7 @@ namespace WebApplication1.Controllers
                         IngridientsUkr = dish[0].IngridientsUkr,
                         categories = context.Categories.ToList(),
                         productWeightDetails = context.ProductWeightDetails.ToList()
+                        
                     };
                     return View(newDishModel);
                 }

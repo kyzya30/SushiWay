@@ -243,6 +243,15 @@ namespace WebApplication1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ShowAllOrders_Result>("ShowAllOrders");
         }
     
+        public virtual ObjectResult<ShowAllTimeStatus_Result> ShowAllTimeStatus(Nullable<int> orderId)
+        {
+            var orderIdParameter = orderId.HasValue ?
+                new ObjectParameter("OrderId", orderId) :
+                new ObjectParameter("OrderId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ShowAllTimeStatus_Result>("ShowAllTimeStatus", orderIdParameter);
+        }
+    
         public virtual ObjectResult<ShowUnprocessedOrders_Result> ShowUnprocessedOrders()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ShowUnprocessedOrders_Result>("ShowUnprocessedOrders");

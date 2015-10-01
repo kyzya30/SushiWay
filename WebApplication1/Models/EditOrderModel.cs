@@ -12,6 +12,7 @@ namespace WebApplication1.Models
         public string Street { get; set; }
         public string House { get; set; }
         public string Room { get; set; }
+        public IEnumerable<ShowAllTimeStatus_Result> showAllTimeStatus { get; set; }
 
     }
 }

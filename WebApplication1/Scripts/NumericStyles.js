@@ -228,7 +228,7 @@ function ChangeOrderStatus() {
     resultString = resultString.substring(0, resultString.length - 2);
     document.getElementById("ChangedItem").innerHTML = "<span><b>" + resultString + "</b></span>";
 };
-function DeleteDishModal() {
+function DeleteDishModal1() {
     //var item = $('#deletedItem');
     //var list = $('.checkboxes');
     //var resultString = "";

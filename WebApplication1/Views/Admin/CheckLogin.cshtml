@@ -1,0 +1,21 @@
+﻿@model Administrator
+
+
+@using (Html.BeginForm("CheckLogin", "Admin", FormMethod.Post))
+{
+
+
+    <div class="loginF">
+        <input type="text" name="Login" placeholder="Электронная почта" class="form-control" />
+        <input type="password" name="Password" placeholder="Пароль" class="form-control"/>
+
+        @*<input type="submit" style="background: url(/Content/Images/Controls/Admin/enter.jpg) no-repeat;" />*@
+
+       
+            
+            <button type="submit" style="padding: 0;border: none" >
+         <img id="img" src="@Url.Content("~/Content/Images/Controls/Admin/enter.jpg")">
+            </button>
+
+    </div>
+}

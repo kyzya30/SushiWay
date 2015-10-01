@@ -124,7 +124,7 @@ GO
 Create table Administrator
 (
 	[Login] NVARCHAR (30) NOT NULL,
-	[Password]NVARCHAR (30) NOT NULL
+	[Password]NVARCHAR (max) NOT NULL
 )
 GO
 

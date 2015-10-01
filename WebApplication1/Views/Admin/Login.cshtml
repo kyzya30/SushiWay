@@ -27,11 +27,9 @@
         <div class="loginH">
             <img src="@Url.Content("~/Content/Images/Controls/Admin/logo.png")" style="width: 25%;">
         </div>
-        <div class="loginF">
-            <input type="text" placeholder="Электронная почта" class="form-control"/>
-            <input type="text" placeholder="Пароль" class="form-control" />
-            <a href="@Url.Action("Index", "Admin")"> <img src="@Url.Content("~/Content/Images/Controls/Admin/enter.jpg")"></a>
-        </div>
+
+        @Html.Partial("CheckLogin", new Administrator());
+
     </div>
 </div>
 

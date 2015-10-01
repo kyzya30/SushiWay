@@ -37,9 +37,9 @@
             <div class="col-xs-3 nav_col3">
                 <img src=@Url.Content("~/Content/Images/Controls/Admin/icon-eye.png")><a class="class3" href="@Url.Action("Index", "Home" )"> Перейти на сайт</a>
             </div>
-            <div class="col-xs-6 nav_col3" style="text-align: right">аdmin@mail.com </div>
+            <div class="col-xs-6 nav_col3" style="text-align: right">@User.Identity.Name</div>
             <div class="col-xs-1 exitTopNav">
-                <a class="class3" style="padding-right: 30px" href="index.html"> Выход</a>
+                <a class="class3" style="padding-right: 30px" href=@Url.Action("Logout","Admin")> Выход</a>
             </div>
         </div>
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->

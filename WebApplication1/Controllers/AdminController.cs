@@ -137,7 +137,7 @@ namespace WebApplication1.Controllers
 
             }
             }
-            return View();
+           
         }
 
         public ActionResult Dishes() //Show all dishes on Dishes view                                         

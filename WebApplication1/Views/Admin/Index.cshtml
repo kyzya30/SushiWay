@@ -6,26 +6,40 @@
     }
 <div class="container-fluid " style="padding-top: 30px; padding-left: 30px; padding-right: 30px; padding-bottom: 40px">
     <div style="padding-top: 15px; padding-left:30px">
-        <h3 class="header">Статистика</h3>
+        <h3 class="" style="position:fixed; top:45px ; left:206px">Статистика</h3>
         <div class="row col-sm-6">
-            <h4><b>Необработанные заказы</b></h4>
-            <div class="">
+            <h4 style="position:fixed; top:132px ; left:206px"><b>Необработанные заказы</b></h4>
+            <div class="table-span_unproc_orders" style="width: 385px;position:fixed; top:178px ; left:207px;border-color:#7F7F7F;">
                 <table class="table custom_table-hover table-bordered" style="width: 385px; height: 55px;">
                     @foreach (var T in Model.showUnprocessedOrders)
                     {
-                    var time = T.Time.ToString();
-                    var street = T.Street.ToString();
-                    var house = T.House.ToString();
-                    var room = T.Room.ToString();
-                    var totalPrice = T.TotalPrice.ToString();
-                    <tr style="height: 15px; border-width: 1px; border-bottom: 1px; border-top: 1px; border-style: solid; border-color: #7F7F7F">
-                        <td><img class="t-img" src=@Url.Content("~/Content/Images/Controls/Admin/icon-eye-grey.png")></td>
-                        <td>
-                            <b>@time</b><br>
-                            @street, @house, @room
-                        </td>
-                        <td>@totalPrice грн</td>
-                    </tr>
+                        var orderId = T.OrderId.ToString();
+                        var time = T.Time.ToString();
+                        var street = T.Street.ToString();
+                        var house = T.House.ToString();
+                        var room = T.Room.ToString();
+                        var totalPrice = T.TotalPrice.ToString();
+                        totalPrice = totalPrice.Remove(totalPrice.Length - 3);
+                        <tr style="height: 15px; border-width: 1px;  border-top: 1px; border-style: solid; border-color: #7F7F7F; border-left:0px">
+
+
+                            <td>
+                                <span style="text-align:center">
+                           @Html.Raw(@Html.ActionLink("[replacetext]", "EditOrder", "Admin", new { orderId = orderId },null).ToHtmlString().Replace("[replacetext]", "<img class=\"t-img\" style=\"margin - left:auto; width: 70 %; margin - left:15 %; height: 40 %; margin - top:30 % \"  src=\"/Content/Images/Controls/Admin/icon-eye-grey.png\" />"))
+                            @*@Html.Raw(Html.ActionLink("[replacetext]", "EditOrder","Admin", new { orderId = orderId }, null)).ToHtmlString().Replace("[replacetext]", "<img src=\"/Content/Images/Controls/Admin/icon-eye-grey.png\" />"))*@
+                                @*<a href="<%: @Html.ActionLink("", "EditOrder", "Admin", new { orderId = orderId }, null) %>">
+                                    <img class="t-img" style="margin-left:auto;width:70%;margin-left:15%; height:40%;margin-top:30%" src=@Url.Content("~/Content/Images/Controls/Admin/icon-eye-grey.png")>
+                                </a>*@
+                                    </span>
+                            </td>
+
+
+                            <td>
+                                <b>@time</b><br>
+                                @street, @house, @room
+                            </td>
+                            <td>@totalPrice грн</td>
+                        </tr>
                     }
                 </table>
             </div>

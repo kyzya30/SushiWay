@@ -13,6 +13,7 @@ namespace WebApplication1
     
     public partial class ShowAllOrders_Result
     {
+        public Nullable<int> TotalOrders { get; set; }
         public int OrderId { get; set; }
         public string Street { get; set; }
         public string House { get; set; }

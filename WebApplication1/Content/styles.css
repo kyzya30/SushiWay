@@ -362,9 +362,22 @@ div.pageWrapperStyle {
 }
 .table-span {
     width: 80%;
-    height: 400px !important;
+    height: 275px !important;
     overflow-y: auto;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #7F7F7F;
+    border-left: 1px solid #7F7F7F;
+    border-right: 1px solid #7F7F7F;
+    border-top: 1px solid #7F7F7F;
+}
+.table-span_unproc_orders {
+    width: 80%;
+    height: 335px !important;
+    overflow-y: auto;
+     overflow-x:hidden;
+    border-bottom: 1px solid #7F7F7F;
+    border-left: 1px solid #7F7F7F;
+    border-right: 1px solid #7F7F7F;
+    border-top: 1px solid #7F7F7F;
 }
 
 #check-order-status {

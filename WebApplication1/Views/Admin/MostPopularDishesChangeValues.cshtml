@@ -4,9 +4,9 @@
 @using (Html.BeginForm("MostPopularDishesChangeValues", "Admin", FormMethod.Post))
 {
                       <div class="row col-sm-6">
-                          <h4><b>Самые популярные блюда</b></h4>
-                          <span>
-                              <select id="categoryDropdown" class="form-control addNewDishTxt" name="categoryId" type="submit">
+                          <h4 style="position:fixed;top:132px;left:610px"><b>Самые популярные блюда</b></h4>
+                          <span style="position:fixed; left: 610px; top:170px">
+                              <select id="categoryDropdown" class="form-control addNewDishTxt" name="categoryId" type="submit" style="width:270px;height:40px; border-color:black">
                                   @foreach (var item in ViewBag.Categories)
                                   {
                                       var nameRusCategory = item.NameRus.ToString();
@@ -17,8 +17,8 @@
                               </select>
 
                           </span>
-                          <span>
-                              <select id="TopValDropdown" class="form-control addNewDishTxt" name="topCategoryVal" type="submit">
+                          <span style="position:fixed; left: 902px; top:170px">
+                              <select id="TopValDropdown" class="form-control addNewDishTxt" name="topCategoryVal" type="submit" style="height:40px;width:91px;border-color:black">
                                   <option value="5">5</option>
                                   <option value="10">10</option>
                                   <option value="20">20</option>
@@ -28,20 +28,22 @@
                           </span>
 
 
-                          <div class="table-span" style="width: 385px; height: 70px; padding-bottom: 40px">
-                              <table class="table custom_table-hover table-bordered">
+                          <div class="table-span" style="width: 385px;position:fixed; left:611px;top: 238px;border-color:#7F7F7F;">
+                              <table class="table custom_table-hover table-bordered" style="height:275px;">
 
                                   @foreach (var T in Model)
                                   {
-                                  var numberOfOrders = T.NumberOfOrders.ToString();
-                                  var nameRus = T.NameRus.ToString();
-                                  var productId = T.ProductId.ToString();
-                                  var price = T.Price.ToString();
-                                  var srcPict = productId += ".jpeg";
-                                  <tr style="height: 15px;border-width: 1px; border-bottom: 1px; border-top: 1px; border-style: solid;border-color:#7F7F7F ">
-                                      <td>заказан <br><b> @numberOfOrders </b><br> раз<br></td>
+                                      var numberOfOrders = T.NumberOfOrders.ToString();
+                                      var nameRus = T.NameRus.ToString();
+                                      var productId = T.ProductId.ToString();
+                                      var price = T.Price.ToString();
+                                      
+                                      price = price.Remove(price.Length - 3);
+                                      var srcPict = productId += ".jpeg";
+                                  <tr style="height: 70px !important;border-width: 1px;   border-style: solid;border-color:#7F7F7F;border-left:0px;border-right:0px ">
+                                      <td style="padding-top:4px;padding-bottom:4px;font-size:11px;text-align:center">заказан <br><b style="font-size:14px"> @numberOfOrders </b><br> раз<br></td>
                                       <td><img class="t-img" style="width: 80px; height: 50px; " src=@Url.Content("~/Content/Images/Products/"+@srcPict)></td>
-                                      <td>@nameRus @price грн</td>
+                                      <td>@nameRus <br> @price грн</td>
                                   </tr>
                                   }
 

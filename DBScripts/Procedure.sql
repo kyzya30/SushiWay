@@ -5,7 +5,7 @@ Category.[NameUkr],
 Category.[NameRus],
 Category.[CategoryId],
 Category.[Priority],
-ISNULL(sum(Product.[Count]),0) AS TotalDishes
+ISNULL(count(Product.ProductId),0) AS TotalDishes
 
 FROM [SushiTest1].[dbo].[Category]
 left join Product on Product.CategoryId = Category.CategoryId 
@@ -74,7 +74,8 @@ GO
 
 CREATE PROC ShowAllOrders
 AS
-select o.OrderId, o.Street, o.House, o.Room,q.MaxStatusTime,sum(p.Price * od.[Count]) as TotalPrice,
+
+select (select COUNT(*) from Orders) as TotalOrders, o.OrderId, o.Street, o.House, o.Room,q.MaxStatusTime,sum(p.Price * od.[Count]) as TotalPrice,
 	os.StatusNameRus
 from Orders o
 inner join
@@ -92,6 +93,7 @@ inner join OrderStatus os on os.OrderStatusId = q.OrderStatus
 inner join OrderDetails od on od.OrderDetailsId = o.OrderId
 join Product p on p.ProductId = od.ProductId 
 group by o.OrderId, o.Street, o.House, o.Room, os.StatusNameRus, q.MaxStatusTime
+order by o.OrderId desc
 GO
 --------------------
 

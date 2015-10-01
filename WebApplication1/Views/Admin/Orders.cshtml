@@ -1,20 +1,20 @@
 ﻿@model IEnumerable<WebApplication1.ShowAllOrders_Result>
     @{
-    ViewBag.Title = "Orders";
-    Layout = "~/Views/Shared/AdminMasterPage.cshtml";
+        ViewBag.Title = "Orders";
+        Layout = "~/Views/Shared/AdminMasterPage.cshtml";
     }
     <div class="container-fluid " style="padding-top: 0px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
         <div class="row" style="padding-top: 40px; padding-left: 30px">
             <div class="row col-sx-12" style="padding-top: 15px">
                 <div class="col-xs-6">
-                    <h3 class="header">
-    Заказы <a href="@Url.Action("AddNewOrder","Admin")">
+                    <h3 class="header" style="position:fixed; left:205px">
+                        Заказы <a href="@Url.Action("AddNewOrder", "Admin")">
 
 
-        <img style="padding-left: 20px"
-             src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>
-    </a>
-</h3>
+                            <img style="padding-left: 20px"
+                                 src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>
+                        </a>
+                    </h3>
 
                 </div>
                 <div class="col-xs-6 clearfix" style="padding-top: 5px; ">
@@ -32,8 +32,15 @@
                 <div class="col-xs-2"> </div>
 
                 <div class="col-xs-6" style="text-align: right">
-
-                    заказов из
+                    @{
+                        string totalOrder="";
+                        foreach (var item in Model)
+                        {
+                            totalOrder = item.TotalOrders.ToString();
+                        }
+                    }
+                    заказов из @totalOrder
+                   
                 </div>
             </div>
             <div class="row col-xs-12" style="padding-top: 10px; padding-bottom: 10px; border-width: 3px; border-bottom-style: solid;">
@@ -92,13 +99,14 @@
             }*@
             @foreach(var D in Model)
             {
-            var street = D.Street.ToString();
-            var House = D.House.ToString();
-            var room = D.Room.ToString();
-            var MaxTime = D.MaxStatusTime.ToString();
-            var totalPrice =D.TotalPrice.ToString();
-            var statusNameRus = D.StatusNameRus.ToString();
-            var ordId = D.OrderId.ToString();
+                var street = D.Street.ToString();
+                var House = D.House.ToString();
+                var room = D.Room.ToString();
+                var MaxTime = D.MaxStatusTime.ToString();
+                var totalPrice =D.TotalPrice.ToString();
+                totalPrice = totalPrice.Remove(totalPrice.Length - 3);
+                var statusNameRus = D.StatusNameRus.ToString();
+                var ordId = D.OrderId.ToString();
             <div class="row col-xs-12 custom_table-hover_div" style="padding-top: 10px; padding-bottom: 10px; border-width: 1px; border-bottom-style: solid;border-color: #7F7F7F ">
               
                   

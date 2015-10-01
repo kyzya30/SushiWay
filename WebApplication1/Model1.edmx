@@ -5,12 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="SushiTest1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Administrator">
           <Key>
             <PropertyRef Name="Login" />
+            <PropertyRef Name="Password" />
           </Key>
           <Property Name="Login" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -210,7 +213,6 @@
           <Parameter Name="Value" Type="decimal" Mode="In" />
         </Function>
         <EntityContainer Name="SushiTest1ModelStoreContainer">
-          <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Massages" EntityType="Self.Massages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
@@ -219,6 +221,12 @@
           <EntitySet Name="OrdersTimeChanged" EntityType="Self.OrdersTimeChanged" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductWeightDetails" EntityType="Self.ProductWeightDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Administrator" EntityType="Self.Administrator" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Administrator].[Login] AS [Login], 
+    [Administrator].[Password] AS [Password]
+    FROM [dbo].[Administrator] AS [Administrator]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_Product_CategoryId" Association="Self.FK_Product_CategoryId">
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
@@ -233,13 +241,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SushiTest1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Administrator">
-          <Key>
-            <PropertyRef Name="Login" />
-          </Key>
-          <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -329,6 +330,14 @@
           <Property Name="Value" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductWeightDetails_ProductId" FromRole="ProductWeightDetails" ToRole="Product" />
         </EntityType>
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="Login" />
+            <PropertyRef Name="Password" />
+          </Key>
+          <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Product_CategoryId">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -353,8 +362,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SushiTest1Entities65" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Administrators" EntityType="Self.Administrator" />
+        <EntityContainer Name="SushiTest1Entities66" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Massages" EntityType="Self.Massage" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
@@ -363,6 +371,7 @@
           <EntitySet Name="OrdersTimeChangeds" EntityType="Self.OrdersTimeChanged" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductWeightDetails" EntityType="Self.ProductWeightDetail" />
+          <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <AssociationSet Name="FK_Product_CategoryId" Association="Self.FK_Product_CategoryId">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
@@ -539,6 +548,7 @@
           <Property Type="Int32" Name="TotalDishes" Nullable="false" />
         </ComplexType>
         <ComplexType Name="ShowAllOrders_Result">
+          <Property Type="Int32" Name="TotalOrders" Nullable="true" />
           <Property Type="Int32" Name="OrderId" Nullable="false" />
           <Property Type="String" Name="Street" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="House" Nullable="false" MaxLength="10" />
@@ -560,15 +570,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities65">
-          <EntitySetMapping Name="Administrators">
-            <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
-              <MappingFragment StoreEntitySet="Administrator">
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities66">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="SushiTest1Model.Category">
               <MappingFragment StoreEntitySet="Category">
@@ -659,6 +661,14 @@
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Administrators">
+            <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
+              <MappingFragment StoreEntitySet="Administrator">
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -784,6 +794,7 @@
           <FunctionImportMapping FunctionImportName="ShowAllOrders" FunctionName="SushiTest1Model.Store.ShowAllOrders">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllOrders_Result">
+                <ScalarProperty Name="TotalOrders" ColumnName="TotalOrders" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="House" ColumnName="House" />

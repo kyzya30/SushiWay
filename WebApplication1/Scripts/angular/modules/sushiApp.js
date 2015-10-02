@@ -267,11 +267,12 @@
             var prodCount = [];
             var product = new Object();
             for (var i = 0; i < $scope.items.length; i++) {
-                if ($scope.items[i].selected == true) {
 
+                if ($scope.items[i].selected == true) {
+                    $scope.saleCoff = $scope.items[i].selected == true ? 0.95 : 1; 
                     prodId.push($scope.items[i].id);
                     prodCount.push($scope.items[i].count);
-                    prodPrice.push($scope.items[i].price);
+                    prodPrice.push($scope.items[i].price * $scope.saleCoff);
                 }
             }
             var mass = [];

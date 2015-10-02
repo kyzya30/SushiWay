@@ -104,6 +104,8 @@ namespace WebApplication1.Controllers
             order.Room = data[0][5];
 
             context.Orders.Add(order);
+
+            
             context.SaveChanges();
 
             var nextContext = new SushiTest1Entities1();
@@ -120,6 +122,7 @@ namespace WebApplication1.Controllers
             lastStatus.OrderStatus = 5;
             lastStatus.Time = DateTime.Now;
             nextContext.OrdersTimeChangeds.Add(lastStatus);
+            
             nextContext.SaveChanges();
 
             OrderDetail orderDetail = new OrderDetail();
@@ -129,7 +132,7 @@ namespace WebApplication1.Controllers
                 orderDetail.OrderId = lastId;
                 orderDetail.ProductId = Convert.ToInt32(data[1][i]);
                 orderDetail.Count = Convert.ToInt32(data[2][i]);
-                orderDetail.Price = Convert.ToInt32(data[3][i]);
+                orderDetail.Price = Convert.ToDecimal(data[3][i]);
                 nextContext.OrderDetails.Add(orderDetail);
                 nextContext.SaveChanges();
             }

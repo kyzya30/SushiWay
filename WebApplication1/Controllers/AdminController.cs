@@ -255,7 +255,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddNewDish(string NameRus, string NameUkr, string isHided, int? dishCategory, byte? prod, int? Priority, decimal? Price, double? Weight, string Energy,
+        public ActionResult AddNewDish(string NameRus, string NameUkr, string isHided, int? dishCategory, byte? prod, int? Priority, decimal? Price, decimal? Weight, string Energy,
            int? Count, string ingredientsTxtRus, string ingredientsTxtUkr, byte WeightName, HttpPostedFileBase uploadPhoto)
         {
             var context = new SushiTest1Entities1();
@@ -268,6 +268,16 @@ namespace WebApplication1.Controllers
             if (Count == null)
                 Count = 0;
 
+            bool isSale = false;
+            if (prod == 1)
+                isSale = true;
+
+            string weightNameString = "мл";
+            if (WeightName == 2)
+            {
+                weightNameString = "гр";
+            }
+
             foreach (var product in products)
             {
                 if (product.NameRus == NameRus || product.NameUkr == NameUkr)
@@ -277,11 +287,17 @@ namespace WebApplication1.Controllers
                 }
             }
 
-            context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, false, isHidedProduct, 0, ingredientsTxtRus, ingredientsTxtUkr);
-            context.SaveChanges();
+            context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, isSale, isHidedProduct, Priority, ingredientsTxtRus, ingredientsTxtUkr);
 
             int fileName = context.Products.ToList().Last().ProductId;
 
+            ProductWeightDetail pwd = new ProductWeightDetail();
+            pwd.ProductId = fileName;
+            pwd.Name = weightNameString;
+            pwd.Value = (decimal)Weight;
+            context.ProductWeightDetails.Add(pwd);
+            context.SaveChanges();
+            
             uploadPhoto.SaveAs(Server.MapPath("~/Content/Images/Products/" + fileName + ".jpeg"));
 
             return RedirectToAction("Dishes");

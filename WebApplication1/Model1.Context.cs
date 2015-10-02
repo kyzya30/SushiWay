@@ -18,7 +18,7 @@ namespace WebApplication1
     public partial class SushiTest1Entities1 : DbContext
     {
         public SushiTest1Entities1()
-            : base("name=SushiTest1Entities69")
+            : base("name=SushiTest1Entities70")
         {
         }
     
@@ -36,6 +36,19 @@ namespace WebApplication1
         public virtual DbSet<OrdersTimeChanged> OrdersTimeChangeds { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductWeightDetail> ProductWeightDetails { get; set; }
+    
+        public virtual int AddOrdersTimeProduct(Nullable<int> count, Nullable<int> id)
+        {
+            var countParameter = count.HasValue ?
+                new ObjectParameter("count", count) :
+                new ObjectParameter("count", typeof(int));
+    
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddOrdersTimeProduct", countParameter, idParameter);
+        }
     
         public virtual int AddProduct(Nullable<int> catId, string nameRus, string nameUkr, Nullable<int> numOfOrders, Nullable<int> count, string energy, Nullable<int> balance, Nullable<decimal> price, Nullable<bool> isSale, Nullable<bool> isHided, Nullable<int> priority, string rusIngr, string ukrIngr)
         {

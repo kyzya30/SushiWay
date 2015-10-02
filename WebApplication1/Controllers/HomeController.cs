@@ -10,6 +10,7 @@ using System.Web.Script.Serialization;
 using System.Web.WebSockets;
 using Topics.Radical;
 using WebApplication1.Addition_Classes;
+using WebApplication1.Models;
 
 
 namespace WebApplication1.Controllers
@@ -123,6 +124,31 @@ namespace WebApplication1.Controllers
             lastStatus.OrderStatus = 5;
             lastStatus.Time = DateTime.Now;
             nextContext.OrdersTimeChangeds.Add(lastStatus);
+
+            var productList = nextContext.Products.ToList();
+            var resList = new List<Product>();
+
+            var productforUpd = new List<ProductForUpdate>();
+            for (int i = 0; i < data[1].Length; i++)
+            {
+                var prod = new ProductForUpdate();
+                prod.Id = Convert.ToInt32(data[1][i]);
+                prod.count = Convert.ToInt32(data[2][i]);
+                productforUpd.Add(prod);
+            }
+
+            foreach (var q in productforUpd)
+            {
+                foreach (var w in productList)
+                {
+                    if (q.Id == w.ProductId)
+                    {
+                        nextContext.AddOrdersTimeProduct(q.count + w.NumberOfOrders, q.Id);
+                        nextContext.SaveChanges();
+                    }
+                }
+            }
+
 
             nextContext.SaveChanges();
 

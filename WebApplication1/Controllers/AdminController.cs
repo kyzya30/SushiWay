@@ -633,5 +633,11 @@ namespace WebApplication1.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Admin");
         }
+
+        //public ActionResult Trq()
+        //{
+        //    var context = new SushiTest1Entities1();
+        //    var prodDetList = context.OrderDetails.ToList();
+        //}
     }
 }

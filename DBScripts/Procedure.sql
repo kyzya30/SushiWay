@@ -12,15 +12,22 @@ left join Product on Product.CategoryId = Category.CategoryId
 Group by Category.NameRus,Category.NameUkr,Category.CategoryId,Category.[Priority]
 GO
 ----------------------
+
 CREATE PROC ShowUnprocessedOrders
 AS
-Select Orders.OrderId, Street, House, Room, sum(dbo.Product.Price * dbo.OrderDetails.[Count]) as TotalPrice, OrdersTimeChanged.Time
+Select Orders.OrderId, Street, House, Room, sum(dbo.OrderDetails.Price * dbo.OrderDetails.[Count]) as TotalPrice, OrdersTimeChanged.Time
 From OrderDetails 
 join dbo.Product on Product.ProductId = OrderDetails.ProductId 
-join dbo.Orders on Orders.OrderId = OrderDetails.OrderDetailsId 
+join dbo.Orders on Orders.OrderId = OrderDetails.OrderId 
 join dbo.OrdersTimeChanged on OrdersTimeChanged.OrderId = Orders.OrderId
-Where OrdersTimeChanged.OrderStatus =5 
+Where Orders.OrderId in (
+	select OrderId
+	from OrdersTimeChanged
+	group by OrderId
+	having count(*) = 1
+) 
 GROUP BY Street,House,Room,Orders.OrderId, OrdersTimeChanged.Time
+
 GO
 -------------------------
 
@@ -75,7 +82,9 @@ GO
 CREATE PROC ShowAllOrders
 AS
 
-select (select COUNT(*) from Orders) as TotalOrders, o.OrderId, o.Street, o.House, o.Room,q.MaxStatusTime,sum(p.Price * od.[Count]) as TotalPrice,
+
+
+select (select COUNT(*) from Orders) as TotalOrders, o.OrderId, o.Street, o.House, o.Room,q.MaxStatusTime,sum(od.Price * od.[Count]) as TotalPrice,
 	os.StatusNameRus
 from Orders o
 inner join
@@ -90,7 +99,7 @@ inner join
 	) q on otch.OrderId = q.OrderId and q.MaxStatusTime = otch.Time
 ) q on q.OrderId = o.OrderId
 inner join OrderStatus os on os.OrderStatusId = q.OrderStatus
-inner join OrderDetails od on od.OrderDetailsId = o.OrderId
+inner join OrderDetails od on od.OrderId = o.OrderId
 join Product p on p.ProductId = od.ProductId 
 group by o.OrderId, o.Street, o.House, o.Room, os.StatusNameRus, q.MaxStatusTime
 order by o.OrderId desc

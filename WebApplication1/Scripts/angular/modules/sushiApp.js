@@ -188,9 +188,14 @@
             return item.categoryId == $scope.findCategory;
         };
         $scope.menuFiltr = function (item) {
-            return item.categoryId != 3;
+            return item.categoryId == $scope.currentCategotyFilter;
         }
+        $scope.currentCategotyFilter = 0;
 
+        $scope.noAddproductFilter = function (cat) {
+            $scope.currentCategotyFilter = cat.id;
+            return cat.id != 3;
+        }
         $scope.categoryWithOutAddProductFilter = function (cat) {
             return cat.id != 3;
         }

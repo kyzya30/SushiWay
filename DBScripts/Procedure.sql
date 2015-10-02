@@ -254,6 +254,7 @@ AS
 SELECT PhoneNumber,Street,House,Room
 From Orders
 Where OrderId = @OrderId
+GO
 -----------------------------------
 CREATE PROC ShowAllTimeStatus @OrderId int
 AS
@@ -263,3 +264,12 @@ From OrdersTimeChanged
 join OrderStatus on OrderStatus.OrderStatusId = OrdersTimeChanged.OrderStatus
 WHERE OrderId = @OrderId
 order by Time
+GO
+------------------------------
+create proc AddOrdersTimeProduct @count int, @id int
+as
+UPDATE PRODUCT 
+SET NumberOfOrders = @count 
+where ProductId = @id
+GO
+

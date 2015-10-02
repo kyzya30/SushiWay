@@ -18,7 +18,7 @@ namespace WebApplication1
     public partial class SushiTest1Entities1 : DbContext
     {
         public SushiTest1Entities1()
-            : base("name=SushiTest1Entities1")
+            : base("name=SushiTest1Entities68")
         {
         }
     
@@ -27,6 +27,7 @@ namespace WebApplication1
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Administrator> Administrators { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Massage> Massages { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
@@ -35,7 +36,6 @@ namespace WebApplication1
         public virtual DbSet<OrdersTimeChanged> OrdersTimeChangeds { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductWeightDetail> ProductWeightDetails { get; set; }
-        public virtual DbSet<Administrator> Administrators { get; set; }
     
         public virtual int AddProduct(Nullable<int> catId, string nameRus, string nameUkr, Nullable<int> numOfOrders, Nullable<int> count, string energy, Nullable<int> balance, Nullable<decimal> price, Nullable<bool> isSale, Nullable<bool> isHided, Nullable<int> priority, string rusIngr, string ukrIngr)
         {

@@ -53,7 +53,8 @@
                             <div class="basket hidden-md hidden-sm hidden-xs basket-style text-center">
                                 <img src="@Url.Content("~/Content/Images/Controls/basket-icon.png")" />
                                 <span>Корзина</span><br/>
-                                <span style="color:#ffffff;font-size:16px;">Заказ на {{cartSum}} грн</span>
+                                <span ng-show="cartIsEmpty" style="color :#ffffff;font-size:16px;">Корзина пустая</span>
+                                <span ng-show="!cartIsEmpty" style="color:#ffffff;font-size:16px;">Заказ на {{cartSum}} грн</span>
                             </div>
                         </a>
 

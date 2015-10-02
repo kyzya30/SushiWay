@@ -4,13 +4,10 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SushiTest1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+      <Schema Namespace="SushiTest1Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Administrator">
           <Key>
             <PropertyRef Name="Login" />
-            <PropertyRef Name="Password" />
           </Key>
           <Property Name="Login" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
@@ -215,7 +212,8 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
           <Parameter Name="Name" Type="nvarchar" Mode="In" />
           <Parameter Name="Value" Type="decimal" Mode="In" />
         </Function>
-        <EntityContainer Name="SushiTest1ModelStoreContainer">
+        <EntityContainer Name="SushiTest1Model1StoreContainer">
+          <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Massages" EntityType="Self.Massages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
@@ -224,12 +222,6 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
           <EntitySet Name="OrdersTimeChanged" EntityType="Self.OrdersTimeChanged" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductWeightDetails" EntityType="Self.ProductWeightDetails" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Administrator" EntityType="Self.Administrator" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Administrator].[Login] AS [Login], 
-    [Administrator].[Password] AS [Password]
-    FROM [dbo].[Administrator] AS [Administrator]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Product_CategoryId" Association="Self.FK_Product_CategoryId">
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
@@ -243,7 +235,14 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SushiTest1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="SushiTest1Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Administrator">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryId" />
@@ -333,14 +332,6 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
           <Property Name="Value" Type="Decimal" Precision="9" Scale="3" Nullable="false" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductWeightDetails_ProductId" FromRole="ProductWeightDetails" ToRole="Product" />
         </EntityType>
-        <EntityType Name="Administrator">
-          <Key>
-            <PropertyRef Name="Login" />
-            <PropertyRef Name="Password" />
-          </Key>
-          <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
         <Association Name="FK_Product_CategoryId">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -365,7 +356,8 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SushiTest1Entities67" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities68" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Massages" EntityType="Self.Massage" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
@@ -374,7 +366,6 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
           <EntitySet Name="OrdersTimeChangeds" EntityType="Self.OrdersTimeChanged" />
           <EntitySet Name="Products" EntityType="Self.Product" />
           <EntitySet Name="ProductWeightDetails" EntityType="Self.ProductWeightDetail" />
-          <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <AssociationSet Name="FK_Product_CategoryId" Association="Self.FK_Product_CategoryId">
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
@@ -398,7 +389,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
             <Parameter Name="RusIngr" Mode="In" Type="String" />
             <Parameter Name="UkrIngr" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="AllDishes" ReturnType="Collection(SushiTest1Model.AllDishes_Result)" />
+          <FunctionImport Name="AllDishes" ReturnType="Collection(SushiTest1Model1.AllDishes_Result)" />
           <FunctionImport Name="DeleteCategory">
             <Parameter Name="item" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -417,16 +408,16 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
           <FunctionImport Name="DelOrdersTimeChanged">
             <Parameter Name="Item" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="FindCategory" ReturnType="Collection(SushiTest1Model.FindCategory_Result)">
+          <FunctionImport Name="FindCategory" ReturnType="Collection(SushiTest1Model1.FindCategory_Result)">
             <Parameter Name="CategoryName" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="FindDishById" ReturnType="Collection(SushiTest1Model.FindDishById_Result)">
+          <FunctionImport Name="FindDishById" ReturnType="Collection(SushiTest1Model1.FindDishById_Result)">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="FindDishes" ReturnType="Collection(SushiTest1Model.FindDishes_Result)">
+          <FunctionImport Name="FindDishes" ReturnType="Collection(SushiTest1Model1.FindDishes_Result)">
             <Parameter Name="DishName" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="FindOrders" ReturnType="Collection(SushiTest1Model.FindOrders_Result)">
+          <FunctionImport Name="FindOrders" ReturnType="Collection(SushiTest1Model1.FindOrders_Result)">
             <Parameter Name="Order" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="HideDish">
@@ -436,19 +427,19 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
             <Parameter Name="OrdID" Mode="In" Type="Int32" />
             <Parameter Name="OrdStatus" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="MostPopularDishes" ReturnType="Collection(SushiTest1Model.MostPopularDishes_Result)">
+          <FunctionImport Name="MostPopularDishes" ReturnType="Collection(SushiTest1Model1.MostPopularDishes_Result)">
             <Parameter Name="topVal" Mode="In" Type="Int32" />
             <Parameter Name="catId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="SelectOrderContactInfo" ReturnType="Collection(SushiTest1Model.SelectOrderContactInfo_Result)">
+          <FunctionImport Name="SelectOrderContactInfo" ReturnType="Collection(SushiTest1Model1.SelectOrderContactInfo_Result)">
             <Parameter Name="OrderId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="ShowAllCategories" ReturnType="Collection(SushiTest1Model.ShowAllCategories_Result)" />
-          <FunctionImport Name="ShowAllOrders" ReturnType="Collection(SushiTest1Model.ShowAllOrders_Result)" />
-          <FunctionImport Name="ShowAllTimeStatus" ReturnType="Collection(SushiTest1Model.ShowAllTimeStatus_Result)">
+          <FunctionImport Name="ShowAllCategories" ReturnType="Collection(SushiTest1Model1.ShowAllCategories_Result)" />
+          <FunctionImport Name="ShowAllOrders" ReturnType="Collection(SushiTest1Model1.ShowAllOrders_Result)" />
+          <FunctionImport Name="ShowAllTimeStatus" ReturnType="Collection(SushiTest1Model1.ShowAllTimeStatus_Result)">
             <Parameter Name="OrderId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="ShowUnprocessedOrders" ReturnType="Collection(SushiTest1Model.ShowUnprocessedOrders_Result)" />
+          <FunctionImport Name="ShowUnprocessedOrders" ReturnType="Collection(SushiTest1Model1.ShowUnprocessedOrders_Result)" />
           <FunctionImport Name="UpdateCategory">
             <Parameter Name="CategoryId" Mode="In" Type="Int32" />
             <Parameter Name="NewRusName" Mode="In" Type="String" />
@@ -581,9 +572,17 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities67">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1Model1StoreContainer" CdmEntityContainer="SushiTest1Entities68">
+          <EntitySetMapping Name="Administrators">
+            <EntityTypeMapping TypeName="SushiTest1Model1.Administrator">
+              <MappingFragment StoreEntitySet="Administrator">
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="SushiTest1Model.Category">
+            <EntityTypeMapping TypeName="SushiTest1Model1.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
@@ -593,7 +592,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Massages">
-            <EntityTypeMapping TypeName="SushiTest1Model.Massage">
+            <EntityTypeMapping TypeName="SushiTest1Model1.Massage">
               <MappingFragment StoreEntitySet="Massages">
                 <ScalarProperty Name="MessagesId" ColumnName="MessagesId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -603,7 +602,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="SushiTest1Model.OrderDetail">
+            <EntityTypeMapping TypeName="SushiTest1Model1.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
                 <ScalarProperty Name="OrderDetailsId" ColumnName="OrderDetailsId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
@@ -614,7 +613,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="SushiTest1Model.Order">
+            <EntityTypeMapping TypeName="SushiTest1Model1.Order">
               <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -627,7 +626,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderStatus">
-            <EntityTypeMapping TypeName="SushiTest1Model.OrderStatu">
+            <EntityTypeMapping TypeName="SushiTest1Model1.OrderStatu">
               <MappingFragment StoreEntitySet="OrderStatus">
                 <ScalarProperty Name="OrderStatusId" ColumnName="OrderStatusId" />
                 <ScalarProperty Name="StatusNameRus" ColumnName="StatusNameRus" />
@@ -636,7 +635,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrdersTimeChangeds">
-            <EntityTypeMapping TypeName="SushiTest1Model.OrdersTimeChanged">
+            <EntityTypeMapping TypeName="SushiTest1Model1.OrdersTimeChanged">
               <MappingFragment StoreEntitySet="OrdersTimeChanged">
                 <ScalarProperty Name="OrdersTimeChangedId" ColumnName="OrdersTimeChangedId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
@@ -646,7 +645,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="SushiTest1Model.Product">
+            <EntityTypeMapping TypeName="SushiTest1Model1.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
@@ -667,7 +666,7 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductWeightDetails">
-            <EntityTypeMapping TypeName="SushiTest1Model.ProductWeightDetail">
+            <EntityTypeMapping TypeName="SushiTest1Model1.ProductWeightDetail">
               <MappingFragment StoreEntitySet="ProductWeightDetails">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -675,18 +674,10 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Administrators">
-            <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
-              <MappingFragment StoreEntitySet="Administrator">
-                <ScalarProperty Name="Login" ColumnName="Login" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="AddProduct" FunctionName="SushiTest1Model.Store.AddProduct" />
-          <FunctionImportMapping FunctionImportName="AllDishes" FunctionName="SushiTest1Model.Store.AllDishes">
+          <FunctionImportMapping FunctionImportName="AddProduct" FunctionName="SushiTest1Model1.Store.AddProduct" />
+          <FunctionImportMapping FunctionImportName="AllDishes" FunctionName="SushiTest1Model1.Store.AllDishes">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.AllDishes_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.AllDishes_Result">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
@@ -701,15 +692,15 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="DeleteCategory" FunctionName="SushiTest1Model.Store.DeleteCategory" />
-          <FunctionImportMapping FunctionImportName="DeleteDish" FunctionName="SushiTest1Model.Store.DeleteDish" />
-          <FunctionImportMapping FunctionImportName="DeleteOrder" FunctionName="SushiTest1Model.Store.DeleteOrder" />
-          <FunctionImportMapping FunctionImportName="DeleteProductWeightDetails" FunctionName="SushiTest1Model.Store.DeleteProductWeightDetails" />
-          <FunctionImportMapping FunctionImportName="DelOrdersDetailsId" FunctionName="SushiTest1Model.Store.DelOrdersDetailsId" />
-          <FunctionImportMapping FunctionImportName="DelOrdersTimeChanged" FunctionName="SushiTest1Model.Store.DelOrdersTimeChanged" />
-          <FunctionImportMapping FunctionImportName="FindCategory" FunctionName="SushiTest1Model.Store.FindCategory">
+          <FunctionImportMapping FunctionImportName="DeleteCategory" FunctionName="SushiTest1Model1.Store.DeleteCategory" />
+          <FunctionImportMapping FunctionImportName="DeleteDish" FunctionName="SushiTest1Model1.Store.DeleteDish" />
+          <FunctionImportMapping FunctionImportName="DeleteOrder" FunctionName="SushiTest1Model1.Store.DeleteOrder" />
+          <FunctionImportMapping FunctionImportName="DeleteProductWeightDetails" FunctionName="SushiTest1Model1.Store.DeleteProductWeightDetails" />
+          <FunctionImportMapping FunctionImportName="DelOrdersDetailsId" FunctionName="SushiTest1Model1.Store.DelOrdersDetailsId" />
+          <FunctionImportMapping FunctionImportName="DelOrdersTimeChanged" FunctionName="SushiTest1Model1.Store.DelOrdersTimeChanged" />
+          <FunctionImportMapping FunctionImportName="FindCategory" FunctionName="SushiTest1Model1.Store.FindCategory">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.FindCategory_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.FindCategory_Result">
                 <ScalarProperty Name="TotalCategories" ColumnName="TotalCategories" />
                 <ScalarProperty Name="NameUkr" ColumnName="NameUkr" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
@@ -719,9 +710,9 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="FindDishById" FunctionName="SushiTest1Model.Store.FindDishById">
+          <FunctionImportMapping FunctionImportName="FindDishById" FunctionName="SushiTest1Model1.Store.FindDishById">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.FindDishById_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.FindDishById_Result">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
@@ -738,9 +729,9 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="FindDishes" FunctionName="SushiTest1Model.Store.FindDishes">
+          <FunctionImportMapping FunctionImportName="FindDishes" FunctionName="SushiTest1Model1.Store.FindDishes">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.FindDishes_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.FindDishes_Result">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
@@ -755,9 +746,9 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="FindOrders" FunctionName="SushiTest1Model.Store.FindOrders">
+          <FunctionImportMapping FunctionImportName="FindOrders" FunctionName="SushiTest1Model1.Store.FindOrders">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.FindOrders_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.FindOrders_Result">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="House" ColumnName="House" />
@@ -768,11 +759,11 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="HideDish" FunctionName="SushiTest1Model.Store.HideDish" />
-          <FunctionImportMapping FunctionImportName="InsertValOrdTimeCh" FunctionName="SushiTest1Model.Store.InsertValOrdTimeCh" />
-          <FunctionImportMapping FunctionImportName="MostPopularDishes" FunctionName="SushiTest1Model.Store.MostPopularDishes">
+          <FunctionImportMapping FunctionImportName="HideDish" FunctionName="SushiTest1Model1.Store.HideDish" />
+          <FunctionImportMapping FunctionImportName="InsertValOrdTimeCh" FunctionName="SushiTest1Model1.Store.InsertValOrdTimeCh" />
+          <FunctionImportMapping FunctionImportName="MostPopularDishes" FunctionName="SushiTest1Model1.Store.MostPopularDishes">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.MostPopularDishes_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.MostPopularDishes_Result">
                 <ScalarProperty Name="NumberOfOrders" ColumnName="NumberOfOrders" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
@@ -780,9 +771,9 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SelectOrderContactInfo" FunctionName="SushiTest1Model.Store.SelectOrderContactInfo">
+          <FunctionImportMapping FunctionImportName="SelectOrderContactInfo" FunctionName="SushiTest1Model1.Store.SelectOrderContactInfo">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.SelectOrderContactInfo_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.SelectOrderContactInfo_Result">
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="House" ColumnName="House" />
@@ -790,9 +781,9 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ShowAllCategories" FunctionName="SushiTest1Model.Store.ShowAllCategories">
+          <FunctionImportMapping FunctionImportName="ShowAllCategories" FunctionName="SushiTest1Model1.Store.ShowAllCategories">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllCategories_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.ShowAllCategories_Result">
                 <ScalarProperty Name="TotalCategories" ColumnName="TotalCategories" />
                 <ScalarProperty Name="NameUkr" ColumnName="NameUkr" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
@@ -802,9 +793,9 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ShowAllOrders" FunctionName="SushiTest1Model.Store.ShowAllOrders">
+          <FunctionImportMapping FunctionImportName="ShowAllOrders" FunctionName="SushiTest1Model1.Store.ShowAllOrders">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllOrders_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.ShowAllOrders_Result">
                 <ScalarProperty Name="TotalOrders" ColumnName="TotalOrders" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
@@ -816,18 +807,18 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ShowAllTimeStatus" FunctionName="SushiTest1Model.Store.ShowAllTimeStatus">
+          <FunctionImportMapping FunctionImportName="ShowAllTimeStatus" FunctionName="SushiTest1Model1.Store.ShowAllTimeStatus">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllTimeStatus_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.ShowAllTimeStatus_Result">
                 <ScalarProperty Name="StatusNameRus" ColumnName="StatusNameRus" />
                 <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ShowUnprocessedOrders" FunctionName="SushiTest1Model.Store.ShowUnprocessedOrders">
+          <FunctionImportMapping FunctionImportName="ShowUnprocessedOrders" FunctionName="SushiTest1Model1.Store.ShowUnprocessedOrders">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model.ShowUnprocessedOrders_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model1.ShowUnprocessedOrders_Result">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="House" ColumnName="House" />
@@ -837,9 +828,9 @@ warning 6002: The table/view 'SushiTest1.dbo.Administrator' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="UpdateCategory" FunctionName="SushiTest1Model.Store.UpdateCategory" />
-          <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="SushiTest1Model.Store.UpdateProduct" />
-          <FunctionImportMapping FunctionImportName="UpdateProductWeightDetails" FunctionName="SushiTest1Model.Store.UpdateProductWeightDetails" />
+          <FunctionImportMapping FunctionImportName="UpdateCategory" FunctionName="SushiTest1Model1.Store.UpdateCategory" />
+          <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="SushiTest1Model1.Store.UpdateProduct" />
+          <FunctionImportMapping FunctionImportName="UpdateProductWeightDetails" FunctionName="SushiTest1Model1.Store.UpdateProductWeightDetails" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

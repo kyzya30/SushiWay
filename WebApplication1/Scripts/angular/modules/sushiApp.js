@@ -102,19 +102,61 @@
         });
 
         $scope.isSelected = function (item) {
+            if (item.sale == true) {
+                $scope.saleCoff = 0.95;
+            } else {
+                $scope.saleCoff = 1;
+            }
             item.count = 1;
-            $scope.cartSum += item.price;
+            $scope.cartSum += item.price * $scope.saleCoff;
             item.selected = true;
+            $scope.cartIsEmpty = false;
         };
+        $scope.clearCart = function () {
+            for (var i = 0; i < $scope.items.length ; i++) {
+                if ($scope.items[i].count) {
+                    $scope.items[i].selected = false;
+                    $scope.items[i].count = 0;
+                }
+            }
+            $scope.cartSum = 0;
+            $scope.cartIsEmpty = true;
+            $location.path("/cart");
+        }
         $scope.addToCart = function (item) {
+            if (item.sale == true) {
+                $scope.saleCoff = 0.95;
+            } else {
+                $scope.saleCoff = 1;
+            }
+
             item.count = +item.count + 1;
 
-            $scope.cartSum += item.price;
+            $scope.cartSum += item.price* $scope.saleCoff ;
+            if ($scope.cartSum > 0) {
+                $scope.cartIsEmpty = false;
+            }
         };
+        $scope.deleteItemFromCart = function (item) {
+            if (item.sale == true) {
+                $scope.saleCoff = 0.95;
+            } else {
+                $scope.saleCoff = 1;
+            }
+            item.selected = false;
+            $scope.cartSum -= (item.price * $scope.saleCoff) * item.count;
+            item.count = 0;
+            if ($scope.cartSum<1) {
+                $scope.cartIsEmpty = true;
+            }
+            $location.path("/cart");
+        }
+        $scope.cartIsEmpty = true;
         $scope.findOredrById = " ";
         $scope.resOrderSatus = " ";
 
         $scope.matchPattern = /^\d+$/;
+        $scope.saleCoff = 1;
 
 
         $scope.makeOrder = function (newOrder) {
@@ -130,6 +172,10 @@
             }
 
             $scope.cartSum -= item.price;
+
+            if ($scope.cartSum < 1) {
+                $scope.cartIsEmpty = true;
+            }
         };
         $scope.FindProductName = "";
 

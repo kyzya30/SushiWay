@@ -27,6 +27,7 @@ namespace WebApplication1.Controllers
             var productsList = context.Products.ToList();
             var productQuery = from product in productsList
                                where product.IsHided == false
+                               orderby product.Priority descending
                                select product;
 
             var products = productQuery.ToList();
@@ -66,7 +67,14 @@ namespace WebApplication1.Controllers
         public JsonResult GetCategory()
         {
             var context = new SushiTest1Entities1();
-            var category = context.Categories.ToList();
+            var categoryList = context.Categories.ToList();
+            var query = from cat in categoryList
+                        orderby cat.Priority descending
+                        select cat;
+
+
+            var category = query.ToList();
+
             var model = new object[category.Count];
 
             for (int i = 0; i < category.Count; i++)
@@ -88,9 +96,9 @@ namespace WebApplication1.Controllers
             var context = new SushiTest1Entities1();
             var ordersDetails = context.OrderDetails.ToList();
             Order order = new Order();
-            order.Name = data[0][0];
+            order.Name = data[0][0]?? "no data";
             order.PhoneNumber = data[0][1];
-            order.Email = data[0][3];
+            order.Email = data[0][3]?? "no data";
             order.Street = data[0][4];
             order.House = data[0][5];
             order.Room = data[0][6];

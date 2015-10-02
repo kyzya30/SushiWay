@@ -68,6 +68,10 @@
 
 
                             $("#categoriesLength").text($(".checkboxes").length)
+
+                            if (!$(".checkboxes").length) {
+                                $("#notFoundMessage").text("Извините, по вашему запросу ничего не найдено.");
+                            }
                         });
                         
                     </script>
@@ -86,6 +90,7 @@
                 <div class="col-xs-2" style="position: absolute; top: 0;right:10px"><b>Количество <br>блюд</b></div>
             </div>
 
+            <span id="notFoundMessage"></span>
             @foreach (var D in Model)
             {
             var NameUkr = D.NameUkr.ToString();
@@ -96,6 +101,8 @@
            
 
             <div class="row col-xs-12 custom_table-hover_div" style="padding-top: 10px; padding-bottom: 10px; border-width: 1px; border-bottom-style: solid;border-color: #7F7F7F;">
+                
+                
                 <div class="col-xs-1">
 
                     <input id="@allCatID" type="checkbox" class="checkboxes" name="@nameRusCategory"  data-nameukr="@NameUkr"  hidden />

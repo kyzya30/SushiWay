@@ -12,7 +12,6 @@ left join Product on Product.CategoryId = Category.CategoryId
 Group by Category.NameRus,Category.NameUkr,Category.CategoryId,Category.[Priority]
 GO
 ----------------------
-
 CREATE PROC ShowUnprocessedOrders
 AS
 Select Orders.OrderId, Street, House, Room, sum(dbo.OrderDetails.Price * dbo.OrderDetails.[Count]) as TotalPrice, OrdersTimeChanged.Time
@@ -108,7 +107,7 @@ GO
 
 CREATE PROC FindOrders @Order nvarchar(50)
 AS
-select o.OrderId, o.Street, o.House, o.Room,q.MaxStatusTime,sum(p.Price * od.[Count]) as TotalPrice,
+select (select COUNT(*) from Orders) as TotalOrders, o.OrderId, o.Street, o.House, o.Room,q.MaxStatusTime,sum(od.Price * od.[Count]) as TotalPrice,
 	os.StatusNameRus
 from Orders o
 inner join
@@ -117,16 +116,17 @@ inner join
 	from OrdersTimeChanged otch
 	inner join
 	(
-		select max(Time) as MaxStatusTime
+		select OrderId, max(Time) as MaxStatusTime
 		from OrdersTimeChanged
 		group by OrderId
-	) q on q.MaxStatusTime = otch.Time
+	) q on otch.OrderId = q.OrderId and q.MaxStatusTime = otch.Time
 ) q on q.OrderId = o.OrderId
 inner join OrderStatus os on os.OrderStatusId = q.OrderStatus
-inner join OrderDetails od on od.OrderDetailsId = o.OrderId
+inner join OrderDetails od on od.OrderId = o.OrderId
 join Product p on p.ProductId = od.ProductId 
 where o.OrderId Like @Order+'%'
 group by o.OrderId, o.Street, o.House, o.Room, os.StatusNameRus, q.MaxStatusTime
+order by o.OrderId desc
 GO
 ----------------------
 CREATE PROC DelOrdersDetailsId @Item nvarchar(50)
@@ -263,7 +263,6 @@ AS
 SELECT PhoneNumber,Street,House,Room
 From Orders
 Where OrderId = @OrderId
-GO
 -----------------------------------
 CREATE PROC ShowAllTimeStatus @OrderId int
 AS
@@ -273,12 +272,3 @@ From OrdersTimeChanged
 join OrderStatus on OrderStatus.OrderStatusId = OrdersTimeChanged.OrderStatus
 WHERE OrderId = @OrderId
 order by Time
-GO
-------------------------------
-create proc AddOrdersTimeProduct @count int, @id int
-as
-UPDATE PRODUCT 
-SET NumberOfOrders = @count 
-where ProductId = @id
-GO
-

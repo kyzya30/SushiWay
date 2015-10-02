@@ -241,6 +241,8 @@ namespace WebApplication1.Controllers
                 
                 context.UpdateProductWeightDetails((int)ProductId, WeightName, Weight);
                 //int energy = Convert.ToInt32(Energy);
+                if (Energy == "")
+                { Energy = "0"; }
                 context.UpdateProduct(ProductId, dishCategory, NameRus, Price, NameUkr, Count, Convert.ToInt32(Energy), sale, hide,
                     Priority, ingredientsTxtRus, ingredientsTxtUkr);
                 if(uploadPhoto != null)

@@ -98,10 +98,10 @@ namespace WebApplication1.Controllers
             Order order = new Order();
             order.Name = data[0][0]?? "no data";
             order.PhoneNumber = data[0][1];
-            order.Email = data[0][3]?? "no data";
-            order.Street = data[0][4];
-            order.House = data[0][5];
-            order.Room = data[0][6];
+            order.Email = data[0][2]?? "no data";
+            order.Street = data[0][3];
+            order.House = data[0][4];
+            order.Room = data[0][5];
 
             context.Orders.Add(order);
             context.SaveChanges();

@@ -269,7 +269,7 @@
             for (var i = 0; i < $scope.items.length; i++) {
 
                 if ($scope.items[i].selected == true) {
-                    $scope.saleCoff = $scope.items[i].selected == true ? 0.95 : 1; 
+                    $scope.saleCoff = $scope.items[i].sale == true ? 0.95 : 1; 
                     prodId.push($scope.items[i].id);
                     prodCount.push($scope.items[i].count);
                     prodPrice.push($scope.items[i].price * $scope.saleCoff);

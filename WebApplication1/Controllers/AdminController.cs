@@ -15,12 +15,30 @@ using System.Web.Routing;
 using System.Web.Security;
 using Microsoft.Ajax.Utilities;
 using WebApplication1.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace WebApplication1.Controllers
 {
     [Authorize]
     public class AdminController : Controller
     {
+        public class MyRenderOptions : PagedList.Mvc.PagedListRenderOptions
+        {
+            public MyRenderOptions() : base()
+            {
+                DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded;
+                DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded;
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Never;
+                DisplayLinkToNextPage = PagedListDisplayMode.Never;
+                LinkToFirstPageFormat = "{0}";
+                LinkToLastPageFormat = "{0}";
+                
+              
+                MaximumPageNumbersToDisplay = 3;
+                DisplayEllipsesWhenNotShowingAllPageNumbers = true;
+            }
+        }
         static bool VerifyLogin(string input, string dbval)
         {
             // Create a StringComparer an compare the hashes.
@@ -114,21 +132,23 @@ namespace WebApplication1.Controllers
             }      
         }
 
-        public ActionResult Dishes() //Show all dishes on Dishes view                                         
+        public ActionResult Dishes(int page = 1, int pageSize = 10) //Show all dishes on Dishes view                                         
         {
             using (var context = new SushiTest1Entities1())
             {
                List<AllDishes_Result> allDishesModel = context.AllDishes().ToList();
-               return View(allDishesModel);
+                PagedList<AllDishes_Result> model = new PagedList<AllDishes_Result>(allDishesModel, page, pageSize);
+               return View(model);
             }
         }
 
-        public ActionResult DishesInBlock()                                      
+        public ActionResult DishesInBlock(int page = 1, int pageSize = 10)                                      
         {
             using (var context = new SushiTest1Entities1())
             {
                 List<AllDishes_Result> allDishesModel = context.AllDishes().ToList();
-                return View(allDishesModel);
+                PagedList<AllDishes_Result> model = new PagedList<AllDishes_Result>(allDishesModel, page, pageSize);
+                return View(model);
             }
         }
 
@@ -376,12 +396,13 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public ActionResult Orders()
+        public ActionResult Orders(int page = 1, int pagesize =10)
         {
             using (var context = new SushiTest1Entities1())
             {
                 List<ShowAllOrders_Result> showAllOrdersModel = context.ShowAllOrders().ToList();
-                return View(showAllOrdersModel);
+                PagedList<ShowAllOrders_Result> model = new PagedList<ShowAllOrders_Result>(showAllOrdersModel,page, pagesize);
+                return View(model);
             }
         }
 
@@ -409,10 +430,11 @@ namespace WebApplication1.Controllers
                         allDishesModel[i].Price = findDishesModel[i].Price;
                         allDishesModel[i].TotalDishes = findDishesModel[i].TotalDishes;
                     }
+                    
                 }
             }
-
-            return View("~/Views/Admin/Dishes.cshtml", allDishesModel);
+            PagedList<AllDishes_Result> model = new PagedList<AllDishes_Result>(allDishesModel, 1, 99);
+            return View("~/Views/Admin/Dishes.cshtml", model);
         }
 
         [HttpPost]
@@ -441,8 +463,8 @@ namespace WebApplication1.Controllers
                     }
                 }
             }
-
-            return View("~/Views/Admin/DishesInBlock.cshtml", allDishesModel);
+            PagedList<AllDishes_Result> model = new PagedList<AllDishes_Result>(allDishesModel, 1, 99);
+            return View("~/Views/Admin/DishesInBlock.cshtml", model);
         }
 
         [HttpPost]
@@ -498,8 +520,8 @@ namespace WebApplication1.Controllers
                     }
                 }
             }
-
-            return View("~/Views/Admin/Orders.cshtml", allOrdersModel);
+            PagedList<ShowAllOrders_Result> model = new PagedList<ShowAllOrders_Result>(allOrdersModel, 1, 99);
+            return View("~/Views/Admin/Orders.cshtml", model);
         }
 
         [HttpPost]

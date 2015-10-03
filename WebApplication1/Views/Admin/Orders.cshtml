@@ -1,5 +1,9 @@
-﻿@model IEnumerable<WebApplication1.ShowAllOrders_Result>
-    @{
+﻿@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<WebApplication1.ShowAllOrders_Result>
+   
+ @{
         ViewBag.Title = "Orders";
         Layout = "~/Views/Shared/AdminMasterPage.cshtml";
     }
@@ -7,7 +11,7 @@
         <div class="row" style="padding-top: 40px; padding-left: 30px">
             <div class="row col-sx-12" style="padding-top: 15px">
                 <div class="col-xs-6">
-                    <h3 class="header" style="position:fixed; left:205px">
+                    <h3 class="header" style="position:relative; left:-17px">
                         Заказы
                         
                          @*<a href="@Url.Action("AddNewOrder", "Admin")">
@@ -34,14 +38,7 @@
                 <div class="col-xs-2"> </div>
 
                 <div class="col-xs-6" style="text-align: right">
-                    @{
-                        string totalOrder="";
-                        foreach (var item in Model)
-                        {
-                            totalOrder = item.TotalOrders.ToString();
-                        }
-                    }
-                    заказов из @totalOrder
+                   @Model.FirstItemOnPage-@Model.LastItemOnPage заказов из @Model.TotalItemCount
                    
                 </div>
             </div>
@@ -138,6 +135,7 @@
                 <div class="col-xs-6"></div>
             </div>
         </div>
+        @Html.PagedListPager(Model, page => Url.Action("Orders", new { page, pageSize = Model.PageSize }), new WebApplication1.Controllers.AdminController.MyRenderOptions())
         @Html.Partial("DeleteOrderModal", new Order())
         @Html.Partial("ChangeOrderStatus", new Order())
     </div>

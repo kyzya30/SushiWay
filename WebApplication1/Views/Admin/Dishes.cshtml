@@ -1,4 +1,10 @@
-﻿@model IEnumerable<WebApplication1.AllDishes_Result>
+﻿@*@model IEnumerable<WebApplication1.AllDishes_Result>*@
+@using PagedList
+@using PagedList.Mvc
+
+
+@model IPagedList<WebApplication1.AllDishes_Result>
+
 @{
     ViewBag.Title = "Dishes";
     Layout = "~/Views/Shared/AdminMasterPage.cshtml";
@@ -10,11 +16,11 @@
         <div class="col-sx-12">
             <div class="col-xs-6">
                 <h3 class="header"  style="position:relative; left:-17px">
-                    Блюда <a href="@Url.Action("AddNewDish","Admin")"><img style="margin-left: 20px" src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")> </a>
+                   Блюда <a href="@Url.Action("AddNewDish","Admin")"><img style="margin-left: 20px" src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")> </a>
                 </h3>
                 @*<button id="" onclick="ShowAllSelected()" >Show all selected</button>*@
                 
-
+               
             </div>
 
             <div class="col-xs-6 clearfix" style="padding-top: 5px;">
@@ -43,17 +49,13 @@
                     <img src="@Url.Content("~/Content/Images/Controls/Admin/type-block.png")" />
                 </a>
             </span>
-            <span id="dishesLength"></span>
-            блюд из
-            @{
-                int tmp = 0;
-                foreach (var val in Model)
-                {
-                    tmp = val.TotalDishes.Value;
-                }
-                <span>@tmp.ToString()</span>
+            <span></span>
+           
+             @Model.FirstItemOnPage-@Model.LastItemOnPage блюд из @Model.TotalItemCount
+           
+               
 
-            }
+            
 
         </div>
     </div>
@@ -186,7 +188,7 @@
         <div class="col-xs-2"></div>
         <div class="col-xs-6"></div>
     </div>
-
+ @Html.PagedListPager(Model,page => Url.Action("Dishes", new { page, pageSize = Model.PageSize }), new WebApplication1.Controllers.AdminController.MyRenderOptions())
     @Html.Partial("DeleteDishModal", new Product())
     @Html.Partial("HideDishModal", new Product())
 </div>

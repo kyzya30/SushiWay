@@ -152,11 +152,13 @@ namespace WebApplication1.Controllers
             {
                
                 var contactInfo = context.SelectOrderContactInfo(orderId).ToList();
-               
                 if (!contactInfo.Any())
                 {
                     return RedirectToAction("Orders", "Admin");
                 }
+                var category = context.Categories.ToList();
+                ViewBag.Categories = category;
+
                 EditOrderModel editOrderModel = new EditOrderModel
                 {
                     OrderId = orderId,
@@ -164,12 +166,49 @@ namespace WebApplication1.Controllers
                     PhoneNumber = contactInfo[0].PhoneNumber,
                     Room = contactInfo[0].Room,
                     Street = contactInfo[0].Street,
-                    showAllTimeStatus = context.ShowAllTimeStatus(orderId).ToList()
-            };
+                    TotalSum = contactInfo[0].TotalSum,
+                    showAllTimeStatus = context.ShowAllTimeStatus(orderId).ToList(),
+                    selectProductsFromOrder = context.SelectProductsFromOrder(orderId).ToList(),
+                    productsInModal = context.SelectProductsFromCategoryInModal(1).ToList()
+                };
                 return View(editOrderModel);
             }  
         }
+        [HttpPost]
+        public ActionResult AddDishToOrderModal(int? orderId)
+        {
 
+            if (orderId == null)
+            {
+                return RedirectToAction("Orders", "Admin");
+            }
+            using (var context = new SushiTest1Entities1())
+            {
+
+                var contactInfo = context.SelectOrderContactInfo(orderId).ToList();
+                if (!contactInfo.Any())
+                {
+                    return RedirectToAction("Orders", "Admin");
+                }
+                var category = context.Categories.ToList();
+                ViewBag.Categories = category;
+
+                EditOrderModel editOrderModel = new EditOrderModel
+                {
+                    OrderId = orderId,
+                    House = contactInfo[0].House,
+                    PhoneNumber = contactInfo[0].PhoneNumber,
+                    Room = contactInfo[0].Room,
+                    Street = contactInfo[0].Street,
+                    TotalSum = contactInfo[0].TotalSum,
+                    showAllTimeStatus = context.ShowAllTimeStatus(orderId).ToList(),
+                    selectProductsFromOrder = context.SelectProductsFromOrder(orderId).ToList(),
+                    productsInModal = context.SelectProductsFromCategoryInModal(4).ToList()
+                };
+                return View("~/Views/Admin/EditOrder.cshtml", editOrderModel);
+                //return View(editOrderModel);
+            }
+        }
         [HttpGet]
         public ActionResult EditDish(int? productId)
         {
@@ -451,7 +490,7 @@ namespace WebApplication1.Controllers
                     {
                         allOrdersModel[i].OrderId = findOrdersModel[i].OrderId;
                         allOrdersModel[i].Street = findOrdersModel[i].Street;
-                        allOrdersModel[i].House = findOrdersModel[i].Street;
+                        allOrdersModel[i].House = findOrdersModel[i].House;
                         allOrdersModel[i].Room = findOrdersModel[i].Room;
                         allOrdersModel[i].MaxStatusTime = findOrdersModel[i].MaxStatusTime;
                         allOrdersModel[i].TotalPrice = findOrdersModel[i].TotalPrice;

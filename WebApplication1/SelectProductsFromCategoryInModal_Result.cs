@@ -11,12 +11,10 @@ namespace WebApplication1
 {
     using System;
     
-    public partial class SelectOrderContactInfo_Result
+    public partial class SelectProductsFromCategoryInModal_Result
     {
-        public string PhoneNumber { get; set; }
-        public string Street { get; set; }
-        public string House { get; set; }
-        public string Room { get; set; }
-        public Nullable<decimal> TotalSum { get; set; }
+        public int ProductId { get; set; }
+        public string NameRus { get; set; }
+        public decimal Price { get; set; }
     }
 }

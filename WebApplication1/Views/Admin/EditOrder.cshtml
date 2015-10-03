@@ -12,6 +12,7 @@
     var street = Model.Street;
     var house = Model.House;
     var room = Model.Room;
+    var totalSum = Model.TotalSum;
 <div class="container-fluid " style="padding-top: 40px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
     <div class="row" style="margin-top: 30px;">
         <div class="col-sm-8">
@@ -24,7 +25,7 @@
     </div>
 
     <div class="row">
-        <span><b>Сумма: </b>0 грн.</span>
+        <span><b>Сумма: </b>@totalSum грн.</span>
     </div>
 
     <div class="row">
@@ -32,37 +33,45 @@
         <div class="col-sm-4 borderRight">
             <span>Заказ</span>
             <a href="#">
-                <img src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>
+                <img data-toggle="modal" data-target="#AddDishToOrderModal" src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>
             </a><br />
+            @foreach(var item in Model.selectProductsFromOrder)
+            {
+                var prodId = item.ProductId;
+                var nameRus = item.NameRus;
+                var count = item.Count;
+                if(item.CategoryId != 3)
+                { 
             <div class="dishDiv">
-                <input type="number" class="form-control addNewDishTxt" style="width: 70px" />
-                <span>Красный дракон</span>
+                <input type="number" class="form-control addNewDishTxt" style="width: 70px" min="0" max="999" value="@count"/>
+                <span>@nameRus</span>
                 <a href="#" class="pull-right imgClose imgCloseShow"><img src="~/Content/Images/Controls/Admin/icon-close.png" /></a>
             </div>
-            <div class="dishDiv">
-                <input type="number" class="form-control addNewDishTxt" style="width: 70px" />
-                <span>Калифорнийский унаги</span>
-                <a href="#" class="pull-right imgClose imgCloseShow"><img src="~/Content/Images/Controls/Admin/icon-close.png" /></a>
-            </div>
-            <div class="dishDiv">
-                <input type="number" class="form-control addNewDishTxt" style="width: 70px" />
-                <span>Золотой унаги дракон</span>
-                <a href="#" class="pull-right imgClose imgCloseShow"><img src="~/Content/Images/Controls/Admin/icon-close.png" /></a>
-            </div>
+                }
+            }
+
             <span>Дополнительно</span>
             <a href="#">
                 <img src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>
             </a>
-            <div class="dishDiv">
-                <input type="number" class="form-control addNewDishTxt" style="width: 70px" />
-                <span>Палочки</span>
-                <a href="#" class="pull-right imgClose imgCloseShow"><img src="~/Content/Images/Controls/Admin/icon-close.png" /></a>
-            </div>
-            <div class="dishDiv">
-                <input type="number" class="form-control addNewDishTxt" style="width: 70px" />
-                <span>Васаби</span>
-                <a href="#" class="pull-right imgClose imgCloseShow"><img src="~/Content/Images/Controls/Admin/icon-close.png" /></a>
-            </div>
+            @foreach (var item in Model.selectProductsFromOrder)
+            {
+                var prodId = item.ProductId;
+                var nameRus = item.NameRus;
+                var count = item.Count;
+                if (item.CategoryId == 3)
+                {
+                    <div class="dishDiv">
+                        <input type="number" class="form-control addNewDishTxt" style="width: 70px" min="0" max="999" value="@count" />
+                        <span>@nameRus</span>
+                        <a href="#" class="pull-right imgClose imgCloseShow"><img src="~/Content/Images/Controls/Admin/icon-close.png" /></a>
+                    </div>
+                }
+            }
+
+
+
+
         </div>
         <script type="text/javascript">
             $(function() {
@@ -76,12 +85,12 @@
                     });
             });
         </script>
-        <div class="col-sm-4 borderRight">
+        <div class="col-sm-4 borderRight ">
             <span><b>Данные о заказчике</b></span><br />
-            <input type="text" class="form-control" placeholder="Телефон" value="@phoneNumber"/><br />
-            <input type="text" class="form-control" placeholder="Улица" value="@street"/><br />
-            <input type="text" class="form-control" placeholder="Дом" style="width: 128px;" value="@house"/>
-            <input type="text" class="form-control" placeholder="Квартира" style="width: 128px;" value="@room" />
+            <input type="text" class="form-control borderRad0" placeholder="Телефон" value="@phoneNumber"/><br />
+            <input type="text" class="form-control borderRad0" placeholder="Улица" value="@street"/><br />
+            <input type="text" class="form-control borderRad0" placeholder="Дом" style="width: 128px;" value="@house"/>
+            <input type="text" class="form-control borderRad0" placeholder="Квартира" style="width: 128px;" value="@room" />
         </div>
         <div class="col-sm-4" style="padding: 40px;">
             <select class="form-control" style="max-width: 270px;">
@@ -98,9 +107,9 @@
                 <br>
                 if (item.OrderStatus == 1)
                 {
-                    <span>             
+                    <div>             
                         <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-delivered.png") />
-                    </span>
+                    </div>
                 }
                 if (item.OrderStatus == 5)// V puti
                 {
@@ -124,10 +133,8 @@
                         <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-received.png") />
                         
                     </span>
-                }
-               
+                }               
             }
-          
         </div>
     </div>
     <div class="row">
@@ -136,7 +143,6 @@
         </div>
     </div>
     @Html.Partial("DeleteOrderModal", new Order())
+    @Html.Partial("AddDishToOrderModal", Model.productsInModal)
 </div>
-
-
 }

@@ -12,7 +12,10 @@ namespace WebApplication1.Models
         public string Street { get; set; }
         public string House { get; set; }
         public string Room { get; set; }
+        public decimal? TotalSum { get; set; }
         public IEnumerable<ShowAllTimeStatus_Result> showAllTimeStatus { get; set; }
+        public IEnumerable<SelectProductsFromOrder_Result> selectProductsFromOrder { get; set; }
 
+        public IEnumerable<SelectProductsFromCategoryInModal_Result> productsInModal { get; set; }
     }
 }

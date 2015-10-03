@@ -226,6 +226,12 @@
     <Compile Include="SelectOrderContactInfo_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="SelectProductsFromCategoryInModal_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SelectProductsFromOrder_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="ShowAllCategories_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -462,6 +468,7 @@
     <Content Include="Views\Admin\CheckLogin.cshtml" />
     <Content Include="Views\Home\SearchOrderStatusByNumber.cshtml" />
     <Content Include="Views\Admin\ExistDishPage.cshtml" />
+    <Content Include="Views\Admin\AddDishToOrderModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

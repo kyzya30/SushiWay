@@ -260,9 +260,15 @@ GO
 
 Create proc SelectOrderContactInfo @OrderId int
 AS
-SELECT PhoneNumber,Street,House,Room
+SELECT PhoneNumber,Street,House,Room,(select sum(OrderDetails.[Count] * OrderDetails.Price)from OrderDetails where OrderId = @OrderId) as TotalSum
 From Orders
-Where OrderId = @OrderId
+join OrderDetails on OrderDetails.OrderDetailsId = Orders.OrderId
+Where [Orders].OrderId = @OrderId
+
+Group by Orders.PhoneNumber, Orders.Street, Orders.House,Orders.Room
+
+
+GO
 -----------------------------------
 CREATE PROC ShowAllTimeStatus @OrderId int
 AS
@@ -272,3 +278,30 @@ From OrdersTimeChanged
 join OrderStatus on OrderStatus.OrderStatusId = OrdersTimeChanged.OrderStatus
 WHERE OrderId = @OrderId
 order by Time
+GO
+-------
+create proc AddOrdersTimeProduct @count int, @id int
+as
+UPDATE PRODUCT 
+SET NumberOfOrders = @count 
+where ProductId = @id
+GO
+------------------------
+
+Create proc SelectProductsFromOrder @OrderId int
+AS
+SELECT OrderDetails.ProductId,OrderDetails.[Count],Product.NameRus, Product.CategoryId
+From OrderDetails
+
+join Product on Product.ProductId = OrderDetails.ProductId
+Where OrderDetails.OrderId = @OrderId
+GO
+------------------------
+
+Create proc SelectProductsFromCategoryInModal @CategoryId int
+AS
+SELECT Product.ProductId,Product.NameRus,Product.Price
+From Product
+join Category on Category.CategoryId = Product.CategoryId
+where Category.CategoryId = @CategoryId
+GO

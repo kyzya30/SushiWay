@@ -460,6 +460,9 @@ input[type="checkbox"]:checked + label::before {
     padding: 40px;
     height: 370px;
 }
+.borderRad0 {
+    border-radius:0;
+}
 
 .borderRight input[type="text"] {
     margin: 7px 5px;

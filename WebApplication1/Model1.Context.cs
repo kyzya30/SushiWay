@@ -18,7 +18,7 @@ namespace WebApplication1
     public partial class SushiTest1Entities1 : DbContext
     {
         public SushiTest1Entities1()
-            : base("name=SushiTest1Entities70")
+            : base("name=SushiTest1Entities1")
         {
         }
     
@@ -244,6 +244,24 @@ namespace WebApplication1
                 new ObjectParameter("OrderId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectOrderContactInfo_Result>("SelectOrderContactInfo", orderIdParameter);
+        }
+    
+        public virtual ObjectResult<SelectProductsFromCategoryInModal_Result> SelectProductsFromCategoryInModal(Nullable<int> categoryId)
+        {
+            var categoryIdParameter = categoryId.HasValue ?
+                new ObjectParameter("CategoryId", categoryId) :
+                new ObjectParameter("CategoryId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectProductsFromCategoryInModal_Result>("SelectProductsFromCategoryInModal", categoryIdParameter);
+        }
+    
+        public virtual ObjectResult<SelectProductsFromOrder_Result> SelectProductsFromOrder(Nullable<int> orderId)
+        {
+            var orderIdParameter = orderId.HasValue ?
+                new ObjectParameter("OrderId", orderId) :
+                new ObjectParameter("OrderId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SelectProductsFromOrder_Result>("SelectProductsFromOrder", orderIdParameter);
         }
     
         public virtual ObjectResult<ShowAllCategories_Result> ShowAllCategories()

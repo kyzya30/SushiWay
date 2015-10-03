@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SushiTest1Model1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="SushiTest1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Administrator">
           <Key>
             <PropertyRef Name="Login" />
@@ -185,6 +185,12 @@
         <Function Name="SelectOrderContactInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="OrderId" Type="int" Mode="In" />
         </Function>
+        <Function Name="SelectProductsFromCategoryInModal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SelectProductsFromOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OrderId" Type="int" Mode="In" />
+        </Function>
         <Function Name="ShowAllCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ShowAllOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ShowAllTimeStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -216,7 +222,7 @@
           <Parameter Name="Name" Type="nvarchar" Mode="In" />
           <Parameter Name="Value" Type="decimal" Mode="In" />
         </Function>
-        <EntityContainer Name="SushiTest1Model1StoreContainer">
+        <EntityContainer Name="SushiTest1ModelStoreContainer">
           <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Massages" EntityType="Self.Massages" Schema="dbo" store:Type="Tables" />
@@ -239,7 +245,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="SushiTest1Model1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="SushiTest1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Administrator">
           <Key>
             <PropertyRef Name="Login" />
@@ -360,7 +366,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SushiTest1Entities70" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities75" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Massages" EntityType="Self.Massage" />
@@ -397,7 +403,7 @@
             <Parameter Name="RusIngr" Mode="In" Type="String" />
             <Parameter Name="UkrIngr" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="AllDishes" ReturnType="Collection(SushiTest1Model1.AllDishes_Result)" />
+          <FunctionImport Name="AllDishes" ReturnType="Collection(SushiTest1Model.AllDishes_Result)" />
           <FunctionImport Name="DeleteCategory">
             <Parameter Name="item" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -416,16 +422,16 @@
           <FunctionImport Name="DelOrdersTimeChanged">
             <Parameter Name="Item" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="FindCategory" ReturnType="Collection(SushiTest1Model1.FindCategory_Result)">
+          <FunctionImport Name="FindCategory" ReturnType="Collection(SushiTest1Model.FindCategory_Result)">
             <Parameter Name="CategoryName" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="FindDishById" ReturnType="Collection(SushiTest1Model1.FindDishById_Result)">
+          <FunctionImport Name="FindDishById" ReturnType="Collection(SushiTest1Model.FindDishById_Result)">
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="FindDishes" ReturnType="Collection(SushiTest1Model1.FindDishes_Result)">
+          <FunctionImport Name="FindDishes" ReturnType="Collection(SushiTest1Model.FindDishes_Result)">
             <Parameter Name="DishName" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="FindOrders" ReturnType="Collection(SushiTest1Model1.FindOrders_Result)">
+          <FunctionImport Name="FindOrders" ReturnType="Collection(SushiTest1Model.FindOrders_Result)">
             <Parameter Name="Order" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="HideDish">
@@ -435,19 +441,25 @@
             <Parameter Name="OrdID" Mode="In" Type="Int32" />
             <Parameter Name="OrdStatus" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="MostPopularDishes" ReturnType="Collection(SushiTest1Model1.MostPopularDishes_Result)">
+          <FunctionImport Name="MostPopularDishes" ReturnType="Collection(SushiTest1Model.MostPopularDishes_Result)">
             <Parameter Name="topVal" Mode="In" Type="Int32" />
             <Parameter Name="catId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="SelectOrderContactInfo" ReturnType="Collection(SushiTest1Model1.SelectOrderContactInfo_Result)">
+          <FunctionImport Name="SelectOrderContactInfo" ReturnType="Collection(SushiTest1Model.SelectOrderContactInfo_Result)">
             <Parameter Name="OrderId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="ShowAllCategories" ReturnType="Collection(SushiTest1Model1.ShowAllCategories_Result)" />
-          <FunctionImport Name="ShowAllOrders" ReturnType="Collection(SushiTest1Model1.ShowAllOrders_Result)" />
-          <FunctionImport Name="ShowAllTimeStatus" ReturnType="Collection(SushiTest1Model1.ShowAllTimeStatus_Result)">
+          <FunctionImport Name="SelectProductsFromCategoryInModal" ReturnType="Collection(SushiTest1Model.SelectProductsFromCategoryInModal_Result)">
+            <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SelectProductsFromOrder" ReturnType="Collection(SushiTest1Model.SelectProductsFromOrder_Result)">
             <Parameter Name="OrderId" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="ShowUnprocessedOrders" ReturnType="Collection(SushiTest1Model1.ShowUnprocessedOrders_Result)" />
+          <FunctionImport Name="ShowAllCategories" ReturnType="Collection(SushiTest1Model.ShowAllCategories_Result)" />
+          <FunctionImport Name="ShowAllOrders" ReturnType="Collection(SushiTest1Model.ShowAllOrders_Result)" />
+          <FunctionImport Name="ShowAllTimeStatus" ReturnType="Collection(SushiTest1Model.ShowAllTimeStatus_Result)">
+            <Parameter Name="OrderId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ShowUnprocessedOrders" ReturnType="Collection(SushiTest1Model.ShowUnprocessedOrders_Result)" />
           <FunctionImport Name="UpdateCategory">
             <Parameter Name="CategoryId" Mode="In" Type="Int32" />
             <Parameter Name="NewRusName" Mode="In" Type="String" />
@@ -524,6 +536,7 @@
           <Property Type="DateTime" Name="AddDate" Nullable="false" />
         </ComplexType>
         <ComplexType Name="FindOrders_Result">
+          <Property Type="Int32" Name="TotalOrders" Nullable="true" />
           <Property Type="Int32" Name="OrderId" Nullable="false" />
           <Property Type="String" Name="Street" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="House" Nullable="false" MaxLength="10" />
@@ -543,6 +556,18 @@
           <Property Type="String" Name="Street" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="House" Nullable="false" MaxLength="10" />
           <Property Type="String" Name="Room" Nullable="false" MaxLength="10" />
+          <Property Type="Decimal" Name="TotalSum" Nullable="true" Precision="38" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="SelectProductsFromCategoryInModal_Result">
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+          <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="SelectProductsFromOrder_Result">
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+          <Property Type="Int32" Name="Count" Nullable="false" />
+          <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CategoryId" Nullable="false" />
         </ComplexType>
         <ComplexType Name="ShowAllCategories_Result">
           <Property Type="Int32" Name="TotalCategories" Nullable="true" />
@@ -580,9 +605,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1Model1StoreContainer" CdmEntityContainer="SushiTest1Entities70">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities75">
           <EntitySetMapping Name="Administrators">
-            <EntityTypeMapping TypeName="SushiTest1Model1.Administrator">
+            <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -590,7 +615,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Categories">
-            <EntityTypeMapping TypeName="SushiTest1Model1.Category">
+            <EntityTypeMapping TypeName="SushiTest1Model.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
@@ -600,7 +625,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Massages">
-            <EntityTypeMapping TypeName="SushiTest1Model1.Massage">
+            <EntityTypeMapping TypeName="SushiTest1Model.Massage">
               <MappingFragment StoreEntitySet="Massages">
                 <ScalarProperty Name="MessagesId" ColumnName="MessagesId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -610,7 +635,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderDetails">
-            <EntityTypeMapping TypeName="SushiTest1Model1.OrderDetail">
+            <EntityTypeMapping TypeName="SushiTest1Model.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
                 <ScalarProperty Name="OrderDetailsId" ColumnName="OrderDetailsId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
@@ -621,7 +646,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="SushiTest1Model1.Order">
+            <EntityTypeMapping TypeName="SushiTest1Model.Order">
               <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -634,7 +659,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderStatus">
-            <EntityTypeMapping TypeName="SushiTest1Model1.OrderStatu">
+            <EntityTypeMapping TypeName="SushiTest1Model.OrderStatu">
               <MappingFragment StoreEntitySet="OrderStatus">
                 <ScalarProperty Name="OrderStatusId" ColumnName="OrderStatusId" />
                 <ScalarProperty Name="StatusNameRus" ColumnName="StatusNameRus" />
@@ -643,7 +668,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrdersTimeChangeds">
-            <EntityTypeMapping TypeName="SushiTest1Model1.OrdersTimeChanged">
+            <EntityTypeMapping TypeName="SushiTest1Model.OrdersTimeChanged">
               <MappingFragment StoreEntitySet="OrdersTimeChanged">
                 <ScalarProperty Name="OrdersTimeChangedId" ColumnName="OrdersTimeChangedId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
@@ -653,7 +678,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="SushiTest1Model1.Product">
+            <EntityTypeMapping TypeName="SushiTest1Model.Product">
               <MappingFragment StoreEntitySet="Product">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
@@ -674,7 +699,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProductWeightDetails">
-            <EntityTypeMapping TypeName="SushiTest1Model1.ProductWeightDetail">
+            <EntityTypeMapping TypeName="SushiTest1Model.ProductWeightDetail">
               <MappingFragment StoreEntitySet="ProductWeightDetails">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -682,11 +707,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="AddOrdersTimeProduct" FunctionName="SushiTest1Model1.Store.AddOrdersTimeProduct" />
-          <FunctionImportMapping FunctionImportName="AddProduct" FunctionName="SushiTest1Model1.Store.AddProduct" />
-          <FunctionImportMapping FunctionImportName="AllDishes" FunctionName="SushiTest1Model1.Store.AllDishes">
+          <FunctionImportMapping FunctionImportName="AddOrdersTimeProduct" FunctionName="SushiTest1Model.Store.AddOrdersTimeProduct" />
+          <FunctionImportMapping FunctionImportName="AddProduct" FunctionName="SushiTest1Model.Store.AddProduct" />
+          <FunctionImportMapping FunctionImportName="AllDishes" FunctionName="SushiTest1Model.Store.AllDishes">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.AllDishes_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model.AllDishes_Result">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
@@ -701,15 +726,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="DeleteCategory" FunctionName="SushiTest1Model1.Store.DeleteCategory" />
-          <FunctionImportMapping FunctionImportName="DeleteDish" FunctionName="SushiTest1Model1.Store.DeleteDish" />
-          <FunctionImportMapping FunctionImportName="DeleteOrder" FunctionName="SushiTest1Model1.Store.DeleteOrder" />
-          <FunctionImportMapping FunctionImportName="DeleteProductWeightDetails" FunctionName="SushiTest1Model1.Store.DeleteProductWeightDetails" />
-          <FunctionImportMapping FunctionImportName="DelOrdersDetailsId" FunctionName="SushiTest1Model1.Store.DelOrdersDetailsId" />
-          <FunctionImportMapping FunctionImportName="DelOrdersTimeChanged" FunctionName="SushiTest1Model1.Store.DelOrdersTimeChanged" />
-          <FunctionImportMapping FunctionImportName="FindCategory" FunctionName="SushiTest1Model1.Store.FindCategory">
+          <FunctionImportMapping FunctionImportName="DeleteCategory" FunctionName="SushiTest1Model.Store.DeleteCategory" />
+          <FunctionImportMapping FunctionImportName="DeleteDish" FunctionName="SushiTest1Model.Store.DeleteDish" />
+          <FunctionImportMapping FunctionImportName="DeleteOrder" FunctionName="SushiTest1Model.Store.DeleteOrder" />
+          <FunctionImportMapping FunctionImportName="DeleteProductWeightDetails" FunctionName="SushiTest1Model.Store.DeleteProductWeightDetails" />
+          <FunctionImportMapping FunctionImportName="DelOrdersDetailsId" FunctionName="SushiTest1Model.Store.DelOrdersDetailsId" />
+          <FunctionImportMapping FunctionImportName="DelOrdersTimeChanged" FunctionName="SushiTest1Model.Store.DelOrdersTimeChanged" />
+          <FunctionImportMapping FunctionImportName="FindCategory" FunctionName="SushiTest1Model.Store.FindCategory">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.FindCategory_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model.FindCategory_Result">
                 <ScalarProperty Name="TotalCategories" ColumnName="TotalCategories" />
                 <ScalarProperty Name="NameUkr" ColumnName="NameUkr" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
@@ -719,9 +744,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="FindDishById" FunctionName="SushiTest1Model1.Store.FindDishById">
+          <FunctionImportMapping FunctionImportName="FindDishById" FunctionName="SushiTest1Model.Store.FindDishById">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.FindDishById_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model.FindDishById_Result">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
@@ -738,9 +763,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="FindDishes" FunctionName="SushiTest1Model1.Store.FindDishes">
+          <FunctionImportMapping FunctionImportName="FindDishes" FunctionName="SushiTest1Model.Store.FindDishes">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.FindDishes_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model.FindDishes_Result">
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="NameRus" ColumnName="NameRus" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
@@ -755,56 +780,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="FindOrders" FunctionName="SushiTest1Model1.Store.FindOrders">
+          <FunctionImportMapping FunctionImportName="FindOrders" FunctionName="SushiTest1Model.Store.FindOrders">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.FindOrders_Result">
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="Street" ColumnName="Street" />
-                <ScalarProperty Name="House" ColumnName="House" />
-                <ScalarProperty Name="Room" ColumnName="Room" />
-                <ScalarProperty Name="MaxStatusTime" ColumnName="MaxStatusTime" />
-                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
-                <ScalarProperty Name="StatusNameRus" ColumnName="StatusNameRus" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="HideDish" FunctionName="SushiTest1Model1.Store.HideDish" />
-          <FunctionImportMapping FunctionImportName="InsertValOrdTimeCh" FunctionName="SushiTest1Model1.Store.InsertValOrdTimeCh" />
-          <FunctionImportMapping FunctionImportName="MostPopularDishes" FunctionName="SushiTest1Model1.Store.MostPopularDishes">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.MostPopularDishes_Result">
-                <ScalarProperty Name="NumberOfOrders" ColumnName="NumberOfOrders" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SelectOrderContactInfo" FunctionName="SushiTest1Model1.Store.SelectOrderContactInfo">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.SelectOrderContactInfo_Result">
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Street" ColumnName="Street" />
-                <ScalarProperty Name="House" ColumnName="House" />
-                <ScalarProperty Name="Room" ColumnName="Room" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ShowAllCategories" FunctionName="SushiTest1Model1.Store.ShowAllCategories">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.ShowAllCategories_Result">
-                <ScalarProperty Name="TotalCategories" ColumnName="TotalCategories" />
-                <ScalarProperty Name="NameUkr" ColumnName="NameUkr" />
-                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="Priority" ColumnName="Priority" />
-                <ScalarProperty Name="TotalDishes" ColumnName="TotalDishes" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ShowAllOrders" FunctionName="SushiTest1Model1.Store.ShowAllOrders">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.ShowAllOrders_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model.FindOrders_Result">
                 <ScalarProperty Name="TotalOrders" ColumnName="TotalOrders" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
@@ -816,18 +794,86 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ShowAllTimeStatus" FunctionName="SushiTest1Model1.Store.ShowAllTimeStatus">
+          <FunctionImportMapping FunctionImportName="HideDish" FunctionName="SushiTest1Model.Store.HideDish" />
+          <FunctionImportMapping FunctionImportName="InsertValOrdTimeCh" FunctionName="SushiTest1Model.Store.InsertValOrdTimeCh" />
+          <FunctionImportMapping FunctionImportName="MostPopularDishes" FunctionName="SushiTest1Model.Store.MostPopularDishes">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.ShowAllTimeStatus_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model.MostPopularDishes_Result">
+                <ScalarProperty Name="NumberOfOrders" ColumnName="NumberOfOrders" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectOrderContactInfo" FunctionName="SushiTest1Model.Store.SelectOrderContactInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.SelectOrderContactInfo_Result">
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="TotalSum" ColumnName="TotalSum" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectProductsFromCategoryInModal" FunctionName="SushiTest1Model.Store.SelectProductsFromCategoryInModal">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.SelectProductsFromCategoryInModal_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectProductsFromOrder" FunctionName="SushiTest1Model.Store.SelectProductsFromOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.SelectProductsFromOrder_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ShowAllCategories" FunctionName="SushiTest1Model.Store.ShowAllCategories">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllCategories_Result">
+                <ScalarProperty Name="TotalCategories" ColumnName="TotalCategories" />
+                <ScalarProperty Name="NameUkr" ColumnName="NameUkr" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="TotalDishes" ColumnName="TotalDishes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ShowAllOrders" FunctionName="SushiTest1Model.Store.ShowAllOrders">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllOrders_Result">
+                <ScalarProperty Name="TotalOrders" ColumnName="TotalOrders" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="MaxStatusTime" ColumnName="MaxStatusTime" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="StatusNameRus" ColumnName="StatusNameRus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ShowAllTimeStatus" FunctionName="SushiTest1Model.Store.ShowAllTimeStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllTimeStatus_Result">
                 <ScalarProperty Name="StatusNameRus" ColumnName="StatusNameRus" />
                 <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="ShowUnprocessedOrders" FunctionName="SushiTest1Model1.Store.ShowUnprocessedOrders">
+          <FunctionImportMapping FunctionImportName="ShowUnprocessedOrders" FunctionName="SushiTest1Model.Store.ShowUnprocessedOrders">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="SushiTest1Model1.ShowUnprocessedOrders_Result">
+              <ComplexTypeMapping TypeName="SushiTest1Model.ShowUnprocessedOrders_Result">
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="House" ColumnName="House" />
@@ -837,9 +883,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="UpdateCategory" FunctionName="SushiTest1Model1.Store.UpdateCategory" />
-          <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="SushiTest1Model1.Store.UpdateProduct" />
-          <FunctionImportMapping FunctionImportName="UpdateProductWeightDetails" FunctionName="SushiTest1Model1.Store.UpdateProductWeightDetails" />
+          <FunctionImportMapping FunctionImportName="UpdateCategory" FunctionName="SushiTest1Model.Store.UpdateCategory" />
+          <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="SushiTest1Model.Store.UpdateProduct" />
+          <FunctionImportMapping FunctionImportName="UpdateProductWeightDetails" FunctionName="SushiTest1Model.Store.UpdateProductWeightDetails" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

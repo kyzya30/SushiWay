@@ -626,7 +626,6 @@ namespace WebApplication1.Controllers
                     mostPopularDishes = context.MostPopularDishes(5, category[0].CategoryId).ToList(),
                     showUnprocessedOrders = context.ShowUnprocessedOrders().ToList()
                 };
-
                 return View(statisticModel);
             }
         }
@@ -634,6 +633,12 @@ namespace WebApplication1.Controllers
         { 
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Admin");
+        }
+
+        public ActionResult GetData()
+        {
+            var context=new SushiTest1Entities1();
+            return Content(context.ShowUnprocessedOrders().Count().ToString()); // Of whatever you need to return.
         }
 
         //public ActionResult Trq()

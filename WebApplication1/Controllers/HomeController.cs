@@ -215,7 +215,7 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                model[0] = new { res = "Заказ не найдет" };
+                model[0] = new { res = "Заказ не найден" };
             }
 
             return Json(model, JsonRequestBehavior.AllowGet);

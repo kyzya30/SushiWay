@@ -70,7 +70,10 @@
                     </a>
                 </li>
                 <li class="activeStyle">
-                    <a class="class3" href="@Url.Action("Orders", "Admin")">&nbsp;<img src=@Url.Content("~/Content/Images/Controls/Admin/icon-orders.png")> &nbsp; Заказы
+                    <a class="class3" href="@Url.Action("Orders", "Admin")">&nbsp;<img src=@Url.Content("~/Content/Images/Controls/Admin/icon-orders.png")> &nbsp; Заказы  
+                        <span id="numberOfUnprocessed" class="text-center" style="visibility: collapse; width: 25px; height: 25px; padding: 5px 9px; background-image: url('../../Content/Images/Controls/Admin/bg-badge.png');">
+                            @Html.Action("GetData","Admin")
+                        </span>
                         <div class="bg-active-menu_style" style="visibility: hidden">
                             <img src=@Url.Content("~/Content/Images/Controls/Admin/bg-active-menu-item.png")>
                         </div>
@@ -86,8 +89,14 @@
 
                     var url = window.location.pathname;
                     $("li a[href='" + url + "']").parent().css("background-color", "#5F5F5F");
-                    $("li a[href='" + url + "']").children().css("visibility", "visible");
+                    $("li a[href='" + url + "']").children().not("#numberOfUnprocessed").css("visibility", "visible");
                 });
+
+                if ($("#numberOfUnprocessed").text()!=0) {
+                    $("#numberOfUnprocessed").css("visibility", "visible");
+                } else {
+                    $("#numberOfUnprocessed").css("visibility", "hidden");
+                }
             });
             
         </script>

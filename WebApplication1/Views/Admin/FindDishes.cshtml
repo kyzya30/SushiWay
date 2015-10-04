@@ -1,12 +1,9 @@
-﻿
-@model Product
-
+﻿@model Product
 @using (Html.BeginForm("FindDishes", "Admin", FormMethod.Post))
 {
     <form>
         <div style="position: relative;">
             <input type="text" name="NameRus" class="mysearch" placeholder="Поиск" style="border-width: 1px; border-style: solid">
-            @*<img style="position: absolute; right: 22px;top:18px" src='@Url.Content("~/Content/Images/Controls/Admin/icon-search.png")' />*@
         </div>
     </form>
 }

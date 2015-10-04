@@ -10,8 +10,8 @@
         <div class="modal-dialog">
 
             <!-- Modal content-->
-            <div class="modal-content" style=" width: 470px; height: 224px; border-width: 1px; border-style: solid; border-color: #4b4b4b; border-radius: 0; color: white">
-                <div class="modal-header" style="background: #4b4b4b; text-color: white; height: 50px">
+            <div class="modal-content modalContentStandartSize" >
+                <div class="modal-header modalHeaderStyle">
 
                     <h4 class="modal-title"><b>Удалить блюдо</b></h4>
                 </div>
@@ -25,14 +25,11 @@
                     <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
                 </div>
                 <!--<div class="modal-footer"></div>-->
-                <button type="button" class="btn btn-default" style="border-radius: 0; background: #bfbfbf; color: #ffffff; width: 127px; height: 40px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       position: fixed; top: 150px; left: 103px; margin-top: 30px;"
-                        data-dismiss="modal">
+                <button type="button" class="btn btn-default cancelStandartModa" data-dismiss="modal">
                     <b>Отмена</b>
                 </button>
 
-                <button type="button" data-url = "@Url.Action("DeleteDishModal","Admin")" class="btn btn-default" id="delDishBtn" style="border-radius: 0; background: #808080; color: #ffffff; width: 127px; height: 40px;
-                                                                                                  position: fixed; top: 150px; left: 243px; margin-top: 30px;">
+                <button type="button" data-url = "@Url.Action("DeleteDishModal","Admin")" class="btn btn-default submitStandartModal" id="delDishBtn">
                     <b>Удалить</b>
                 </button>
 

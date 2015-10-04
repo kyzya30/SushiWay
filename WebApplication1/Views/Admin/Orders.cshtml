@@ -1,51 +1,79 @@
 ﻿@using PagedList
 @using PagedList.Mvc
-
 @model IPagedList<WebApplication1.ShowAllOrders_Result>
    
  @{
         ViewBag.Title = "Orders";
         Layout = "~/Views/Shared/AdminMasterPage.cshtml";
-    }
-    <div class="container-fluid " style="padding-top: 0px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
-        <div class="row" style="padding-top: 40px; padding-left: 30px">
+  }
+    <div class="container-fluid ContainerPos">
+        <div class="row rowOrdPosition">
             <div class="row col-sx-12" style="padding-top: 15px">
                 <div class="col-xs-6">
                     <h3 class="header" style="position:relative; left:-17px">
                         Заказы
-                        
-                         @*<a href="@Url.Action("AddNewOrder", "Admin")">
-
-
-                            <img style="padding-left: 20px"
-                                 src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>
-                        </a>*@
                     </h3>
-
                 </div>
                 <div class="col-xs-6 clearfix" style="padding-top: 5px; ">
                     <div class="text-right pull-right">
                         @Html.Partial("FindOrders", new Order())
                     </div>
                 </div>
-
-
             </div>
-
             <div class="row col-xs-12">
                 <div class="col-xs-2 funcElements hideBtns" onclick="ChangeOrderStatus()" data-toggle="modal" data-target="#ChangeOrderStatus"><a href="">Изменить статус</a></div>
                 <div class="col-xs-2 funcElements hideBtns" onclick="DeleteOrderModal()" data-toggle="modal" data-target="#DeleteOrderModal"><a href="">Удалить</a></div>
                 <div class="col-xs-2"> </div>
-
                 <div class="col-xs-6" style="text-align: right">
                    @Model.FirstItemOnPage-@Model.LastItemOnPage заказов из @Model.TotalItemCount
-                   
                 </div>
             </div>
-            <div class="row col-xs-12" style="padding-top: 10px; padding-bottom: 10px; border-width: 3px; border-bottom-style: solid;">
+            <div class="row col-xs-12 TopDivideLine">
                 <div class="col-xs-1">
+                    <input id="selectAllOrders" name="selectAllOrders" type="checkbox" hidden />
+                    <label for="selectAllOrders"></label>
+                </div>
+                <div class="col-xs-1" style="text-align: left"><b>Номер</b> </div>
+                <div class="col-xs-1"><b>Адрес</b></div>
 
-                    <script type="text/javascript">
+                <div class="col-xs-5" style="text-align: right"><b>Изменение статуса</b></div>
+                <div class="col-xs-2"><b>Сумма</b></div>
+                <div class="col-xs-2"><b>Состояние</b></div>
+            </div>
+            @foreach(var item in Model)
+            {
+                var street = item.Street;
+                var house = item.House;
+                var room = item.Room;
+                var maxTime = item.MaxStatusTime.ToString();
+                var totalPrice =item.TotalPrice.ToString();             
+                var statusNameRus = item.StatusNameRus;
+                var ordId = item.OrderId.ToString();
+            <div class="row col-xs-12 custom_table-hover_div custom_table-hover_style" >
+                <div class="col-xs-1">
+                    <input id="@ordId" type="checkbox" class="checkboxes" name="@ordId" hidden />
+                    <label for="@ordId"></label>
+                </div>
+                <div class="col-xs-1" style="text-align: left">
+                    @Html.ActionLink(ordId, "EditOrder", "Admin", new { orderId = ordId }, null)              
+                </div>
+                <div class="col-xs-3">Ул. @street @house .кв @room</div>
+                <div class="col-xs-3" style="text-align: right">@maxTime</div>
+                <div class="col-xs-2">@totalPrice</div>
+                <div class="col-xs-2">@statusNameRus</div>          
+            </div>
+            }
+            <div class="row col-xs-12" style="padding-top: 15px">
+                <div class="col-xs-2 funcElements hideBtns" onclick="ChangeOrderStatus()" data-toggle="modal" data-target="#ChangeOrderStatus"><a href="">Изменить статус</a> </div>
+                <div class="col-xs-2 funcElements hideBtns" onclick="DeleteOrderModal()" data-toggle="modal" data-target="#DeleteOrderModal"><a href="">Удалить</a></div>
+                <div class="col-xs-2"></div>
+                <div class="col-xs-6"></div>
+            </div>
+        </div>
+        @Html.PagedListPager(Model, page => Url.Action("Orders", new { page, pageSize = Model.PageSize }), new WebApplication1.Controllers.AdminController.MyRenderOptions())
+        @Html.Partial("DeleteOrderModal", new Order())
+        @Html.Partial("ChangeOrderStatus", new Order())
+        <script type="text/javascript">
                         $(document).ready(function () {
                             $(function () {
                                 $('input[name="selectAllOrders"]').change(function () {
@@ -75,67 +103,5 @@
                             });
 
                         })
-                    </script>
-
-                    @*<img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>*@
-                    <input id="selectAllOrders" name="selectAllOrders" type="checkbox" hidden />
-                    <label for="selectAllOrders"></label>
-                </div>
-                <div class="col-xs-1" style="text-align: left"><b>Номер</b> </div>
-                <div class="col-xs-1"><b>Адрес</b></div>
-
-
-                <div class="col-xs-5" style="text-align: right"><b>Изменение статуса</b></div>
-                <div class="col-xs-2"><b>Сумма</b></div>
-                <div class="col-xs-2"><b>Состояние</b></div>
-            </div>
-
-            @*@foreach (var D in ViewBag.AllCategories)
-            {
-
-            var tmpStr = D.CategoryId.ToString();
-            <div>@tmpStr</div>
-            }*@
-            @foreach(var D in Model)
-            {
-                var street = D.Street.ToString();
-                var House = D.House.ToString();
-                var room = D.Room.ToString();
-                var MaxTime = D.MaxStatusTime.ToString();
-                var totalPrice =D.TotalPrice.ToString();
-                
-                var statusNameRus = D.StatusNameRus.ToString();
-                var ordId = D.OrderId.ToString();
-            <div class="row col-xs-12 custom_table-hover_div" style="padding-top: 10px; padding-bottom: 10px; border-width: 1px; border-bottom-style: solid;border-color: #7F7F7F ">
-              
-                  
-
-                <div class="col-xs-1">
-                    <input id="@ordId" type="checkbox" class="checkboxes" name="@ordId" hidden />
-                    <label for="@ordId"></label>
-                </div>
-                <div class="col-xs-1" style="text-align: left">
-
-                    @Html.ActionLink(ordId, "EditOrder", "Admin", new { orderId = ordId }, null)
-                    
-                </div>
-                <div class="col-xs-3">Ул. @street @House .кв @room</div>
-                <div class="col-xs-3" style="text-align: right">@MaxTime</div>
-                <div class="col-xs-2">@totalPrice</div>
-                <div class="col-xs-2">@statusNameRus</div>
-               
-            </div>
-            }
-
-
-            <div class="row col-xs-12" style="padding-top: 15px">
-                <div class="col-xs-2 funcElements hideBtns" onclick="ChangeOrderStatus()" data-toggle="modal" data-target="#ChangeOrderStatus"><a href="">Изменить статус</a> </div>
-                <div class="col-xs-2 funcElements hideBtns" onclick="DeleteOrderModal()" data-toggle="modal" data-target="#DeleteOrderModal"><a href="">Удалить</a></div>
-                <div class="col-xs-2"></div>
-                <div class="col-xs-6"></div>
-            </div>
-        </div>
-        @Html.PagedListPager(Model, page => Url.Action("Orders", new { page, pageSize = Model.PageSize }), new WebApplication1.Controllers.AdminController.MyRenderOptions())
-        @Html.Partial("DeleteOrderModal", new Order())
-        @Html.Partial("ChangeOrderStatus", new Order())
+        </script>
     </div>

@@ -19,22 +19,14 @@
     <link href=@Url.Content("~/Content/styles.css") rel="stylesheet">
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.10.2.js")"></script>
 </head>
-
-<body style="background-color:#E9E9E9">
-
-
+<body class="Back-ColE9E9E9">
 <div class="row">
     <div class="login text-center" style="margin-top: 200px;">
         <div class="loginH">
             <img src="@Url.Content("~/Content/Images/Controls/Admin/logo.png")" style="width: 25%;">
         </div>
-
         @Html.Partial("CheckLogin", new Administrator())
-
     </div>
 </div>
-
-
-
 </body>
 </html>	

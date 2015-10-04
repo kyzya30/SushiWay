@@ -4,31 +4,23 @@
     ViewBag.Title = "Category";
     Layout = "~/Views/Shared/AdminMasterPage.cshtml";
     }
-
-
-
-    <div class="container-fluid " style="padding-top: 0px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
-        <div class="row" style="padding-top: 40px; padding-left: 30px">
+    <div class="container-fluid ContainerPos">
+        <div class="row rowOrdPosition">
             <div class="row col-sx-12" style="padding-top: 15px">
                 <div class="col-xs-6">
                     <h3 class="header" style="position:fixed; left:205px">
                         Категории блюд <img style="padding-left: 20px" data-toggle="modal" data-target="#myModal" src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>
-                    </h3>
-                    
+                    </h3>     
                 </div>
                 <div class="col-xs-6 clearfix" style="padding-top: 5px; ">
                     <div class="text-right pull-right">
                         @Html.Partial("FindCategory", new Category())
                     </div>
                 </div>
-
-
             </div>
             <div class="row">
                 <div class="col-xs-1 funcElements greyColorLnk hideBtns" onclick="DeleteItemModal()" data-toggle="modal" data-target="#DeleteCategoryModal"><a href="">Удалить</a></div>
                 <div class="col-xs-1 funcElements hideBtns" onclick="ShowAllSelected()" data-toggle="modal" data-target="#ModifyCategoryModal"><a href="">Редактировать</a></div>
-                
-
                 <div class="col-xs-10 pull-right" style="text-align:right;">
                     
                     <span id="categoriesLength"></span> категорий
@@ -37,7 +29,58 @@
            
             <div class="row col-xs-12" style=" padding-top: 10px ; padding-bottom: 10px; border-bottom-width: 3px; border-bottom-style: solid;  ">
                 <div class="col-xs-1">
-                    <script type="text/javascript">
+                    
+                    <input id="selectAll" name="selectAll" type="checkbox" hidden />
+                    <label for="selectAll"></label>
+
+                </div>
+                <div class="col-xs-1" style="text-align: left"><b>Название</b> </div>
+                <div class="col-xs-1">
+                    <img src=@Url.Content("~/Content/Images/Controls/Admin/icon-sort-down.png")>
+                </div>
+                <div class="col-xs-5"></div>
+                <div class="col-xs-2"><b>Приоритет</b></div>
+                <div class="col-xs-2" style="position: absolute; top: 0;right:10px"><b>Количество <br>блюд</b></div>
+            </div>
+
+            <span id="notFoundMessage"></span>
+            @foreach (var item in Model)
+            {
+            var nameUkr = item.NameUkr;
+            var allCatId = item.CategoryId.ToString();
+            var nameRusCategory = item.NameRus;
+            var categoryPriority = item.Priority.ToString();
+            var totalDishes = item.TotalDishes.ToString();
+           
+
+            <div class="row col-xs-12 custom_table-hover_div" style="padding-top: 10px; padding-bottom: 10px; border-width: 1px; border-bottom-style: solid;border-color: #7F7F7F;">
+                
+                
+                <div class="col-xs-1">
+
+                    <input id="@allCatId" type="checkbox" class="checkboxes" name="@nameRusCategory"  data-nameukr="@nameUkr"  hidden />
+                    <label for="@allCatId"></label>
+
+                </div>
+
+                <div class="col-xs-1" style="text-align: left">@nameRusCategory</div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-5"></div>
+                <div class="col-xs-2">@categoryPriority</div>
+                <div class="col-xs-2">@totalDishes</div>
+            </div>
+            }
+
+
+            <div class="row col-xs-12" style="padding-top: 15px">
+                <div class="col-xs-1 funcElements greyColorLnk hideBtns" onclick="DeleteItemModal()" data-toggle="modal" data-target="#DeleteCategoryModal"><a href="">Удалить</a></div>
+                <div class="col-xs-1 funcElements greyColorLnk hideBtns" onclick="ShowAllSelected()" data-toggle="modal" data-target="#ModifyCategoryModal"><a href="">Редактировать</a></div>
+                <div class="col-xs-2 funcElements greyColorLnk"></div>
+                <div class="col-xs-8"></div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
                         $(document).ready(function () {
                             $(function () {
                                 $('input[name="selectAll"]').change(function () {
@@ -73,70 +116,9 @@
                                 $("#notFoundMessage").text("Извините, по вашему запросу ничего не найдено.");
                             }
                         });
-                        
-                    </script>
-                    
-                    @*<img src=@Url.Content("~/Content/Images/Controls/Admin/checkbox-off.png")>*@
-                    <input id="selectAll" name="selectAll" type="checkbox" hidden />
-                    <label for="selectAll"></label>
 
-                </div>
-                <div class="col-xs-1" style="text-align: left"><b>Название</b> </div>
-                <div class="col-xs-1">
-                    <img src=@Url.Content("~/Content/Images/Controls/Admin/icon-sort-down.png")>
-                </div>
-                <div class="col-xs-5"></div>
-                <div class="col-xs-2"><b>Приоритет</b></div>
-                <div class="col-xs-2" style="position: absolute; top: 0;right:10px"><b>Количество <br>блюд</b></div>
-            </div>
-
-            <span id="notFoundMessage"></span>
-            @foreach (var D in Model)
-            {
-            var NameUkr = D.NameUkr.ToString();
-            var allCatID = D.CategoryId.ToString();
-            var nameRusCategory = D.NameRus.ToString();
-            var categoryPriority = D.Priority.ToString();
-            var totalDishes = D.TotalDishes.ToString();
-           
-
-            <div class="row col-xs-12 custom_table-hover_div" style="padding-top: 10px; padding-bottom: 10px; border-width: 1px; border-bottom-style: solid;border-color: #7F7F7F;">
-                
-                
-                <div class="col-xs-1">
-
-                    <input id="@allCatID" type="checkbox" class="checkboxes" name="@nameRusCategory"  data-nameukr="@NameUkr"  hidden />
-                    <label for="@allCatID"></label>
-
-                </div>
-
-                <div class="col-xs-1" style="text-align: left">@nameRusCategory</div>
-                <div class="col-xs-1"></div>
-                <div class="col-xs-5"></div>
-                <div class="col-xs-2">@categoryPriority</div>
-                <div class="col-xs-2">@totalDishes</div>
-            </div>
-            }
-
-
-            <div class="row col-xs-12" style="padding-top: 15px">
-                <div class="col-xs-1 funcElements greyColorLnk hideBtns" onclick="DeleteItemModal()" data-toggle="modal" data-target="#DeleteCategoryModal"><a href="">Удалить</a></div>
-                <div class="col-xs-1 funcElements greyColorLnk hideBtns" onclick="ShowAllSelected()" data-toggle="modal" data-target="#ModifyCategoryModal"><a href="">Редактировать</a></div>
-                <div class="col-xs-2 funcElements greyColorLnk"></div>
-                <div class="col-xs-8"></div>
-            </div>
-        </div>
-
-
-
-
-
+        </script>
         @Html.Partial("AddCategory", new Category())
-
-
         @Html.Partial("ModifyCategoryModal", new Category())
-
-
-
-       @Html.Partial("DeleteCategoryItem", new Category())
+        @Html.Partial("DeleteCategoryItem", new Category())
     </div>

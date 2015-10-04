@@ -1,17 +1,13 @@
 ﻿@model Administrator
-
-
 @using (Html.BeginForm("CheckLogin", "Admin", FormMethod.Post,new {id="LoginForm"}))
 {
-
-
     <div class="loginF">
         <span id="errorMessage" style="color: red; font-size: 14px;"></span>
-        <input type="text" id="Login" name="Login" placeholder="Электронная почта" class="form-control" style="border-radius: 0;"/>
-        <input type="password" id="Password" name="Password" placeholder="Пароль" class="form-control" style="border-radius: 0;"/>
-
-        @*<input type="submit" style="background: url(/Content/Images/Controls/Admin/enter.jpg) no-repeat;" />*@
-
+        <input type="text" id="Login" name="Login" placeholder="Электронная почта" class="form-control borderRad0"/>
+        <input type="password" id="Password" name="Password" placeholder="Пароль" class="form-control borderRad0" />
+        <button type="submit" style="padding: 0; border: none">
+            <img id="img" src="@Url.Content("~/Content/Images/Controls/Admin/enter.jpg")">
+        </button>
         <script type="text/javascript">
             $(document).ready(function() {
 
@@ -36,11 +32,5 @@
                 });
             });
         </script>
-
-
-        <button type="submit" style="padding: 0; border: none">
-            <img id="img" src="@Url.Content("~/Content/Images/Controls/Admin/enter.jpg")">
-        </button>
-
     </div>
 }

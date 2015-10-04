@@ -1,6 +1,5 @@
 ﻿@model Order
 
-
 @using (Html.BeginForm("ChangeOrderStatus", "Admin", FormMethod.Post))
 {
 <div>
@@ -17,16 +16,17 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <p class="text-center" style="color: black">Изменить состояние заказов номер <span id="ChangedItem"><br /><b></b></span>?</p>
+                        <p class="text-center" style="color: black; position: fixed; left: 89px; top:98px">Изменить состояние заказов номер <span id="ChangedItem"><br /><b></b></span>?</p>
 
                     </div>
-                    <select id="dropdown" class="form-control addNewDishTxt " style="border-radius: 0; margin-left:100px">
+                    <select id="dropdown" class="form-control addNewDishTxt " style="border-radius: 0; position: fixed; left: 103px; top: 123px; width: 270px; height:40px">
                       
-                        <option value="1">Выполнен</option>
-                        <option value="2">В ожидании</option>
-                        <option value="4">Отменен</option>
-                        <option value="5">Создан</option>
-                        <option value="6">В выполнении</option>
+                        <option value="1">доставлен</option>
+                        <option value="2">в ожидании</option>
+                        <option value="3">в пути</option>
+                        <option value="4">отменен</option>
+                        <option value="5">создан</option>
+                        <option value="6">в выполнении</option>
 
                         
                     </select><br />
@@ -36,13 +36,13 @@
                 </div>
                 <!--<div class="modal-footer"></div>-->
                 <button type="button" class="btn btn-default" style="border-radius: 0; background: #bfbfbf; color: #ffffff; width: 127px; height: 40px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       position: fixed; top: 150px; left: 103px; margin-top: 30px;"
+position: fixed; top: 160px; left: 103px; margin-top: 30px;"
                         data-dismiss="modal">
                     <b>Отмена</b>
                 </button>
 
                 <button type="button" data-url = "@Url.Action("ChangeOrderStatus","Admin")" class="btn btn-default" id="changeStatus" style="border-radius: 0; background: #808080; color: #ffffff; width: 127px; height: 40px;
-                                                                                                  position: fixed; top: 150px; left: 243px; margin-top: 30px;">
+                                                                                                  position: fixed; top: 160px; left: 246px; margin-top: 30px;">
                     <b>Изменить</b>
                 </button>
 

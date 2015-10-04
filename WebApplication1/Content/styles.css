@@ -565,3 +565,93 @@ ul.pagination {
 .pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus {
     background: none;
 }
+.existDish {
+    
+    color:red;font-size:18px;margin:70px 0 220px 0;padding-left:20px;
+}
+.Back-ColE9E9E9 {
+    background-color: #E9E9E9;  
+
+}
+.ContainerPos {
+   padding-top: 0px;
+    padding-left: 30px; padding-right: 30px; 
+   background-color: white;padding-bottom: 40px;
+}
+.rowOrdPosition {
+    
+padding-top: 40px;padding-left: 30px;
+}
+.TopDivideLine {
+    padding-top: 10px;
+     padding-bottom: 10px;
+      border-width: 3px; border-bottom-style: solid;}
+.custom_table-hover_style 
+{
+    padding-top: 10px; padding-bottom: 10px; border-width: 1px; 
+    border-bottom-style: solid;border-color: #7F7F7F; 
+} 
+.indexStyle {
+     width: 385px;position:fixed; top:178px ; left:207px;border-color:#7F7F7F;
+ }  
+.categoryDrpdwn {
+
+width:270px;height:40px;border-color: black;
+}
+.topValDrpdwn {
+    
+    height:40px;width:91px;border-color: black;
+}
+.mostPopularDishDiv {
+    
+    width: 385px; position: fixed; left: 611px; top: 238px; border-color: #7F7F7F;
+}
+.mostPopularDishTd {
+padding-top:4px;padding-bottom:4px;font-size:11px;text-align: center;
+}
+.modalContentCategoryStyle {
+  width: 470px; height: 284px; border-width: 1px; border-style: solid; 
+  border-color: #4b4b4b; border-radius: 0;color: white;
+}
+.modifyCategoryNameRusbtn {
+    border-radius: 0; width: 195px; height: 40px; position: fixed; 
+    top: 80px; left: 103px; margin-top: 50px; margin-left: 5px;
+}
+.priorityCategoryBtn {
+    width: 59px; height: 39px;
+     position: fixed; top: 80px; left: 315px; margin-top: 50px;
+      border-width: 1px; border-style: solid; border-color: #bfbfbf;
+}
+.modifyCategoryNameUkrBtn {
+    border-radius: 0; width: 195px; height: 40px; position: fixed;
+     top: 140px; left: 103px; margin-top: 50px; margin-left: 5px;
+}
+/*Modal often*/
+.cancelBtn {
+  border-radius: 0; background: #bfbfbf; color: #ffffff; width: 127px;
+   height: 40px; position: fixed; top: 230px; left: 103px; margin-top: 30px;  
+}
+.submitBtn {
+   border-radius: 0; background: #808080; color: #ffffff; width: 127px;
+    height: 40px; position: fixed; 
+   top: 230px; left: 243px; margin-top: 30px; 
+
+}
+.submitStandartModal {
+    border-radius: 0; background: #808080; color: #ffffff; width: 127px; height: 40px;                                                                                                
+    position: fixed; top: 150px; left: 243px; margin-top: 30px;
+}
+
+.cancelStandartModal {  
+border-radius: 0; background: #bfbfbf; color: #ffffff; width: 127px; height: 40px;
+position: fixed; top: 150px; left: 103px; margin-top: 30px;
+}
+
+.modalHeaderStyle {
+    background: #4b4b4b; text-color: white;height: 50px;
+}
+.modalContentStandartSize {
+  width: 470px; height: 224px; border-width: 1px; border-style: solid;
+   border-color: #4b4b4b; border-radius: 0; color: white  
+}
+/*Modal often ends*/

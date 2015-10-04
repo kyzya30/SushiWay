@@ -18,6 +18,7 @@ using WebApplication1.Models;
 using WebApplication1.Addition_Classes;
 using PagedList;
 using PagedList.Mvc;
+using System.Web.Helpers;
 
 namespace WebApplication1.Controllers
 {
@@ -250,12 +251,24 @@ namespace WebApplication1.Controllers
                 {
                     Energy = "0";
                 } //Cheking for empty field
-                context.UpdateProduct(ProductId, dishCategory, NameRus, Price, NameUkr, Count, Convert.ToInt32(Energy),
-                    sale, hide, Priority, ingredientsTxtRus, ingredientsTxtUkr);
-                if (uploadPhoto != null) //Upload new photo
+
+                if (uploadPhoto.ContentType == "image/jpeg")
                 {
-                    int fileName = ProductId;
-                    uploadPhoto.SaveAs(Server.MapPath("~/Content/Images/Products/" + fileName + ".jpeg"));
+                    WebImage img = new WebImage(uploadPhoto.InputStream);
+                    img.Resize(525, 350);
+                    img.Save(Server.MapPath("~/Content/Images/Products/" + ProductId + ".jpeg"));
+
+                    context.UpdateProduct(ProductId, dishCategory, NameRus, Price, NameUkr, Count,
+                        Convert.ToInt32(Energy),
+                        sale, hide, Priority, ingredientsTxtRus, ingredientsTxtUkr);
+                    
+                }
+                else
+                {
+                    ViewBag.ErrorMessage = "Ошибка загрузки картинки! Допустимый формат - .jpeg";
+                    ViewBag.LinkText = "Перейти на страницу с блюдами";
+                    ViewBag.LinkHref = "Dishes";
+                    return View("~/Views/Admin/UploadingImageError.cshtml");
                 }
             }
             return RedirectToAction("Dishes", "Admin");
@@ -289,31 +302,44 @@ namespace WebApplication1.Controllers
                 {
                     weightNameString = "гр";
                 }
+                
 
-                foreach (var product in products)
+                if (uploadPhoto.ContentType == "image/jpeg")
                 {
-                    if (product.NameRus == NameRus || product.NameUkr == NameUkr)
+                    foreach (var product in products)
                     {
-                        ViewBag.ExistDish = "Блюдо с таким названием уже существует.";
-                        return View("~/Views/Admin/ExistDishPage.cshtml");
+                        if (product.NameRus == NameRus || product.NameUkr == NameUkr)
+                        {
+                            return View("~/Views/Admin/ExistDishPage.cshtml");
+                        }
                     }
+
+                    context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, isSale, isHidedProduct,
+                        Priority, ingredientsTxtRus, ingredientsTxtUkr);
+
+                    int fileName = context.Products.ToList().Last().ProductId; // fileName == ProductId
+
+                    ProductWeightDetail productWeightDetail = new ProductWeightDetail
+                    {
+                        ProductId = fileName,
+                        Name = weightNameString,
+                        Value = (decimal)Weight
+                    };
+                    context.ProductWeightDetails.Add(productWeightDetail);
+                    context.SaveChanges();
+
+                    WebImage img = new WebImage(uploadPhoto.InputStream);
+                    img.Resize(525, 350);
+                    img.Save(Server.MapPath("~/Content/Images/Products/" + fileName + ".jpeg"));
                 }
-
-                context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, isSale, isHidedProduct,
-                    Priority, ingredientsTxtRus, ingredientsTxtUkr);
-
-                int fileName = context.Products.ToList().Last().ProductId; // fileName == ProductId
-
-                ProductWeightDetail productWeightDetail = new ProductWeightDetail
+                else
                 {
-                    ProductId = fileName,
-                    Name = weightNameString,
-                    Value = (decimal) Weight
-                };
-                context.ProductWeightDetails.Add(productWeightDetail);
-                context.SaveChanges();
-
-                uploadPhoto.SaveAs(Server.MapPath("~/Content/Images/Products/" + fileName + ".jpeg"));
+                    ViewBag.ErrorMessage = "Ошибка загрузки картинки! Допустимый формат - .jpeg";
+                    ViewBag.LinkText = "Перейти на страницу добавления блюда.";
+                    ViewBag.LinkHref = "AddNewDish";
+                    return View("~/Views/Admin/UploadingImageError.cshtml");
+                }
+                
             }
             return RedirectToAction("Dishes");
         }

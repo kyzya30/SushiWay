@@ -24,7 +24,7 @@
             <p id="errorMessage" style='color: red;'></p>
             <div class="addImg text-center">
                 <img id="output" src="~/Content/Images/Controls/Admin/logo-transparent.png" style="width: 103px;"/><br/>
-                <input type="file" id="inputFile" name="uploadPhoto" style="display: none;" onchange="loadFile(event)"/>
+                <input type="file" id="inputFile" name="uploadPhoto" style="display: none;" onchange="loadFile(event)" accept="image/jpeg"/>
                 <button type="button" id="fileButton">Загрузить изображение</button>
                 <script>
                     $('#fileButton').click(function () {

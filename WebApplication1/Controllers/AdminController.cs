@@ -325,8 +325,6 @@ namespace WebApplication1.Controllers
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                    context.Categories.Add(newCategory);
-
                     foreach (var category in context.Categories)
                     {
                         if (category.NameRus == newCategory.NameRus || category.NameUkr == newCategory.NameUkr)
@@ -336,7 +334,7 @@ namespace WebApplication1.Controllers
                         }
                     }
 
-
+                    context.Categories.Add(newCategory);
                     context.SaveChanges();
                 }
             }
@@ -545,6 +543,13 @@ namespace WebApplication1.Controllers
             {
                 using (var context = new SushiTest1Entities1())
                 {
+                    foreach (var category in context.Categories)
+                    {
+                        if (category.NameRus == NameRus || category.NameUkr == NameUkr)
+                        {
+                            return View("~/Views/Admin/ExistCategoryPage.cshtml");
+                        }
+                    }
                     context.UpdateCategory(CategoryId, NameRus, NameUkr, Priority);
                     context.SaveChanges();
                 }

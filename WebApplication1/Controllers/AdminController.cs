@@ -326,6 +326,17 @@ namespace WebApplication1.Controllers
                 using (var context = new SushiTest1Entities1())
                 {
                     context.Categories.Add(newCategory);
+
+                    foreach (var category in context.Categories)
+                    {
+                        if (category.NameRus == newCategory.NameRus || category.NameUkr == newCategory.NameUkr)
+                        {
+                            ViewBag.ExistDish = "Такая категория уже существует.";
+                            return View("~/Views/Admin/ExistCategoryPage.cshtml");
+                        }
+                    }
+
+
                     context.SaveChanges();
                 }
             }

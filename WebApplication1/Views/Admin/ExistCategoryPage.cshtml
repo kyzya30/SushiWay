@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Ошибка";
+    Layout = "~/Views/Shared/AdminMasterPage.cshtml";
+}
+<div style="color:red;font-size:18px;margin:70px 0 220px 0;padding-left:20px;">
+    <p>Такая категория уже существует.</p>
+    <a style="color:blue;font-size:14px;" href="@Url.Action("Category","Admin")">Вернуться к списку категорий</a>
+</div>
+

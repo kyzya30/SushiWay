@@ -543,3 +543,25 @@ input[type="checkbox"]:checked + label::before {
 .dishDivChecked {
     background-color: #fef7f3;
 }
+
+ul.pagination {
+    float: right;
+    margin-top: 0;
+    margin-bottom: 60px;
+}
+
+.pagination > li > a, .pagination > li > span {
+    color: #000000;
+    border: none;
+    background: none;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    z-index: 2;
+    background: none;
+    color: #ED5604;
+}
+
+.pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus {
+    background: none;
+}

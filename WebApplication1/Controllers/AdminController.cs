@@ -15,6 +15,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using Microsoft.Ajax.Utilities;
 using WebApplication1.Models;
+using WebApplication1.Addition_Classes;
 using PagedList;
 using PagedList.Mvc;
 
@@ -33,122 +34,71 @@ namespace WebApplication1.Controllers
                 DisplayLinkToNextPage = PagedListDisplayMode.Never;
                 LinkToFirstPageFormat = "{0}";
                 LinkToLastPageFormat = "{0}";
-                
-              
                 MaximumPageNumbersToDisplay = 3;
                 DisplayEllipsesWhenNotShowingAllPageNumbers = true;
             }
         }
-        static bool VerifyLogin(string input, string dbval)
-        {
-            // Create a StringComparer an compare the hashes.
-            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-            if (0 == comparer.Compare(input, dbval))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        static bool VerifyMd5Hash(MD5 md5Hash, string input, string hash)
-        {
-            // Hash the input.
-            //string hashOfInput = GetMd5Hash(md5Hash, input);
-            // Create a StringComparer an compare the hashes.
-            StringComparer comparer = StringComparer.OrdinalIgnoreCase;
-            if (0 == comparer.Compare(input, hash))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        static string GetMd5Hash(MD5 md5Hash, string input)
-        {
-            // Convert the input string to a byte array and compute the hash.
-            byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(input));
-            // Create a new Stringbuilder to collect the bytes
-            // and create a string.
-            StringBuilder sBuilder = new StringBuilder();
-            // Loop through each byte of the hashed data 
-            // and format each one as a hexadecimal string.
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-            // Return the hexadecimal string.
-            return sBuilder.ToString();
-        }
+   
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login() //Login View
         {
             return View();
         }
+
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult CheckLogin(string Login, string Password)
+        public ActionResult CheckLogin(string Login, string Password) //Check Login and Password for Authenti
         {
             using (var context = new SushiTest1Entities1())
-            {       
-            using (MD5 md5Hash = MD5.Create())
             {
-                string hash = GetMd5Hash(md5Hash, Password);
-
-                var DBHashPassword = context.Administrators.Select(i => i.Password).FirstOrDefault();
-                var DBLogin = context.Administrators.Select(i => i.Login).FirstOrDefault();
-                bool passwordsSame = false;
-                bool loginsSame = false;
-                if (VerifyMd5Hash(md5Hash, DBHashPassword, hash))
+                using (MD5 md5Hash = MD5.Create())
                 {
-                        passwordsSame = true;   // Console.WriteLine("The hashes are the same.");
-                }
-                else
-                {
-                    passwordsSame = false; //Console.WriteLine("The hashes are not same.");
-                }
-                if (VerifyLogin(Login, DBLogin))
-                {
-                    loginsSame = true;
-                }
-                else
-                {
-                    loginsSame = false;
-                }
-                if (loginsSame == true && passwordsSame == true)
-                {
+                    string hash = UserAuthentication.GetMd5Hash(md5Hash, Password); //Get entered password hash 
+                    var dbHashPassword = context.Administrators.Select(i => i.Password).FirstOrDefault();//Get hasg of Password from DB
+                    var dbLogin = context.Administrators.Select(i => i.Login).FirstOrDefault();//Get login from DB
+                    bool passwordsSame, loginsSame;
+                    if (UserAuthentication.VerifyMd5Hash(md5Hash, dbHashPassword, hash))
+                    {
+                        passwordsSame = true;
+                    } // The hashes are the same.
+                    else
+                    {
+                        passwordsSame = false;
+                    } // The hashes are not same.
+                    if (UserAuthentication.VerifyLogin(Login, dbLogin))
+                    {
+                        loginsSame = true;
+                    }
+                    else
+                    {
+                        loginsSame = false;
+                    }
+                    if (UserAuthentication.CheckLoginAndPassword(loginsSame, passwordsSame))
+                    {
                         FormsAuthentication.SetAuthCookie(Login, true);
-                        return RedirectToAction("Index","Admin");
-                }
-                else
-                {
+                        return RedirectToAction("Index", "Admin");
+                    }
                     return RedirectToAction("Login", "Admin");
                 }
-              }
-            }      
+            }
         }
 
         public ActionResult Dishes(int page = 1, int pageSize = 10) //Show all dishes on Dishes view                                         
         {
             using (var context = new SushiTest1Entities1())
             {
-               List<AllDishes_Result> allDishesModel = context.AllDishes().ToList();
-                PagedList<AllDishes_Result> model = new PagedList<AllDishes_Result>(allDishesModel, page, pageSize);
-               return View(model);
+               PagedList<AllDishes_Result> allDishesModel = new PagedList<AllDishes_Result>(context.AllDishes().ToList(), page, pageSize);
+               return View(allDishesModel);
             }
         }
 
-        public ActionResult DishesInBlock(int page = 1, int pageSize = 10)                                      
+        public ActionResult DishesInBlock(int page = 1, int pageSize = 10) //Show all dishes in Block's view                                      
         {
             using (var context = new SushiTest1Entities1())
             {
-                List<AllDishes_Result> allDishesModel = context.AllDishes().ToList();
-                PagedList<AllDishes_Result> model = new PagedList<AllDishes_Result>(allDishesModel, page, pageSize);
-                return View(model);
+                PagedList<AllDishes_Result> allDishesModel = new PagedList<AllDishes_Result>(context.AllDishes().ToList(), page, pageSize);
+                return View(allDishesModel);
             }
         }
 
@@ -162,17 +112,16 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        public ActionResult EditOrder(int? orderId)
+        public ActionResult EditOrder(int? orderId) //Fill EditOrderView
         {
-            if (orderId == null)
+            if (orderId == null) //Check for orderId is not empty in adress line
             {
                 return RedirectToAction("Orders", "Admin");
             }
             using (var context = new SushiTest1Entities1())
             {
-               
                 var contactInfo = context.SelectOrderContactInfo(orderId).ToList();
-                if (!contactInfo.Any())
+                if (!contactInfo.Any()) //Check for cont info not null
                 {
                     return RedirectToAction("Orders", "Admin");
                 }
@@ -192,8 +141,9 @@ namespace WebApplication1.Controllers
                     productsInModal = context.SelectProductsFromCategoryInModal(1).ToList()
                 };
                 return View(editOrderModel);
-            }  
+            }
         }
+
         [HttpPost]
         public ActionResult AddDishToOrderModal(int? orderId)
         {
@@ -226,13 +176,13 @@ namespace WebApplication1.Controllers
                     productsInModal = context.SelectProductsFromCategoryInModal(4).ToList()
                 };
                 return View("~/Views/Admin/EditOrder.cshtml", editOrderModel);
-                //return View(editOrderModel);
             }
         }
+
         [HttpGet]
-        public ActionResult EditDish(int? productId)
+        public ActionResult EditDish(int? productId) //Fill EditDish view
         {
-            if (productId == null)
+            if (productId == null) //Check that adress line with productId is not null
             {
                 return RedirectToAction("Dishes", "Admin");
             }
@@ -240,13 +190,13 @@ namespace WebApplication1.Controllers
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                    
-                    var dish = context.FindDishById(productId).ToList();
+
+                    var dish = context.FindDishById(productId).ToList(); //Check exist dish or not
                     if (!dish.Any())
                     {
                         return RedirectToAction("Dishes", "Admin");
                     }
-                    
+
                     NewDishModel newDishModel = new NewDishModel
                     {
                         ProductId = dish[0].ProductId,
@@ -264,17 +214,15 @@ namespace WebApplication1.Controllers
                         IngridientsUkr = dish[0].IngridientsUkr,
                         categories = context.Categories.ToList(),
                         productWeightDetails = context.ProductWeightDetails.ToList()
-                        
                     };
                     return View(newDishModel);
                 }
-                
             }
         }
 
         [HttpPost]
-        public ActionResult EditDish(int ProductId,string NameRus, string NameUkr, string isHided, int Priority,
-            decimal? Price, int? dishCategory,decimal? Weight,string WeightName, string Energy, int? Count,
+        public ActionResult EditDish(int ProductId, string NameRus, string NameUkr, string isHided, int Priority,
+            decimal? Price, int? dishCategory, decimal? Weight, string WeightName, string Energy, int? Count,
             string ingredientsTxtRus, string ingredientsTxtUkr, int? prod, HttpPostedFileBase uploadPhoto)
         {
             using (var context = new SushiTest1Entities1())
@@ -288,8 +236,8 @@ namespace WebApplication1.Controllers
                 {
                     sale = false;
                 }
-                bool hide = true;
-                if (isHided == "on")
+                bool hide;
+                if (isHided == "on") //Checking for product is hided or not
                 {
                     hide = false;
                 }
@@ -297,72 +245,79 @@ namespace WebApplication1.Controllers
                 {
                     hide = true;
                 }
-                
-                context.UpdateProductWeightDetails((int)ProductId, WeightName, Weight);
-                //int energy = Convert.ToInt32(Energy);
+                context.UpdateProductWeightDetails((int) ProductId, WeightName, Weight);
                 if (Energy == "")
-                { Energy = "0"; }
-                context.UpdateProduct(ProductId, dishCategory, NameRus, Price, NameUkr, Count, Convert.ToInt32(Energy), sale, hide,
-                    Priority, ingredientsTxtRus, ingredientsTxtUkr);
-                if(uploadPhoto != null)
-                { 
-                int fileName = ProductId;
-                uploadPhoto.SaveAs(Server.MapPath("~/Content/Images/Products/" + fileName + ".jpeg"));
+                {
+                    Energy = "0";
+                } //Cheking for empty field
+                context.UpdateProduct(ProductId, dishCategory, NameRus, Price, NameUkr, Count, Convert.ToInt32(Energy),
+                    sale, hide, Priority, ingredientsTxtRus, ingredientsTxtUkr);
+                if (uploadPhoto != null) //Upload new photo
+                {
+                    int fileName = ProductId;
+                    uploadPhoto.SaveAs(Server.MapPath("~/Content/Images/Products/" + fileName + ".jpeg"));
                 }
-
             }
-
-            return RedirectToAction("Dishes","Admin");
+            return RedirectToAction("Dishes", "Admin");
         }
 
         [HttpPost]
-        public ActionResult AddNewDish(string NameRus, string NameUkr, string isHided, int? dishCategory, byte? prod, int? Priority, decimal? Price, decimal? Weight, string Energy,
-           int? Count, string ingredientsTxtRus, string ingredientsTxtUkr, byte WeightName, HttpPostedFileBase uploadPhoto)
+        public ActionResult AddNewDish(string NameRus, string NameUkr, string isHided, int? dishCategory, byte? prod,
+            int? Priority, decimal? Price, decimal? Weight, string Energy,
+            int? Count, string ingredientsTxtRus, string ingredientsTxtUkr, byte WeightName,
+            HttpPostedFileBase uploadPhoto)
         {
-            var context = new SushiTest1Entities1();
-            var products = context.Products.ToList();
-
-            bool isHidedProduct = (isHided != null) ? false : true;
-
-            if (Weight == null)
-                Weight = 0;
-            if (Count == null)
-                Count = 0;
-
-            bool isSale = false;
-            if (prod == 1)
-                isSale = true;
-
-            string weightNameString = "мл";
-            if (WeightName == 2)
+            using (var context = new SushiTest1Entities1())
             {
-                weightNameString = "гр";
-            }
+                var products = context.Products.ToList();
 
-            foreach (var product in products)
-            {
-                if (product.NameRus == NameRus || product.NameUkr == NameUkr)
+                bool isHidedProduct = (isHided != null) ? false : true;
+
+                if (Weight == null)
+                    Weight = 0;
+                if (Count == null)
+                    Count = 0;
+
+                bool isSale = false;
+                if (prod == 1)
                 {
-                    ViewBag.ExistDish = "Блюдо с таким названием уже существует.";
-                    return View("~/Views/Admin/ExistDishPage.cshtml");
+                    isSale = true;
                 }
+
+                string weightNameString = "мл";
+                if (WeightName == 2)
+                {
+                    weightNameString = "гр";
+                }
+
+                foreach (var product in products)
+                {
+                    if (product.NameRus == NameRus || product.NameUkr == NameUkr)
+                    {
+                        ViewBag.ExistDish = "Блюдо с таким названием уже существует.";
+                        return View("~/Views/Admin/ExistDishPage.cshtml");
+                    }
+                }
+
+                context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, isSale, isHidedProduct,
+                    Priority, ingredientsTxtRus, ingredientsTxtUkr);
+
+                int fileName = context.Products.ToList().Last().ProductId; // fileName == ProductId
+
+                ProductWeightDetail productWeightDetail = new ProductWeightDetail
+                {
+                    ProductId = fileName,
+                    Name = weightNameString,
+                    Value = (decimal) Weight
+                };
+                context.ProductWeightDetails.Add(productWeightDetail);
+                context.SaveChanges();
+
+                uploadPhoto.SaveAs(Server.MapPath("~/Content/Images/Products/" + fileName + ".jpeg"));
             }
-
-            context.AddProduct(dishCategory, NameRus, NameUkr, 0, Count, Energy, 0, Price, isSale, isHidedProduct, Priority, ingredientsTxtRus, ingredientsTxtUkr);
-
-            int fileName = context.Products.ToList().Last().ProductId;
-
-            ProductWeightDetail pwd = new ProductWeightDetail();
-            pwd.ProductId = fileName;
-            pwd.Name = weightNameString;
-            pwd.Value = (decimal)Weight;
-            context.ProductWeightDetails.Add(pwd);
-            context.SaveChanges();
-            
-            uploadPhoto.SaveAs(Server.MapPath("~/Content/Images/Products/" + fileName + ".jpeg"));
-
             return RedirectToAction("Dishes");
         }
+
         [HttpPost]
         public ActionResult AddCategory(Category newCategory) //Action from modal window AddCategory.cshtml, to add category to database
         {
@@ -379,30 +334,22 @@ namespace WebApplication1.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddNewDish()
-        {
-            var context = new SushiTest1Entities1();
-            var category = context.Categories.ToList();
-            ViewBag.Categories = category;
-            
-            return View();
-        }
-
-       
-
-        public ActionResult AddNewOrder()
-        {
-
-            return View();
-        }
-
-        public ActionResult Orders(int page = 1, int pagesize =10)
+        public ActionResult AddNewDish() //Add new product
         {
             using (var context = new SushiTest1Entities1())
             {
-                List<ShowAllOrders_Result> showAllOrdersModel = context.ShowAllOrders().ToList();
-                PagedList<ShowAllOrders_Result> model = new PagedList<ShowAllOrders_Result>(showAllOrdersModel,page, pagesize);
-                return View(model);
+                var category = context.Categories.ToList();
+                ViewBag.Categories = category;
+                return View();
+            }
+        }
+
+        public ActionResult Orders(int page = 1, int pagesize =10) //Show all orders with pageList
+        {
+            using (var context = new SushiTest1Entities1())
+            {
+                PagedList<ShowAllOrders_Result> showAllOrdersModel = new PagedList<ShowAllOrders_Result>(context.ShowAllOrders().ToList(), page, pagesize);
+                return View(showAllOrdersModel);
             }
         }
 
@@ -429,12 +376,11 @@ namespace WebApplication1.Controllers
                         allDishesModel[i].NameOfWeight = findDishesModel[i].NameOfWeight;
                         allDishesModel[i].Price = findDishesModel[i].Price;
                         allDishesModel[i].TotalDishes = findDishesModel[i].TotalDishes;
-                    }
-                    
+                    }  
                 }
             }
-            PagedList<AllDishes_Result> model = new PagedList<AllDishes_Result>(allDishesModel, 1, 99);
-            return View("~/Views/Admin/Dishes.cshtml", model);
+            PagedList<AllDishes_Result> allDishesModelWithPagedList = new PagedList<AllDishes_Result>(allDishesModel, 1, 99);
+            return View("~/Views/Admin/Dishes.cshtml", allDishesModelWithPagedList);
         }
 
         [HttpPost]
@@ -520,7 +466,7 @@ namespace WebApplication1.Controllers
                     }
                 }
             }
-            PagedList<ShowAllOrders_Result> model = new PagedList<ShowAllOrders_Result>(allOrdersModel, 1, 99);
+            PagedList<ShowAllOrders_Result> model = new PagedList<ShowAllOrders_Result>(allOrdersModel, 1, 99);//Model with PagedList
             return View("~/Views/Admin/Orders.cshtml", model);
         }
 
@@ -534,16 +480,10 @@ namespace WebApplication1.Controllers
                     for(int i = 0; i < idSelected.Length; i++) // Find item to delete
                     {
                         int selectedIdItem = idSelected[i];
-                       //var removedCategory = context.Categories.First(category => category.CategoryId == selectedIdItem);
                         context.DeleteCategory(selectedIdItem);
-                    
-                       // context.Categories.Remove(removedCategory);
-                      //  context.SaveChanges();
                     }
                 }
-               //context.SaveChanges(); 
             }
-
             return RedirectToAction("Category", "Admin");
         }
 
@@ -557,14 +497,10 @@ namespace WebApplication1.Controllers
                     for(int i = 0; i < idSelected.Length; i++) // Find item to hide
                     {
                         int selectedIdItem = idSelected[i];
-                        //var hidedProduct = context.Products.First(product => product.ProductId == selectedIdItem);
                         context.HideDish(selectedIdItem);
-                        //hidedProduct.IsHided = true;
                     }
-                    //context.SaveChanges();
                 }
             }
-
             return Json(new { Success = true, Url = Url.Action("Dishes", "Admin") });
         }
 
@@ -579,36 +515,29 @@ namespace WebApplication1.Controllers
                     {
                         int selectedIdItem = idSelected[i];
                         context.DeleteProductWeightDetails(selectedIdItem);
-                        //var removedItemFromProductWeightDetails = context.ProductWeightDetails.First(productWeightDetail => productWeightDetail.ProductId == selectedIdItem);
-                       // context.ProductWeightDetails.Remove(removedItemFromProductWeightDetails);
-                       // context.SaveChanges();
                     }
                     for(int i = 0; i < idSelected.Length; i++)// Del dish from table
                     {
                         int selectedIdItem = idSelected[i];
                         context.DeleteDish(selectedIdItem);
-                        //var delProduct = context.Products.First(product => product.ProductId == selectedIdItem);
-                       // context.Products.Remove(delProduct);
-                        //context.SaveChanges();
                     }
                 }
             }
-
             return Json(new { Success = true, Url = Url.Action("Dishes", "Admin") });
         }
 
         [HttpPost]
-        public ActionResult ModifyCategoryModal(int CategoryId, string NameRus, string NameUkr, int Priority) //Action from modal window ModifyCategoryModal, to change category values
+        public ActionResult ModifyCategoryModal(int CategoryId, string NameRus, string NameUkr, int Priority) 
+        //Action from modal window ModifyCategoryModal, to change category values
         {
             if (ModelState.IsValid)
             {
                 using (var context = new SushiTest1Entities1())
                 {
-                    var updateSelectedCategoryValues = context.UpdateCategory(CategoryId, NameRus, NameUkr, Priority);
+                    context.UpdateCategory(CategoryId, NameRus, NameUkr, Priority);
                     context.SaveChanges();
                 }
             }
-     
             return RedirectToAction("Category", "Admin");
         }
 
@@ -642,7 +571,6 @@ namespace WebApplication1.Controllers
                 };
                 return View("~/Views/Admin/Index.cshtml", newStatisticModel);
             }
-
         }
 
         [HttpPost]
@@ -666,13 +594,9 @@ namespace WebApplication1.Controllers
                     {
                         int selectedItem = idSelected[i];
                         context.DeleteOrder(selectedItem);
-                        // var delOrder = context.Orders.First(order => order.OrderId == selectedItem);
-                        //context.Orders.Remove(delOrder);
-                        //context.SaveChanges();
                     }
                 }
             }
-
             return View();
         }
 
@@ -690,22 +614,18 @@ namespace WebApplication1.Controllers
                 return View(statisticModel);
             }
         }
-        public ActionResult Logout()
+        public ActionResult Logout() //Admin Logout
         { 
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Admin");
         }
 
-        public ActionResult GetData()
+        public ActionResult GetData() //Get count of unprocessed orders
         {
-            var context=new SushiTest1Entities1();
-            return Content(context.ShowUnprocessedOrders().Count().ToString()); // Of whatever you need to return.
+            using (var context = new SushiTest1Entities1())
+            {
+                return Content(context.ShowUnprocessedOrders().Count().ToString()); 
+            }
         }
-
-        //public ActionResult Trq()
-        //{
-        //    var context = new SushiTest1Entities1();
-        //    var prodDetList = context.OrderDetails.ToList();
-        //}
     }
 }

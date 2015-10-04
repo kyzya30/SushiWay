@@ -369,7 +369,6 @@
     <Content Include="Content\Images\Restaurant\restaurant1.jpg" />
     <Content Include="Content\Images\Restaurant\restaurant2.jpg" />
     <Content Include="Content\Images\Restaurant\restaurant3.jpg" />
-    <Content Include="Content\Numeric.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\sb-admin.css" />
     <Content Include="Content\styles.css" />

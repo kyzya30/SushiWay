@@ -10,7 +10,7 @@
             <div class="modal-dialog">
 
                 <!-- Modal content-->
-                <div class="modal-content" style=" width: 473px; height: 560px; border-width: 1px; border-style: solid; border-color: #4b4b4b; border-radius: 0; color: white">
+                <div class="modal-content" style="width: 473px; height: 560px; border-width: 1px; border-style: solid; border-color: #4b4b4b; border-radius: 0; color: white">
                     <div class="modal-header" style="background: #4b4b4b; text-color: white; height: 50px">
 
                         <h4 class="modal-title"><b>Добавить блюдо</b></h4>
@@ -18,7 +18,7 @@
                     <div class="modal-body">
                         <div class="form-group">
 
-                            <select id="categoryDropdown" class="form-control addNewDishTxt" name="categoryId" type="submit" style="width:272px;height:40px; border-color:black;position:fixed;top:85px;left:32px">
+                            <select id="categoryDropdown" class="form-control addNewDishTxt" name="categoryId" type="submit" style="width: 272px; height: 40px; border-color: black; position: fixed; top: 85px; left: 32px">
                                 @foreach (var item in ViewBag.Categories)
                                 {
                                     var nameRusCategory = item.NameRus.ToString();
@@ -26,62 +26,80 @@
                                     <option name="@catId" value="@catId">@nameRusCategory</option>
                                 }
                             </select>
-                            <p class="text-center" style="color: black"> <span id="deletedItem"><br /><b></b></span>?</p>
+                            <p class="text-center" style="color: black"> <span id="deletedItem"><br /><b></b></span>?
+                            </p>
                         </div>
-                        <div class="table-span" style="width: 429px;position:fixed; left:32px;top: 158px;border-color:#7F7F7F;">
-                              <table class="table custom_table-hover table-bordered" style="height:356px;">
+                        <div class="table-span" style="width: 429px; position: fixed; left: 32px; top: 158px; border-color: #7F7F7F;">
+                            <table id="MainTableProduct" class="table custom_table-hover table-bordered" style="height: 356px;">
 
-                                  @foreach (var T in Model)
-                                  {
-                                      var nameRus = T.NameRus.ToString();
-                                      var productId = T.ProductId.ToString();
-                                      var price = T.Price.ToString();
+                                @foreach (var T in Model)
+                                {
+                                    var nameRus = T.NameRus.ToString();
+                                    var productId = T.ProductId.ToString();
+                                    var price = T.Price.ToString();
 
-                                      price = price.Remove(price.Length - 3);
-                                      var srcPict = productId += ".jpeg";
+                                    price = price.Remove(price.Length - 3);
+                                    var srcPict = productId += ".jpeg";
 
-                                  <tr style="height: 70px !important;border-width: 1px;   border-style: solid;border-color:#7F7F7F;border-left:0px;border-right:0px ">
-                                      <td style="padding-top:4px;padding-bottom:4px;font-size:11px;text-align:center">заказан <br><b style="font-size:14px">  </b></td>
-                                      <td><img class="t-img" style="width: 80px; height: 50px; " src=@Url.Content("~/Content/Images/Products/"+@srcPict)></td>
-                                      <td style="color:black">@nameRus <br>@price грн</td>
-                                  </tr>
-                                  }
+                                    <tr style="height: 70px !important; border-width: 1px; border-style: solid; border-color: #7F7F7F; border-left: 0px; border-right: 0px">
+                                        <td style="padding-top: 4px; padding-bottom: 4px; font-size: 11px; text-align: center">заказан <br><b style="font-size: 14px"> </b></td>
+                                        <td><img class="t-img" style="width: 80px; height: 50px;" src=@Url.Content("~/Content/Images/Products/" + @srcPict)></td>
+                                        <td style="color: black">@nameRus <br>@price грн</td>
+                                    </tr>
+                                }
 
-                              </table>
-                          </div>
+                            </table>
+                        </div>
 
                         <!--<button type="button" class="close" data-dismiss="modal">&times;</button>-->
                     </div>
                     <!--<div class="modal-footer"></div>-->
-                    <button type="button" class="btn btn-default" style="border-radius: 0; background: #bfbfbf; color: #ffffff; width: 127px; height: 40px;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-position: fixed; top: 503px; left: 103px; margin-top: 30px;"
+                    <button type="button" class="btn btn-default" style="border-radius: 0; background: #bfbfbf; color: #ffffff; width: 127px; height: 40px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    position: fixed; top: 503px; left: 103px; margin-top: 30px;"
                             data-dismiss="modal">
                         <b>Отмена</b>
                     </button>
 
-                    <button type="button" data-url="@Url.Action("DeleteOrderModal","Admin")" class="btn btn-default" id="delOrderBtn" style="border-radius: 0; background: #808080; color: #ffffff; width: 127px; height: 40px;
-                                                                                                  position: fixed; top: 502px; left: 247px; margin-top: 30px;">
+                    <button type="button" data-url="@Url.Action("DeleteOrderModal", "Admin")" class="btn btn-default" id="delOrderBtn" style="border-radius: 0; background: #808080; color: #ffffff; width: 127px; height: 40px;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        position: fixed; top: 502px; left: 247px; margin-top: 30px;">
                         <b>Добавить</b>
                     </button>
 
                     <!--<input type="button" class="btn btn-default" style="border-radius:0 ; background:#808080;color="#ffffff; width:127px;height:40px;position:fixed; top:150px;left:246px" value="Отправить"/>-->
 
 
-                    <p><img style="position: absolute; bottom: 0;right: 0" src=@Url.Content("~/Content/Images/Controls/Admin/bg-alert-new.png") /> </p>
+                    <p><img style="position: absolute; bottom: 0; right: 0" src=@Url.Content("~/Content/Images/Controls/Admin/bg-alert-new.png")/>
+                    </p>
 
                 </div>
 
             </div>
         </div>
         <script>
-    $(document).ready(function() {
-        $('#categoryDropdown').change(
-            function() {
+            $(document).ready(function() {
+                $('#categoryDropdown').change(function() {
+                    //$.get( "example.php", function() {
+                    //    alert( "success" );
+                    //})
+                    var id = $("#categoryDropdown").val();
+                    $.ajax({
+                        type: "GET",
+                        url: '/Admin/refreshProductModal/',
+                        content: "application/json; charset=utf-8",
+                        dataType: "json",
+                        data: { idSelected: id },
 
-                $(this.form).submit();
-
+                        success: function(data, textStatus) { // вешаем свой обработчик на функцию success
+                            $("#MainTableProduct").html("");
+                            console.log(data);
+                            for (var i=0;i<data.length;i++) {
+                                $("#MainTableProduct:last-child").append("<tr style='height: 70px !important; border-width: 1px; border-style: solid; border-color: #7F7F7F; border-left: 0px; border-right: 0px'><td><input type='checkbox' style='width:25px;'/></td><td><img class='t-img' style='width: 80px; height: 50px;' src='/Content/Images/Products/" + data[i].ProductId + ".jpeg'/></td><td style='color: black'>"+data[i].NameRus+" <br>"+data[i].Price+" грн</td>" +
+                                    +"</tr>");
+                            }
+                        }
+                    });
+                });
             });
-    });
         </script>
     </div>
 }

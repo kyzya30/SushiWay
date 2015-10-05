@@ -5,8 +5,10 @@ namespace WebApplication1.Models
     using System;
     public class StatisticModel
     {
-        public IEnumerable<ShowUnprocessedOrders_Result> showUnprocessedOrders { get; set; }
-        public IEnumerable<MostPopularDishes_Result> mostPopularDishes { get; set; }
+
+
+        public IEnumerable<ShowUnprocessedOrders_Result> ShowUnprocessedOrders { get; set; }
+        public MostPopularDishesModel mostPopularDishesModel { get; set; }
 
     }
 }

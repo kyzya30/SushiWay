@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Dynamic;
@@ -600,19 +601,63 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult MostPopularDishesChangeValues(int? categoryId, int topCategoryVal)//Update Index view, selected val from partial view MostPopularDishes
+        public ActionResult MostPopularDishesChangeValues(int? categoryId, int? topCategoryVal)//Update Index view, selected val from partial view MostPopularDishes
+        {
+            using (var context = new SushiTest1Entities1())
+            {
+                var categoryOnDrpdwn = context.Categories.ToList();
+                ViewBag.Categories = categoryOnDrpdwn; //Show all categories on drpdwn Index view
+                string Name ="";
+                foreach (var category in categoryOnDrpdwn)
+                {
+                    if (categoryId == category.CategoryId)
+                    {
+                         Name = category.NameRus;
+                    }
+                }
+                StatisticModel statisticModel = new StatisticModel
+                {
+                    //mostPopularDishes = context.MostPopularDishes(5, category[0].CategoryId).ToList(),
+                    ShowUnprocessedOrders = context.ShowUnprocessedOrders().ToList(),
+                    mostPopularDishesModel = new MostPopularDishesModel
+                    {
+                        mostPopularDishes = context.MostPopularDishes(topCategoryVal, categoryId).ToList(),
+                        category = categoryOnDrpdwn,
+                        selectedCategory = Name,
+                        arrayTopVal = new int[] { 5, 10, 20, 50 },
+                        selectedTopval = topCategoryVal
+                    }
+
+                };
+                return View("~/Views/Admin/Index.cshtml", statisticModel);
+            }
+        }
+
+        public JsonResult refreshProductModal(int idSelected)
         {
             using (var context = new SushiTest1Entities1())
             {
                 var category = context.Categories.ToList();
-                ViewBag.Categories = category;//Show all category on drpdwn partialView
-                StatisticModel newStatisticModel = new StatisticModel //Create new model for Index view
+                ViewBag.Categories = category;
+                var f = context.SelectProductsFromCategoryInModal(idSelected).ToList();
+                var model = new object[f.Count];
+                int i = 0;
+                foreach (var item in f)
                 {
-                    mostPopularDishes = context.MostPopularDishes(topCategoryVal, categoryId).ToList(),
-                    showUnprocessedOrders = context.ShowUnprocessedOrders().ToList()
-                };
-                return View("~/Views/Admin/Index.cshtml", newStatisticModel);
+
+                    model[i] = new
+                    {
+                        NameRus = item.NameRus,
+                        ProductId = item.ProductId,
+                        Price = item.Price
+                    };
+                    i++;
+
+
+                }
+                 return Json(model ,JsonRequestBehavior.AllowGet);
             }
+           
         }
 
         [HttpPost]
@@ -646,12 +691,22 @@ namespace WebApplication1.Controllers
         {
             using (var context = new SushiTest1Entities1())
             {
-                var category = context.Categories.ToList();
-                ViewBag.Categories = category; //Show all categories on drpdwn Index view
+                var categoryOnDrpdwn = context.Categories.ToList();
+                ViewBag.Categories = categoryOnDrpdwn; //Show all categories on drpdwn Index view
+               
                 StatisticModel statisticModel = new StatisticModel 
                 {
-                    mostPopularDishes = context.MostPopularDishes(5, category[0].CategoryId).ToList(),
-                    showUnprocessedOrders = context.ShowUnprocessedOrders().ToList()
+                    //mostPopularDishes = context.MostPopularDishes(5, category[0].CategoryId).ToList(),
+                    ShowUnprocessedOrders = context.ShowUnprocessedOrders().ToList(),
+                    mostPopularDishesModel = new MostPopularDishesModel
+                    {
+                        mostPopularDishes = context.MostPopularDishes(5, categoryOnDrpdwn[0].CategoryId).ToList(),
+                        category = categoryOnDrpdwn,
+                        selectedCategory = categoryOnDrpdwn[0].NameRus,
+                        arrayTopVal = new int[] { 5, 10, 20, 50 },
+                        selectedTopval = 5
+                    }
+
                 };
                 return View(statisticModel);
             }

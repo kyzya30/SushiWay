@@ -7,13 +7,13 @@
 </div>
 <div class="row">
     <div class="pull-right">
-        <input type="radio" class="index-radio" id="prod1" name="prod" checked="checked" />
+        <input type="radio" class="index-radio" id="prod1" ng-model="params" value="allProduct" name="prod" checked="checked" data-ng-change="RadioBntChange(params)" />
         <label for="prod1">Все</label>
-        <input type="radio" class="index-radio" id="prod2" name="prod" onclick="goToCart" />
+        <input type="radio" class="index-radio" id="prod2" ng-model="params" value="topProduct" data-ng-change="RadioBntChange(params)" />
         <label for="prod2">Популярные</label>
-        <input type="radio" class="index-radio" id="prod3" name="prod" />
+        <input type="radio" class="index-radio" id="prod3" ng-model="params" value="saleProduct" data-ng-change="RadioBntChange(params)" />
         <label for="prod3">Акции</label>
-        <input type="radio" class="index-radio" id="prod4" name="prod" />
+        <input type="radio" class="index-radio" id="prod4" ng-model="params" value="hotProduct" data-ng-change="RadioBntChange(params)" />
         <label for="prod4">Новинки</label>
     </div>
 </div>

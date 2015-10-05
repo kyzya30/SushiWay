@@ -2,8 +2,8 @@
     <h2 class="index-descr">Контакты</h2>
 </div>
 <div class="row">
-    <div class="col-xs-12 col-sm-7 div-contact">
-        <iframe src="https://www.google.com/maps/d/embed?mid=zdJ_vb95ES-I.kgYlVGKatpLg" width="640" height="480"></iframe>
+    <div class="col-xs-12 col-sm-9 div-contact">
+        <iframe src="https://www.google.com/maps/d/embed?mid=zdJ_vb95ES-I.kgYlVGKatpLg" width="640" height="360"></iframe>
     </div>
     <div class="col-xs-12 col-sm-3">
         <div class="col-xs-12 col-sm-12 div-contact text-center">
@@ -25,29 +25,34 @@
     </div>
 </div>
 <div class="row btns-social-networks">
-    <div class="col-xs-2 col-sm-2">
-        <a href="#">
+    <div class="col-xs-2 col-sm-1">
+        <a href="#" style="visibility: hidden">
             <img src="/Content/Images/Controls/btn-facebook.png" />
         </a>
     </div>
-    <div class="col-xs-2 col-sm-2">
+    <div class="col-xs-2 col-sm-1">
         <a href="#">
-            <img src="/Content/Images/Controls/btn-twitter.png" />
+            <img src="/Content/Images/Controls/btn-facebook.png"/>
         </a>
     </div>
-    <div class="col-xs-2 col-sm-2">
+    <div class="col-xs-2 col-sm-1">
         <a href="#">
-            <img src="/Content/Images/Controls/btn-google.png" />
+            <img src="/Content/Images/Controls/btn-twitter.png"/>
         </a>
     </div>
-    <div class="col-xs-2 col-sm-2">
+    <div class="col-xs-2 col-sm-1">
         <a href="#">
-            <img src="/Content/Images/Controls/btn-youtube.png" />
+            <img src="/Content/Images/Controls/btn-google.png"/>
         </a>
     </div>
-    <div class="col-xs-2 col-sm-2">
+    <div class="col-xs-2 col-sm-1">
         <a href="#">
-            <img src="/Content/Images/Controls/btn-instagram.png" />
+            <img src="/Content/Images/Controls/btn-youtube.png"/>
+        </a>
+    </div>
+    <div class="col-xs-2 col-sm-1">
+        <a href="#">
+            <img src="/Content/Images/Controls/btn-instagram.png"/>
         </a>
     </div>
 </div>
@@ -58,8 +63,8 @@
             <div class="col-xs-12 col-sm-12 div-contact div-leave-message">
                 <input type="text" class="form-control" placeholder="Имя" required ng-model="message.Name" />
                 <input type="email" class="form-control" placeholder="user@email.com" required ng-model="message.Email" />
-                <textarea class="form-control" id="contact-message" placeholder="Сообщение" required ng-model="message.Message1"></textarea>
-                <button class="btn" id="contact-button">Отправить</button>
+                <textarea  class="form-control max-size" id="contact-message" placeholder="Сообщение" required ng-model="message.Message1"></textarea>
+                <button class="btn" style="margin-top: 5px; margin-right: 40%" id="contact-button">Отправить</button>
             </div>
         </form>
     </div>

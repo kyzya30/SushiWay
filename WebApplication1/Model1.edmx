@@ -366,7 +366,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SushiTest1Entities75" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities76" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Massages" EntityType="Self.Massage" />
@@ -536,7 +536,6 @@
           <Property Type="DateTime" Name="AddDate" Nullable="false" />
         </ComplexType>
         <ComplexType Name="FindOrders_Result">
-          <Property Type="Int32" Name="TotalOrders" Nullable="true" />
           <Property Type="Int32" Name="OrderId" Nullable="false" />
           <Property Type="String" Name="Street" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="House" Nullable="false" MaxLength="10" />
@@ -605,7 +604,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities75">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities76">
           <EntitySetMapping Name="Administrators">
             <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">
@@ -783,7 +782,6 @@
           <FunctionImportMapping FunctionImportName="FindOrders" FunctionName="SushiTest1Model.Store.FindOrders">
             <ResultMapping>
               <ComplexTypeMapping TypeName="SushiTest1Model.FindOrders_Result">
-                <ScalarProperty Name="TotalOrders" ColumnName="TotalOrders" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="House" ColumnName="House" />

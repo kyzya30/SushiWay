@@ -98,7 +98,8 @@ GO
 
 CREATE TABLE OrderDetails
 (
-	[OrderDetailsId] int  NOT NULL,
+	[OrderDetailsId] int identity(1,1) NOT NULL ,
+	[OrderId] int  NOT NULL,
 	[ProductId] int NOT NULL,
 	[Count] int NOT NULL,
 	[Price] decimal(9,2) NOT NULL

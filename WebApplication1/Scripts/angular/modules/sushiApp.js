@@ -211,7 +211,7 @@
         $scope.FindProductName = "";
         $scope.coincidenceNumber = 0;
         $scope.findByNameFilter = function (item) {
-            return item.name.indexOf($scope.FindProductName) > -1;
+            return item.name.toLowerCase().indexOf($scope.FindProductName.toLowerCase()) > -1;
 
         }
 

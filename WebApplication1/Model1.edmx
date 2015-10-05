@@ -34,7 +34,8 @@
           <Key>
             <PropertyRef Name="OrderDetailsId" />
           </Key>
-          <Property Name="OrderDetailsId" Type="int" Nullable="false" />
+          <Property Name="OrderDetailsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OrderId" Type="int" Nullable="false" />
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="Count" Type="int" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="9" Scale="2" Nullable="false" />
@@ -169,6 +170,126 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AddOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="PhoneNumber" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Street" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="House" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Room" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="AddOrderDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="orderId" Type="int" Mode="In" />
+          <Parameter Name="productId" Type="int" Mode="In" />
+          <Parameter Name="count" Type="int" Mode="In" />
+          <Parameter Name="price" Type="decimal" Mode="In" />
+        </Function>
+        <Function Name="AddOrdersTimeProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="count" Type="int" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AddOrderTimeChanged" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="orderId" Type="int" Mode="In" />
+          <Parameter Name="orderSatus" Type="int" Mode="In" />
+          <Parameter Name="time" Type="datetime2" Mode="In" />
+        </Function>
+        <Function Name="AddProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="catId" Type="int" Mode="In" />
+          <Parameter Name="nameRus" Type="nvarchar" Mode="In" />
+          <Parameter Name="nameUkr" Type="nvarchar" Mode="In" />
+          <Parameter Name="numOfOrders" Type="int" Mode="In" />
+          <Parameter Name="count" Type="int" Mode="In" />
+          <Parameter Name="energy" Type="nvarchar" Mode="In" />
+          <Parameter Name="balance" Type="int" Mode="In" />
+          <Parameter Name="price" Type="decimal" Mode="In" />
+          <Parameter Name="isSale" Type="bit" Mode="In" />
+          <Parameter Name="isHided" Type="bit" Mode="In" />
+          <Parameter Name="Priority" Type="int" Mode="In" />
+          <Parameter Name="RusIngr" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="UkrIngr" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="AllDishes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="DeleteCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="item" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteDish" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="item" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="item" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteProductWeightDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="item" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DelOrdersDetailsId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Item" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="DelOrdersTimeChanged" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Item" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="FindCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="FindDishById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="FindDishes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DishName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="FindOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Order" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="HideDish" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="item" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertValOrdTimeCh" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OrdID" Type="int" Mode="In" />
+          <Parameter Name="OrdStatus" Type="int" Mode="In" />
+        </Function>
+        <Function Name="MostPopularDishes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="topVal" Type="int" Mode="In" />
+          <Parameter Name="catId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SelectOrderContactInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OrderId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SelectProductsFromCategoryInModal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SelectProductsFromOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OrderId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ShowAllCategories" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ShowAllOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ShowAllTimeStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OrderId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ShowUnprocessedOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="UpdateCategory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+          <Parameter Name="NewRusName" Type="nvarchar" Mode="In" />
+          <Parameter Name="NewUkrName" Type="nvarchar" Mode="In" />
+          <Parameter Name="NewPriority" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UpdateProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductId" Type="int" Mode="In" />
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+          <Parameter Name="NameRus" Type="nvarchar" Mode="In" />
+          <Parameter Name="Price" Type="decimal" Mode="In" />
+          <Parameter Name="NameUkr" Type="nvarchar" Mode="In" />
+          <Parameter Name="Count" Type="int" Mode="In" />
+          <Parameter Name="Energy" Type="int" Mode="In" />
+          <Parameter Name="Sale" Type="bit" Mode="In" />
+          <Parameter Name="IsHided" Type="bit" Mode="In" />
+          <Parameter Name="Priority" Type="int" Mode="In" />
+          <Parameter Name="IngrRus" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="IngrUkr" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="UpdateProductWeightDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProductId" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Value" Type="decimal" Mode="In" />
+        </Function>
         <EntityContainer Name="SushiTest1ModelStoreContainer">
           <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -239,7 +360,8 @@
           <Key>
             <PropertyRef Name="OrderDetailsId" />
           </Key>
-          <Property Name="OrderDetailsId" Type="Int32" Nullable="false" />
+          <Property Name="OrderDetailsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderId" Type="Int32" Nullable="false" />
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
@@ -385,7 +507,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SushiTest1Entities79" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities80" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
           <EntitySet Name="Messages" EntityType="Self.Message" />
@@ -419,13 +541,247 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductWeightDetails" EntitySet="ProductWeightDetails" />
           </AssociationSet>
+          <FunctionImport Name="AddOrder">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Street" Mode="In" Type="String" />
+            <Parameter Name="House" Mode="In" Type="String" />
+            <Parameter Name="Room" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddOrderDetails">
+            <Parameter Name="orderId" Mode="In" Type="Int32" />
+            <Parameter Name="productId" Mode="In" Type="Int32" />
+            <Parameter Name="count" Mode="In" Type="Int32" />
+            <Parameter Name="price" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="AddOrdersTimeProduct">
+            <Parameter Name="count" Mode="In" Type="Int32" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AddOrderTimeChanged">
+            <Parameter Name="orderId" Mode="In" Type="Int32" />
+            <Parameter Name="orderSatus" Mode="In" Type="Int32" />
+            <Parameter Name="time" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="AddProduct">
+            <Parameter Name="catId" Mode="In" Type="Int32" />
+            <Parameter Name="nameRus" Mode="In" Type="String" />
+            <Parameter Name="nameUkr" Mode="In" Type="String" />
+            <Parameter Name="numOfOrders" Mode="In" Type="Int32" />
+            <Parameter Name="count" Mode="In" Type="Int32" />
+            <Parameter Name="energy" Mode="In" Type="String" />
+            <Parameter Name="balance" Mode="In" Type="Int32" />
+            <Parameter Name="price" Mode="In" Type="Decimal" />
+            <Parameter Name="isSale" Mode="In" Type="Boolean" />
+            <Parameter Name="isHided" Mode="In" Type="Boolean" />
+            <Parameter Name="Priority" Mode="In" Type="Int32" />
+            <Parameter Name="RusIngr" Mode="In" Type="String" />
+            <Parameter Name="UkrIngr" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AllDishes" ReturnType="Collection(SushiTest1Model.AllDishes_Result)" />
+          <FunctionImport Name="DeleteCategory">
+            <Parameter Name="item" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteDish">
+            <Parameter Name="item" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteOrder">
+            <Parameter Name="item" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteProductWeightDetails">
+            <Parameter Name="item" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DelOrdersDetailsId">
+            <Parameter Name="Item" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DelOrdersTimeChanged">
+            <Parameter Name="Item" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="FindCategory" ReturnType="Collection(SushiTest1Model.FindCategory_Result)">
+            <Parameter Name="CategoryName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="FindDishById" ReturnType="Collection(SushiTest1Model.FindDishById_Result)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="FindDishes" ReturnType="Collection(SushiTest1Model.FindDishes_Result)">
+            <Parameter Name="DishName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="FindOrders" ReturnType="Collection(SushiTest1Model.FindOrders_Result)">
+            <Parameter Name="Order" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="HideDish">
+            <Parameter Name="item" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertValOrdTimeCh">
+            <Parameter Name="OrdID" Mode="In" Type="Int32" />
+            <Parameter Name="OrdStatus" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="MostPopularDishes" ReturnType="Collection(SushiTest1Model.MostPopularDishes_Result)">
+            <Parameter Name="topVal" Mode="In" Type="Int32" />
+            <Parameter Name="catId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SelectOrderContactInfo" ReturnType="Collection(SushiTest1Model.SelectOrderContactInfo_Result)">
+            <Parameter Name="OrderId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SelectProductsFromCategoryInModal" ReturnType="Collection(SushiTest1Model.SelectProductsFromCategoryInModal_Result)">
+            <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SelectProductsFromOrder" ReturnType="Collection(SushiTest1Model.SelectProductsFromOrder_Result)">
+            <Parameter Name="OrderId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ShowAllCategories" ReturnType="Collection(SushiTest1Model.ShowAllCategories_Result)" />
+          <FunctionImport Name="ShowAllOrders" ReturnType="Collection(SushiTest1Model.ShowAllOrders_Result)" />
+          <FunctionImport Name="ShowAllTimeStatus" ReturnType="Collection(SushiTest1Model.ShowAllTimeStatus_Result)">
+            <Parameter Name="OrderId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ShowUnprocessedOrders" ReturnType="Collection(SushiTest1Model.ShowUnprocessedOrders_Result)" />
+          <FunctionImport Name="UpdateCategory">
+            <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="NewRusName" Mode="In" Type="String" />
+            <Parameter Name="NewUkrName" Mode="In" Type="String" />
+            <Parameter Name="NewPriority" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateProduct">
+            <Parameter Name="ProductId" Mode="In" Type="Int32" />
+            <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+            <Parameter Name="NameRus" Mode="In" Type="String" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+            <Parameter Name="NameUkr" Mode="In" Type="String" />
+            <Parameter Name="Count" Mode="In" Type="Int32" />
+            <Parameter Name="Energy" Mode="In" Type="Int32" />
+            <Parameter Name="Sale" Mode="In" Type="Boolean" />
+            <Parameter Name="IsHided" Mode="In" Type="Boolean" />
+            <Parameter Name="Priority" Mode="In" Type="Int32" />
+            <Parameter Name="IngrRus" Mode="In" Type="String" />
+            <Parameter Name="IngrUkr" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateProductWeightDetails">
+            <Parameter Name="ProductId" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Value" Mode="In" Type="Decimal" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="AllDishes_Result">
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+          <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Priority" Nullable="true" />
+          <Property Type="String" Name="Category" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="Weight" Nullable="false" Precision="9" Scale="3" />
+          <Property Type="String" Name="NameOfWeight" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
+          <Property Type="Int32" Name="TotalDishes" Nullable="true" />
+          <Property Type="Boolean" Name="Sale" Nullable="false" />
+          <Property Type="Boolean" Name="IsHided" Nullable="false" />
+          <Property Type="DateTime" Name="AddDate" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="FindCategory_Result">
+          <Property Type="Int32" Name="TotalCategories" Nullable="true" />
+          <Property Type="String" Name="NameUkr" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CategoryId" Nullable="false" />
+          <Property Type="Int32" Name="Priority" Nullable="false" />
+          <Property Type="Int32" Name="TotalDishes" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="FindDishById_Result">
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+          <Property Type="Int32" Name="CategoryId" Nullable="false" />
+          <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NameUkr" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="NumberOfOrders" Nullable="false" />
+          <Property Type="String" Name="Energy" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
+          <Property Type="Int32" Name="Priority" Nullable="true" />
+          <Property Type="Boolean" Name="Sale" Nullable="false" />
+          <Property Type="Boolean" Name="IsHided" Nullable="false" />
+          <Property Type="Int32" Name="Count" Nullable="true" />
+          <Property Type="String" Name="IngridientsRus" Nullable="true" />
+          <Property Type="String" Name="IngridientsUkr" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="FindDishes_Result">
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+          <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Priority" Nullable="true" />
+          <Property Type="String" Name="Category" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Weight" Nullable="false" Precision="9" Scale="3" />
+          <Property Type="String" Name="NameOfWeight" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
+          <Property Type="Int32" Name="TotalDishes" Nullable="true" />
+          <Property Type="Boolean" Name="Sale" Nullable="false" />
+          <Property Type="Boolean" Name="IsHided" Nullable="false" />
+          <Property Type="DateTime" Name="AddDate" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="FindOrders_Result">
+          <Property Type="Int32" Name="TotalOrders" Nullable="true" />
+          <Property Type="Int32" Name="OrderId" Nullable="false" />
+          <Property Type="String" Name="Street" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="House" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Room" Nullable="false" MaxLength="10" />
+          <Property Type="DateTime" Name="MaxStatusTime" Nullable="true" />
+          <Property Type="Decimal" Name="TotalPrice" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="String" Name="StatusNameRus" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="MostPopularDishes_Result">
+          <Property Type="Int32" Name="NumberOfOrders" Nullable="false" />
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+          <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="SelectOrderContactInfo_Result">
+          <Property Type="String" Name="PhoneNumber" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Street" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="House" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Room" Nullable="false" MaxLength="10" />
+          <Property Type="Decimal" Name="TotalSum" Nullable="true" Precision="38" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="SelectProductsFromCategoryInModal_Result">
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+          <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="9" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="SelectProductsFromOrder_Result">
+          <Property Type="Int32" Name="ProductId" Nullable="false" />
+          <Property Type="Int32" Name="Count" Nullable="false" />
+          <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CategoryId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ShowAllCategories_Result">
+          <Property Type="Int32" Name="TotalCategories" Nullable="true" />
+          <Property Type="String" Name="NameUkr" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NameRus" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CategoryId" Nullable="false" />
+          <Property Type="Int32" Name="Priority" Nullable="false" />
+          <Property Type="Int32" Name="TotalDishes" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ShowAllOrders_Result">
+          <Property Type="Int32" Name="TotalOrders" Nullable="true" />
+          <Property Type="Int32" Name="OrderId" Nullable="false" />
+          <Property Type="String" Name="Street" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="House" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Room" Nullable="false" MaxLength="10" />
+          <Property Type="DateTime" Name="MaxStatusTime" Nullable="true" />
+          <Property Type="Decimal" Name="TotalPrice" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="String" Name="StatusNameRus" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ShowAllTimeStatus_Result">
+          <Property Type="String" Name="StatusNameRus" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="Time" Nullable="false" />
+          <Property Type="Int32" Name="OrderStatus" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ShowUnprocessedOrders_Result">
+          <Property Type="Int32" Name="OrderId" Nullable="false" />
+          <Property Type="String" Name="Street" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="House" Nullable="false" MaxLength="10" />
+          <Property Type="String" Name="Room" Nullable="false" MaxLength="10" />
+          <Property Type="Decimal" Name="TotalPrice" Nullable="true" Precision="38" Scale="2" />
+          <Property Type="DateTime" Name="Time" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities79">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities80">
           <EntitySetMapping Name="Administrators">
             <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">
@@ -458,6 +814,7 @@
             <EntityTypeMapping TypeName="SushiTest1Model.OrderDetail">
               <MappingFragment StoreEntitySet="OrderDetails">
                 <ScalarProperty Name="OrderDetailsId" ColumnName="OrderDetailsId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
@@ -527,6 +884,188 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddOrder" FunctionName="SushiTest1Model.Store.AddOrder" />
+          <FunctionImportMapping FunctionImportName="AddOrderDetails" FunctionName="SushiTest1Model.Store.AddOrderDetails" />
+          <FunctionImportMapping FunctionImportName="AddOrdersTimeProduct" FunctionName="SushiTest1Model.Store.AddOrdersTimeProduct" />
+          <FunctionImportMapping FunctionImportName="AddOrderTimeChanged" FunctionName="SushiTest1Model.Store.AddOrderTimeChanged" />
+          <FunctionImportMapping FunctionImportName="AddProduct" FunctionName="SushiTest1Model.Store.AddProduct" />
+          <FunctionImportMapping FunctionImportName="AllDishes" FunctionName="SushiTest1Model.Store.AllDishes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.AllDishes_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="NameOfWeight" ColumnName="NameOfWeight" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="TotalDishes" ColumnName="TotalDishes" />
+                <ScalarProperty Name="Sale" ColumnName="Sale" />
+                <ScalarProperty Name="IsHided" ColumnName="IsHided" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DeleteCategory" FunctionName="SushiTest1Model.Store.DeleteCategory" />
+          <FunctionImportMapping FunctionImportName="DeleteDish" FunctionName="SushiTest1Model.Store.DeleteDish" />
+          <FunctionImportMapping FunctionImportName="DeleteOrder" FunctionName="SushiTest1Model.Store.DeleteOrder" />
+          <FunctionImportMapping FunctionImportName="DeleteProductWeightDetails" FunctionName="SushiTest1Model.Store.DeleteProductWeightDetails" />
+          <FunctionImportMapping FunctionImportName="DelOrdersDetailsId" FunctionName="SushiTest1Model.Store.DelOrdersDetailsId" />
+          <FunctionImportMapping FunctionImportName="DelOrdersTimeChanged" FunctionName="SushiTest1Model.Store.DelOrdersTimeChanged" />
+          <FunctionImportMapping FunctionImportName="FindCategory" FunctionName="SushiTest1Model.Store.FindCategory">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.FindCategory_Result">
+                <ScalarProperty Name="TotalCategories" ColumnName="TotalCategories" />
+                <ScalarProperty Name="NameUkr" ColumnName="NameUkr" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="TotalDishes" ColumnName="TotalDishes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FindDishById" FunctionName="SushiTest1Model.Store.FindDishById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.FindDishById_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="NameUkr" ColumnName="NameUkr" />
+                <ScalarProperty Name="NumberOfOrders" ColumnName="NumberOfOrders" />
+                <ScalarProperty Name="Energy" ColumnName="Energy" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Sale" ColumnName="Sale" />
+                <ScalarProperty Name="IsHided" ColumnName="IsHided" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="IngridientsRus" ColumnName="IngridientsRus" />
+                <ScalarProperty Name="IngridientsUkr" ColumnName="IngridientsUkr" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FindDishes" FunctionName="SushiTest1Model.Store.FindDishes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.FindDishes_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="NameOfWeight" ColumnName="NameOfWeight" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="TotalDishes" ColumnName="TotalDishes" />
+                <ScalarProperty Name="Sale" ColumnName="Sale" />
+                <ScalarProperty Name="IsHided" ColumnName="IsHided" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="FindOrders" FunctionName="SushiTest1Model.Store.FindOrders">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.FindOrders_Result">
+                <ScalarProperty Name="TotalOrders" ColumnName="TotalOrders" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="MaxStatusTime" ColumnName="MaxStatusTime" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="StatusNameRus" ColumnName="StatusNameRus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="HideDish" FunctionName="SushiTest1Model.Store.HideDish" />
+          <FunctionImportMapping FunctionImportName="InsertValOrdTimeCh" FunctionName="SushiTest1Model.Store.InsertValOrdTimeCh" />
+          <FunctionImportMapping FunctionImportName="MostPopularDishes" FunctionName="SushiTest1Model.Store.MostPopularDishes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.MostPopularDishes_Result">
+                <ScalarProperty Name="NumberOfOrders" ColumnName="NumberOfOrders" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectOrderContactInfo" FunctionName="SushiTest1Model.Store.SelectOrderContactInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.SelectOrderContactInfo_Result">
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="TotalSum" ColumnName="TotalSum" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectProductsFromCategoryInModal" FunctionName="SushiTest1Model.Store.SelectProductsFromCategoryInModal">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.SelectProductsFromCategoryInModal_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SelectProductsFromOrder" FunctionName="SushiTest1Model.Store.SelectProductsFromOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.SelectProductsFromOrder_Result">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ShowAllCategories" FunctionName="SushiTest1Model.Store.ShowAllCategories">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllCategories_Result">
+                <ScalarProperty Name="TotalCategories" ColumnName="TotalCategories" />
+                <ScalarProperty Name="NameUkr" ColumnName="NameUkr" />
+                <ScalarProperty Name="NameRus" ColumnName="NameRus" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="TotalDishes" ColumnName="TotalDishes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ShowAllOrders" FunctionName="SushiTest1Model.Store.ShowAllOrders">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllOrders_Result">
+                <ScalarProperty Name="TotalOrders" ColumnName="TotalOrders" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="MaxStatusTime" ColumnName="MaxStatusTime" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="StatusNameRus" ColumnName="StatusNameRus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ShowAllTimeStatus" FunctionName="SushiTest1Model.Store.ShowAllTimeStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.ShowAllTimeStatus_Result">
+                <ScalarProperty Name="StatusNameRus" ColumnName="StatusNameRus" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ShowUnprocessedOrders" FunctionName="SushiTest1Model.Store.ShowUnprocessedOrders">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="SushiTest1Model.ShowUnprocessedOrders_Result">
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UpdateCategory" FunctionName="SushiTest1Model.Store.UpdateCategory" />
+          <FunctionImportMapping FunctionImportName="UpdateProduct" FunctionName="SushiTest1Model.Store.UpdateProduct" />
+          <FunctionImportMapping FunctionImportName="UpdateProductWeightDetails" FunctionName="SushiTest1Model.Store.UpdateProductWeightDetails" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

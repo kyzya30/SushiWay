@@ -182,13 +182,13 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public JsonResult AddMessageToDB(string[] data)
         {
-            Massage mess = new Massage();
+            Message mess = new Message();
             mess.Name = data[0];
             mess.Email = data[1];
             mess.Text = data[2];
 
             var context = new SushiTest1Entities1();
-            context.Massages.Add(mess);
+            context.Messages.Add(mess);
             context.SaveChanges();
 
             return Json(new { res = "good" });

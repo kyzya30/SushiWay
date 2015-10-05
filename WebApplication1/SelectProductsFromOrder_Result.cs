@@ -10,17 +10,12 @@
 namespace WebApplication1
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class OrderDetail
+    public partial class SelectProductsFromOrder_Result
     {
-        public int OrderDetailsId { get; set; }
-        public int OrderId { get; set; }
         public int ProductId { get; set; }
         public int Count { get; set; }
-        public decimal Price { get; set; }
-    
-        public virtual Order Order { get; set; }
-        public virtual Product Product { get; set; }
+        public string NameRus { get; set; }
+        public int CategoryId { get; set; }
     }
 }

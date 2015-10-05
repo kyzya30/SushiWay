@@ -10,17 +10,19 @@
 namespace WebApplication1
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class OrderDetail
+    public partial class FindDishes_Result
     {
-        public int OrderDetailsId { get; set; }
-        public int OrderId { get; set; }
         public int ProductId { get; set; }
-        public int Count { get; set; }
+        public string NameRus { get; set; }
+        public Nullable<int> Priority { get; set; }
+        public string Category { get; set; }
+        public decimal Weight { get; set; }
+        public string NameOfWeight { get; set; }
         public decimal Price { get; set; }
-    
-        public virtual Order Order { get; set; }
-        public virtual Product Product { get; set; }
+        public Nullable<int> TotalDishes { get; set; }
+        public bool Sale { get; set; }
+        public bool IsHided { get; set; }
+        public System.DateTime AddDate { get; set; }
     }
 }

@@ -11,7 +11,7 @@
             <h4 style="position:fixed; top:132px ; left:206px"><b>Необработанные заказы</b></h4>
             <div class="table-span_unproc_orders indexStyle">
                 <table class="table custom_table-hover table-bordered" style="width: 385px; height: 55px;">
-                    @foreach (var Item in Model.showUnprocessedOrders)
+                    @foreach (var Item in Model.ShowUnprocessedOrders)
                     {
                         var orderId = Item.OrderId.ToString();
                         var time = Item.Time.ToString();
@@ -38,6 +38,6 @@
                 </table>
             </div>
         </div>
-        @Html.Partial("MostPopularDishesChangeValues", Model.mostPopularDishes)
+        @Html.Partial("MostPopularDishesChangeValues", Model.mostPopularDishesModel)
     </div>
 </div>

@@ -207,9 +207,11 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\EditOrderModel.cs" />
+    <Compile Include="Models\MostPopularDishesModel.cs" />
     <Compile Include="Models\NewDishModel.cs" />
     <Compile Include="Models\ProductForUpdate.cs" />
     <Compile Include="Models\StatisticModel.cs" />
+    <Compile Include="Models\TopValArray.cs" />
     <Compile Include="MostPopularDishes_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -477,6 +479,8 @@
     <Content Include="Views\Home\SearchOrderStatusByNumber.cshtml" />
     <Content Include="Views\Admin\ExistDishPage.cshtml" />
     <Content Include="Views\Admin\AddDishToOrderModal.cshtml" />
+    <Content Include="Views\Admin\UploadingImageError.cshtml" />
+    <Content Include="Views\Admin\ExistCategoryPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

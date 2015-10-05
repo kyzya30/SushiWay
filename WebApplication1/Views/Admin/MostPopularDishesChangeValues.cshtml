@@ -1,31 +1,55 @@
-﻿@model IEnumerable<WebApplication1.MostPopularDishes_Result>
+﻿@model WebApplication1.Models.MostPopularDishesModel
 @using (Html.BeginForm("MostPopularDishesChangeValues", "Admin", FormMethod.Post))
 {
     <div class="row col-sm-6">
         <h4 style="position: fixed; top: 132px; left: 610px"><b>Самые популярные блюда</b></h4>
         <span style="position: fixed; left: 610px; top: 170px">
                               <select id="categoryDropdown" class="form-control addNewDishTxt categoryDrpdwn" name="categoryId" type="submit">
-                                  @foreach (var item in ViewBag.Categories)
+                                  
+                                  @foreach (var item in Model.category)
                                   {
                                       var nameRusCategory = item.NameRus.ToString();
                                       var catId = item.CategoryId.ToString();
-                                      <option name="@catId" value="@catId">@nameRusCategory</option>
+                                      if(nameRusCategory == Model.selectedCategory)
+                                      {
+                                          <option name="@catId" value="@catId">@nameRusCategory</option>
+                                      }
+                                  }
+                                  @foreach (var item in Model.category)
+                                  {
+                                      var nameRusCategory = item.NameRus.ToString();
+                                      var catId = item.CategoryId.ToString();
+                                      if (nameRusCategory != Model.selectedCategory)
+                                      {
+                                          <option name="@catId" value="@catId">@nameRusCategory</option>
+                                      }
                                   }
                               </select>
                           </span>
         <span style="position: fixed; left: 902px; top: 170px">
                               <select id="TopValDropdown" class="form-control addNewDishTxt topValDrpdwn" name="topCategoryVal" type="submit">
-                                  <option value="5">5</option>
-                                  <option value="10">10</option>
-                                  <option value="20">20</option>
-                                  <option value="50">50</option>
+                               @foreach (var item in Model.arrayTopVal)
+                               {
+                                   if (item == Model.selectedTopval)
+                                   {
+                                    <option value="@item">@item.ToString()</option>
+                                   }     
+                               }
+                                @foreach (var item in Model.arrayTopVal)
+                                  {
+                                      if (item != Model.selectedTopval)
+                                      {
+                                          <option value="@item">@item.ToString()</option>
+                                      }
+                                  }
+                                
                                   }
                               </select>
                           </span>
         <div class="table-span mostPopularDishDiv">
             <table class="table custom_table-hover table-bordered" style="height: 275px;">
 
-                @foreach (var item in Model)
+                @foreach (var item in Model.mostPopularDishes)
                 {
                     var numberOfOrders = item.NumberOfOrders.ToString();
                     var nameRus = item.NameRus;
@@ -47,6 +71,15 @@
         $(document).ready(function() {
             $('#TopValDropdown').change(
                 function() {
+
+                    $(this.form).submit();
+
+                });
+
+        });
+        $(document).ready(function () {
+            $('#categoryDropdown').change(
+                function () {
 
                     $(this.form).submit();
 

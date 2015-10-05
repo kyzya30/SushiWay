@@ -98,45 +98,47 @@
                 var time = item.Time.ToString();
                 var StatusName = item.StatusNameRus.ToString();
                 <br>
-                @time
+               <span style="margin-left: 30px" align="center">@time</span> 
                 <br>
-                @StatusName<br>
+                <span style="margin-left: 30px"  align="center">@StatusName</span>
+               <br>
                 <br>
                 if (item.OrderStatus == 1)
                 {
-                    <div>             
+                    <div style="margin-left: 85px"  align="center">             
                         <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-delivered.png") />
                     </div>
                 }
                 if (item.OrderStatus == 5)// V puti
                 {
-                    <span>
+                    <div style="margin-left: 85px" align="center">
                         
                         <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-on-way.png") />
-                    </span>
+
+                    </div>
                 }
                 if (item.OrderStatus == 4)
                 {
-                    <span>
+                    <div style="margin-left: 85px" align="center">
                         
                         <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-canceled.png") />
 
-                    </span>
+                    </div>
                 }
                 if (item.OrderStatus == 2)
                 {
-                    <span>
+                    <div style="margin-left: 85px" align="center">
                        
-                        <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-received.png") />
+                        <img  src=@Url.Content("~/Content/Images/Controls/Admin/order-history-received.png") />
                         
-                    </span>
+                    </div>
                 }               
             }
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-4 pull-right">
-            <button class="btn pull-left" style="background: #808080; color: #ffffff;" onclick="DeleteOrder()" data-toggle="modal" data-target="#DeleteOrderModal">Удалить</button>
+        <div  class="col-sm-4 pull-right">
+            <button style="margin-left: 85px" class="btn pull-left" style="background: #808080; color: #ffffff;" onclick="DeleteOrder()" data-toggle="modal" data-target="#DeleteOrderModal">Удалить</button>
         </div>
     </div>
     @Html.Partial("DeleteOrderModal", new Order())

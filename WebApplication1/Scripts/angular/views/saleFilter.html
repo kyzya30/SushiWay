@@ -1,24 +1,24 @@
 ﻿<div class="row">
     <h2 class="index-descr">МЕНЮ</h2>
     <p class="index-descr">
-        Суши, роллы, нигири и сеты готовятся професионалами и только из свежих продуктов. Только у нас вы найдете<br />
+        Суши, роллы, нигири и сеты готовятся профессионалами и только из свежих продуктов. Только у нас Вы найдете<br />
         такое сочетание мастерства приготовления, скорости доставки и умеренности оплаты.
     </p>
 </div>
 <div class="row">
     <div class="pull-right">
-        <input type="radio" class="index-radio" id="prod1" name="prod" checked="checked" ng-click="goToMenu()" />
+        <input type="radio" class="index-radio" id="prod1" ng-model="params" value="allProduct" name="prod"  data-ng-change="RadioBntChange(params)" />
         <label for="prod1">Все</label>
-        <input type="radio" class="index-radio" id="prod2" name="prod" ng-click="topProducts()" />
+        <input type="radio" class="index-radio" id="prod2" ng-model="params" value="topProduct" data-ng-change="RadioBntChange(params)" />
         <label for="prod2">Популярные</label>
-        <input type="radio" class="index-radio" id="prod3" name="prod" ng-click="saleProducts()" />
+        <input type="radio" class="index-radio" id="prod3" ng-model="params" value="saleProduct" checked="checked" data-ng-change="RadioBntChange(params)" />
         <label for="prod3">Акции</label>
-        <input type="radio" class="index-radio" id="prod4" name="prod" ng-click="hotProducts()" />
+        <input type="radio" class="index-radio" id="prod4" ng-model="params" value="hotProduct" data-ng-change="RadioBntChange(params)" />
         <label for="prod4">Новинки</label>
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="item in items | filter : menuFiltr">
+    <div class="col-xs-12 col-sm-6 col-md-4 " ng-repeat="item in items | filter : saleFilter">
         <div class="form-group div-product">
             <div class="row" style="height: 110px">
                 <div class="col-sm-8">

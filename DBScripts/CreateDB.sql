@@ -20,7 +20,7 @@ Create table Product
 	[AddDate] datetime2 (2) NOT NULL,
 	[Priority] int NULL,
 	[IngridientsRus] NVARCHAR (max),
-	[IngridientsUkr] NVARCHAR (max),
+	[IngridientsUkr] NVARCHAR (max)
 	)
 	GO
 ALTER TABLE Product
@@ -75,7 +75,8 @@ CREATE TABLE Orders
 	[Email] NVARCHAR (250)  NULL,
 	[Street] NVARCHAR (50) NOT NULL,
 	[House] NVARCHAR (10) NOT NULL,
-	[Room] NVARCHAR (10) NOT NULL
+	[Room] NVARCHAR (10) NOT NULL,
+	[Message] NVARCHAR (max) null
 	)
 
 GO
@@ -121,28 +122,60 @@ add constraint
 PK_OrderStatus_StatusId PRIMARY KEY(OrderStatusId)
 GO
 
+	
+ALTER TABLE OrderDetails
+add constraint 
+FK_OrderDetails_OrderDetailsId FOREIGN KEY(OrderDetailsId)
+REFERENCES Orders(OrderId) 
+GO
+
+ALTER TABLE OrderDetails
+add constraint 
+FK_OrderDetails_ProductId FOREIGN KEY(ProductId)
+REFERENCES Product(ProductId) 
+GO
+
+
+
+--ALTER TABLE OrderStatus
+--add constraint 
+--PK_OrderStatus_StatusId PRIMARY KEY(OrderStatusId)
+--GO
+
 Create table Administrator
 (
 	[Login] NVARCHAR (30) NOT NULL,
-	[Password]NVARCHAR (max) NOT NULL
+	[Password]NVARCHAR (30) NOT NULL
 )
 GO
 
 Create table OrdersTimeChanged
 (
-	[OrdersTimeChangedId] int identity(1,1) NOT NULL,
+	 [OrdersTimeChangedId] int identity(1,1) NOT NULL,
 	[OrderId] int NOT NULL,
 	[OrderStatus] int  NOT NULL,
 	[Time] datetime2 (2) NOT NULL default(getdate()) 
 
 )
 GO
+
 ALTER TABLE OrdersTimeChanged
 add constraint 
 PK_OrdersTimeChanged_OrdersTimeChangedIdPRIMARY PRIMARY KEY(OrdersTimeChangedId)
 GO
+ALTER TABLE OrdersTimeChanged
+add constraint 
+FK_OrdersTimeChanged_OrderId FOREIGN KEY(OrderId) 
+	REFERENCES Orders(OrderId)  
+GO
 
-Create table Massages
+ALTER TABLE OrdersTimeChanged
+add constraint 
+FK_OrdersTimeChanged_OrderStatus FOREIGN KEY(OrderStatus) 
+	REFERENCES OrderStatus(OrderStatusId)  
+GO
+
+Create table Messages
 (
 	[MessagesId] int identity(1,1) NOT NULL,
 	[Name] NVARCHAR (30) NOT NULL,
@@ -150,10 +183,12 @@ Create table Massages
 	[Text]NVARCHAR (MAX) NOT NULL
 )
 GO
-ALTER TABLE Massages
+ALTER TABLE Messages
 add constraint 
-PK_Massages_Messagesid PRIMARY KEY(MessagesId)
+PK_Messages_MessagesId PRIMARY KEY(MessagesId)
 GO
+
+
 ALTER TABLE Administrator
 add constraint 
 PK_Administrator_Login PRIMARY KEY(Login)

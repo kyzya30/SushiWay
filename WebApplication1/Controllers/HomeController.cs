@@ -58,7 +58,9 @@ namespace WebApplication1.Controllers
                         kkal = products[i].Energy,
                         sale = products[i].Sale,
                         top = products[i].Sale != true && products[i].NumberOfOrders >= topNumber,
-                        hot = (products[i].AddDate == DateTime.Today) && (products[i].Sale != true) && (products[i].NumberOfOrders < topNumber)
+                        hot = (products[i].AddDate == DateTime.Today) && (products[i].Sale != true) && (products[i].NumberOfOrders < topNumber),
+                        count = products[i].Count,
+                        energy = products[i].Energy,
                     };
                 }
 
@@ -98,16 +100,17 @@ namespace WebApplication1.Controllers
             var context = new SushiTest1Entities1();
             var ordersDetails = context.OrderDetails.ToList();
             Order order = new Order();
-            order.Name = data[0][0]?? "no data";
+            order.Name = data[0][0] ?? "no data";
             order.PhoneNumber = data[0][1];
-            order.Email = data[0][2]?? "no data";
+            order.Email = data[0][2] ?? "no data";
             order.Street = data[0][3];
             order.House = data[0][4];
             order.Room = data[0][5];
 
-            context.Orders.Add(order);
+            //context.Orders.Add(order);
+            context.AddOrder(order.Name, order.PhoneNumber, order.Email, order.Street, order.House, order.Room);
 
-            
+
             context.SaveChanges();
 
             var nextContext = new SushiTest1Entities1();
@@ -123,7 +126,10 @@ namespace WebApplication1.Controllers
             lastStatus.OrderId = lastId;
             lastStatus.OrderStatus = 5;
             lastStatus.Time = DateTime.Now;
-            nextContext.OrdersTimeChangeds.Add(lastStatus);
+
+            //nextContext.OrdersTimeChangeds.Add(lastStatus);
+            nextContext.AddOrderTimeChanged(lastStatus.OrderId,
+                lastStatus.OrderStatus, lastStatus.Time);
 
             var productList = nextContext.Products.ToList();
             var resList = new List<Product>();
@@ -160,7 +166,9 @@ namespace WebApplication1.Controllers
                 orderDetail.ProductId = Convert.ToInt32(data[1][i]);
                 orderDetail.Count = Convert.ToInt32(data[2][i]);
                 orderDetail.Price = Convert.ToDecimal(data[3][i]);
-                nextContext.OrderDetails.Add(orderDetail);
+                //nextContext.OrderDetails.Add(orderDetail);
+                nextContext.AddOrderDetails(orderDetail.OrderId, orderDetail.ProductId, orderDetail.Count,
+                    orderDetail.Price);
                 nextContext.SaveChanges();
             }
 
@@ -174,13 +182,13 @@ namespace WebApplication1.Controllers
         [HttpPost]
         public JsonResult AddMessageToDB(string[] data)
         {
-            Massage mess = new Massage();
+            Message mess = new Message();
             mess.Name = data[0];
             mess.Email = data[1];
             mess.Text = data[2];
 
             var context = new SushiTest1Entities1();
-            context.Massages.Add(mess);
+            context.Messages.Add(mess);
             context.SaveChanges();
 
             return Json(new { res = "good" });

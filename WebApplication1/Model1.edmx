@@ -10,7 +10,7 @@
             <PropertyRef Name="Login" />
           </Key>
           <Property Name="Login" Type="nvarchar" MaxLength="30" Nullable="false" />
-          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -21,7 +21,7 @@
           <Property Name="NameUkr" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Priority" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Massages">
+        <EntityType Name="Messages">
           <Key>
             <PropertyRef Name="MessagesId" />
           </Key>
@@ -51,6 +51,7 @@
           <Property Name="Street" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="House" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Room" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="OrderStatus">
           <Key>
@@ -97,6 +98,54 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Value" Type="decimal" Precision="9" Scale="3" Nullable="false" />
         </EntityType>
+        <Association Name="FK_OrderDetails_OrderDetailsId">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="OrderDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersTimeChanged_OrderId">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrdersTimeChanged" Type="Self.OrdersTimeChanged" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrdersTimeChanged">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersTimeChanged_OrderStatus">
+          <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1" />
+          <End Role="OrdersTimeChanged" Type="Self.OrdersTimeChanged" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatus">
+              <PropertyRef Name="OrderStatusId" />
+            </Principal>
+            <Dependent Role="OrdersTimeChanged">
+              <PropertyRef Name="OrderStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Product_CategoryId">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -121,9 +170,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="AddOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="PhoneNumber" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Street" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="House" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Room" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="AddOrderDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="orderId" Type="int" Mode="In" />
+          <Parameter Name="productId" Type="int" Mode="In" />
+          <Parameter Name="count" Type="int" Mode="In" />
+          <Parameter Name="price" Type="decimal" Mode="In" />
+        </Function>
         <Function Name="AddOrdersTimeProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="count" Type="int" Mode="In" />
           <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AddOrderTimeChanged" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="orderId" Type="int" Mode="In" />
+          <Parameter Name="orderSatus" Type="int" Mode="In" />
+          <Parameter Name="time" Type="datetime2" Mode="In" />
         </Function>
         <Function Name="AddProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="catId" Type="int" Mode="In" />
@@ -225,13 +293,29 @@
         <EntityContainer Name="SushiTest1ModelStoreContainer">
           <EntitySet Name="Administrator" EntityType="Self.Administrator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Massages" EntityType="Self.Massages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdersTimeChanged" EntityType="Self.OrdersTimeChanged" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductWeightDetails" EntityType="Self.ProductWeightDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_OrderDetails_OrderDetailsId" Association="Self.FK_OrderDetails_OrderDetailsId">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_ProductId" Association="Self.FK_OrderDetails_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersTimeChanged_OrderId" Association="Self.FK_OrdersTimeChanged_OrderId">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrdersTimeChanged" EntitySet="OrdersTimeChanged" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersTimeChanged_OrderStatus" Association="Self.FK_OrdersTimeChanged_OrderStatus">
+            <End Role="OrderStatus" EntitySet="OrderStatus" />
+            <End Role="OrdersTimeChanged" EntitySet="OrdersTimeChanged" />
+          </AssociationSet>
           <AssociationSet Name="FK_Product_CategoryId" Association="Self.FK_Product_CategoryId">
             <End Role="Category" EntitySet="Category" />
             <End Role="Product" EntitySet="Product" />
@@ -251,7 +335,7 @@
             <PropertyRef Name="Login" />
           </Key>
           <Property Name="Login" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -263,7 +347,7 @@
           <Property Name="Priority" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_CategoryId" FromRole="Category" ToRole="Product" />
         </EntityType>
-        <EntityType Name="Massage">
+        <EntityType Name="Message">
           <Key>
             <PropertyRef Name="MessagesId" />
           </Key>
@@ -281,6 +365,8 @@
           <Property Name="ProductId" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="9" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_OrderDetails_OrderDetailsId" FromRole="OrderDetails" ToRole="Orders" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_OrderDetails_ProductId" FromRole="OrderDetails" ToRole="Product" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -293,6 +379,9 @@
           <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="House" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Room" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrderDetail" Relationship="Self.FK_OrderDetails_OrderDetailsId" FromRole="Orders" ToRole="OrderDetails" />
+          <NavigationProperty Name="OrdersTimeChangeds" Relationship="Self.FK_OrdersTimeChanged_OrderId" FromRole="Orders" ToRole="OrdersTimeChanged" />
         </EntityType>
         <EntityType Name="OrderStatu">
           <Key>
@@ -301,6 +390,7 @@
           <Property Name="OrderStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StatusNameRus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="StatusNameUkr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="OrdersTimeChangeds" Relationship="Self.FK_OrdersTimeChanged_OrderStatus" FromRole="OrderStatus" ToRole="OrdersTimeChanged" />
         </EntityType>
         <EntityType Name="OrdersTimeChanged">
           <Key>
@@ -310,6 +400,8 @@
           <Property Name="OrderId" Type="Int32" Nullable="false" />
           <Property Name="OrderStatus" Type="Int32" Nullable="false" />
           <Property Name="Time" Type="DateTime" Nullable="false" Precision="2" />
+          <NavigationProperty Name="Order" Relationship="Self.FK_OrdersTimeChanged_OrderId" FromRole="OrdersTimeChanged" ToRole="Orders" />
+          <NavigationProperty Name="OrderStatu" Relationship="Self.FK_OrdersTimeChanged_OrderStatus" FromRole="OrdersTimeChanged" ToRole="OrderStatus" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -331,6 +423,7 @@
           <Property Name="IngridientsRus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IngridientsUkr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Category" Relationship="Self.FK_Product_CategoryId" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetails_ProductId" FromRole="Product" ToRole="OrderDetails" />
           <NavigationProperty Name="ProductWeightDetail" Relationship="Self.FK_ProductWeightDetails_ProductId" FromRole="Product" ToRole="ProductWeightDetails" />
         </EntityType>
         <EntityType Name="ProductWeightDetail">
@@ -354,6 +447,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OrderDetails_OrderDetailsId">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="OrderDetailsId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetails_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersTimeChanged_OrderId">
+          <End Role="Orders" Type="Self.Order" Multiplicity="1" />
+          <End Role="OrdersTimeChanged" Type="Self.OrdersTimeChanged" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderId" />
+            </Principal>
+            <Dependent Role="OrdersTimeChanged">
+              <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersTimeChanged_OrderStatus">
+          <End Role="OrderStatus" Type="Self.OrderStatu" Multiplicity="1" />
+          <End Role="OrdersTimeChanged" Type="Self.OrdersTimeChanged" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderStatus">
+              <PropertyRef Name="OrderStatusId" />
+            </Principal>
+            <Dependent Role="OrdersTimeChanged">
+              <PropertyRef Name="OrderStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductWeightDetails_ProductId">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="ProductWeightDetails" Type="Self.ProductWeightDetail" Multiplicity="0..1" />
@@ -366,10 +507,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="SushiTest1Entities75" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SushiTest1Entities80" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Administrators" EntityType="Self.Administrator" />
           <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Massages" EntityType="Self.Massage" />
+          <EntitySet Name="Messages" EntityType="Self.Message" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Orders" EntityType="Self.Order" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatu" />
@@ -380,13 +521,48 @@
             <End Role="Category" EntitySet="Categories" />
             <End Role="Product" EntitySet="Products" />
           </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_OrderDetailsId" Association="Self.FK_OrderDetails_OrderDetailsId">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetails_ProductId" Association="Self.FK_OrderDetails_ProductId">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersTimeChanged_OrderId" Association="Self.FK_OrdersTimeChanged_OrderId">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrdersTimeChanged" EntitySet="OrdersTimeChangeds" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersTimeChanged_OrderStatus" Association="Self.FK_OrdersTimeChanged_OrderStatus">
+            <End Role="OrderStatus" EntitySet="OrderStatus" />
+            <End Role="OrdersTimeChanged" EntitySet="OrdersTimeChangeds" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProductWeightDetails_ProductId" Association="Self.FK_ProductWeightDetails_ProductId">
             <End Role="Product" EntitySet="Products" />
             <End Role="ProductWeightDetails" EntitySet="ProductWeightDetails" />
           </AssociationSet>
+          <FunctionImport Name="AddOrder">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Street" Mode="In" Type="String" />
+            <Parameter Name="House" Mode="In" Type="String" />
+            <Parameter Name="Room" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="AddOrderDetails">
+            <Parameter Name="orderId" Mode="In" Type="Int32" />
+            <Parameter Name="productId" Mode="In" Type="Int32" />
+            <Parameter Name="count" Mode="In" Type="Int32" />
+            <Parameter Name="price" Mode="In" Type="Decimal" />
+          </FunctionImport>
           <FunctionImport Name="AddOrdersTimeProduct">
             <Parameter Name="count" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="AddOrderTimeChanged">
+            <Parameter Name="orderId" Mode="In" Type="Int32" />
+            <Parameter Name="orderSatus" Mode="In" Type="Int32" />
+            <Parameter Name="time" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="AddProduct">
             <Parameter Name="catId" Mode="In" Type="Int32" />
@@ -605,7 +781,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities75">
+        <EntityContainerMapping StorageEntityContainer="SushiTest1ModelStoreContainer" CdmEntityContainer="SushiTest1Entities80">
           <EntitySetMapping Name="Administrators">
             <EntityTypeMapping TypeName="SushiTest1Model.Administrator">
               <MappingFragment StoreEntitySet="Administrator">
@@ -624,9 +800,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Massages">
-            <EntityTypeMapping TypeName="SushiTest1Model.Massage">
-              <MappingFragment StoreEntitySet="Massages">
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="SushiTest1Model.Message">
+              <MappingFragment StoreEntitySet="Messages">
                 <ScalarProperty Name="MessagesId" ColumnName="MessagesId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -655,6 +831,7 @@
                 <ScalarProperty Name="Street" ColumnName="Street" />
                 <ScalarProperty Name="House" ColumnName="House" />
                 <ScalarProperty Name="Room" ColumnName="Room" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -707,7 +884,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AddOrder" FunctionName="SushiTest1Model.Store.AddOrder" />
+          <FunctionImportMapping FunctionImportName="AddOrderDetails" FunctionName="SushiTest1Model.Store.AddOrderDetails" />
           <FunctionImportMapping FunctionImportName="AddOrdersTimeProduct" FunctionName="SushiTest1Model.Store.AddOrdersTimeProduct" />
+          <FunctionImportMapping FunctionImportName="AddOrderTimeChanged" FunctionName="SushiTest1Model.Store.AddOrderTimeChanged" />
           <FunctionImportMapping FunctionImportName="AddProduct" FunctionName="SushiTest1Model.Store.AddProduct" />
           <FunctionImportMapping FunctionImportName="AllDishes" FunctionName="SushiTest1Model.Store.AllDishes">
             <ResultMapping>

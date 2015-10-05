@@ -75,6 +75,7 @@
             $location.path("/result");
         };
         $scope.gotoNameFilter = function () {
+            $scope.coincidenceNumber = 0;
             $location.path("/productname");
         };
         $scope.goToOrder = function () {
@@ -85,7 +86,6 @@
             $location.path("/topProducts");
         };
         $scope.hotProduct = function () {
-            alert("111");
             $location.path("/hotProducts");
         };
         $scope.saleProduct = function () {
@@ -101,6 +101,30 @@
             $scope.category = res1.data;
         });
 
+        $scope.RadioBntChange = function (params) {
+            if (params == "allProduct") {
+                var bnt = $("#prod1");
+                bnt.checked = true;
+                $scope.goToMenu();
+            }
+            else if (params == "topProduct") {
+                var bnt1 = $("#prod1");
+                bnt1.checked = true;
+                $scope.topProduct();
+            }
+            else if (params == "saleProduct") {
+                var bnt2 = $("#prod2");
+                bnt2.checked = true;
+                $scope.saleProduct();
+            }
+            else if (params == "hotProduct") {
+                var bnt3 = $("#prod3");
+                bnt3.checked = true;
+                $scope.hotProduct();              
+            }
+
+        }
+
         $scope.isSelected = function (item) {
             if (item.sale == true) {
                 $scope.saleCoff = 0.95;
@@ -108,7 +132,8 @@
                 $scope.saleCoff = 1;
             }
             item.count = 1;
-            $scope.cartSum += item.price * $scope.saleCoff;
+
+            $scope.cartSum += (item.price * $scope.saleCoff);
             item.selected = true;
             $scope.cartIsEmpty = false;
         };
@@ -132,7 +157,7 @@
 
             item.count = +item.count + 1;
 
-            $scope.cartSum += item.price* $scope.saleCoff ;
+            $scope.cartSum += (item.price * $scope.saleCoff);
             if ($scope.cartSum > 0) {
                 $scope.cartIsEmpty = false;
             }
@@ -146,7 +171,7 @@
             item.selected = false;
             $scope.cartSum -= (item.price * $scope.saleCoff) * item.count;
             item.count = 0;
-            if ($scope.cartSum<1) {
+            if ($scope.cartSum < 1) {
                 $scope.cartIsEmpty = true;
             }
             $location.path("/cart");
@@ -164,6 +189,11 @@
         };
 
         $scope.removeFromCart = function (item) {
+            if (item.sale == true) {
+                $scope.saleCoff = 0.95;
+            } else {
+                $scope.saleCoff = 1;
+            }
             if (item.count > 1) {
                 item.count--;
 
@@ -171,16 +201,18 @@
                 item.selected = false;
             }
 
-            $scope.cartSum -= item.price;
+            $scope.cartSum -= item.price * $scope.saleCoff;
 
             if ($scope.cartSum < 1) {
+                $scope.cartSum = 0;
                 $scope.cartIsEmpty = true;
             }
         };
         $scope.FindProductName = "";
-
+        $scope.coincidenceNumber = 0;
         $scope.findByNameFilter = function (item) {
-            return item.name.indexOf(FindProductName) > -1;
+            return item.name.toLowerCase().indexOf($scope.FindProductName.toLowerCase()) > -1;
+
         }
 
         $scope.sortProduct = function (item) {
@@ -216,6 +248,11 @@
 
         //    });
         //}
+        $scope.SliceNubmer = function (number) {
+            var s = this + '', a = s.split('.');
+            a[1] = a[1] || '';
+            return parseFloat(a[0] + '.' + a[1].substring(0, x));
+        }
         $scope.hotFilter = function (item) {
             return item.hot === true;
         }
@@ -269,10 +306,10 @@
             for (var i = 0; i < $scope.items.length; i++) {
 
                 if ($scope.items[i].selected == true) {
-                    $scope.saleCoff = $scope.items[i].sale == true ? 0.95 : 1; 
+                    $scope.saleCoff = $scope.items[i].sale == true ? 0.95 : 1;
                     prodId.push($scope.items[i].id);
                     prodCount.push($scope.items[i].count);
-                    prodPrice.push($scope.items[i].price * $scope.saleCoff);
+                    prodPrice.push($scope.items[i].price * $scope.saleCoff).toFixed(2);
                 }
             }
             var mass = [];

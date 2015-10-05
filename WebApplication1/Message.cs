@@ -12,7 +12,7 @@ namespace WebApplication1
     using System;
     using System.Collections.Generic;
     
-    public partial class Massage
+    public partial class Message
     {
         public int MessagesId { get; set; }
         public string Name { get; set; }

@@ -21,7 +21,7 @@
                         var totalPrice = Item.TotalPrice.ToString();
                         totalPrice = totalPrice.Remove(totalPrice.Length - 3);
                         <tr style="height: 15px; border-width: 1px;  border-top: 1px; border-style: solid; border-color: #7F7F7F; border-left:0px">
-                            <td>
+                            <td align="center" style="vertical-align: middle">
                                 <span style="text-align:center">
                            @Html.Raw(@Html.ActionLink("[replacetext]", "EditOrder", "Admin", new { orderId = orderId },null).ToHtmlString().Replace("[replacetext]", "<img class=\"t-img\" style=\"margin - left:auto; width: 70 %; margin - left:15 %; height: 40 %; margin - top:30 % \"  src=\"/Content/Images/Controls/Admin/icon-eye-grey.png\" />"))
                                     </span>

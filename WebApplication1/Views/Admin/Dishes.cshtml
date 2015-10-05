@@ -37,18 +37,18 @@
             <a  href="">Удалить</a>
         </div>
 
-        <div class="col-xs-9 pull-right" style="text-align: right;margin-right:10; padding-right:30px">
+        <div class="col-xs-9 pull-right" style="text-align: right; margin-right:10px; padding-right:30px">
             <span class="typeTableStyle" style="margin-right:15px">
                 <a href="@Url.Action("Dishes","Admin")">
                     <img src="@Url.Content("~/Content/Images/Controls/Admin/type-table-active.png")"/>
                 </a>
-                <a href="@Url.Action("DishesInBlock","Admin")">
+                <a href="@Url.Action("DishesInBlock","Admin")" style="margin-left:5px">
                     <img src="@Url.Content("~/Content/Images/Controls/Admin/type-block.png")" />
                 </a>
             </span>
-            <span></span>
+            <span style="margin-right: 5px">@Model.FirstItemOnPage-@Model.LastItemOnPage блюд из @Model.TotalItemCount</span>
            
-             @Model.FirstItemOnPage-@Model.LastItemOnPage блюд из @Model.TotalItemCount
+           
            
                
 

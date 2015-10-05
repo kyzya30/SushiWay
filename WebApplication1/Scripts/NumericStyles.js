@@ -215,3 +215,34 @@ function DeleteOrder() {
     });
 
 }
+function EditDish_add_Modal() {
+    var orderId = $('#OrderId').val();
+    var list = $(".checkboxes");
+    var resultString = "";
+    var arr = [];
+    var j = 0;
+    for (var i = 0; i < list.length; i++) {
+        if (list[i].checked == true) {
+            resultString += list[i].name;
+            resultString += ", ";
+            arr[j++] = list[i].id;
+        }
+    }
+    $("#addNewDishToOrder").click(function () {
+        $.ajax({
+            type: "POST",
+            url: $(this).data("url"),
+            content: "application/json; charset=utf-8",
+            dataType: "json",
+            data: {
+                idSelected: arr,
+                orderId : orderId
+            },
+            success:
+                setTimeout(function () {
+                    location.reload();
+                }, 500)
+        });
+    });
+
+};

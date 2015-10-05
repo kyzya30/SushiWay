@@ -18,7 +18,7 @@ namespace WebApplication1
     public partial class SushiTest1Entities1 : DbContext
     {
         public SushiTest1Entities1()
-            : base("name=SushiTest1Entities80")
+            : base("name=SushiTest1Entities1")
         {
         }
     
@@ -174,9 +174,35 @@ namespace WebApplication1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddProduct", catIdParameter, nameRusParameter, nameUkrParameter, numOfOrdersParameter, countParameter, energyParameter, balanceParameter, priceParameter, isSaleParameter, isHidedParameter, priorityParameter, rusIngrParameter, ukrIngrParameter);
         }
     
+        public virtual int AddProductbyOrderId(Nullable<int> orderId, Nullable<int> productId)
+        {
+            var orderIdParameter = orderId.HasValue ?
+                new ObjectParameter("OrderId", orderId) :
+                new ObjectParameter("OrderId", typeof(int));
+    
+            var productIdParameter = productId.HasValue ?
+                new ObjectParameter("ProductId", productId) :
+                new ObjectParameter("ProductId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddProductbyOrderId", orderIdParameter, productIdParameter);
+        }
+    
         public virtual ObjectResult<AllDishes_Result> AllDishes()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AllDishes_Result>("AllDishes");
+        }
+    
+        public virtual ObjectResult<Nullable<int>> CheckProductIdbyOrder(Nullable<int> orderId, Nullable<int> productId)
+        {
+            var orderIdParameter = orderId.HasValue ?
+                new ObjectParameter("OrderId", orderId) :
+                new ObjectParameter("OrderId", typeof(int));
+    
+            var productIdParameter = productId.HasValue ?
+                new ObjectParameter("ProductId", productId) :
+                new ObjectParameter("ProductId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CheckProductIdbyOrder", orderIdParameter, productIdParameter);
         }
     
         public virtual int DeleteCategory(Nullable<int> item)
@@ -267,6 +293,15 @@ namespace WebApplication1
                 new ObjectParameter("Order", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FindOrders_Result>("FindOrders", orderParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> getPricebyProductId(Nullable<int> productId)
+        {
+            var productIdParameter = productId.HasValue ?
+                new ObjectParameter("ProductId", productId) :
+                new ObjectParameter("ProductId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("getPricebyProductId", productIdParameter);
         }
     
         public virtual int HideDish(Nullable<int> item)
@@ -427,6 +462,19 @@ namespace WebApplication1
                 new ObjectParameter("IngrUkr", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateProduct", productIdParameter, categoryIdParameter, nameRusParameter, priceParameter, nameUkrParameter, countParameter, energyParameter, saleParameter, isHidedParameter, priorityParameter, ingrRusParameter, ingrUkrParameter);
+        }
+    
+        public virtual int updateProductbyOrder(Nullable<int> orderId, Nullable<int> productId)
+        {
+            var orderIdParameter = orderId.HasValue ?
+                new ObjectParameter("OrderId", orderId) :
+                new ObjectParameter("OrderId", typeof(int));
+    
+            var productIdParameter = productId.HasValue ?
+                new ObjectParameter("ProductId", productId) :
+                new ObjectParameter("ProductId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateProductbyOrder", orderIdParameter, productIdParameter);
         }
     
         public virtual int UpdateProductWeightDetails(Nullable<int> productId, string name, Nullable<decimal> value)

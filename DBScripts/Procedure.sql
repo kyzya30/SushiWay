@@ -277,7 +277,7 @@ From OrdersTimeChanged
 
 join OrderStatus on OrderStatus.OrderStatusId = OrdersTimeChanged.OrderStatus
 WHERE OrderId = @OrderId
-order by Time
+order by Time desc
 GO
 -------
 create proc AddOrdersTimeProduct @count int, @id int
@@ -331,4 +331,27 @@ INSERT INTO OrdersTimeChanged
 (OrderId, OrderStatus,Time)
 values 
 (@orderId,@orderSatus,@time)
+GO
+------------------- !!!!!!!
+
+create proc CheckProductIdbyOrder @OrderId int, @ProductId int
+AS
+SELECT ProductId
+From OrderDetails
+Where OrderId = @OrderId AND ProductId = @ProductId
+GO
+-----------------------
+create proc updateProductbyOrder @OrderId int, @ProductId int
+AS
+Update OrderDetails
+Set [Count] = [Count] + 1
+Where OrderId = @OrderId and ProductId = @ProductId
+GO
+---------------
+
+create proc getPricebyProductId @ProductId int
+AS
+select Product.Price
+From Product
+Where ProductId = @ProductId
 GO

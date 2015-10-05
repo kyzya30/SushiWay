@@ -58,7 +58,7 @@ namespace WebApplication1.Controllers
                         kkal = products[i].Energy,
                         sale = products[i].Sale,
                         top = products[i].Sale != true && products[i].NumberOfOrders >= topNumber,
-                        hot = (products[i].AddDate == DateTime.Today) && (products[i].Sale != true) && (products[i].NumberOfOrders < topNumber),
+                        hot = (products[i].AddDate >= DateTime.Today) && (products[i].Sale != true) && (products[i].NumberOfOrders < topNumber),
                         count = products[i].Count,
                         energy = products[i].Energy,
                     };

@@ -147,37 +147,57 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddDishToOrderModal(int? orderId)
+        public ActionResult AddDishToOrderModal(int[] idSelected, int? orderId)
         {
 
-            if (orderId == null)
-            {
-                return RedirectToAction("Orders", "Admin");
-            }
+            //if (orderId == null)
+            //{
+            //    return RedirectToAction("Orders", "Admin");
+            //}
             using (var context = new SushiTest1Entities1())
             {
+               
+                    for (int i = 0; i < idSelected.Length; i++)
+                    {
+                        if (!context.CheckProductIdbyOrder(orderId,idSelected[i]).ToList().Any())
+                        {
+                            var price = context.getPricebyProductId(idSelected[i]).ToList().ToList();
+                            decimal? tmp = 0;
+                            foreach (var price1 in price)
+                            {
+                                 tmp = price1;
+                            }
+                            context.AddOrderDetails(orderId, idSelected[i], 1,tmp );
+                            // context.AddProductbyOrderId(orderId, idSelected[i]);
+                        }
+                        else
+                        {
+                            context.updateProductbyOrder(orderId, idSelected[i]);
+                        }
+                    }
+                   
+                
+               
+                // var contactInfo = context.SelectOrderContactInfo(orderId).ToList();
+                //if (!contactInfo.Any())
+                //{
+                //    return RedirectToAction("Orders", "Admin");
+                //}
+             
 
-                var contactInfo = context.SelectOrderContactInfo(orderId).ToList();
-                if (!contactInfo.Any())
-                {
-                    return RedirectToAction("Orders", "Admin");
-                }
-                var category = context.Categories.ToList();
-                ViewBag.Categories = category;
-
-                EditOrderModel editOrderModel = new EditOrderModel
-                {
-                    OrderId = orderId,
-                    House = contactInfo[0].House,
-                    PhoneNumber = contactInfo[0].PhoneNumber,
-                    Room = contactInfo[0].Room,
-                    Street = contactInfo[0].Street,
-                    TotalSum = contactInfo[0].TotalSum,
-                    showAllTimeStatus = context.ShowAllTimeStatus(orderId).ToList(),
-                    selectProductsFromOrder = context.SelectProductsFromOrder(orderId).ToList(),
-                    productsInModal = context.SelectProductsFromCategoryInModal(4).ToList()
-                };
-                return View("~/Views/Admin/EditOrder.cshtml", editOrderModel);
+                //EditOrderModel editOrderModel = new EditOrderModel
+                //{
+                   
+                //    House = contactInfo[0].House,
+                //    PhoneNumber = contactInfo[0].PhoneNumber,
+                //    Room = contactInfo[0].Room,
+                //    Street = contactInfo[0].Street,
+                //    TotalSum = contactInfo[0].TotalSum,
+                //    //showAllTimeStatus = context.ShowAllTimeStatus(orderId).ToList(),
+                //    //selectProductsFromOrder = context.SelectProductsFromOrder(orderId).ToList(),
+                //    productsInModal = context.SelectProductsFromCategoryInModal(4).ToList()
+                //};
+               return RedirectToAction("EditOrder","Admin");
             }
         }
 

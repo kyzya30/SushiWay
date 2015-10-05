@@ -13,7 +13,7 @@
     var house = Model.House;
     var room = Model.Room;
     var totalSum = Model.TotalSum;
-<div class="container-fluid " style="padding-top: 40px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
+<div class="container-fluid " style=" padding-top: 40px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
     <div class="row" style="margin-top: 30px;">
         <div class="col-sm-8">
             <input type="text" id="OrderId" value="@orderId" hidden/>
@@ -90,55 +90,78 @@
             <input type="text" class="form-control borderRad0" placeholder="Квартира" style="width: 128px;" value="@room" />
         </div>
         <div class="col-sm-4" style="padding: 40px;">
-            <select class="form-control" style="max-width: 270px;">
-                <option>Состояние заказа</option>
+            <select class="form-control borderRad0" style="max-width: 270px;">
+                <option>доставлен</option>
+                <option>в ожидании</option>
+                <option>в пути</option>
+                <option>отменен</option>
+                <option>создан</option>
+                <option>в выполнеении</option>
             </select>
             @foreach (var item in Model.showAllTimeStatus)
             {
-                var time = item.Time.ToString();
-                var StatusName = item.StatusNameRus.ToString();
+                string time = "";
+                string StatusName = "";
+                if (item.OrderStatus != 5)
+                {
+
+                    StatusName = item.StatusNameRus.ToString();
+                    time = item.Time.ToString();
+                }
+
+                <span style="margin-left: 30px" align="center">@StatusName</span>
                 <br>
-               <span style="margin-left: 30px" align="center">@time</span> 
-                <br>
-                <span style="margin-left: 30px"  align="center">@StatusName</span>
-               <br>
-                <br>
+                <span style="margin-left: 30px; font-size: 11px" align="center">@time</span>
+
                 if (item.OrderStatus == 1)
                 {
-                    <div style="margin-left: 85px"  align="center">             
+                    <div style="margin-left: 55px">
                         <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-delivered.png") />
                     </div>
                 }
-                if (item.OrderStatus == 5)// V puti
+                if (item.OrderStatus == 6) // 
                 {
-                    <div style="margin-left: 85px" align="center">
-                        
-                        <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-on-way.png") />
+                    <div style="margin-left: 55px">
+
+
+                        <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-on-table.png") />
 
                     </div>
                 }
                 if (item.OrderStatus == 4)
                 {
-                    <div style="margin-left: 85px" align="center">
-                        
+                    <div style="margin-left: 55px">
+
                         <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-canceled.png") />
 
                     </div>
                 }
                 if (item.OrderStatus == 2)
                 {
-                    <div style="margin-left: 85px" align="center">
-                       
-                        <img  src=@Url.Content("~/Content/Images/Controls/Admin/order-history-received.png") />
-                        
+                    <div style="margin-left: 55px">
+
+                        <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-received.png") />
+                        <p style="margin-left: -15px"> получен</p>
+
+
                     </div>
-                }               
+                }
+                if (item.OrderStatus == 3)
+                {
+                    <div style="margin-left: 55px">
+                        <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-on-table.png") />
+                        <p style="margin-left: -15px">
+
+
+                    </div>
+                }
             }
         </div>
+
     </div>
     <div class="row">
         <div  class="col-sm-4 pull-right">
-            <button style="margin-left: 85px" class="btn pull-left" style="background: #808080; color: #ffffff;" onclick="DeleteOrder()" data-toggle="modal" data-target="#DeleteOrderModal">Удалить</button>
+            <button class="btn pull-left" style="background: #808080; color: #ffffff; position:absolute; top: -80px;left:85px" onclick="DeleteOrder()" data-toggle="modal" data-target="#DeleteOrderModal">Удалить</button>
         </div>
     </div>
     @Html.Partial("DeleteOrderModal", new Order())

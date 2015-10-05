@@ -1,5 +1,4 @@
-﻿
-@model IEnumerable<WebApplication1.SelectProductsFromCategoryInModal_Result>
+﻿@model IEnumerable<WebApplication1.SelectProductsFromCategoryInModal_Result>
 
 @using (Html.BeginForm("AddDishToOrderModal", "Admin", FormMethod.Post))
 {
@@ -26,7 +25,7 @@
                                     <option name="@catId" value="@catId">@nameRusCategory</option>
                                 }
                             </select>
-                            <p class="text-center" style="color: black"> <span id="deletedItem"><br /><b></b></span>?
+                            <p class="text-center" style="color: black"> <span id="deletedItem"><br /><b></b></span>
                             </p>
                         </div>
                         <div class="table-span" style="width: 429px; position: fixed; left: 32px; top: 158px; border-color: #7F7F7F;">
@@ -42,7 +41,12 @@
                                     var srcPict = productId += ".jpeg";
 
                                     <tr style="height: 70px !important; border-width: 1px; border-style: solid; border-color: #7F7F7F; border-left: 0px; border-right: 0px">
-                                        <td style="padding-top: 4px; padding-bottom: 4px; font-size: 11px; text-align: center">заказан <br><b style="font-size: 14px"> </b></td>
+                                        <td style="padding-top: 4px; padding-bottom: 4px; font-size: 11px; text-align: center">
+                                            <input id="@productId" type="checkbox" class="checkboxes" name="@nameRus" hidden />
+                                            <label for="@productId"></label>
+                                            
+                                            <br><b style="font-size: 14px"> </b>
+                                        </td>
                                         <td><img class="t-img" style="width: 80px; height: 50px;" src=@Url.Content("~/Content/Images/Products/" + @srcPict)></td>
                                         <td style="color: black">@nameRus <br>@price грн</td>
                                     </tr>
@@ -60,15 +64,14 @@
                         <b>Отмена</b>
                     </button>
 
-                    <button type="button" data-url="@Url.Action("DeleteOrderModal", "Admin")" class="btn btn-default" id="delOrderBtn" style="border-radius: 0; background: #808080; color: #ffffff; width: 127px; height: 40px;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        position: fixed; top: 502px; left: 247px; margin-top: 30px;">
+                    <button type="button" id="addNewDishToOrder" onclick="EditDish_add_Modal()" data-url="@Url.Action("AddDishToOrderModal", "Admin")" class="btn btn-default"  style="border-radius: 0; background: #808080; color: #ffffff; width: 127px; height: 40px;position: fixed; top: 502px; left: 247px; margin-top: 30px;">
                         <b>Добавить</b>
                     </button>
 
                     <!--<input type="button" class="btn btn-default" style="border-radius:0 ; background:#808080;color="#ffffff; width:127px;height:40px;position:fixed; top:150px;left:246px" value="Отправить"/>-->
 
 
-                    <p><img style="position: absolute; bottom: 0; right: 0" src=@Url.Content("~/Content/Images/Controls/Admin/bg-alert-new.png")/>
+                    <p><img style="position: absolute; bottom: 0; right: 0" src=@Url.Content("~/Content/Images/Controls/Admin/bg-alert-new.png") />
                     </p>
 
                 </div>
@@ -93,7 +96,7 @@
                             $("#MainTableProduct").html("");
                             console.log(data);
                             for (var i=0;i<data.length;i++) {
-                                $("#MainTableProduct:last-child").append("<tr style='height: 70px !important; border-width: 1px; border-style: solid; border-color: #7F7F7F; border-left: 0px; border-right: 0px'><td><input type='checkbox' style='width:25px;'/></td><td><img class='t-img' style='width: 80px; height: 50px;' src='/Content/Images/Products/" + data[i].ProductId + ".jpeg'/></td><td style='color: black'>"+data[i].NameRus+" <br>"+data[i].Price+" грн</td>" +
+                                $("#MainTableProduct:last-child").append("<tr style='height: 70px !important; border-width: 1px; border-style: solid; border-color: #7F7F7F; border-left: 0px; border-right: 0px'><td><input id='" + data[i].ProductId + "' type='checkbox' class='checkboxes' name='" + data[i].NameRus + "' style='width:25px;' hidden/><label for='"+data[i].ProductId+"'></label></td><td><img class='t-img' style='width: 80px; height: 50px;' src='/Content/Images/Products/" + data[i].ProductId + ".jpeg'/></td><td style='color: black'>" + data[i].NameRus + " <br>" + data[i].Price + " грн</td>" +
                                     +"</tr>");
                             }
                         }

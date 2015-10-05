@@ -18,7 +18,7 @@ namespace WebApplication1
     public partial class SushiTest1Entities1 : DbContext
     {
         public SushiTest1Entities1()
-            : base("name=SushiTest1Entities76")
+            : base("name=SushiTest1Entities78")
         {
         }
     
@@ -37,6 +37,56 @@ namespace WebApplication1
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductWeightDetail> ProductWeightDetails { get; set; }
     
+        public virtual int AddOrder(string name, string phoneNumber, string email, string street, string house, string room)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var phoneNumberParameter = phoneNumber != null ?
+                new ObjectParameter("PhoneNumber", phoneNumber) :
+                new ObjectParameter("PhoneNumber", typeof(string));
+    
+            var emailParameter = email != null ?
+                new ObjectParameter("Email", email) :
+                new ObjectParameter("Email", typeof(string));
+    
+            var streetParameter = street != null ?
+                new ObjectParameter("Street", street) :
+                new ObjectParameter("Street", typeof(string));
+    
+            var houseParameter = house != null ?
+                new ObjectParameter("House", house) :
+                new ObjectParameter("House", typeof(string));
+    
+            var roomParameter = room != null ?
+                new ObjectParameter("Room", room) :
+                new ObjectParameter("Room", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddOrder", nameParameter, phoneNumberParameter, emailParameter, streetParameter, houseParameter, roomParameter);
+        }
+    
+        public virtual int AddOrderDetails(Nullable<int> orderId, Nullable<int> productId, Nullable<int> count, Nullable<decimal> price)
+        {
+            var orderIdParameter = orderId.HasValue ?
+                new ObjectParameter("orderId", orderId) :
+                new ObjectParameter("orderId", typeof(int));
+    
+            var productIdParameter = productId.HasValue ?
+                new ObjectParameter("productId", productId) :
+                new ObjectParameter("productId", typeof(int));
+    
+            var countParameter = count.HasValue ?
+                new ObjectParameter("count", count) :
+                new ObjectParameter("count", typeof(int));
+    
+            var priceParameter = price.HasValue ?
+                new ObjectParameter("price", price) :
+                new ObjectParameter("price", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddOrderDetails", orderIdParameter, productIdParameter, countParameter, priceParameter);
+        }
+    
         public virtual int AddOrdersTimeProduct(Nullable<int> count, Nullable<int> id)
         {
             var countParameter = count.HasValue ?
@@ -48,6 +98,23 @@ namespace WebApplication1
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddOrdersTimeProduct", countParameter, idParameter);
+        }
+    
+        public virtual int AddOrderTimeChanged(Nullable<int> orderId, Nullable<int> orderSatus, Nullable<System.DateTime> time)
+        {
+            var orderIdParameter = orderId.HasValue ?
+                new ObjectParameter("orderId", orderId) :
+                new ObjectParameter("orderId", typeof(int));
+    
+            var orderSatusParameter = orderSatus.HasValue ?
+                new ObjectParameter("orderSatus", orderSatus) :
+                new ObjectParameter("orderSatus", typeof(int));
+    
+            var timeParameter = time.HasValue ?
+                new ObjectParameter("time", time) :
+                new ObjectParameter("time", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddOrderTimeChanged", orderIdParameter, orderSatusParameter, timeParameter);
         }
     
         public virtual int AddProduct(Nullable<int> catId, string nameRus, string nameUkr, Nullable<int> numOfOrders, Nullable<int> count, string energy, Nullable<int> balance, Nullable<decimal> price, Nullable<bool> isSale, Nullable<bool> isHided, Nullable<int> priority, string rusIngr, string ukrIngr)

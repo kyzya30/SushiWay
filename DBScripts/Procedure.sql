@@ -305,3 +305,30 @@ From Product
 join Category on Category.CategoryId = Product.CategoryId
 where Category.CategoryId = @CategoryId
 GO
+
+--------------------------
+create proc AddOrderDetails @orderId int, @productId int, @count int, @price decimal(9,2)
+as
+INSERT INTO OrderDetails 
+(OrderId, ProductId,Count,Price)
+values 
+(@orderId,@productId,@count,@price)
+GO
+------------
+create proc AddOrder @name nvarchar(max),@PhoneNumber nvarchar(max),@Email nvarchar(max),
+@Street nvarchar(max),@House nvarchar(max), @Room nvarchar(max)
+as
+INSERT INTO Orders 
+(Name, PhoneNumber,Email,Street,House,Room)
+values 
+(@name,@PhoneNumber ,@Email ,@Street,@House, @Room )
+GO
+
+-----------------
+create proc AddOrderTimeChanged @orderId int, @orderSatus int, @time datetime2(2)
+as
+INSERT INTO OrdersTimeChanged 
+(OrderId, OrderStatus,Time)
+values 
+(@orderId,@orderSatus,@time)
+GO

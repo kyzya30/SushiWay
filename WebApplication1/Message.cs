@@ -10,14 +10,13 @@
 namespace WebApplication1
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class ShowUnprocessedOrders_Result
+    public partial class Message
     {
-        public int OrderId { get; set; }
-        public string Street { get; set; }
-        public string House { get; set; }
-        public string Room { get; set; }
-        public Nullable<decimal> TotalPrice { get; set; }
-        public System.DateTime Time { get; set; }
+        public int MessagesId { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Text { get; set; }
     }
 }

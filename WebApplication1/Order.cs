@@ -29,7 +29,6 @@ namespace WebApplication1
         public string Room { get; set; }
         public string Message { get; set; }
     
-        public virtual OrderDetail OrderDetail { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdersTimeChanged> OrdersTimeChangeds { get; set; }
     }

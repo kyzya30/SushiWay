@@ -113,6 +113,21 @@ namespace WebApplication1.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult EditOrder(int? orderId,string phoneNumber, string street, string house,string room, string newOrderStatus) //Fill EditOrderView
+        {
+            using (var context = new SushiTest1Entities1())
+            {
+                context.updateContactInfo(orderId, phoneNumber, street, house, room);
+                if(newOrderStatus != "-")
+                { 
+                context.InsertValOrdTimeCh(orderId, Convert.ToInt32(newOrderStatus));
+                }
+                return RedirectToAction("EditOrder", new {orderId = orderId});
+            }
+        }
+
+
         [HttpGet]
         public ActionResult EditOrder(int? orderId) //Fill EditOrderView
         {

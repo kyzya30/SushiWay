@@ -355,3 +355,12 @@ select Product.Price
 From Product
 Where ProductId = @ProductId
 GO
+------------
+create proc updateContactInfo @OrderId int,  @PhoneNumber nvarchar(50), @Street nvarchar(50),@House nvarchar(10), @Room nvarchar(10)
+AS
+UPDATE Orders
+SET PhoneNumber =@PhoneNumber, Street =@Street, House=@House,Room=@Room
+WHERE OrderId = @OrderId
+GO
+
+

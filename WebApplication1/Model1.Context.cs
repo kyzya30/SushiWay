@@ -174,19 +174,6 @@ namespace WebApplication1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddProduct", catIdParameter, nameRusParameter, nameUkrParameter, numOfOrdersParameter, countParameter, energyParameter, balanceParameter, priceParameter, isSaleParameter, isHidedParameter, priorityParameter, rusIngrParameter, ukrIngrParameter);
         }
     
-        public virtual int AddProductbyOrderId(Nullable<int> orderId, Nullable<int> productId)
-        {
-            var orderIdParameter = orderId.HasValue ?
-                new ObjectParameter("OrderId", orderId) :
-                new ObjectParameter("OrderId", typeof(int));
-    
-            var productIdParameter = productId.HasValue ?
-                new ObjectParameter("ProductId", productId) :
-                new ObjectParameter("ProductId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddProductbyOrderId", orderIdParameter, productIdParameter);
-        }
-    
         public virtual ObjectResult<AllDishes_Result> AllDishes()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AllDishes_Result>("AllDishes");
@@ -409,6 +396,31 @@ namespace WebApplication1
                 new ObjectParameter("NewPriority", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateCategory", categoryIdParameter, newRusNameParameter, newUkrNameParameter, newPriorityParameter);
+        }
+    
+        public virtual int updateContactInfo(Nullable<int> orderId, string phoneNumber, string street, string house, string room)
+        {
+            var orderIdParameter = orderId.HasValue ?
+                new ObjectParameter("OrderId", orderId) :
+                new ObjectParameter("OrderId", typeof(int));
+    
+            var phoneNumberParameter = phoneNumber != null ?
+                new ObjectParameter("PhoneNumber", phoneNumber) :
+                new ObjectParameter("PhoneNumber", typeof(string));
+    
+            var streetParameter = street != null ?
+                new ObjectParameter("Street", street) :
+                new ObjectParameter("Street", typeof(string));
+    
+            var houseParameter = house != null ?
+                new ObjectParameter("House", house) :
+                new ObjectParameter("House", typeof(string));
+    
+            var roomParameter = room != null ?
+                new ObjectParameter("Room", room) :
+                new ObjectParameter("Room", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateContactInfo", orderIdParameter, phoneNumberParameter, streetParameter, houseParameter, roomParameter);
         }
     
         public virtual int UpdateProduct(Nullable<int> productId, Nullable<int> categoryId, string nameRus, Nullable<decimal> price, string nameUkr, Nullable<int> count, Nullable<int> energy, Nullable<bool> sale, Nullable<bool> isHided, Nullable<int> priority, string ingrRus, string ingrUkr)

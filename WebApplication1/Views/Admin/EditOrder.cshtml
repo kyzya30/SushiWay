@@ -16,19 +16,19 @@
 <div class="container-fluid " style=" padding-top: 40px; padding-left: 30px; padding-right: 30px; background-color: white;padding-bottom: 40px">
     <div class="row" style="margin-top: 30px;">
         <div class="col-sm-8">
-            <input type="text" id="OrderId" value="@orderId" hidden/>
-            <span   style="font-size: 20px; font-weight: bold;" >Заказ @orderId</span>
+            <input name="orderId" type="text" id="OrderId" value="@orderId" hidden/>
+            <span   style="font-size: 20px; font-weight: bold; padding-left: 0px" >Заказ @orderId</span>
         </div>
         <div class="col-sm-2">
-            <button class="btn pull-left" id="btnSaveChanges">Сохранить изменения</button><br />
+            <button type="submit" class="btn pull-left" id="btnSaveChanges">Сохранить изменения</button><br />
         </div>
     </div>
 
     <div class="row">
-        <span><b>Сумма: </b>@totalSum грн.</span>
+        <span style="padding-left:15px"><b>Сумма: </b>@totalSum грн.</span>
     </div>
     <div class="row">
-        <div class="col-sm-4 borderRight">
+        <div class="col-sm-4 borderRight" style="padding-left:20px">
             <span>Заказ</span>
             <a href="#">
                 <img data-toggle="modal" data-target="#AddDishToOrderModal" src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>
@@ -49,7 +49,7 @@
             }
             <span>Дополнительно</span>
             <a href="#">
-                <img src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>
+                @*<img src=@Url.Content("~/Content/Images/Controls/Admin/btn-new.png")>*@
             </a>
             @foreach (var item in Model.selectProductsFromOrder)
             {
@@ -84,19 +84,20 @@
         </script>
         <div class="col-sm-4 borderRight ">
             <span><b>Данные о заказчике</b></span><br />
-            <input type="text" class="form-control borderRad0" placeholder="Телефон" value="@phoneNumber"/><br />
-            <input type="text" class="form-control borderRad0" placeholder="Улица" value="@street"/><br />
-            <input type="text" class="form-control borderRad0" placeholder="Дом" style="width: 128px;" value="@house"/>
-            <input type="text" class="form-control borderRad0" placeholder="Квартира" style="width: 128px;" value="@room" />
+            <input type="text" name="phoneNumber" class="form-control borderRad0" placeholder="Телефон" value="@phoneNumber"/><br />
+            <input type="text" name ="street" class="form-control borderRad0" placeholder="Улица" value="@street"/><br />
+            <input type="text" name="house" class="form-control borderRad0" placeholder="Дом" style="width: 128px;" value="@house"/>
+            <input type="text" name="room" class="form-control borderRad0" placeholder="Квартира" style="width: 128px;" value="@room" />
         </div>
         <div class="col-sm-4" style="padding: 40px;">
-            <select class="form-control borderRad0" style="max-width: 270px;">
-                <option>доставлен</option>
-                <option>в ожидании</option>
-                <option>в пути</option>
-                <option>отменен</option>
-                <option>создан</option>
-                <option>в выполнеении</option>
+            <select name="newOrderStatus" class="form-control borderRad0" style="max-width: 270px;">
+                <option> - </option>
+                <option value="1">доставлен</option>
+                <option value="2">в ожидании</option>
+                <option value="3">в пути</option>
+                <option value="4">отменен</option>
+                <option value="5">создан</option>
+                <option value="6">в выполнеении</option>
             </select>
             @foreach (var item in Model.showAllTimeStatus)
             {
@@ -122,42 +123,31 @@
                 if (item.OrderStatus == 6) // 
                 {
                     <div style="margin-left: 55px">
-
-
                         <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-on-table.png") />
-
                     </div>
                 }
                 if (item.OrderStatus == 4)
                 {
                     <div style="margin-left: 55px">
-
                         <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-canceled.png") />
-
                     </div>
                 }
                 if (item.OrderStatus == 2)
                 {
                     <div style="margin-left: 55px">
-
                         <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-received.png") />
                         <p style="margin-left: -15px"> получен</p>
-
-
                     </div>
                 }
                 if (item.OrderStatus == 3)
                 {
                     <div style="margin-left: 55px">
-                        <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-on-table.png") />
+                        <img src=@Url.Content("~/Content/Images/Controls/Admin/order-history-on-way.png") />
                         <p style="margin-left: -15px">
-
-
                     </div>
                 }
             }
         </div>
-
     </div>
     <div class="row">
         <div  class="col-sm-4 pull-right">
